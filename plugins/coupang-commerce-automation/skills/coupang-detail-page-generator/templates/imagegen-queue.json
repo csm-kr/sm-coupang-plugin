@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "output_count": 10,
+  "batch_policy": "single_user_request_two_internal_parallel_stages_no_page_approval",
+  "synthetic_model_anchor": "PG-01",
+  "human_origin_policy": "synthetic_only",
+  "real_person_pixels_allowed": false,
+  "jobs": []
+}

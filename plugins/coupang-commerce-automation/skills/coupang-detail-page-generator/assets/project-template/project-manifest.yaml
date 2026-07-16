@@ -1,0 +1,109 @@
+workflow_version: "5.3"
+project:
+  name: ""
+  status: "draft"
+  platform: "coupang-mobile-detail"
+  canvas:
+    mode: "responsive"
+    width: 800
+    height: null
+    min_width: 360
+    max_width: 800
+  page_count: 10
+
+inputs:
+  product_sources: []
+  product_truth_images: []
+  product_angle_images: []
+  layout_references: []
+  wholesale_urls: []
+  competitor_urls: []
+  user_confirmed_facts: []
+  asset_roles_path: "output/asset-inventory.md"
+
+product:
+  display_name: ""
+  search_name: ""
+  category: ""
+  target_customer: ""
+  primary_problem: ""
+  core_benefits: []
+  colors: []
+  sizes: []
+  prohibited_claims: []
+
+product_identity:
+  status: "unverified"
+  verified_source_ids: []
+  uncertain_details: []
+  concept_only_opt_in: false
+  lineage_path: "output/product-source-lineage.json"
+  canonical_reference_ids: []
+  reference_routing_path: "output/reference-routing.json"
+
+planning:
+  product_plan_path: "output/planning/product-plan.json"
+  content_plan_path: "output/planning/content-plan.json"
+  product_approval_path: "output/approvals/product-plan-approval.json"
+  content_approval_path: "output/approvals/content-plan-approval.json"
+  approval_actor_type: "user"
+
+brand:
+  status: "working_draft"
+  name_status: "proposed"
+  name: ""
+  name_usage_allowed: false
+  name_candidates_path: "output/brand/brand-name-candidates.md"
+  style_priority:
+    - "practical_evidence"
+    - "professional_function"
+    - "emotional_lifestyle"
+  system_path: "output/brand/brand-system.json"
+
+design:
+  ui_guide_path: "output/ui-guide.md"
+  text_rendering: "hybrid-html"
+  generation_stages:
+    - "visual-material"
+    - "material-qa"
+    - "html-assembly"
+    - "integration-qa"
+
+qa:
+  material_gates:
+    - "technical"
+    - "product_identity"
+    - "claim_evidence"
+    - "copy_accuracy"
+    - "visual_quality"
+  integration_gates:
+    - "planning_alignment"
+    - "sequence_flow"
+    - "visual_consistency"
+    - "responsive_layout"
+    - "accessibility"
+    - "claims_policy"
+    - "channel_constraints"
+  material_qa_path: "output/qa/material-qa.json"
+  integration_qa_path: "output/qa/integration-qa.json"
+  regeneration_log_path: "output/regeneration-log.json"
+  max_targeted_edits_per_page: 2
+
+pages: []
+real_photo_replacements: []
+gif_candidates: []
+
+gates:
+  evidence: "draft"
+  market: "draft"
+  brand: "draft"
+  product_planning: "draft"
+  content_planning: "draft"
+  ui_assets: "draft"
+  fidelity_pilot: "draft"
+  material_qa: "draft"
+  assembly: "draft"
+  integration_qa: "draft"
+  final_qa: "draft"
+
+decisions: []

@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "package_manifest_sha256": "",
+  "gates": {
+    "planning_alignment": "pending",
+    "sequence_flow": "pending",
+    "visual_consistency": "pending",
+    "responsive_layout": "pending",
+    "accessibility": "pending",
+    "claims_policy": "pending",
+    "channel_constraints": "pending"
+  },
+  "automated_status": "pending",
+  "visual_review_status": "pending",
+  "status": "pending"
+}

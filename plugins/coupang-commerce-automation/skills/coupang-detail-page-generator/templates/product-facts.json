@@ -1,0 +1,57 @@
+{
+  "_meta": {
+    "schema_version": "3.0",
+    "source_of_truth": "raw_capture or trusted manufacturer_source",
+    "allowed_for_ad_copy": [
+      "CONFIRMED_USER",
+      "CONFIRMED_SOURCE",
+      "OBSERVED_IMAGE"
+    ],
+    "never_verify_from": [
+      "generated_master",
+      "generated_scene",
+      "reference",
+      "competitor"
+    ]
+  },
+  "product_name": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "search_name": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "brand_name": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "model_or_sku": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "category": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "usage_purpose": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "package_contents": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "sales_unit": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "colors": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "transparency": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "shape": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "visible_texture": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "components": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "options": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "size_options": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "measurements": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "weight": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "material": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "material_composition": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "cutting_or_trimming": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "actual_shipping_design": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "logo_label": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "usage_steps": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "care_cleaning": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "care_drying": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "care_storage": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "cautions": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "suitable_targets": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "unsuitable_targets": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "certifications_tests_values": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "manufacturer": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "importer": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "country_of_origin": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "required_notice": {"value": null, "status": "UNKNOWN", "evidence": "", "source": []},
+  "performance_claims": {
+    "value": null,
+    "status": "FORBIDDEN",
+    "evidence": "증빙이 제공되기 전에는 광고 주장으로 사용할 수 없음",
+    "source": []
+  }
+}

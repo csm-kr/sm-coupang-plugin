@@ -1,0 +1,18 @@
+{
+  "name": "coupang-commerce-automation",
+  "version": "0.1.0",
+  "description": "도매 소싱, 쿠팡 경쟁·마진 검증, 사용자 선택, 상세페이지와 HTML 제작을 연결하는 커머스 자동화 플러그인",
+  "author": {
+    "name": "Coupang Automation Project"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Coupang Commerce Automation",
+    "shortDescription": "소싱부터 쿠팡 상세페이지·HTML까지 근거 기반으로 자동화합니다.",
+    "longDescription": "도매꾹·도매매 후보 조사, 로켓그로스 마진 계산, 쿠팡 직접판매와 판매자로켓 구분, HTML 선택 보고서, 사용자 승인 및 상세페이지 제작을 하나의 승인형 파이프라인으로 연결합니다.",
+    "developerName": "Coupang Automation Project",
+    "category": "Productivity",
+    "capabilities": ["product-sourcing", "market-validation", "detail-page-generation"],
+    "defaultPrompt": "쿠팡 소싱 후보를 조사하고 기준 통과 상품의 HTML 보고서를 만들어줘."
+  }
+}

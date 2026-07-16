@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "artifact_type": "product_plan",
+  "project_id": "",
+  "status": "draft",
+  "source_candidate_id": "",
+  "target_customer": "",
+  "primary_problem": "",
+  "positioning": "",
+  "offer": {
+    "currency": "KRW",
+    "recommended_price": null,
+    "bundles": []
+  },
+  "claims": [],
+  "constraints": {
+    "forbidden_claims": [],
+    "regulatory_notes": [],
+    "operational_risks": []
+  }
+}

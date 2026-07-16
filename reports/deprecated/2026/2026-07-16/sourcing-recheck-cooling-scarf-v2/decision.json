@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.0",
+  "run_name": "sourcing-recheck-cooling-scarf-v2",
+  "observed_at": "2026-07-16T10:49:04+09:00",
+  "candidate": {
+    "candidate_id": "66433446",
+    "report_rank": 7,
+    "name": "아이스 쿨링 스카프",
+    "supplier_url": "https://domeggook.com/66433446"
+  },
+  "decision": "REJECT_CURRENT_SUPPLY_OFFER",
+  "workflow_state": "PRICE_REVIEW_BLOCKED",
+  "price_approved": false,
+  "detail_page_authorized": false,
+  "supplier_terms": {
+    "verified": true,
+    "unit_supply_price": 1500,
+    "minimum_order_qty": 4,
+    "order_increment": 4,
+    "wholesale_shipping_total": 2500,
+    "procurement_quantity": 4,
+    "source_url": "https://domeggook.com/66433446",
+    "observed_at": "2026-07-16T10:49:04+09:00"
+  },
+  "scenario_assumptions": {
+    "rocket_growth_cost_per_sale_bundle": 3000,
+    "fee_rate_pct": 10.8,
+    "vat_mode": "excel_rocket_growth_simplified",
+    "base_margin_gate_pct": 40,
+    "stress_discount_pct": 10,
+    "stress_margin_gate_pct": 30
+  },
+  "bundle_economics": [
+    {
+      "sale_bundle_quantity": 2,
+      "supply_cost": 3000,
+      "wholesale_shipping_per_sale_bundle": 1250,
+      "fixed_source_cost": 4250,
+      "fixed_cost_with_rocket_growth": 7250,
+      "verified_market_samples": 1,
+      "minimum_market_samples": 5,
+      "observed_sale_price": 6900,
+      "observed_reference_price": 10000,
+      "profit_at_observed_sale_price": -985.68,
+      "margin_pct_at_observed_sale_price": -14.2852,
+      "base_floor_price": 16200,
+      "stress_floor_price": 14500,
+      "final_floor_price": 16200,
+      "decision": "REJECT"
+    },
+    {
+      "sale_bundle_quantity": 3,
+      "supply_cost": 4500,
+      "wholesale_shipping_per_sale_bundle": 1875,
+      "fixed_source_cost": 6375,
+      "fixed_cost_with_rocket_growth": 9375,
+      "verified_market_samples": 2,
+      "minimum_market_samples": 5,
+      "observed_sale_prices": [5900, 4790],
+      "observed_reference_prices": [11000, 7800],
+      "profit_at_5900": -3700.98,
+      "margin_pct_at_5900": -62.7285,
+      "profit_at_4790": -4592.09,
+      "margin_pct_at_4790": -95.8682,
+      "base_floor_price": 21000,
+      "stress_floor_price": 18700,
+      "final_floor_price": 21000,
+      "decision": "REJECT"
+    }
+  ],
+  "market_evidence": [
+    {
+      "name": "나쥬랑 아이스 넥쿨러 쿨 스카프",
+      "quantity": 2,
+      "sale_price": 6900,
+      "list_price": 10000,
+      "price_verified": true,
+      "url": "https://www.coupang.com/vp/products/9570330384?itemId=28563903466&vendorItemId=95669286547"
+    },
+    {
+      "name": "베러앤 쿨 스카프 아이스 넥쿨러 목쿨러",
+      "quantity": 3,
+      "sale_price": 5900,
+      "list_price": 11000,
+      "price_verified": true,
+      "url": "https://www.coupang.com/vp/products/9567545160?itemId=28554762641&vendorItemId=95499471563"
+    },
+    {
+      "name": "코멧 냉동 아이스 넥 스카프 목 손목 발목",
+      "quantity": 3,
+      "sale_price": 4790,
+      "list_price": 7800,
+      "price_verified": true,
+      "url": "https://www.coupang.com/vp/products/9311940634?itemId=27593304656&vendorItemId=94556770685"
+    }
+  ],
+  "blockers": [
+    "2개입과 3개입 모두 확인된 할인 후 실판매가에서 적자",
+    "정상 마진 40% 가격 하한이 현재 시장 실판매가보다 크게 높음",
+    "동일 판매 묶음별 검증 가격 표본이 5개 미만",
+    "실제 로켓그로스 비용과 카테고리 수수료 미확정",
+    "실물 샘플 안전성·성능 미검증"
+  ],
+  "resume_condition": "더 낮은 공급·물류 원가 또는 시장이 수용할 차별화 가격의 객관적 근거를 확보한 뒤 공급조건과 동일 묶음 실판매가를 다시 검증한다."
+}

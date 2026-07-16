@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "report_path_pattern": "reports/{year}/{date}/{run_name}",
+  "deprecated_report_path_pattern": "reports/deprecated/{year}/{date}/{run_name}",
+  "stages": [
+    {
+      "id": "harness",
+      "order": 0,
+      "status": "implemented",
+      "description": "AGENTS 라우팅, TDD 실행기와 강제 훅",
+      "paths": [
+        "scripts/tdd.py",
+        "scripts/codex_hooks/**",
+        ".codex/hooks/**",
+        ".codex/hooks.json",
+        ".githooks/**",
+        "harness/**",
+        "tests/harness/**"
+      ],
+      "test_paths": ["tests/harness/**"],
+      "commands": [
+        {"name": "harness-tests", "argv": ["python", "-m", "pytest", "tests/harness", "-q"]},
+        {"name": "agents-routing", "argv": ["python", "scripts/tdd.py", "check-routing"]},
+        {"name": "issue-rule-promotion", "argv": ["python", "scripts/tdd.py", "check-issues"]},
+        {"name": "report-layout", "argv": ["python", "scripts/tdd.py", "check-reports"]}
+      ]
+    },
+    {
+      "id": "sourcing",
+      "order": 1,
+      "status": "implemented",
+      "description": "도매 후보 수집, 쿠팡 근거, 가격·마진과 선택 보고서",
+      "paths": ["coupang-product-sourcing/**"],
+      "test_paths": ["coupang-product-sourcing/tests/**"],
+      "commands": [
+        {"name": "sourcing-tests", "argv": ["python", "-m", "pytest", "coupang-product-sourcing/tests", "-q"]},
+        {"name": "sourcing-skill", "argv": ["python", "-X", "utf8", "{home}/.codex/skills/.system/skill-creator/scripts/quick_validate.py", "coupang-product-sourcing"]},
+        {"name": "report-layout", "argv": ["python", "scripts/tdd.py", "check-reports"]}
+      ]
+    },
+    {
+      "id": "handoff",
+      "order": 2,
+      "status": "planned",
+      "description": "사용자 승인 후보를 commerce-project 계약으로 승격",
+      "paths": ["commerce-project/**", "tests/handoff/**"],
+      "test_paths": ["tests/handoff/**"],
+      "commands": [
+        {"name": "handoff-tests", "argv": ["python", "-m", "pytest", "tests/handoff", "-q"]}
+      ]
+    },
+    {
+      "id": "detail-page",
+      "order": 3,
+      "status": "partial",
+      "description": "제품 사실 잠금, 상품·콘텐츠기획 사용자 승인, 하이브리드 HTML 제작과 2층 QA",
+      "paths": ["coupang-detail-page-generator/**", "tests/detail_page/**"],
+      "test_paths": ["tests/detail_page/**"],
+      "commands": [
+        {"name": "detail-page-tests", "argv": ["python", "-m", "pytest", "tests/detail_page", "-q"]},
+        {"name": "detail-page-skill", "argv": ["python", "-X", "utf8", "{home}/.codex/skills/.system/skill-creator/scripts/quick_validate.py", "coupang-detail-page-generator"]}
+      ]
+    },
+    {
+      "id": "motion",
+      "order": 4,
+      "status": "planned",
+      "description": "GIF와 짧은 영상 제작 및 정적 대체",
+      "paths": ["commerce-motion-maker/**", "tests/motion/**"],
+      "test_paths": ["tests/motion/**"],
+      "commands": [
+        {"name": "motion-tests", "argv": ["python", "-m", "pytest", "tests/motion", "-q"]}
+      ]
+    },
+    {
+      "id": "html",
+      "order": 5,
+      "status": "planned",
+      "description": "하이브리드 HTML 정본의 채널별 정적 렌더링과 패키지",
+      "paths": ["commerce-html-builder/**", "tests/html/**"],
+      "test_paths": ["tests/html/**"],
+      "commands": [
+        {"name": "html-tests", "argv": ["python", "-m", "pytest", "tests/html", "-q"]}
+      ]
+    },
+    {
+      "id": "publish-qa",
+      "order": 6,
+      "status": "planned",
+      "description": "출처, 링크, 접근성, 광고 표현과 채널 규격 QA",
+      "paths": ["commerce-publish-qa/**", "tests/publish_qa/**"],
+      "test_paths": ["tests/publish_qa/**"],
+      "commands": [
+        {"name": "publish-qa-tests", "argv": ["python", "-m", "pytest", "tests/publish_qa", "-q"]}
+      ]
+    },
+    {
+      "id": "feedback",
+      "order": 7,
+      "status": "planned",
+      "description": "판매 성과 피드백과 공급처·채널 확장",
+      "paths": ["commerce-feedback/**", "tests/feedback/**"],
+      "test_paths": ["tests/feedback/**"],
+      "commands": [
+        {"name": "feedback-tests", "argv": ["python", "-m", "pytest", "tests/feedback", "-q"]}
+      ]
+    },
+    {
+      "id": "plugin",
+      "order": 8,
+      "status": "implemented",
+      "description": "원본 스킬 동기화와 플러그인 구조 검증",
+      "paths": ["plugins/coupang-commerce-automation/**", "tests/plugin/**"],
+      "test_paths": ["tests/plugin/**"],
+      "commands": [
+        {"name": "plugin-contract-tests", "argv": ["python", "-m", "pytest", "tests/plugin", "-q"]},
+        {"name": "plugin-validation", "argv": ["python", "-X", "utf8", "{home}/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py", "plugins/coupang-commerce-automation"]}
+      ]
+    }
+  ]
+}

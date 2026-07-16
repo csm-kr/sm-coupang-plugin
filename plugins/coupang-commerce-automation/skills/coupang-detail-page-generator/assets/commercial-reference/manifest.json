@@ -1,0 +1,222 @@
+{
+  "version": "4.0",
+  "source": "상세페이지-신발.png",
+  "source_sha256": "d63c3a81dc7e6138f9fc854f2ee1bbcacaffbacffe313c029855f0ec41290bd9",
+  "source_size": [
+    724,
+    19548
+  ],
+  "policy": "art_direction_only_no_person_identity_no_person_pixels",
+  "crops": [
+    {
+      "role": "hero",
+      "file": "commercial-hero.png",
+      "crop_box": [
+        0,
+        0,
+        724,
+        2639
+      ],
+      "normalized_y": [
+        0.0,
+        0.135
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm",
+        "typography_hierarchy",
+        "conversion_flow",
+        "module_density"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "problem",
+      "file": "commercial-problem.png",
+      "crop_box": [
+        0,
+        2248,
+        724,
+        3323
+      ],
+      "normalized_y": [
+        0.115,
+        0.285
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm",
+        "typography_hierarchy",
+        "conversion_flow",
+        "module_density"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "product",
+      "file": "commercial-product.png",
+      "crop_box": [
+        0,
+        5082,
+        724,
+        4008
+      ],
+      "normalized_y": [
+        0.26,
+        0.465
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm",
+        "typography_hierarchy",
+        "conversion_flow",
+        "module_density"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "feature",
+      "file": "commercial-feature.png",
+      "crop_box": [
+        0,
+        8601,
+        724,
+        4398
+      ],
+      "normalized_y": [
+        0.44,
+        0.665
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm",
+        "typography_hierarchy",
+        "conversion_flow",
+        "module_density"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "lifestyle",
+      "file": "commercial-lifestyle.png",
+      "crop_box": [
+        0,
+        12413,
+        724,
+        4691
+      ],
+      "normalized_y": [
+        0.635,
+        0.875
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm",
+        "typography_hierarchy",
+        "conversion_flow",
+        "module_density"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "closing",
+      "file": "commercial-closing.png",
+      "crop_box": [
+        0,
+        16616,
+        724,
+        2932
+      ],
+      "normalized_y": [
+        0.85,
+        1.0
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm",
+        "typography_hierarchy",
+        "conversion_flow",
+        "module_density"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    }
+  ]
+}

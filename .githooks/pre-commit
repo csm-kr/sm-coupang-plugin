@@ -1,0 +1,26 @@
+#!/usr/bin/env python
+from __future__ import annotations
+
+import subprocess
+import sys
+from pathlib import Path
+
+
+root_result = subprocess.run(
+    ["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True, check=False
+)
+if root_result.returncode != 0:
+    print("pre-commit: git root를 찾지 못했습니다.", file=sys.stderr)
+    raise SystemExit(2)
+
+root = Path(root_result.stdout.strip())
+changed = subprocess.run(
+    ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"],
+    cwd=root,
+    capture_output=True,
+    text=True,
+    check=False,
+)
+files = [line for line in changed.stdout.splitlines() if line.strip()]
+command = [sys.executable, str(root / "scripts" / "tdd.py"), "changed", "--files", *files]
+raise SystemExit(subprocess.run(command, cwd=root, check=False).returncode)

@@ -1,0 +1,125 @@
+{
+  "schema_version": "1.0",
+  "run_name": "sourcing-selection-cooling-scarf",
+  "observed_at": "2026-07-16T10:49:04+09:00",
+  "source_report": "../sourcing-qualified-5/qualified-candidates.json",
+  "workflow_state": "PRICE_REVIEW_BLOCKED",
+  "user_decision": {
+    "selected_candidate_id": "66433446",
+    "selected_report_rank": 7,
+    "selected_name": "아이스 쿨링 스카프",
+    "candidate_selected": true,
+    "selected_price_option": null,
+    "price_approved": false,
+    "detail_page_authorized": false,
+    "supersedes": {
+      "candidate_id": "7509189",
+      "name": "트위스트 머리끈",
+      "status": "ON_HOLD",
+      "reason": "100개입 원가와 현재 쿠팡 실판매가를 반영하면 기존 마진 게이트를 통과하지 못함"
+    }
+  },
+  "supplier_recheck": {
+    "source_url": "https://domeggook.com/66433446",
+    "unit_supply_price_krw": 1500,
+    "minimum_order_qty": 4,
+    "minimum_goods_total_krw": 6000,
+    "shipping_total_krw": 2500,
+    "shipping_payment": "주문 시 결제",
+    "origin": "중국",
+    "available_options": [
+      "블랙",
+      "레드",
+      "블루"
+    ],
+    "detail_image_usage": "ALLOWED_BY_SOURCE",
+    "source_dimensions": "100cm × 5cm",
+    "source_weight": "22g",
+    "source_material_label": "폴리에스테르 면",
+    "package_label": "32 × 5.6 × 5 / 0.1",
+    "package_label_status": "SUPPLIER_CONFIRMATION_REQUIRED",
+    "cooling_structure_observation": "상세 이미지 중앙부에 냉각 비즈 영역이 표시됨",
+    "forbidden_until_tested": [
+      "하루 종일 시원함",
+      "지속 시간",
+      "체온 저하",
+      "의학적·안전 효과",
+      "경쟁상품 대비 우월한 냉감"
+    ]
+  },
+  "report_corrections": [
+    {
+      "field": "moq",
+      "reported": 1,
+      "verified": 4,
+      "impact": "도매 배송비 배분과 최소 발주 원가 재계산 필요"
+    },
+    {
+      "field": "wholesale_shipping_total_krw",
+      "reported": 3000,
+      "verified": 2500,
+      "impact": "실제 발주 수량별 판매 묶음당 배송비 배분 필요"
+    },
+    {
+      "field": "market_price",
+      "reported_basis": "정가 또는 할인 전 가격이 혼재",
+      "verified_basis": "2026-07-16 쿠팡 화면의 현재 실판매가",
+      "impact": "기존 추천 판매가 16,800원과 마진 판정 무효"
+    }
+  ],
+  "market_recheck": [
+    {
+      "name": "나쥬랑 아이스 넥쿨러 쿨 스카프",
+      "quantity": 2,
+      "observed_sale_price_krw": 6900,
+      "observed_reference_price_krw": 10000,
+      "review_count": 122,
+      "rocket": false,
+      "url": "https://www.coupang.com/vp/products/9570330384?itemId=28563903466&vendorItemId=95669286547"
+    },
+    {
+      "name": "베러앤 쿨 스카프 아이스 넥쿨러 목쿨러",
+      "quantity": 3,
+      "observed_sale_price_krw": 5900,
+      "observed_reference_price_krw": 11000,
+      "review_count": 138,
+      "rocket": false,
+      "url": "https://www.coupang.com/vp/products/9567545160?itemId=28554762641&vendorItemId=95499471563"
+    },
+    {
+      "name": "코멧 냉동 아이스 넥 스카프 목 손목 발목",
+      "quantity": 3,
+      "observed_sale_price_krw": 4790,
+      "observed_reference_price_krw": 7800,
+      "review_count": 225,
+      "rocket": true,
+      "url": "https://www.coupang.com/vp/products/9311940634?itemId=27593304656&vendorItemId=94556770685"
+    }
+  ],
+  "bundle_decision": {
+    "status": "PENDING_ECONOMICS_RECALCULATION",
+    "candidate_options": [
+      "2개입",
+      "블랙·레드·블루 3개 혼합"
+    ],
+    "approved_bundle": null
+  },
+  "blockers": [
+    "현재 공급가 1,500원은 쿠팡 경쟁상품의 개당 실판매가 1,597~3,450원과 너무 가까움",
+    "판매 묶음 미확정",
+    "할인 적용 실판매가 기준 시장 분포와 가격안 재계산 필요",
+    "실제 로켓그로스 비용과 쿠팡 스카프·넥워머 카테고리 수수료 미확정",
+    "실물의 흡수·팽창·냉감 지속·누수·피부 접촉 안전성 미검증",
+    "공급처 상세 이미지에는 현재 판매 옵션이 아닌 그린·오렌지 사용 장면이 포함되어 자산 라우팅 필요"
+  ],
+  "next_gate": {
+    "name": "ECONOMICS_AND_SAMPLE_VALIDATION",
+    "required_actions": [
+      "동일 구조의 더 낮은 공급가 또는 대량 단가 조사",
+      "2개입과 3개입의 현재 실판매가 기준 마진 재계산",
+      "블랙·레드·블루 각 실물 샘플과 포장 크기·무게 확인",
+      "물 흡수 전후 길이·무게·팽창, 냉감 지속 시간, 누수·이염·냄새를 실측",
+      "마진과 제품 사실이 통과한 뒤에만 SHORTLIST 및 상세페이지 프로젝트로 승격"
+    ]
+  }
+}

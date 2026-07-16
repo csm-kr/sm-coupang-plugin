@@ -1,0 +1,204 @@
+{
+  "version": "4.0",
+  "source": "상세페이지-완성.png",
+  "source_sha256": "df29eb5f0e1776df92ba9408d9adb16605389ac0c7c435b50e766ed8805c48ce",
+  "source_size": [
+    640,
+    24580
+  ],
+  "policy": "art_direction_only_no_person_identity_no_person_pixels",
+  "crops": [
+    {
+      "role": "hero",
+      "file": "style-hero.png",
+      "crop_box": [
+        0,
+        0,
+        640,
+        3318
+      ],
+      "normalized_y": [
+        0.0,
+        0.135
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "problem",
+      "file": "style-problem.png",
+      "crop_box": [
+        0,
+        2827,
+        640,
+        4178
+      ],
+      "normalized_y": [
+        0.115,
+        0.285
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "product",
+      "file": "style-product.png",
+      "crop_box": [
+        0,
+        6391,
+        640,
+        5039
+      ],
+      "normalized_y": [
+        0.26,
+        0.465
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "feature",
+      "file": "style-feature.png",
+      "crop_box": [
+        0,
+        10815,
+        640,
+        5531
+      ],
+      "normalized_y": [
+        0.44,
+        0.665
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "lifestyle",
+      "file": "style-lifestyle.png",
+      "crop_box": [
+        0,
+        15608,
+        640,
+        5900
+      ],
+      "normalized_y": [
+        0.635,
+        0.875
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    },
+    {
+      "role": "closing",
+      "file": "style-closing.png",
+      "crop_box": [
+        0,
+        20893,
+        640,
+        3687
+      ],
+      "normalized_y": [
+        0.85,
+        1.0
+      ],
+      "allowed_use": [
+        "composition",
+        "lighting",
+        "palette",
+        "spacing",
+        "scene_density",
+        "visual_rhythm"
+      ],
+      "prohibited_transfer": [
+        "copy",
+        "product_claims",
+        "product_identity",
+        "brand",
+        "logo",
+        "model_face",
+        "model_identity",
+        "person_pixels"
+      ]
+    }
+  ]
+}

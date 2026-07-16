@@ -1,0 +1,273 @@
+<section id="coupang-launch-flow" aria-label="쿠팡 상품 소싱부터 1차 검증, 테스트 판매, 2차 심화검증과 개선까지의 전체 흐름">
+  <style>
+    #coupang-launch-flow {
+      color: var(--foreground);
+      font-size: var(--font-size-base);
+      width: 100%;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+    #coupang-launch-flow * {
+      box-sizing: border-box;
+    }
+    #coupang-launch-flow strong {
+      font-weight: 500;
+    }
+    #coupang-launch-flow .phase {
+      position: relative;
+      padding-inline-start: 18px;
+      border-inline-start: 3px solid var(--phase-color);
+    }
+    #coupang-launch-flow .phase + .connector,
+    #coupang-launch-flow .branch-wrap + .connector {
+      height: 36px;
+      position: relative;
+    }
+    #coupang-launch-flow .connector::before {
+      content: "";
+      position: absolute;
+      inset-block: 0 9px;
+      inset-inline-start: 50%;
+      width: 1px;
+      background: var(--border);
+    }
+    #coupang-launch-flow .connector::after {
+      content: "▼";
+      position: absolute;
+      inset-block-end: -2px;
+      inset-inline-start: 50%;
+      transform: translateX(-50%);
+      color: var(--muted-foreground);
+    }
+    #coupang-launch-flow .phase-label {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      margin-block-end: 10px;
+      font-weight: 500;
+    }
+    #coupang-launch-flow .phase-label span {
+      color: var(--muted-foreground);
+      font-weight: 400;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    #coupang-launch-flow .steps {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    #coupang-launch-flow .step {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      align-items: center;
+      gap: 9px;
+      min-height: 54px;
+      padding: 9px 11px;
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--phase-color) 12%, transparent);
+    }
+    #coupang-launch-flow .step-number {
+      display: grid;
+      place-items: center;
+      min-width: 30px;
+      min-height: 30px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--phase-color) 55%, var(--border));
+      font-weight: 500;
+    }
+    #coupang-launch-flow .step-copy {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    #coupang-launch-flow .step-title {
+      font-weight: 500;
+    }
+    #coupang-launch-flow .step-note {
+      color: var(--muted-foreground);
+      margin-block-start: 2px;
+    }
+    #coupang-launch-flow .approval {
+      outline: 1px dashed var(--viz-series-4);
+      outline-offset: -1px;
+    }
+    #coupang-launch-flow .rule {
+      margin-block-start: 10px;
+      padding: 9px 12px;
+      border-inline-start: 3px solid var(--viz-series-4);
+      background: color-mix(in srgb, var(--viz-series-4) 9%, transparent);
+    }
+    #coupang-launch-flow .decision {
+      width: min(100%, 420px);
+      max-width: 100%;
+      margin: 0 auto 12px;
+      padding: 10px 14px;
+      text-align: center;
+      border-radius: 999px;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      font-weight: 500;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    #coupang-launch-flow .branch-wrap {
+      position: relative;
+      padding-block-start: 22px;
+    }
+    #coupang-launch-flow .branch-wrap::before {
+      content: "";
+      position: absolute;
+      inset-block-start: 0;
+      inset-inline: 25% 25%;
+      height: 1px;
+      background: var(--border);
+    }
+    #coupang-launch-flow .branches {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    #coupang-launch-flow .branch {
+      position: relative;
+      padding-block-start: 14px;
+    }
+    #coupang-launch-flow .branch::before {
+      content: "";
+      position: absolute;
+      inset-block-start: -22px;
+      inset-inline-start: 50%;
+      width: 1px;
+      height: 22px;
+      background: var(--border);
+    }
+    #coupang-launch-flow .branch-label {
+      text-align: center;
+      margin-block-end: 8px;
+      color: var(--muted-foreground);
+      font-weight: 500;
+    }
+    #coupang-launch-flow .branch .step {
+      background: color-mix(in srgb, var(--branch-color) 12%, transparent);
+    }
+    #coupang-launch-flow .loop {
+      margin-block-start: 10px;
+      text-align: center;
+      color: var(--muted-foreground);
+      overflow-wrap: anywhere;
+    }
+    #coupang-launch-flow .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-block-start: 14px;
+      color: var(--muted-foreground);
+    }
+    #coupang-launch-flow .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    #coupang-launch-flow .swatch {
+      width: 18px;
+      height: 12px;
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--swatch-color) 18%, transparent);
+      border: 1px solid var(--swatch-color);
+    }
+    #coupang-launch-flow .swatch.approval-swatch {
+      background: transparent;
+      border-style: dashed;
+    }
+    @media (max-width: 560px) {
+      #coupang-launch-flow .phase-label {
+        flex-direction: column;
+        gap: 2px;
+      }
+      #coupang-launch-flow .decision {
+        width: 100%;
+        border-radius: 8px;
+      }
+      #coupang-launch-flow .steps,
+      #coupang-launch-flow .branches {
+        grid-template-columns: 1fr;
+      }
+      #coupang-launch-flow .branch-wrap::before {
+        inset-inline: 50% auto;
+      }
+      #coupang-launch-flow .branch + .branch {
+        margin-block-start: 16px;
+      }
+      #coupang-launch-flow .branch::before {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="phase" style="--phase-color: var(--viz-series-1);">
+    <div class="phase-label">A. 탐색·선별 <span>팔 수 있는 후보를 고른다</span></div>
+    <div class="steps">
+      <div class="step"><div class="step-number">1</div><div class="step-copy"><div class="step-title">시장 탐색</div></div></div>
+      <div class="step"><div class="step-number">2</div><div class="step-copy"><div class="step-title">제품 후보 소싱</div></div></div>
+      <div class="step"><div class="step-number">3</div><div class="step-copy"><div class="step-title">1차 상품 필터링</div></div></div>
+      <div class="step"><div class="step-number">4</div><div class="step-copy"><div class="step-title">시장성·수요 검증</div></div></div>
+      <div class="step"><div class="step-number">5</div><div class="step-copy"><div class="step-title">수익성 검증</div></div></div>
+      <div class="step"><div class="step-number">6</div><div class="step-copy"><div class="step-title">공급·법률 리스크</div></div></div>
+      <div class="step"><div class="step-number">7</div><div class="step-copy"><div class="step-title">경쟁사·저별점 리뷰 분석</div><div class="step-note">불만 → 소구 가설</div></div></div>
+    </div>
+  </div>
+
+  <div class="connector" aria-hidden="true"></div>
+
+  <div class="phase" style="--phase-color: var(--viz-series-2);">
+    <div class="phase-label">B. 1차 검증·기획·제작 <span>적은 비용으로 판매 가능성을 본다</span></div>
+    <div class="steps">
+      <div class="step"><div class="step-number">8A</div><div class="step-copy"><div class="step-title">간이 실험·최소 사실 확인</div><div class="step-note">가능한 실험만 수행</div></div></div>
+      <div class="step approval"><div class="step-number">9</div><div class="step-copy"><div class="step-title">제품기획·소구점 승인</div><div class="step-note">사용자 승인 게이트</div></div></div>
+      <div class="step"><div class="step-number">10</div><div class="step-copy"><div class="step-title">판매 전략 설계</div></div></div>
+      <div class="step"><div class="step-number">11</div><div class="step-copy"><div class="step-title">상품정보 SOT</div></div></div>
+      <div class="step approval"><div class="step-number">12</div><div class="step-copy"><div class="step-title">콘텐츠기획 승인</div><div class="step-note">사용자 승인 게이트</div></div></div>
+      <div class="step"><div class="step-number">13</div><div class="step-copy"><div class="step-title">촬영·소재 설계</div></div></div>
+      <div class="step"><div class="step-number">14</div><div class="step-copy"><div class="step-title">소재 생성·소재별 QA</div></div></div>
+      <div class="step"><div class="step-number">15</div><div class="step-copy"><div class="step-title">이미지+HTML 조립</div></div></div>
+      <div class="step"><div class="step-number">16</div><div class="step-copy"><div class="step-title">상품등록 데이터</div></div></div>
+      <div class="step"><div class="step-number">17</div><div class="step-copy"><div class="step-title">통합 QA</div></div></div>
+    </div>
+    <div class="rule">실험할 수 없는 소구는 기획으로 넘길 수 있지만 <strong>미검증 상태</strong>로 유지하며 확정 성능 주장에는 사용하지 않는다.</div>
+  </div>
+
+  <div class="connector" aria-hidden="true"></div>
+
+  <div class="phase" style="--phase-color: var(--viz-series-3);">
+    <div class="phase-label">C. 테스트 판매 <span>실제 고객 반응으로 투자 여부를 결정한다</span></div>
+    <div class="steps">
+      <div class="step"><div class="step-number">18</div><div class="step-copy"><div class="step-title">소량 테스트 출시</div></div></div>
+      <div class="step"><div class="step-number">19</div><div class="step-copy"><div class="step-title">캠페인별 판매·ROAS 확인</div><div class="step-note">실제 값은 사용자가 제공</div></div></div>
+    </div>
+  </div>
+
+  <div class="connector" aria-hidden="true"></div>
+  <div class="decision">14일 이내 판매 ≥ 2 AND ROAS ≥ 400%</div>
+
+  <div class="branch-wrap">
+    <div class="branches">
+      <div class="branch" style="--branch-color: var(--muted-foreground);">
+        <div class="branch-label">기준 미달</div>
+        <div class="step"><div class="step-number">20</div><div class="step-copy"><div class="step-title">가격·콘텐츠·소싱 재검토</div><div class="step-note">개선 후 재테스트 또는 중단</div></div></div>
+        <div class="loop">↩ 1~7단계 또는 9~17단계로 회귀</div>
+      </div>
+      <div class="branch" style="--branch-color: var(--viz-series-5);">
+        <div class="branch-label">기준 충족</div>
+        <div class="step"><div class="step-number">8B</div><div class="step-copy"><div class="step-title">2차 심화검증</div><div class="step-note">별점·후기·다수 샘플·검사서·심화 실험</div></div></div>
+        <div class="step approval" style="margin-block-start: 8px;"><div class="step-number">↻</div><div class="step-copy"><div class="step-title">제품·SOT·콘텐츠 재승인</div><div class="step-note">9·11·12·14~17 갱신 후 확대</div></div></div>
+        <div class="loop">↻ 판매 확대 → 성과 재측정 → 지속 개선</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend" aria-label="다이어그램 범례">
+    <span class="legend-item"><span class="swatch" style="--swatch-color: var(--viz-series-2);"></span>1차 간이검증</span>
+    <span class="legend-item"><span class="swatch" style="--swatch-color: var(--viz-series-5);"></span>2차 심화검증</span>
+    <span class="legend-item"><span class="swatch approval-swatch" style="--swatch-color: var(--viz-series-4);"></span>사용자 승인</span>
+  </div>
+</section>

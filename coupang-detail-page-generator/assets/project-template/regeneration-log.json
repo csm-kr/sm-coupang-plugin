@@ -1,0 +1,26 @@
+{
+  "version": "1.1",
+  "max_targeted_edits_per_page": 2,
+  "max_text_partial_edits_per_page": 3,
+  "local_typography_fallback_allowed": false,
+  "entry_schema": {
+    "edit_type": "text_partial_edit | product_targeted_edit | layout_targeted_edit",
+    "target_area": "edited region",
+    "attempt_number": 1,
+    "reference_source_ids": [],
+    "result": "pass | fail",
+    "notes": ""
+  },
+  "pages": {
+    "01": [],
+    "02": [],
+    "03": [],
+    "04": [],
+    "05": [],
+    "06": [],
+    "07": [],
+    "08": [],
+    "09": [],
+    "10": []
+  }
+}

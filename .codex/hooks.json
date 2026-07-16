@@ -1,0 +1,45 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import pathlib,runpy; p=pathlib.Path.cwd().resolve(); r=next(x for x in (p,*p.parents) if (x/'harness/stages.json').is_file()); runpy.run_path(str(r/'.codex/hooks/pre_tool_guard.py'),run_name='__main__')\"",
+            "commandWindows": "python -c \"import pathlib,runpy; p=pathlib.Path.cwd().resolve(); r=next(x for x in (p,*p.parents) if (x/'harness/stages.json').is_file()); runpy.run_path(str(r/'.codex/hooks/pre_tool_guard.py'),run_name='__main__')\"",
+            "timeout": 30,
+            "statusMessage": "TDD·안전·보고서 경로 정책 확인"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import pathlib,runpy; p=pathlib.Path.cwd().resolve(); r=next(x for x in (p,*p.parents) if (x/'harness/stages.json').is_file()); runpy.run_path(str(r/'.codex/hooks/post_tool_record.py'),run_name='__main__')\"",
+            "commandWindows": "python -c \"import pathlib,runpy; p=pathlib.Path.cwd().resolve(); r=next(x for x in (p,*p.parents) if (x/'harness/stages.json').is_file()); runpy.run_path(str(r/'.codex/hooks/post_tool_record.py'),run_name='__main__')\"",
+            "timeout": 30,
+            "statusMessage": "TDD 테스트 선행 기록"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import pathlib,runpy; p=pathlib.Path.cwd().resolve(); r=next(x for x in (p,*p.parents) if (x/'harness/stages.json').is_file()); runpy.run_path(str(r/'.codex/hooks/stop_stage_guard.py'),run_name='__main__')\"",
+            "commandWindows": "python -c \"import pathlib,runpy; p=pathlib.Path.cwd().resolve(); r=next(x for x in (p,*p.parents) if (x/'harness/stages.json').is_file()); runpy.run_path(str(r/'.codex/hooks/stop_stage_guard.py'),run_name='__main__')\"",
+            "timeout": 600,
+            "statusMessage": "현재 단계 필수 검증 실행"
+          }
+        ]
+      }
+    ]
+  }
+}

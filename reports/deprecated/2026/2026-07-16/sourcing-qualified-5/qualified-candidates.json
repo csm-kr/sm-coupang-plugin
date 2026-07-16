@@ -1,0 +1,2931 @@
+{
+  "schema_version": "1.0",
+  "status": "AWAITING_USER_SELECTION",
+  "minimum": 5,
+  "qualified_count": 10,
+  "qualified_candidates": [
+    {
+      "candidate_id": "7215172",
+      "name": "여행용 접이식 백팩",
+      "search_keyword": "여행용 접이식 백팩",
+      "url": "https://domeggook.com/7215172",
+      "supply_price": 2600,
+      "moq": 1,
+      "category": "패션",
+      "wholesale_url": "https://domeggook.com/7215172",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/7589802605?itemId=20053609896&vendorItemId=91528995317&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/7589802605?itemId=20053609898&vendorItemId=91528995320&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9485943668?itemId=28247745303&vendorItemId=95201187385&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9609323192?itemId=28688546269&vendorItemId=95629974528&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/7589802605?itemId=20053609901&vendorItemId=91528995312&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "초경량 접이식 포켓 백팩 아웃도어 기능성 등산 가방 방수배낭 20L 엄선라이프, 블랙",
+          "review": "(1,080)",
+          "price": "15,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7589802605?itemId=20053609896&vendorItemId=91528995317&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "초경량 접이식 포켓 백팩 아웃도어 기능성 등산 가방 방수배낭 20L 엄선라이프, 실버그레이",
+          "review": "(1,080)",
+          "price": "8,110",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7589802605?itemId=20053609898&vendorItemId=91528995320&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "초경량 남자 여자 등산가방 방수 3층 등산배낭 접이식 포켓형 낚시 사이클 트레일러닝 백팩, 그레이",
+          "review": "(36)",
+          "price": "27,600",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9485943668?itemId=28247745303&vendorItemId=95201187385&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "엔젤가드 초경량 등산가방 등산배낭 접이식 스포츠 백팩 캠핑 방수 휴대용 보조 여행용 가벼운 파우치, 1개, 블랙",
+          "review": "(12)",
+          "price": "9,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9609323192?itemId=28688546269&vendorItemId=95629974528&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "초경량 접이식 포켓 백팩 아웃도어 기능성 등산 가방 방수배낭 20L 엄선라이프, 네이비",
+          "review": "(1,080)",
+          "price": "15,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7589802605?itemId=20053609901&vendorItemId=91528995312&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "브랜든 여행용 2WAY 멀티 패커블 백팩 슬링백",
+          "review": "(251)",
+          "price": "86,000",
+          "rocket": true,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/8933340960?itemId=26116398287&vendorItemId=93096909464&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "드흐으 접이식 미니 소형 초경량 등산가방",
+          "review": "(80)",
+          "price": "26,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8896482750?itemId=25974758151&vendorItemId=92957352444&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "초경량 접이식 포켓형 여행용 아웃도어 등산 백팩, 그린",
+          "review": "(48)",
+          "price": "100,000",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9262359897?itemId=27406241943&vendorItemId=95469175425&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "엔젤가드 초경량 등산가방 등산배낭 접이식 스포츠 백팩 캠핑 방수 휴대용 보조 여행용 가벼운 파우치, 1개, 그린",
+          "review": "(12)",
+          "price": "9,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9609323192?itemId=28688546268&vendorItemId=95629974532&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "편한생활연구소 초경량 접이식 여행용 백팩",
+          "review": "(26)",
+          "price": "25,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9251281948?itemId=27363911705&vendorItemId=94329981310&q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&searchId=4c8791f92760360&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "여행용 접이식 백팩",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "coupang_blocked": false,
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 7,
+        "min": 9900.0,
+        "p10": 13500.0,
+        "p25": 20450.0,
+        "p50": 26000.0,
+        "p75": 56800.0,
+        "max": 100000.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 19300,
+      "stress_floor_price": 17200,
+      "final_floor_price": 19300,
+      "price_options": {
+        "entry": {
+          "price": 20400,
+          "base": {
+            "sale_price": 20400,
+            "fixed_cost": 8600.0,
+            "fee": 2203.2,
+            "vat": 959.68,
+            "profit": 8637.12,
+            "margin_pct": 42.3388
+          },
+          "stress": {
+            "sale_price": 18360.0,
+            "fixed_cost": 8600.0,
+            "fee": 1982.88,
+            "vat": 777.71,
+            "profit": 6999.41,
+            "margin_pct": 38.1231
+          }
+        },
+        "recommended": {
+          "price": 26000,
+          "base": {
+            "sale_price": 26000,
+            "fixed_cost": 8600.0,
+            "fee": 2808.0,
+            "vat": 1459.2,
+            "profit": 13132.8,
+            "margin_pct": 50.5108
+          },
+          "stress": {
+            "sale_price": 23400.0,
+            "fixed_cost": 8600.0,
+            "fee": 2527.2,
+            "vat": 1227.28,
+            "profit": 11045.52,
+            "margin_pct": 47.2031
+          }
+        },
+        "premium": {
+          "price": 56800,
+          "base": {
+            "sale_price": 56800,
+            "fixed_cost": 8600.0,
+            "fee": 6134.4,
+            "vat": 4206.56,
+            "profit": 37859.04,
+            "margin_pct": 66.6532
+          },
+          "stress": {
+            "sale_price": 51120.0,
+            "fixed_cost": 8600.0,
+            "fee": 5520.96,
+            "vat": 3699.9,
+            "profit": 33299.14,
+            "margin_pct": 65.1392
+          }
+        }
+      },
+      "recommendation_score": 25.769,
+      "source_ref": {
+        "id": "7215172",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 15900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7589802605"
+        },
+        {
+          "price": 8110,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7589802605"
+        },
+        {
+          "price": 27600,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9485943668"
+        },
+        {
+          "price": 9900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9609323192"
+        },
+        {
+          "price": 15900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7589802605"
+        },
+        {
+          "price": 86000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8933340960"
+        },
+        {
+          "price": 26000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8896482750"
+        },
+        {
+          "price": 100000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9262359897"
+        },
+        {
+          "price": 9900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9609323192"
+        },
+        {
+          "price": 25000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9251281948"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 1,
+      "seller_rocket_count_top10": 8,
+      "qualified_rank": 1
+    },
+    {
+      "rank": 1,
+      "name": "카라비너 자동우산 고리우산",
+      "url": "https://domeggook.com/58088773",
+      "supply_price": 5500,
+      "moq": 1,
+      "category": "fashion_beauty",
+      "origin_scope": "imported",
+      "pool_type": "category_top150",
+      "rank_band": "top",
+      "normalized_name": "카라비너 자동우산 고리우산",
+      "risk_flags": [],
+      "exploration_score": 32.0,
+      "research_priority": 1,
+      "wholesale_url": "https://domeggook.com/58088773",
+      "candidate_id": "58088773",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8984975589?itemId=26311792548&vendorItemId=92889307479&pickType=COU_PICK&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9470190546?itemId=28186639543&vendorItemId=95141197824&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9534186714?itemId=28434888598&vendorItemId=95390802725&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9515286468?itemId=28359487901&vendorItemId=95311550718&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9569144065?itemId=28560090595&vendorItemId=95515621351&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "[1+1 특가] 에이프릴 대형 124cm 자동우산 / 강풍 방지 10K 튼튼한 3단 접이식 / 남녀공용 UV차단 양산 겸용 / 카라비너 손잡이 세트",
+          "review": "(405)",
+          "price": "29,900",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/8984975589?itemId=26311792548&vendorItemId=92889307479&pickType=COU_PICK&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "빈시엔 5세대 초대형 장우산 보다 큰 3단 자동 우산 카라비너",
+          "review": "(321)",
+          "price": "37,600",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9470190546?itemId=28186639543&vendorItemId=95141197824&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "루시아이 카라비너 원터치 3단 자동 양우산 2colors",
+          "review": "(105)",
+          "price": "27,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9534186714?itemId=28434888598&vendorItemId=95390802725&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "[1+1/단품 특가] Jinsim Ansim 카라비너 튼튼 고리형 원터치 3단 자동 우산 양산",
+          "review": "(40)",
+          "price": "20,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9515286468?itemId=28359487901&vendorItemId=95311550718&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "모네오 2인도 넉넉한 대형 3단 양우산 남성용 카라비너 자동우산",
+          "review": "(79)",
+          "price": "49,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9569144065?itemId=28560090595&vendorItemId=95515621351&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "누바르 5세대 초대형 장우산보다 큰 128cm 자동 접이식 3단 카라비너 우산",
+          "review": "(136)",
+          "price": "65,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9452990770?itemId=28123109947&vendorItemId=95078909172&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "바우란 초대형 자이언트 젖지않는 거꾸로 카라비너 3단 자동 우산 양산",
+          "review": "(43)",
+          "price": "60,000",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9497820612?itemId=28292906377&vendorItemId=95245785246&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "어반루프 카라비너 3단 자동우산",
+          "review": "(177)",
+          "price": "15,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9129176725?itemId=26860090200&vendorItemId=93829781720&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "일상HO감 4세대 초대형 장우산 보다 큰 3단우산 여행 등산 카라비너 골프우산",
+          "review": "(3,825)",
+          "price": "40,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8096736390?itemId=22962448167&vendorItemId=92459878583&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "엘루아 카라비너 3단 자동 양우산 튼튼 초대형 암막 UV차단",
+          "review": "(16)",
+          "price": "21,900",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9439844515?itemId=28075724902&vendorItemId=94989650481&q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&searchId=077ff8132706950&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "카라비너 자동우산 고리우산",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%B9%B4%EB%9D%BC%EB%B9%84%EB%84%88%20%EC%9E%90%EB%8F%99%EC%9A%B0%EC%82%B0%20%EA%B3%A0%EB%A6%AC%EC%9A%B0%EC%82%B0&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 10,
+        "min": 15000.0,
+        "p10": 20310.0,
+        "p25": 23400.0,
+        "p50": 33750.0,
+        "p75": 46750.0,
+        "max": 65000.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 25700,
+      "stress_floor_price": 22900,
+      "final_floor_price": 25700,
+      "price_options": {
+        "entry": {
+          "price": 25700,
+          "base": {
+            "sale_price": 25700,
+            "fixed_cost": 11500.0,
+            "fee": 2775.6,
+            "vat": 1142.44,
+            "profit": 10281.96,
+            "margin_pct": 40.0076
+          },
+          "stress": {
+            "sale_price": 23130.0,
+            "fixed_cost": 11500.0,
+            "fee": 2498.04,
+            "vat": 913.2,
+            "profit": 8218.76,
+            "margin_pct": 35.5329
+          }
+        },
+        "recommended": {
+          "price": 33800,
+          "base": {
+            "sale_price": 33800,
+            "fixed_cost": 11500.0,
+            "fee": 3650.4,
+            "vat": 1864.96,
+            "profit": 16784.64,
+            "margin_pct": 49.6587
+          },
+          "stress": {
+            "sale_price": 30420.0,
+            "fixed_cost": 11500.0,
+            "fee": 3285.36,
+            "vat": 1563.46,
+            "profit": 14071.18,
+            "margin_pct": 46.2563
+          }
+        },
+        "premium": {
+          "price": 46800,
+          "base": {
+            "sale_price": 46800,
+            "fixed_cost": 11500.0,
+            "fee": 5054.4,
+            "vat": 3024.56,
+            "profit": 27221.04,
+            "margin_pct": 58.1646
+          },
+          "stress": {
+            "sale_price": 42120.0,
+            "fixed_cost": 11500.0,
+            "fee": 4548.96,
+            "vat": 2607.1,
+            "profit": 23463.94,
+            "margin_pct": 55.7074
+          }
+        }
+      },
+      "recommendation_score": 23.852,
+      "source_ref": {
+        "id": "58088773",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 29900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8984975589"
+        },
+        {
+          "price": 37600,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9470190546"
+        },
+        {
+          "price": 27900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9534186714"
+        },
+        {
+          "price": 20900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9515286468"
+        },
+        {
+          "price": 49000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9569144065"
+        },
+        {
+          "price": 65000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9452990770"
+        },
+        {
+          "price": 60000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9497820612"
+        },
+        {
+          "price": 15000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9129176725"
+        },
+        {
+          "price": 40000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8096736390"
+        },
+        {
+          "price": 21900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9439844515"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 0,
+      "seller_rocket_count_top10": 7,
+      "qualified_rank": 2
+    },
+    {
+      "candidate_id": "7994552",
+      "name": "여름 버킷햇 챙모자",
+      "search_keyword": "여름 버킷햇 챙모자",
+      "url": "https://domeggook.com/7994552",
+      "supply_price": 3900,
+      "moq": 1,
+      "category": "패션",
+      "wholesale_url": "https://domeggook.com/7994552",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9471872568?itemId=28193310063&vendorItemId=95147761635&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/7374937382?itemId=19033071718&vendorItemId=95517072509&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8070953941?itemId=22716568938&vendorItemId=89911077888&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9432393342?itemId=28045906821&vendorItemId=83107054717&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8702387946?itemId=25271344543&vendorItemId=92267071882&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "어도어모먼트 여성 버킷햇 여름 경량 니트모자",
+          "review": "(367)",
+          "price": "15,800",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9471872568?itemId=28193310063&vendorItemId=95147761635&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "로멜로 와이드챙 벨크로 버킷햇 모자 썬캡",
+          "review": "(1,928)",
+          "price": "40,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7374937382?itemId=19033071718&vendorItemId=95517072509&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "위드올리비아 챙넓은 바스락 턱끈 벙거지모자",
+          "review": "(2,586)",
+          "price": "29,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8070953941?itemId=22716568938&vendorItemId=89911077888&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "박스비 햇빛차단 대두 등산 낚시 캠핑 모자 벙거지모자 챙모자, 다크그레이",
+          "review": "(2,212)",
+          "price": "20,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9432393342?itemId=28045906821&vendorItemId=83107054717&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "이나핏 빅사이즈 버킷햇 남자 대두 벙거지",
+          "review": "(722)",
+          "price": "28,220",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8702387946?itemId=25271344543&vendorItemId=92267071882&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "깨비다 포켓 접이식 벙거지 모자",
+          "review": "(1,310)",
+          "price": "7,900",
+          "rocket": true,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/7711356868?itemId=20671782382&vendorItemId=92142857669&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "네이처플랙스 UV차단 자유자재 와이어 챙넓은 얼굴소멸 버킷햇 사파리모자",
+          "review": "(242)",
+          "price": "28,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9450835320?itemId=28114841234&vendorItemId=95070785493&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "올끌레어 챙넓은 자외선차단 모자 벙거지모자 버킷햇",
+          "review": "(720)",
+          "price": "60,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8730809788?itemId=25368605500&vendorItemId=92335879701&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "일상up 챙넓은 모자 햇빛가리개 와이드 버킷햇 썬캡 자외선차단 UV차단 여름모자",
+          "review": "(1,966)",
+          "price": "25,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7980232527?itemId=22138311188&vendorItemId=95299508909&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "다나몰 자외선차단 버킷햇 등산모자 세트(KC인증 마스크 포함), 다크그레이",
+          "review": "(271)",
+          "price": "7,530",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8800999148?itemId=25627123838&vendorItemId=92617336325&q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&searchId=82c13e8812792722&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "여름 버킷햇 챙모자",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%97%AC%EB%A6%84%20%EB%B2%84%ED%82%B7%ED%96%87%20%EC%B1%99%EB%AA%A8%EC%9E%90&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "coupang_blocked": false,
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 8,
+        "min": 7530.0,
+        "p10": 13319.0,
+        "p25": 18950.0,
+        "p50": 26500.0,
+        "p75": 31390.0,
+        "max": 60000.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 22200,
+      "stress_floor_price": 19700,
+      "final_floor_price": 22200,
+      "price_options": {
+        "entry": {
+          "price": 22200,
+          "base": {
+            "sale_price": 22200,
+            "fixed_cost": 9900.0,
+            "fee": 2397.6,
+            "vat": 990.24,
+            "profit": 8912.16,
+            "margin_pct": 40.1449
+          },
+          "stress": {
+            "sale_price": 19980.0,
+            "fixed_cost": 9900.0,
+            "fee": 2157.84,
+            "vat": 792.22,
+            "profit": 7129.94,
+            "margin_pct": 35.6854
+          }
+        },
+        "recommended": {
+          "price": 26500,
+          "base": {
+            "sale_price": 26500,
+            "fixed_cost": 9900.0,
+            "fee": 2862.0,
+            "vat": 1373.8,
+            "profit": 12364.2,
+            "margin_pct": 46.6574
+          },
+          "stress": {
+            "sale_price": 23850.0,
+            "fixed_cost": 9900.0,
+            "fee": 2575.8,
+            "vat": 1137.42,
+            "profit": 10236.78,
+            "margin_pct": 42.9215
+          }
+        },
+        "premium": {
+          "price": 31400,
+          "base": {
+            "sale_price": 31400,
+            "fixed_cost": 9900.0,
+            "fee": 3391.2,
+            "vat": 1810.88,
+            "profit": 16297.92,
+            "margin_pct": 51.9042
+          },
+          "stress": {
+            "sale_price": 28260.0,
+            "fixed_cost": 9900.0,
+            "fee": 3052.08,
+            "vat": 1530.79,
+            "profit": 13777.13,
+            "margin_pct": 48.7513
+          }
+        }
+      },
+      "recommendation_score": 16.226,
+      "source_ref": {
+        "id": "7994552",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 15800,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9471872568"
+        },
+        {
+          "price": 40900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7374937382"
+        },
+        {
+          "price": 20000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9432393342"
+        },
+        {
+          "price": 28220,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8702387946"
+        },
+        {
+          "price": 28000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9450835320"
+        },
+        {
+          "price": 60000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8730809788"
+        },
+        {
+          "price": 25000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7980232527"
+        },
+        {
+          "price": 7530,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8800999148"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 1,
+      "seller_rocket_count_top10": 9,
+      "qualified_rank": 3
+    },
+    {
+      "candidate_id": "7509189",
+      "name": "트위스트 머리끈",
+      "search_keyword": "트위스트 머리끈 헤어끈",
+      "url": "https://domeggook.com/7509189",
+      "supply_price": 55,
+      "moq": 1,
+      "category": "패션",
+      "wholesale_url": "https://domeggook.com/7509189",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/6591443588?itemId=14875075038&vendorItemId=83259406475&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9122136667?itemId=28563018583&vendorItemId=95507577148&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/1092192863?itemId=2048452726&vendorItemId=75948839134&pickType=COU_PICK&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9571177478?itemId=28567136159&vendorItemId=95511569963&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/6856956515?itemId=24804196050&vendorItemId=93587352330&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "미다미 100개 대용량 파우치 고무줄 짱짱한 트위스트 꼬임링",
+          "review": "(742)",
+          "price": "26,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/6591443588?itemId=14875075038&vendorItemId=83259406475&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "고탄력 컬러풀 트위스트 포니테일용 헤어끈 5P세트",
+          "review": "(67)",
+          "price": "100,000",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9122136667?itemId=28563018583&vendorItemId=95507577148&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "민스리빙 대용량 꼬임 머리끈 (100개세트)",
+          "review": "(751)",
+          "price": "5,980",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/1092192863?itemId=2048452726&vendorItemId=75948839134&pickType=COU_PICK&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "이플새라 무매듭 슬림 머리끈 150P 세트 데일리 헤어끈",
+          "review": "(38)",
+          "price": "15,700",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9571177478?itemId=28567136159&vendorItemId=95511569963&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "미다미 도톰 짱짱 브레이드 헤어링 1260 10p",
+          "review": "(338)",
+          "price": "8,900",
+          "rocket": true,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/6856956515?itemId=24804196050&vendorItemId=93587352330&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "수스다 여성용 대용량 무매듭 데일리 심플 꼬임 헤어끈 NO.138 50p",
+          "review": "(578)",
+          "price": "10,900",
+          "rocket": true,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/7292488176?itemId=18642287656&vendorItemId=85777364939&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "민스리빙 대용량 꼬임 머리끈 꽈배기 트위스트",
+          "review": "(276)",
+          "price": "5,980",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/7016022?itemId=8360428001&vendorItemId=93351036856&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "이쁨달다 국산 무매듭 꼬임형 머리끈 33개세트 고탄력 검정 헤어끈",
+          "review": "(164)",
+          "price": "23,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/6342297146?itemId=13311398221&vendorItemId=94983753093&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "엘라스틱 머리끈 컬러플 방울 꼬임 고무줄 5P 세트",
+          "review": "(25)",
+          "price": "15,780",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8994051068?itemId=26349141941&vendorItemId=93326121169&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "고탄력 대용량 스마일 꽈배기 머리끈 여성 짱짱한 머리 고무줄 30개",
+          "review": "(35)",
+          "price": "14,800",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8861468011?itemId=25841587781&vendorItemId=92828174456&q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&searchId=72d85f103336916&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "트위스트 머리끈 헤어끈",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%8A%B8%EC%9C%84%EC%8A%A4%ED%8A%B8%20%EB%A8%B8%EB%A6%AC%EB%81%88%20%ED%97%A4%EC%96%B4%EB%81%88&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "coupang_blocked": false,
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 8,
+        "min": 5980.0,
+        "p10": 5980.0,
+        "p25": 12595.0,
+        "p50": 15740.0,
+        "p75": 23975.0,
+        "max": 100000.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 13600,
+      "stress_floor_price": 12100,
+      "final_floor_price": 13600,
+      "price_options": {
+        "entry": {
+          "price": 13600,
+          "base": {
+            "sale_price": 13600,
+            "fixed_cost": 6055.0,
+            "fee": 1468.8,
+            "vat": 607.62,
+            "profit": 5468.58,
+            "margin_pct": 40.2101
+          },
+          "stress": {
+            "sale_price": 12240.0,
+            "fixed_cost": 6055.0,
+            "fee": 1321.92,
+            "vat": 486.31,
+            "profit": 4376.77,
+            "margin_pct": 35.7579
+          }
+        },
+        "recommended": {
+          "price": 15700,
+          "base": {
+            "sale_price": 15700,
+            "fixed_cost": 6055.0,
+            "fee": 1695.6,
+            "vat": 794.94,
+            "profit": 7154.46,
+            "margin_pct": 45.5698
+          },
+          "stress": {
+            "sale_price": 14130.0,
+            "fixed_cost": 6055.0,
+            "fee": 1526.04,
+            "vat": 654.9,
+            "profit": 5894.06,
+            "margin_pct": 41.7131
+          }
+        },
+        "premium": {
+          "price": 24000,
+          "base": {
+            "sale_price": 24000,
+            "fixed_cost": 6055.0,
+            "fee": 2592.0,
+            "vat": 1535.3,
+            "profit": 13817.7,
+            "margin_pct": 57.5738
+          },
+          "stress": {
+            "sale_price": 21600.0,
+            "fixed_cost": 6055.0,
+            "fee": 2332.8,
+            "vat": 1321.22,
+            "profit": 11890.98,
+            "margin_pct": 55.0508
+          }
+        }
+      },
+      "recommendation_score": 13.596,
+      "source_ref": {
+        "id": "7509189",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 26900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/6591443588"
+        },
+        {
+          "price": 100000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9122136667"
+        },
+        {
+          "price": 5980,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/1092192863"
+        },
+        {
+          "price": 15700,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9571177478"
+        },
+        {
+          "price": 5980,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7016022"
+        },
+        {
+          "price": 23000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/6342297146"
+        },
+        {
+          "price": 15780,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8994051068"
+        },
+        {
+          "price": 14800,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8861468011"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 2,
+      "seller_rocket_count_top10": 5,
+      "qualified_rank": 4
+    },
+    {
+      "candidate_id": "46803936",
+      "name": "UV차단 3단 자동 양우산",
+      "search_keyword": "UV차단 3단 자동 양우산",
+      "url": "https://domeggook.com/46803936",
+      "supply_price": 2890,
+      "moq": 1,
+      "category": "패션",
+      "wholesale_url": "https://domeggook.com/46803936",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8109253423?itemId=22965024422&vendorItemId=94445332008&pickType=COU_PICK&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9443119007?itemId=28087358287&vendorItemId=95599976769&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9440009279?itemId=28076404436&vendorItemId=95673839047&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9474468616?itemId=28202987613&vendorItemId=95612857163&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9588717663?itemId=28623470551&vendorItemId=95566673733&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "아머렉스 UV자외선차단 3단자동우산 접이식 암막 우양산 자동 3단 우산",
+          "review": "(13,276)",
+          "price": "25,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8109253423?itemId=22965024422&vendorItemId=94445332008&pickType=COU_PICK&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "오아룸 시그니처 튼튼 UV 자외선차단 고리형 원터치 3단 자동 우산 양산",
+          "review": "(1,695)",
+          "price": "15,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9443119007?itemId=28087358287&vendorItemId=95599976769&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "니드닛 3단 자동 우산 튼튼 접이식 암막 자외선차단 우양산",
+          "review": "(879)",
+          "price": "29,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9440009279?itemId=28076404436&vendorItemId=95673839047&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "솔리앤 초경량 UV차단 3단자동우산",
+          "review": "(1,592)",
+          "price": "18,100",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9474468616?itemId=28202987613&vendorItemId=95612857163&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "에드잇 3단 자동 우산 접이식 양우산",
+          "review": "(88)",
+          "price": "25,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9588717663?itemId=28623470551&vendorItemId=95566673733&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "뉴하 플라워가든 UV 자외선차단 접이식 원터치 3단 자동 우산 양산",
+          "review": "(632)",
+          "price": "11,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9452572789?itemId=28121840934&vendorItemId=95612502584&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "코멧 UV 99.9% 자외선(UV) 차단 3단 원터치 자동 우산",
+          "review": "(3,135)",
+          "price": "14,290",
+          "rocket": true,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/6522962847?itemId=14459954544&vendorItemId=81703402671&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "FASEN 3단자동양산 접이식 UV자외선차단 휴대용 원터치 암막우양산 튼튼한 자동 3단 우산",
+          "review": "(1,112)",
+          "price": "28,800",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9494737505?itemId=28281243934&vendorItemId=95567471781&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "1+1 3단 자동우산 경량우산 암막 우양산 자외선차단",
+          "review": "(1,188)",
+          "price": "15,900",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/7396375753?itemId=19133832136&vendorItemId=92355693582&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "로열스테디 튼튼한 UV 자외선차단 원터치 3단 암막 자동 우산",
+          "review": "(792)",
+          "price": "40,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8715185259?itemId=25311922494&vendorItemId=92307029996&q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=2ead20782848332&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "UV차단 3단 자동 양우산",
+        "search_url": "https://www.coupang.com/np/search?q=UV%EC%B0%A8%EB%8B%A8%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "coupang_blocked": false,
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 10,
+        "min": 11900.0,
+        "p10": 14051.0,
+        "p25": 15900.0,
+        "p50": 21550.0,
+        "p75": 28075.0,
+        "max": 40000.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 19900,
+      "stress_floor_price": 17700,
+      "final_floor_price": 19900,
+      "price_options": {
+        "entry": {
+          "price": 19900,
+          "base": {
+            "sale_price": 19900,
+            "fixed_cost": 8890.0,
+            "fee": 2149.2,
+            "vat": 886.08,
+            "profit": 7974.72,
+            "margin_pct": 40.074
+          },
+          "stress": {
+            "sale_price": 17910.0,
+            "fixed_cost": 8890.0,
+            "fee": 1934.28,
+            "vat": 708.57,
+            "profit": 6377.15,
+            "margin_pct": 35.6066
+          }
+        },
+        "recommended": {
+          "price": 21600,
+          "base": {
+            "sale_price": 21600,
+            "fixed_cost": 8890.0,
+            "fee": 2332.8,
+            "vat": 1037.72,
+            "profit": 9339.48,
+            "margin_pct": 43.2383
+          },
+          "stress": {
+            "sale_price": 19440.0,
+            "fixed_cost": 8890.0,
+            "fee": 2099.52,
+            "vat": 845.05,
+            "profit": 7605.43,
+            "margin_pct": 39.1226
+          }
+        },
+        "premium": {
+          "price": 28100,
+          "base": {
+            "sale_price": 28100,
+            "fixed_cost": 8890.0,
+            "fee": 3034.8,
+            "vat": 1617.52,
+            "profit": 14557.68,
+            "margin_pct": 51.8067
+          },
+          "stress": {
+            "sale_price": 25290.0,
+            "fixed_cost": 8890.0,
+            "fee": 2731.32,
+            "vat": 1366.87,
+            "profit": 12301.81,
+            "margin_pct": 48.643
+          }
+        }
+      },
+      "recommendation_score": 7.657,
+      "source_ref": {
+        "id": "46803936",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 25000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8109253423"
+        },
+        {
+          "price": 15900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9443119007"
+        },
+        {
+          "price": 29000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9440009279"
+        },
+        {
+          "price": 18100,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9474468616"
+        },
+        {
+          "price": 25900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9588717663"
+        },
+        {
+          "price": 11900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9452572789"
+        },
+        {
+          "price": 14290,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/6522962847"
+        },
+        {
+          "price": 28800,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9494737505"
+        },
+        {
+          "price": 15900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7396375753"
+        },
+        {
+          "price": 40000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8715185259"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 1,
+      "seller_rocket_count_top10": 7,
+      "qualified_rank": 5
+    },
+    {
+      "rank": 2,
+      "name": "국산 쁘띠 면 스카프 손수건",
+      "url": "https://domeggook.com/32384624",
+      "supply_price": 1350,
+      "moq": 10,
+      "category": "fashion_beauty",
+      "origin_scope": "domestic",
+      "pool_type": "category_top150",
+      "rank_band": "top",
+      "normalized_name": "국산 쁘띠 면 스카프 손수건",
+      "risk_flags": [],
+      "exploration_score": 18.933,
+      "research_priority": 12,
+      "wholesale_url": "https://domeggook.com/32384624",
+      "candidate_id": "32384624",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8057943507?itemId=22622133165&vendorItemId=89663662064&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9417292252?itemId=27985431417&vendorItemId=92329435410&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9483023453?itemId=28236348465&vendorItemId=95191228756&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9486987209?itemId=28251199505&vendorItemId=95204589997&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8370154182?itemId=24186958914&vendorItemId=91200699069&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "[3장 1세트] 라뮤제 오색잔꽃_쁘띠스카프 여성손수건 가제 아사면 목손수건",
+          "review": "(689)",
+          "price": "13,650",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8057943507?itemId=22622133165&vendorItemId=89663662064&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "로튼 1+1 개별포장 스티커 국산 고급 면100%스카프 손수건 무릎가리개 쁘띠 단체선물 여름",
+          "review": "(306)",
+          "price": "9,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9417292252?itemId=27985431417&vendorItemId=92329435410&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "[국산 면100%] 룸브리 아사면 쁘띠 삼각스카프",
+          "review": "(303)",
+          "price": "14,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9483023453?itemId=28236348465&vendorItemId=95191228756&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "국산 면 여성 손수건 3장 1세트 쁘띠스카프 고급 목손수건 플라워 꽃무늬",
+          "review": "(74)",
+          "price": "15,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9486987209?itemId=28251199505&vendorItemId=95204589997&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "3장1세트 라뮤제 클래식가든 국산 면100% 핀코트 면스카프/손수건/목손수건/쁘띠스카프",
+          "review": "(76)",
+          "price": "21,500",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8370154182?itemId=24186958914&vendorItemId=91200699069&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "[국내산 순면 100%] 쁘담 스카프 손수건 쁘띠 등산 두건 5개세트",
+          "review": "(564)",
+          "price": "32,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9115708504?itemId=27896688149&vendorItemId=94855587841&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "로튼 국산 스카프 면 코튼 무지 삼각 쁘띠 여름 스카프 심플 우아함 남성 여성 공용",
+          "review": "(567)",
+          "price": "12,400",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8088314430?itemId=22833080211&vendorItemId=92524024874&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "여성손수건 면손수건 여자 스카프 목수건 쁘띠스카프 간절기 레이스 에티켓 무릎덮개 데일리 등산 매너 국내생산",
+          "review": "(165)",
+          "price": "8,860",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8866791767?itemId=25860722537&vendorItemId=92361744397&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "[손수건 3장세트] 국산 아사 면 쁘띠 스카프 반다나 목손수건 여성 체크 페이즐리 꽃무늬 선물 데일리",
+          "review": "(225)",
+          "price": "19,800",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/8620583465?itemId=25009963367&vendorItemId=92014948916&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "[순면 100% 국내산]엘로소피 스카프 쁘띠 목손수건 5종세트 등산 러닝 두건 사계절 다용도",
+          "review": "(362)",
+          "price": "48,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9366237670?itemId=27794143927&vendorItemId=94783881483&q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=c0ff79272736193&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "국산 쁘띠 면 스카프 손수건",
+        "search_url": "https://www.coupang.com/np/search?q=%EA%B5%AD%EC%82%B0%20%EC%81%98%EB%9D%A0%20%EB%A9%B4%20%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 9,
+        "min": 8860.0,
+        "p10": 9692.0,
+        "p25": 12400.0,
+        "p50": 15900.0,
+        "p75": 21500.0,
+        "max": 48000.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 16500,
+      "stress_floor_price": 14700,
+      "final_floor_price": 16500,
+      "price_options": {
+        "entry": {
+          "price": 16500,
+          "base": {
+            "sale_price": 16500,
+            "fixed_cost": 7350.0,
+            "fee": 1782.0,
+            "vat": 736.8,
+            "profit": 6631.2,
+            "margin_pct": 40.1891
+          },
+          "stress": {
+            "sale_price": 14850.0,
+            "fixed_cost": 7350.0,
+            "fee": 1603.8,
+            "vat": 589.62,
+            "profit": 5306.58,
+            "margin_pct": 35.7345
+          }
+        },
+        "recommended": {
+          "price": 16500,
+          "base": {
+            "sale_price": 16500,
+            "fixed_cost": 7350.0,
+            "fee": 1782.0,
+            "vat": 736.8,
+            "profit": 6631.2,
+            "margin_pct": 40.1891
+          },
+          "stress": {
+            "sale_price": 14850.0,
+            "fixed_cost": 7350.0,
+            "fee": 1603.8,
+            "vat": 589.62,
+            "profit": 5306.58,
+            "margin_pct": 35.7345
+          }
+        },
+        "premium": {
+          "price": 21500,
+          "base": {
+            "sale_price": 21500,
+            "fixed_cost": 7350.0,
+            "fee": 2322.0,
+            "vat": 1182.8,
+            "profit": 10645.2,
+            "margin_pct": 49.5126
+          },
+          "stress": {
+            "sale_price": 19350.0,
+            "fixed_cost": 7350.0,
+            "fee": 2089.8,
+            "vat": 991.02,
+            "profit": 8919.18,
+            "margin_pct": 46.094
+          }
+        }
+      },
+      "recommendation_score": -3.774,
+      "source_ref": {
+        "id": "32384624",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 9900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9417292252"
+        },
+        {
+          "price": 14900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9483023453"
+        },
+        {
+          "price": 15900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9486987209"
+        },
+        {
+          "price": 21500,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8370154182"
+        },
+        {
+          "price": 32900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9115708504"
+        },
+        {
+          "price": 12400,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8088314430"
+        },
+        {
+          "price": 8860,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8866791767"
+        },
+        {
+          "price": 19800,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8620583465"
+        },
+        {
+          "price": 48000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9366237670"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 0,
+      "seller_rocket_count_top10": 9,
+      "qualified_rank": 6
+    },
+    {
+      "candidate_id": "66433446",
+      "name": "아이스 쿨링 스카프",
+      "search_keyword": "아이스 쿨링 스카프",
+      "url": "https://domeggook.com/66433446",
+      "supply_price": 1500,
+      "moq": 1,
+      "category": "패션",
+      "wholesale_url": "https://domeggook.com/66433446",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9571220956?itemId=28567311401&vendorItemId=95511744069&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9570330384?itemId=28563903466&vendorItemId=95669286547&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9553957778?itemId=28507444410&vendorItemId=95457001782&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9567545160?itemId=28554762641&vendorItemId=95499471563&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9561251757?itemId=28532756389&vendorItemId=95440438595&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "지보르 국산 아이스 쿨 스카프 1+1, 2개, 오션블루",
+          "review": "(101)",
+          "price": "43,600",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9571220956?itemId=28567311401&vendorItemId=95511744069&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "나쥬랑 아이스 넥쿨러 쿨 스카프, 2개, 화이트",
+          "review": "(122)",
+          "price": "10,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9570330384?itemId=28563903466&vendorItemId=95669286547&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "ONGFIT 쿨스카프 냉스카프 넥쿨러 세트, 색상혼합, 5개",
+          "review": "(166)",
+          "price": "15,900",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9553957778?itemId=28507444410&vendorItemId=95457001782&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "베러앤 쿨 스카프 아이스 넥쿨러 목쿨러, 3개, 블루",
+          "review": "(138)",
+          "price": "11,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9567545160?itemId=28554762641&vendorItemId=95499471563&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "아이스 쿨링 쿨스카프 쿨 목도리, 블루, 2개",
+          "review": "(142)",
+          "price": "12,500",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9561251757?itemId=28532756389&vendorItemId=95440438595&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "펠코스 쿨 스카프 아이스 쿨링, 5개, 블랙",
+          "review": "(71)",
+          "price": "18,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9513470225?itemId=28351907397&vendorItemId=95304035826&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "블루필 아이스 쿨링 쿨스카프 넥쿨러, 블루타일, 1개",
+          "review": "(3,289)",
+          "price": "32,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7358442171?itemId=25644014258&vendorItemId=92633972283&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "맥스쿨 아이스 넥쿨러 쿨스카프 넥밴드 울트라쿨링, 2개, 다이아블루",
+          "review": "(512)",
+          "price": "26,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9514410280?itemId=28522336922&vendorItemId=95307565700&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "코멧 냉동 아이스 넥 스카프 목 손목 발목, 블랙, 3개",
+          "review": "(225)",
+          "price": "7,800",
+          "rocket": true,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9311940634?itemId=27593304656&vendorItemId=94556770685&pickType=COU_PICK&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "블루필 아이스 쿨링 쿨스카프 넥쿨러, 그리드, 1개",
+          "review": "(3,289)",
+          "price": "25,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7358442171?itemId=18952479466&vendorItemId=92430576865&q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&searchId=fa452a074282283&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "아이스 쿨링 스카프",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%BF%A8%EB%A7%81%20%EC%8A%A4%EC%B9%B4%ED%94%84&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "coupang_blocked": false,
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 8,
+        "min": 7800.0,
+        "p10": 9340.0,
+        "p25": 10750.0,
+        "p50": 15250.0,
+        "p75": 28175.0,
+        "max": 43600.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 16800,
+      "stress_floor_price": 15000,
+      "final_floor_price": 16800,
+      "price_options": {
+        "entry": {
+          "price": 16800,
+          "base": {
+            "sale_price": 16800,
+            "fixed_cost": 7500.0,
+            "fee": 1814.4,
+            "vat": 748.56,
+            "profit": 6737.04,
+            "margin_pct": 40.1014
+          },
+          "stress": {
+            "sale_price": 15120.0,
+            "fixed_cost": 7500.0,
+            "fee": 1632.96,
+            "vat": 598.7,
+            "profit": 5388.34,
+            "margin_pct": 35.6371
+          }
+        },
+        "recommended": {
+          "price": 16800,
+          "base": {
+            "sale_price": 16800,
+            "fixed_cost": 7500.0,
+            "fee": 1814.4,
+            "vat": 748.56,
+            "profit": 6737.04,
+            "margin_pct": 40.1014
+          },
+          "stress": {
+            "sale_price": 15120.0,
+            "fixed_cost": 7500.0,
+            "fee": 1632.96,
+            "vat": 598.7,
+            "profit": 5388.34,
+            "margin_pct": 35.6371
+          }
+        },
+        "premium": {
+          "price": 28200,
+          "base": {
+            "sale_price": 28200,
+            "fixed_cost": 7500.0,
+            "fee": 3045.6,
+            "vat": 1765.44,
+            "profit": 15888.96,
+            "margin_pct": 56.3438
+          },
+          "stress": {
+            "sale_price": 25380.0,
+            "fixed_cost": 7500.0,
+            "fee": 2741.04,
+            "vat": 1513.9,
+            "profit": 13625.06,
+            "margin_pct": 53.6843
+          }
+        }
+      },
+      "recommendation_score": -10.164,
+      "source_ref": {
+        "id": "66433446",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 43600,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9571220956"
+        },
+        {
+          "price": 10000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9570330384"
+        },
+        {
+          "price": 11000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9567545160"
+        },
+        {
+          "price": 12500,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9561251757"
+        },
+        {
+          "price": 18000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9513470225"
+        },
+        {
+          "price": 32000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7358442171"
+        },
+        {
+          "price": 26900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9514410280"
+        },
+        {
+          "price": 7800,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9311940634"
+        },
+        {
+          "price": 25000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7358442171"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 1,
+      "seller_rocket_count_top10": 7,
+      "qualified_rank": 7
+    },
+    {
+      "rank": 3,
+      "name": "국산면 고급 면스카프 손수건",
+      "url": "https://domeggook.com/10218778",
+      "supply_price": 1400,
+      "moq": 5,
+      "category": "fashion_beauty",
+      "origin_scope": "domestic",
+      "pool_type": "category_top150",
+      "rank_band": "top",
+      "normalized_name": "국산면 고급 면스카프 손수건",
+      "risk_flags": [],
+      "exploration_score": 23.867,
+      "research_priority": 10,
+      "wholesale_url": "https://domeggook.com/10218778",
+      "candidate_id": "10218778",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/7991045743?itemId=22212227714&vendorItemId=89258252992&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8057943507?itemId=22622133165&vendorItemId=89663662064&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9417292252?itemId=27985431417&vendorItemId=92329435410&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/6465468939?itemId=14090778323&vendorItemId=95385645410&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9483023453?itemId=28236348465&vendorItemId=95191228756&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "악세사리마켓 빅사이즈 60x60cm 22컬러 반다나 페이즐리 국산 면 레트로 대형 스카프 등산 캠핑 두건 러닝 운동회 체육대회 싸이 흠뻑쇼 워터밤 헤어밴드 손수건 1장",
+          "review": "(891)",
+          "price": "6,200",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7991045743?itemId=22212227714&vendorItemId=89258252992&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "[3장 1세트] 라뮤제 오색잔꽃_쁘띠스카프 여성손수건 가제 아사면 목손수건",
+          "review": "(689)",
+          "price": "13,650",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8057943507?itemId=22622133165&vendorItemId=89663662064&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "로튼 1+1 개별포장 스티커 국산 고급 면100%스카프 손수건 무릎가리개 쁘띠 단체선물 여름",
+          "review": "(306)",
+          "price": "9,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9417292252?itemId=27985431417&vendorItemId=92329435410&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "바비수 체리미 레이스 손수건 스카프 2종 세트",
+          "review": "(1,309)",
+          "price": "13,900",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/6465468939?itemId=14090778323&vendorItemId=95385645410&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "[국산 면100%] 룸브리 아사면 쁘띠 삼각스카프",
+          "review": "(303)",
+          "price": "14,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9483023453?itemId=28236348465&vendorItemId=95191228756&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "국산 면 여성 손수건 3장 1세트 쁘띠스카프 고급 목손수건 플라워 꽃무늬",
+          "review": "(74)",
+          "price": "15,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9486987209?itemId=28251199505&vendorItemId=95204589997&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "3장1세트 라뮤제 클래식가든 국산 면100% 핀코트 면스카프/손수건/목손수건/쁘띠스카프",
+          "review": "(76)",
+          "price": "21,500",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8370154182?itemId=24186958914&vendorItemId=91200699069&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "[국내산 순면 100%] 쁘담 스카프 손수건 쁘띠 등산 두건 5개세트",
+          "review": "(564)",
+          "price": "32,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9115708504?itemId=27896688149&vendorItemId=94855587841&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "여성손수건 면손수건 여자 스카프 목수건 쁘띠스카프 간절기 레이스 에티켓 무릎덮개 데일리 등산 매너 국내생산",
+          "review": "(165)",
+          "price": "8,860",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8866791767?itemId=25860722537&vendorItemId=92361744397&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "VVG 여성손수건 3장 아사면 선물용 국산 사계절 쁘띠스카프 목손수건",
+          "review": "(274)",
+          "price": "39,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9364296755?itemId=27786739552&vendorItemId=94656276566&q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&searchId=b017d9693808829&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "국산면 고급 면스카프 손수건",
+        "search_url": "https://www.coupang.com/np/search?q=%EA%B5%AD%EC%82%B0%EB%A9%B4%20%EA%B3%A0%EA%B8%89%20%EB%A9%B4%EC%8A%A4%EC%B9%B4%ED%94%84%20%EC%86%90%EC%88%98%EA%B1%B4&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 6,
+        "min": 6200.0,
+        "p10": 8050.0,
+        "p25": 10900.0,
+        "p50": 14900.0,
+        "p75": 20100.0,
+        "max": 32900.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 16600,
+      "stress_floor_price": 14800,
+      "final_floor_price": 16600,
+      "price_options": {
+        "entry": {
+          "price": 16600,
+          "base": {
+            "sale_price": 16600,
+            "fixed_cost": 7400.0,
+            "fee": 1792.8,
+            "vat": 740.72,
+            "profit": 6666.48,
+            "margin_pct": 40.1595
+          },
+          "stress": {
+            "sale_price": 14940.0,
+            "fixed_cost": 7400.0,
+            "fee": 1613.52,
+            "vat": 592.65,
+            "profit": 5333.83,
+            "margin_pct": 35.7017
+          }
+        },
+        "recommended": {
+          "price": 16600,
+          "base": {
+            "sale_price": 16600,
+            "fixed_cost": 7400.0,
+            "fee": 1792.8,
+            "vat": 740.72,
+            "profit": 6666.48,
+            "margin_pct": 40.1595
+          },
+          "stress": {
+            "sale_price": 14940.0,
+            "fixed_cost": 7400.0,
+            "fee": 1613.52,
+            "vat": 592.65,
+            "profit": 5333.83,
+            "margin_pct": 35.7017
+          }
+        },
+        "premium": {
+          "price": 20100,
+          "base": {
+            "sale_price": 20100,
+            "fixed_cost": 7400.0,
+            "fee": 2170.8,
+            "vat": 1052.92,
+            "profit": 9476.28,
+            "margin_pct": 47.1457
+          },
+          "stress": {
+            "sale_price": 18090.0,
+            "fixed_cost": 7400.0,
+            "fee": 1953.72,
+            "vat": 873.63,
+            "profit": 7862.65,
+            "margin_pct": 43.4641
+          }
+        }
+      },
+      "recommendation_score": -11.409,
+      "source_ref": {
+        "id": "10218778",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 6200,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/7991045743"
+        },
+        {
+          "price": 9900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9417292252"
+        },
+        {
+          "price": 13900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/6465468939"
+        },
+        {
+          "price": 15900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9486987209"
+        },
+        {
+          "price": 21500,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8370154182"
+        },
+        {
+          "price": 32900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9115708504"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 0,
+      "seller_rocket_count_top10": 9,
+      "qualified_rank": 8
+    },
+    {
+      "candidate_id": "7986628",
+      "name": "자동 병 오프너",
+      "search_keyword": "자동 병 오프너 병따개",
+      "url": "https://domeggook.com/7986628",
+      "supply_price": 2200,
+      "moq": 1,
+      "category": "생활",
+      "wholesale_url": "https://domeggook.com/7986628",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/6100175284?itemId=11426191365&vendorItemId=79950187106&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8976543385?itemId=26277051042&vendorItemId=93255119890&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9523663572?itemId=28599350616&vendorItemId=95543017401&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8931367580?itemId=27506873779&vendorItemId=94471874985&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9580983506?itemId=28599350608&vendorItemId=95207016184&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "스마트오프너/자동 오프너/자동 병따개, 1개, 스텐레스",
+          "review": "(95)",
+          "price": "4,090",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/6100175284?itemId=11426191365&vendorItemId=79950187106&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=0&rank=0"
+        },
+        {
+          "name": "아파트삼십이 푸쉬 자동 오프너, 로즈골드, 1개",
+          "review": "(18)",
+          "price": "3,590",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/8976543385?itemId=26277051042&vendorItemId=93255119890&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=1&rank=1"
+        },
+        {
+          "name": "루베이 박격포 병따개 자동 푸쉬형 맥주 오프너 눌러서 캡 발사 바/파티/선물, 녹색 500ml, 1개",
+          "review": "(1)",
+          "price": "72,200",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9523663572?itemId=28599350616&vendorItemId=95543017401&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=2&rank=2"
+        },
+        {
+          "name": "토브몰 원터치 자동 병따개 병뚜껑 오프너 캡오프너 펭귄 디자인, 1개, 블랙앤화이트",
+          "review": "(4)",
+          "price": "16,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8931367580?itemId=27506873779&vendorItemId=94471874985&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=3&rank=3"
+        },
+        {
+          "name": "루베이 박격포 병따개 자동 푸쉬형 맥주 오프너 눌러서 캡 발사 바/파티/선물, 녹색 330ml, 1개",
+          "review": "(2)",
+          "price": "72,220",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9580983506?itemId=28599350608&vendorItemId=95207016184&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+        },
+        {
+          "name": "Zeekr 51mm 박격포 전술 맥주병따개 원터치 푸쉬형 자동 오프너, 1개, 녹색",
+          "review": "(2)",
+          "price": "46,500",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9468967545?itemId=28182214678&vendorItemId=95136790481&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=5&rank=5"
+        },
+        {
+          "name": "맥주병 병따개 자동 오프너 9가지 색상, 1개, 무지개",
+          "review": "(17)",
+          "price": "15,000",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8354634174?itemId=24139540384&vendorItemId=91158460674&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=6&rank=6"
+        },
+        {
+          "name": "가정용 자동 병따개 병따는기계 오프너1개 병따는, 1개, 블랙 버튼",
+          "review": "(2)",
+          "price": "15,400",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/8846467041?itemId=25785226998&vendorItemId=93716068543&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=7&rank=7"
+        },
+        {
+          "name": "가정용 자동 병따개 버튼 오프너병뚜껑 그린 원터치 만능, 블랙, 1개",
+          "review": "(1)",
+          "price": "29,200",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/8429319336?itemId=28165358888&vendorItemId=95210940687&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=8&rank=8"
+        },
+        {
+          "name": "원터치 자동 병따개 푸쉬다운 자석 오프너 맥주 병뚜껑 수거 리무버",
+          "review": "",
+          "price": "3,500",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9319186052?itemId=27619519379&vendorItemId=94582518911&q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&searchId=8f81150f8160804&sourceType=search&itemsCount=59&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "자동 병 오프너 병따개",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%9E%90%EB%8F%99%20%EB%B3%91%20%EC%98%A4%ED%94%84%EB%84%88%20%EB%B3%91%EB%94%B0%EA%B0%9C&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "coupang_blocked": false,
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 10,
+        "min": 3500.0,
+        "p10": 3581.0,
+        "p25": 6817.5,
+        "p50": 15700.0,
+        "p75": 42175.0,
+        "max": 72220.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 18400,
+      "stress_floor_price": 16400,
+      "final_floor_price": 18400,
+      "price_options": {
+        "entry": {
+          "price": 18400,
+          "base": {
+            "sale_price": 18400,
+            "fixed_cost": 8200.0,
+            "fee": 1987.2,
+            "vat": 821.28,
+            "profit": 7391.52,
+            "margin_pct": 40.1713
+          },
+          "stress": {
+            "sale_price": 16560.0,
+            "fixed_cost": 8200.0,
+            "fee": 1788.48,
+            "vat": 657.15,
+            "profit": 5914.37,
+            "margin_pct": 35.7148
+          }
+        },
+        "recommended": {
+          "price": 18400,
+          "base": {
+            "sale_price": 18400,
+            "fixed_cost": 8200.0,
+            "fee": 1987.2,
+            "vat": 821.28,
+            "profit": 7391.52,
+            "margin_pct": 40.1713
+          },
+          "stress": {
+            "sale_price": 16560.0,
+            "fixed_cost": 8200.0,
+            "fee": 1788.48,
+            "vat": 657.15,
+            "profit": 5914.37,
+            "margin_pct": 35.7148
+          }
+        },
+        "premium": {
+          "price": 42200,
+          "base": {
+            "sale_price": 42200,
+            "fixed_cost": 8200.0,
+            "fee": 4557.6,
+            "vat": 2944.24,
+            "profit": 26498.16,
+            "margin_pct": 62.7918
+          },
+          "stress": {
+            "sale_price": 37980.0,
+            "fixed_cost": 8200.0,
+            "fee": 4101.84,
+            "vat": 2567.82,
+            "profit": 23110.34,
+            "margin_pct": 60.8487
+          }
+        }
+      },
+      "recommendation_score": -17.197,
+      "source_ref": {
+        "id": "7986628",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 4090,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/6100175284"
+        },
+        {
+          "price": 3590,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8976543385"
+        },
+        {
+          "price": 72200,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9523663572"
+        },
+        {
+          "price": 16000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8931367580"
+        },
+        {
+          "price": 72220,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9580983506"
+        },
+        {
+          "price": 46500,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9468967545"
+        },
+        {
+          "price": 15000,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8354634174"
+        },
+        {
+          "price": 15400,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8846467041"
+        },
+        {
+          "price": 29200,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8429319336"
+        },
+        {
+          "price": 3500,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9319186052"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 0,
+      "seller_rocket_count_top10": 4,
+      "qualified_rank": 9
+    },
+    {
+      "candidate_id": "7450316",
+      "name": "동전지갑 파우치",
+      "search_keyword": "미니 동전지갑 파우치",
+      "url": "https://domeggook.com/7450316",
+      "supply_price": 470,
+      "moq": 1,
+      "category": "패션",
+      "wholesale_url": "https://domeggook.com/7450316",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9278129551?itemId=27466916038&vendorItemId=94432154650&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/6868729239?itemId=28520315911&vendorItemId=95468067486&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9359641549?itemId=27771035680&vendorItemId=94731508577&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8513856908?itemId=24646117915&vendorItemId=93088498024&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/7586492914?itemId=20037882998&vendorItemId=95617524966&pickType=COU_PICK&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_products": [
+        {
+          "name": "똑딱 원터치 미니 다용도 파우치 6종",
+          "review": "(146)",
+          "price": "15,400",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9278129551?itemId=27466916038&vendorItemId=94432154650&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=0&rank=0"
+        },
+        {
+          "name": "론조모니 똑딱 원터치 미니 다용도 파우치 2p",
+          "review": "(430)",
+          "price": "11,550",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/6868729239?itemId=28520315911&vendorItemId=95468067486&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=1&rank=1"
+        },
+        {
+          "name": "헬로키티 3단 포켓 미니 동전지갑 다용도 파우치",
+          "review": "(32)",
+          "price": "28,900",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9359641549?itemId=27771035680&vendorItemId=94731508577&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=2&rank=2"
+        },
+        {
+          "name": "애치비 귀여운 뚝딱이 카드지갑 동전 파우치",
+          "review": "(164)",
+          "price": "11,500",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8513856908?itemId=24646117915&vendorItemId=93088498024&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=3&rank=3"
+        },
+        {
+          "name": "한가득마켓 가죽동전지갑",
+          "review": "(312)",
+          "price": "4,890",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/7586492914?itemId=20037882998&vendorItemId=95617524966&pickType=COU_PICK&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+        },
+        {
+          "name": "모아뎀 일본 엔화 동전 지갑 RFID차단 파우치",
+          "review": "(76)",
+          "price": "19,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/9350590620?itemId=27739367963&vendorItemId=94708982986&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=5&rank=5"
+        },
+        {
+          "name": "뷰레이터닷컴 체크 리본 미니 파우치",
+          "review": "(127)",
+          "price": "4,700",
+          "rocket": true,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/8780177209?itemId=25546416763&vendorItemId=92634842258&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=6&rank=6"
+        },
+        {
+          "name": "여행용 미니동전지갑 키링+도난방지 릴선",
+          "review": "(40)",
+          "price": "15,900",
+          "rocket": false,
+          "seller_rocket": true,
+          "url": "https://www.coupang.com/vp/products/8941298420?itemId=26147651732&vendorItemId=93127674053&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=7&rank=7"
+        },
+        {
+          "name": "Corduroy Storage Bag Lipstick Bag 여성 화장품 가방 스냅 스토리지 백 자동 클로저 여행 미니 동전 지갑",
+          "review": "(14)",
+          "price": "10,800",
+          "rocket": false,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/9518290653?itemId=28371685441&vendorItemId=95324019089&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=8&rank=8"
+        },
+        {
+          "name": "아펙토 소프트 립스틱 동전지갑",
+          "review": "(205)",
+          "price": "8,900",
+          "rocket": true,
+          "seller_rocket": false,
+          "url": "https://www.coupang.com/vp/products/8052261951?itemId=22586516620&vendorItemId=89628248804&q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&searchId=0a973c3e2854799&sourceType=search&itemsCount=60&searchRank=9&rank=9"
+        }
+      ],
+      "coupang_search_evidence": {
+        "keyword": "미니 동전지갑 파우치",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%AF%B8%EB%8B%88%20%EB%8F%99%EC%A0%84%EC%A7%80%EA%B0%91%20%ED%8C%8C%EC%9A%B0%EC%B9%98&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "coupang_blocked": false,
+      "market_price_distribution": {
+        "comparison_group": "similar",
+        "count": 7,
+        "min": 4700.0,
+        "p10": 7220.0,
+        "p25": 10200.0,
+        "p50": 11550.0,
+        "p75": 17650.0,
+        "max": 28900.0
+      },
+      "coupang_retail_competition": "seller_rocket_only",
+      "decision": "PRICE_REVIEW",
+      "blockers": [],
+      "base_floor_price": 14500,
+      "stress_floor_price": 12900,
+      "final_floor_price": 14500,
+      "price_options": {
+        "entry": {
+          "price": 14500,
+          "base": {
+            "sale_price": 14500,
+            "fixed_cost": 6470.0,
+            "fee": 1566.0,
+            "vat": 646.4,
+            "profit": 5817.6,
+            "margin_pct": 40.1214
+          },
+          "stress": {
+            "sale_price": 13050.0,
+            "fixed_cost": 6470.0,
+            "fee": 1409.4,
+            "vat": 517.06,
+            "profit": 4653.54,
+            "margin_pct": 35.6593
+          }
+        },
+        "recommended": {
+          "price": 14500,
+          "base": {
+            "sale_price": 14500,
+            "fixed_cost": 6470.0,
+            "fee": 1566.0,
+            "vat": 646.4,
+            "profit": 5817.6,
+            "margin_pct": 40.1214
+          },
+          "stress": {
+            "sale_price": 13050.0,
+            "fixed_cost": 6470.0,
+            "fee": 1409.4,
+            "vat": 517.06,
+            "profit": 4653.54,
+            "margin_pct": 35.6593
+          }
+        },
+        "premium": {
+          "price": 17600,
+          "base": {
+            "sale_price": 17600,
+            "fixed_cost": 6470.0,
+            "fee": 1900.8,
+            "vat": 922.92,
+            "profit": 8306.28,
+            "margin_pct": 47.1948
+          },
+          "stress": {
+            "sale_price": 15840.0,
+            "fixed_cost": 6470.0,
+            "fee": 1710.72,
+            "vat": 765.93,
+            "profit": 6893.35,
+            "margin_pct": 43.5186
+          }
+        }
+      },
+      "recommendation_score": -25.541,
+      "source_ref": {
+        "id": "7450316",
+        "url": null
+      },
+      "pricing_assumptions": {
+        "wholesale_shipping_per_unit": 3000.0,
+        "rocket_growth_cost": 3000.0,
+        "fee_rate_pct": 10.8
+      },
+      "market_similarity_rows": [
+        {
+          "price": 15400,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9278129551"
+        },
+        {
+          "price": 11550,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/6868729239"
+        },
+        {
+          "price": 28900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9359641549"
+        },
+        {
+          "price": 11500,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8513856908"
+        },
+        {
+          "price": 19900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/9350590620"
+        },
+        {
+          "price": 4700,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8780177209"
+        },
+        {
+          "price": 8900,
+          "similarity": "similar",
+          "is_ad": false,
+          "product_group_id": "https://www.coupang.com/vp/products/8052261951"
+        }
+      ],
+      "demand_verified": true,
+      "operations_safe": true,
+      "regular_rocket_count_top10": 2,
+      "seller_rocket_count_top10": 6,
+      "qualified_rank": 10
+    }
+  ],
+  "excluded": [
+    {
+      "candidate_id": "54804743",
+      "name": "1.18리터 대용량 스텐 텀블러",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/54804743",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/6792297030?itemId=24325205139&vendorItemId=91340904095&pickType=COU_PICK&q=1.18%EB%A6%AC%ED%84%B0%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=b3bcee7812570037&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/6792297030?itemId=18629073163&vendorItemId=89360447892&q=1.18%EB%A6%AC%ED%84%B0%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=b3bcee7812570037&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8949531373?itemId=25743676096&vendorItemId=92732083594&q=1.18%EB%A6%AC%ED%84%B0%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=b3bcee7812570037&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9397719632?itemId=27912095485&vendorItemId=95456521208&q=1.18%EB%A6%AC%ED%84%B0%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=b3bcee7812570037&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/6792297030?itemId=23797083124&vendorItemId=90821061173&q=1.18%EB%A6%AC%ED%84%B0%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=b3bcee7812570037&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "1.18리터 대용량 스텐 텀블러",
+        "search_url": "https://www.coupang.com/np/search?q=1.18%EB%A6%AC%ED%84%B0%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 40% 미달",
+        "10% 하락 후 마진 30% 미달",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    },
+    {
+      "candidate_id": "65062213",
+      "name": "급속 냉각 199단 미니선풍기",
+      "decision": "PRICE_REVIEW",
+      "wholesale_url": "https://domeggook.com/65062213",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8691251742?itemId=25233897125&vendorItemId=92537953384&q=%EA%B8%89%EC%86%8D%20%EB%83%89%EA%B0%81%20199%EB%8B%A8%20%EB%AF%B8%EB%8B%88%EC%84%A0%ED%92%8D%EA%B8%B0&searchId=7f729ce81380166&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9554822699?itemId=28510247796&vendorItemId=95472966722&q=%EA%B8%89%EC%86%8D%20%EB%83%89%EA%B0%81%20199%EB%8B%A8%20%EB%AF%B8%EB%8B%88%EC%84%A0%ED%92%8D%EA%B8%B0&searchId=7f729ce81380166&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9414321185?itemId=27973887352&vendorItemId=95061023099&q=%EA%B8%89%EC%86%8D%20%EB%83%89%EA%B0%81%20199%EB%8B%A8%20%EB%AF%B8%EB%8B%88%EC%84%A0%ED%92%8D%EA%B8%B0&searchId=7f729ce81380166&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9465337986?itemId=28168268931&vendorItemId=95123275190&q=%EA%B8%89%EC%86%8D%20%EB%83%89%EA%B0%81%20199%EB%8B%A8%20%EB%AF%B8%EB%8B%88%EC%84%A0%ED%92%8D%EA%B8%B0&searchId=7f729ce81380166&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9566370575?itemId=28550595925&vendorItemId=95557625356&q=%EA%B8%89%EC%86%8D%20%EB%83%89%EA%B0%81%20199%EB%8B%A8%20%EB%AF%B8%EB%8B%88%EC%84%A0%ED%92%8D%EA%B8%B0&searchId=7f729ce81380166&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "급속 냉각 199단 미니선풍기",
+        "search_url": "https://www.coupang.com/np/search?q=%EA%B8%89%EC%86%8D%20%EB%83%89%EA%B0%81%20199%EB%8B%A8%20%EB%AF%B8%EB%8B%88%EC%84%A0%ED%92%8D%EA%B8%B0&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "운영·규제 안전 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "3201182",
+      "name": "18컬러 3단 자동 양우산",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/3201182",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9631662146?itemId=28770060635&vendorItemId=95707966552&q=18%EC%BB%AC%EB%9F%AC%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=3c560fa34228970&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9622893614?itemId=28736411830&vendorItemId=95676001673&q=18%EC%BB%AC%EB%9F%AC%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=3c560fa34228970&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9408136638?itemId=27951721485&vendorItemId=94909914777&q=18%EC%BB%AC%EB%9F%AC%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=3c560fa34228970&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9647122738?itemId=28831225842&vendorItemId=95765703242&q=18%EC%BB%AC%EB%9F%AC%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=3c560fa34228970&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9648517697?itemId=28836441363&vendorItemId=95770723399&q=18%EC%BB%AC%EB%9F%AC%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=3c560fa34228970&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "18컬러 3단 자동 양우산",
+        "search_url": "https://www.coupang.com/np/search?q=18%EC%BB%AC%EB%9F%AC%203%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%96%91%EC%9A%B0%EC%82%B0&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재"
+      ]
+    },
+    {
+      "candidate_id": "62893008",
+      "name": "304스텐 720ml 키링 텀블러",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/62893008",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9616494362?itemId=28714028896&vendorItemId=95745909671&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=c414735f7127180&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9637189106?itemId=28792514615&vendorItemId=95728133598&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=c414735f7127180&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9616494362?itemId=28714028893&vendorItemId=95745909668&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=c414735f7127180&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9637189106?itemId=28792514607&vendorItemId=95728133595&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=c414735f7127180&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9616494362?itemId=28714028897&vendorItemId=95745909675&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=c414735f7127180&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "304스텐 720ml 키링 텀블러",
+        "search_url": "https://www.coupang.com/np/search?q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 40% 미달",
+        "10% 하락 후 마진 30% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "59922903",
+      "name": "터빈 5단계 휴대용 선풍기 Y32",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/59922903",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9585075178?itemId=28612276475&vendorItemId=95555687969&q=%ED%84%B0%EB%B9%88%205%EB%8B%A8%EA%B3%84%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%EC%84%A0%ED%92%8D%EA%B8%B0%20Y32&searchId=cbd7aec5822169&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9589561658?itemId=28626116145&vendorItemId=95531478607&q=%ED%84%B0%EB%B9%88%205%EB%8B%A8%EA%B3%84%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%EC%84%A0%ED%92%8D%EA%B8%B0%20Y32&searchId=cbd7aec5822169&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9627504729?itemId=28753676195&vendorItemId=95692528240&q=%ED%84%B0%EB%B9%88%205%EB%8B%A8%EA%B3%84%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%EC%84%A0%ED%92%8D%EA%B8%B0%20Y32&searchId=cbd7aec5822169&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9627504729?itemId=28753676193&vendorItemId=95692528239&q=%ED%84%B0%EB%B9%88%205%EB%8B%A8%EA%B3%84%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%EC%84%A0%ED%92%8D%EA%B8%B0%20Y32&searchId=cbd7aec5822169&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9624906327?itemId=28743728266&vendorItemId=95682944096&q=%ED%84%B0%EB%B9%88%205%EB%8B%A8%EA%B3%84%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%EC%84%A0%ED%92%8D%EA%B8%B0%20Y32&searchId=cbd7aec5822169&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "터빈 5단계 휴대용 선풍기 Y32",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%84%B0%EB%B9%88%205%EB%8B%A8%EA%B3%84%20%ED%9C%B4%EB%8C%80%EC%9A%A9%20%EC%84%A0%ED%92%8D%EA%B8%B0%20Y32&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "운영·규제 안전 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "45088697",
+      "name": "식물재배키트 방울토마토 바질",
+      "decision": "PRICE_REVIEW",
+      "wholesale_url": "https://domeggook.com/45088697",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/5872208986?itemId=10277351787&vendorItemId=77559725344&q=%EC%8B%9D%EB%AC%BC%EC%9E%AC%EB%B0%B0%ED%82%A4%ED%8A%B8%20%EB%B0%A9%EC%9A%B8%ED%86%A0%EB%A7%88%ED%86%A0%20%EB%B0%94%EC%A7%88&searchId=4bf2da992756893&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/5872208986?itemId=10277351843&vendorItemId=77559725643&q=%EC%8B%9D%EB%AC%BC%EC%9E%AC%EB%B0%B0%ED%82%A4%ED%8A%B8%20%EB%B0%A9%EC%9A%B8%ED%86%A0%EB%A7%88%ED%86%A0%20%EB%B0%94%EC%A7%88&searchId=4bf2da992756893&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/5871787439?itemId=10275659077&vendorItemId=77559725281&q=%EC%8B%9D%EB%AC%BC%EC%9E%AC%EB%B0%B0%ED%82%A4%ED%8A%B8%20%EB%B0%A9%EC%9A%B8%ED%86%A0%EB%A7%88%ED%86%A0%20%EB%B0%94%EC%A7%88&searchId=4bf2da992756893&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9485083850?itemId=28452081144&vendorItemId=95402715673&q=%EC%8B%9D%EB%AC%BC%EC%9E%AC%EB%B0%B0%ED%82%A4%ED%8A%B8%20%EB%B0%A9%EC%9A%B8%ED%86%A0%EB%A7%88%ED%86%A0%20%EB%B0%94%EC%A7%88&searchId=4bf2da992756893&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8646170346?itemId=25094662099&vendorItemId=92098315659&q=%EC%8B%9D%EB%AC%BC%EC%9E%AC%EB%B0%B0%ED%82%A4%ED%8A%B8%20%EB%B0%A9%EC%9A%B8%ED%86%A0%EB%A7%88%ED%86%A0%20%EB%B0%94%EC%A7%88&searchId=4bf2da992756893&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "식물재배키트 방울토마토 바질",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%8B%9D%EB%AC%BC%EC%9E%AC%EB%B0%B0%ED%82%A4%ED%8A%B8%20%EB%B0%A9%EC%9A%B8%ED%86%A0%EB%A7%88%ED%86%A0%20%EB%B0%94%EC%A7%88&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "운영·규제 안전 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "51365219",
+      "name": "투명 분리수거봉투 50L",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/51365219",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9337106237?itemId=27687848203&vendorItemId=94649752715&q=%ED%88%AC%EB%AA%85%20%EB%B6%84%EB%A6%AC%EC%88%98%EA%B1%B0%EB%B4%89%ED%88%AC%2050L&searchId=a3b5de5f7359086&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/4400124102?itemId=5638932262&vendorItemId=72937963851&pickType=COU_PICK&q=%ED%88%AC%EB%AA%85%20%EB%B6%84%EB%A6%AC%EC%88%98%EA%B1%B0%EB%B4%89%ED%88%AC%2050L&searchId=a3b5de5f7359086&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8171322214?itemId=19575356989&vendorItemId=86193463765&q=%ED%88%AC%EB%AA%85%20%EB%B6%84%EB%A6%AC%EC%88%98%EA%B1%B0%EB%B4%89%ED%88%AC%2050L&searchId=a3b5de5f7359086&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8171337083?itemId=16433438298&vendorItemId=85925427408&q=%ED%88%AC%EB%AA%85%20%EB%B6%84%EB%A6%AC%EC%88%98%EA%B1%B0%EB%B4%89%ED%88%AC%2050L&searchId=a3b5de5f7359086&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/4400124102?itemId=22090076772&vendorItemId=79909552066&q=%ED%88%AC%EB%AA%85%20%EB%B6%84%EB%A6%AC%EC%88%98%EA%B1%B0%EB%B4%89%ED%88%AC%2050L&searchId=a3b5de5f7359086&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "투명 분리수거봉투 50L",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%88%AC%EB%AA%85%20%EB%B6%84%EB%A6%AC%EC%88%98%EA%B1%B0%EB%B4%89%ED%88%AC%2050L&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    },
+    {
+      "candidate_id": "13078855",
+      "name": "친환경 에어컨 바람막이 원형",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/13078855",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/6611124836?itemId=14991082185&vendorItemId=82223613181&q=%EC%B9%9C%ED%99%98%EA%B2%BD%20%EC%97%90%EC%96%B4%EC%BB%A8%20%EB%B0%94%EB%9E%8C%EB%A7%89%EC%9D%B4%20%EC%9B%90%ED%98%95&searchId=5d2e4cf82733914&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9649026093?itemId=28838631296&vendorItemId=95011518247&q=%EC%B9%9C%ED%99%98%EA%B2%BD%20%EC%97%90%EC%96%B4%EC%BB%A8%20%EB%B0%94%EB%9E%8C%EB%A7%89%EC%9D%B4%20%EC%9B%90%ED%98%95&searchId=5d2e4cf82733914&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9557118349?itemId=28518176545&vendorItemId=95599420069&q=%EC%B9%9C%ED%99%98%EA%B2%BD%20%EC%97%90%EC%96%B4%EC%BB%A8%20%EB%B0%94%EB%9E%8C%EB%A7%89%EC%9D%B4%20%EC%9B%90%ED%98%95&searchId=5d2e4cf82733914&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/6304198618?itemId=13052214855&vendorItemId=80314983028&q=%EC%B9%9C%ED%99%98%EA%B2%BD%20%EC%97%90%EC%96%B4%EC%BB%A8%20%EB%B0%94%EB%9E%8C%EB%A7%89%EC%9D%B4%20%EC%9B%90%ED%98%95&searchId=5d2e4cf82733914&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9510568493?itemId=28237597728&vendorItemId=95191230360&q=%EC%B9%9C%ED%99%98%EA%B2%BD%20%EC%97%90%EC%96%B4%EC%BB%A8%20%EB%B0%94%EB%9E%8C%EB%A7%89%EC%9D%B4%20%EC%9B%90%ED%98%95&searchId=5d2e4cf82733914&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "친환경 에어컨 바람막이 원형",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%B9%9C%ED%99%98%EA%B2%BD%20%EC%97%90%EC%96%B4%EC%BB%A8%20%EB%B0%94%EB%9E%8C%EB%A7%89%EC%9D%B4%20%EC%9B%90%ED%98%95&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재"
+      ]
+    },
+    {
+      "candidate_id": "10948373",
+      "name": "국내제작 투명젤리 갤럭시 케이스",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/10948373",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8694926279?itemId=25246095350&vendorItemId=92242084611&q=%EA%B5%AD%EB%82%B4%EC%A0%9C%EC%9E%91%20%ED%88%AC%EB%AA%85%EC%A0%A4%EB%A6%AC%20%EA%B0%A4%EB%9F%AD%EC%8B%9C%20%EC%BC%80%EC%9D%B4%EC%8A%A4&searchId=4ce4d3c75551483&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9428475563?itemId=28030128699&vendorItemId=94986133202&q=%EA%B5%AD%EB%82%B4%EC%A0%9C%EC%9E%91%20%ED%88%AC%EB%AA%85%EC%A0%A4%EB%A6%AC%20%EA%B0%A4%EB%9F%AD%EC%8B%9C%20%EC%BC%80%EC%9D%B4%EC%8A%A4&searchId=4ce4d3c75551483&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8694955010?itemId=25246210148&vendorItemId=92242198020&q=%EA%B5%AD%EB%82%B4%EC%A0%9C%EC%9E%91%20%ED%88%AC%EB%AA%85%EC%A0%A4%EB%A6%AC%20%EA%B0%A4%EB%9F%AD%EC%8B%9C%20%EC%BC%80%EC%9D%B4%EC%8A%A4&searchId=4ce4d3c75551483&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8542993880?itemId=24735402243&vendorItemId=91744200319&q=%EA%B5%AD%EB%82%B4%EC%A0%9C%EC%9E%91%20%ED%88%AC%EB%AA%85%EC%A0%A4%EB%A6%AC%20%EA%B0%A4%EB%9F%AD%EC%8B%9C%20%EC%BC%80%EC%9D%B4%EC%8A%A4&searchId=4ce4d3c75551483&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8695355010?itemId=25247564118&vendorItemId=92243529732&q=%EA%B5%AD%EB%82%B4%EC%A0%9C%EC%9E%91%20%ED%88%AC%EB%AA%85%EC%A0%A4%EB%A6%AC%20%EA%B0%A4%EB%9F%AD%EC%8B%9C%20%EC%BC%80%EC%9D%B4%EC%8A%A4&searchId=4ce4d3c75551483&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "국내제작 투명젤리 갤럭시 케이스",
+        "search_url": "https://www.coupang.com/np/search?q=%EA%B5%AD%EB%82%B4%EC%A0%9C%EC%9E%91%20%ED%88%AC%EB%AA%85%EC%A0%A4%EB%A6%AC%20%EA%B0%A4%EB%9F%AD%EC%8B%9C%20%EC%BC%80%EC%9D%B4%EC%8A%A4&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재"
+      ]
+    },
+    {
+      "candidate_id": "22170178",
+      "name": "각도조절 샤워기 거치대",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/22170178",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "각도조절 샤워기 거치대",
+        "search_url": "https://www.coupang.com/np/search?q=%EA%B0%81%EB%8F%84%EC%A1%B0%EC%A0%88%20%EC%83%A4%EC%9B%8C%EA%B8%B0%20%EA%B1%B0%EC%B9%98%EB%8C%80&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 40% 미달",
+        "10% 하락 후 마진 30% 미달",
+        "쿠팡 수요 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "7219156",
+      "name": "방수 앞치마",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/7219156",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "방수 앞치마",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%B0%A9%EC%88%98%20%EC%95%9E%EC%B9%98%EB%A7%88&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 40% 미달",
+        "10% 하락 후 마진 30% 미달",
+        "쿠팡 수요 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "45832607",
+      "name": "대왕 리본 헤어 집게핀",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/45832607",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/7242678251?itemId=18406351414&vendorItemId=85548946882&q=%EB%8C%80%EC%99%95%20%EB%A6%AC%EB%B3%B8%20%ED%97%A4%EC%96%B4%20%EC%A7%91%EA%B2%8C%ED%95%80&searchId=e088df954244646&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8275367322?itemId=23853445491&vendorItemId=93375221245&pickType=COU_PICK&q=%EB%8C%80%EC%99%95%20%EB%A6%AC%EB%B3%B8%20%ED%97%A4%EC%96%B4%20%EC%A7%91%EA%B2%8C%ED%95%80&searchId=e088df954244646&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8988081366?itemId=26324879403&vendorItemId=93302214036&q=%EB%8C%80%EC%99%95%20%EB%A6%AC%EB%B3%B8%20%ED%97%A4%EC%96%B4%20%EC%A7%91%EA%B2%8C%ED%95%80&searchId=e088df954244646&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8443616061?itemId=24424949200&vendorItemId=91458230563&q=%EB%8C%80%EC%99%95%20%EB%A6%AC%EB%B3%B8%20%ED%97%A4%EC%96%B4%20%EC%A7%91%EA%B2%8C%ED%95%80&searchId=e088df954244646&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/7857134772?itemId=21431464113&vendorItemId=95619321542&q=%EB%8C%80%EC%99%95%20%EB%A6%AC%EB%B3%B8%20%ED%97%A4%EC%96%B4%20%EC%A7%91%EA%B2%8C%ED%95%80&searchId=e088df954244646&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "대왕 리본 헤어 집게핀",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%8C%80%EC%99%95%20%EB%A6%AC%EB%B3%B8%20%ED%97%A4%EC%96%B4%20%EC%A7%91%EA%B2%8C%ED%95%80&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재"
+      ]
+    },
+    {
+      "candidate_id": "66432794",
+      "name": "두루마리 휴지 케이스 원형",
+      "decision": "PRICE_REVIEW",
+      "wholesale_url": "https://domeggook.com/66432794",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9055647165?itemId=26581973301&vendorItemId=93596632992&q=%EB%91%90%EB%A3%A8%EB%A7%88%EB%A6%AC%20%ED%9C%B4%EC%A7%80%20%EC%BC%80%EC%9D%B4%EC%8A%A4%20%EC%9B%90%ED%98%95&searchId=ebae51e41435224&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9459198545?itemId=28145785154&vendorItemId=95101202530&q=%EB%91%90%EB%A3%A8%EB%A7%88%EB%A6%AC%20%ED%9C%B4%EC%A7%80%20%EC%BC%80%EC%9D%B4%EC%8A%A4%20%EC%9B%90%ED%98%95&searchId=ebae51e41435224&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8665735030?itemId=25151593046&vendorItemId=95469193520&q=%EB%91%90%EB%A3%A8%EB%A7%88%EB%A6%AC%20%ED%9C%B4%EC%A7%80%20%EC%BC%80%EC%9D%B4%EC%8A%A4%20%EC%9B%90%ED%98%95&searchId=ebae51e41435224&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9503113353?itemId=28313144524&vendorItemId=94572632352&q=%EB%91%90%EB%A3%A8%EB%A7%88%EB%A6%AC%20%ED%9C%B4%EC%A7%80%20%EC%BC%80%EC%9D%B4%EC%8A%A4%20%EC%9B%90%ED%98%95&searchId=ebae51e41435224&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9503113353?itemId=28313144520&vendorItemId=94572632353&q=%EB%91%90%EB%A3%A8%EB%A7%88%EB%A6%AC%20%ED%9C%B4%EC%A7%80%20%EC%BC%80%EC%9D%B4%EC%8A%A4%20%EC%9B%90%ED%98%95&searchId=ebae51e41435224&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "두루마리 휴지 케이스 원형",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%91%90%EB%A3%A8%EB%A7%88%EB%A6%AC%20%ED%9C%B4%EC%A7%80%20%EC%BC%80%EC%9D%B4%EC%8A%A4%20%EC%9B%90%ED%98%95&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    },
+    {
+      "candidate_id": "8318925",
+      "name": "투명 박스테이프 50M",
+      "decision": "PRICE_REVIEW",
+      "wholesale_url": "https://domeggook.com/8318925",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/7632331783?itemId=20259904151&vendorItemId=87347496586&q=%ED%88%AC%EB%AA%85%20%EB%B0%95%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%94%84%2050M&searchId=60a780bf16846533&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/1895351819?itemId=3219943880&vendorItemId=71207218986&pickType=COU_PICK&q=%ED%88%AC%EB%AA%85%20%EB%B0%95%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%94%84%2050M&searchId=60a780bf16846533&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8532046295?itemId=10208575384&vendorItemId=79584092445&q=%ED%88%AC%EB%AA%85%20%EB%B0%95%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%94%84%2050M&searchId=60a780bf16846533&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8750371704?itemId=19063206381&vendorItemId=87549289385&q=%ED%88%AC%EB%AA%85%20%EB%B0%95%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%94%84%2050M&searchId=60a780bf16846533&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/6870672615?itemId=16434666265&vendorItemId=82636633908&q=%ED%88%AC%EB%AA%85%20%EB%B0%95%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%94%84%2050M&searchId=60a780bf16846533&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "투명 박스테이프 50M",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%88%AC%EB%AA%85%20%EB%B0%95%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%94%84%2050M&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    },
+    {
+      "candidate_id": "46865169",
+      "name": "햇빛차단 여름 선캡",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/46865169",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8670751257?itemId=25170425009&vendorItemId=94342874789&q=%ED%96%87%EB%B9%9B%EC%B0%A8%EB%8B%A8%20%EC%97%AC%EB%A6%84%20%EC%84%A0%EC%BA%A1&searchId=9d597a5b3342952&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8774813050?itemId=25527243842&vendorItemId=92519006755&q=%ED%96%87%EB%B9%9B%EC%B0%A8%EB%8B%A8%20%EC%97%AC%EB%A6%84%20%EC%84%A0%EC%BA%A1&searchId=9d597a5b3342952&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/6451137848?itemId=14006282446&vendorItemId=93286391619&q=%ED%96%87%EB%B9%9B%EC%B0%A8%EB%8B%A8%20%EC%97%AC%EB%A6%84%20%EC%84%A0%EC%BA%A1&searchId=9d597a5b3342952&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/7158393011?itemId=18010717517&vendorItemId=85166321024&q=%ED%96%87%EB%B9%9B%EC%B0%A8%EB%8B%A8%20%EC%97%AC%EB%A6%84%20%EC%84%A0%EC%BA%A1&searchId=9d597a5b3342952&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/7892318529?itemId=21610945490&vendorItemId=88662203598&q=%ED%96%87%EB%B9%9B%EC%B0%A8%EB%8B%A8%20%EC%97%AC%EB%A6%84%20%EC%84%A0%EC%BA%A1&searchId=9d597a5b3342952&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "햇빛차단 여름 선캡",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%96%87%EB%B9%9B%EC%B0%A8%EB%8B%A8%20%EC%97%AC%EB%A6%84%20%EC%84%A0%EC%BA%A1&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 40% 미달",
+        "10% 하락 후 마진 30% 미달"
+      ]
+    },
+    {
+      "candidate_id": "66431347",
+      "name": "원터치 바디 측정 줄자",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/66431347",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8939086773?itemId=20165490578&vendorItemId=87257832149&q=%EC%9B%90%ED%84%B0%EC%B9%98%20%EB%B0%94%EB%94%94%20%EC%B8%A1%EC%A0%95%20%EC%A4%84%EC%9E%90&searchId=b3ef74972811295&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9568226587?itemId=28557003149&vendorItemId=95390521850&q=%EC%9B%90%ED%84%B0%EC%B9%98%20%EB%B0%94%EB%94%94%20%EC%B8%A1%EC%A0%95%20%EC%A4%84%EC%9E%90&searchId=b3ef74972811295&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9494384051?itemId=28279882272&vendorItemId=95614251230&q=%EC%9B%90%ED%84%B0%EC%B9%98%20%EB%B0%94%EB%94%94%20%EC%B8%A1%EC%A0%95%20%EC%A4%84%EC%9E%90&searchId=b3ef74972811295&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/6542689085?itemId=14573618399&vendorItemId=84300768735&pickType=COU_PICK&q=%EC%9B%90%ED%84%B0%EC%B9%98%20%EB%B0%94%EB%94%94%20%EC%B8%A1%EC%A0%95%20%EC%A4%84%EC%9E%90&searchId=b3ef74972811295&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9617845835?itemId=28718639736&vendorItemId=95659206234&q=%EC%9B%90%ED%84%B0%EC%B9%98%20%EB%B0%94%EB%94%94%20%EC%B8%A1%EC%A0%95%20%EC%A4%84%EC%9E%90&searchId=b3ef74972811295&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "원터치 바디 측정 줄자",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%9B%90%ED%84%B0%EC%B9%98%20%EB%B0%94%EB%94%94%20%EC%B8%A1%EC%A0%95%20%EC%A4%84%EC%9E%90&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    },
+    {
+      "candidate_id": "7219156b",
+      "name": "생활 방수 앞치마",
+      "decision": "PRICE_REVIEW",
+      "wholesale_url": "https://domeggook.com/7219156",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8401452983?itemId=24285827757&vendorItemId=91302087523&pickType=COU_PICK&q=%EC%83%9D%ED%99%9C%20%EB%B0%A9%EC%88%98%20%EC%95%9E%EC%B9%98%EB%A7%88&searchId=9c6f6fc22831843&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8985277528?itemId=20154130228&vendorItemId=87246996140&q=%EC%83%9D%ED%99%9C%20%EB%B0%A9%EC%88%98%20%EC%95%9E%EC%B9%98%EB%A7%88&searchId=9c6f6fc22831843&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8618094382?itemId=2612845681&vendorItemId=70603939031&q=%EC%83%9D%ED%99%9C%20%EB%B0%A9%EC%88%98%20%EC%95%9E%EC%B9%98%EB%A7%88&searchId=9c6f6fc22831843&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8952830600?itemId=26189333602&vendorItemId=93171902955&q=%EC%83%9D%ED%99%9C%20%EB%B0%A9%EC%88%98%20%EC%95%9E%EC%B9%98%EB%A7%88&searchId=9c6f6fc22831843&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9032104289?itemId=22122169908&vendorItemId=94361517569&q=%EC%83%9D%ED%99%9C%20%EB%B0%A9%EC%88%98%20%EC%95%9E%EC%B9%98%EB%A7%88&searchId=9c6f6fc22831843&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "생활 방수 앞치마",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%83%9D%ED%99%9C%20%EB%B0%A9%EC%88%98%20%EC%95%9E%EC%B9%98%EB%A7%88&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    },
+    {
+      "candidate_id": "22170178b",
+      "name": "샤워기 홀더 거치대",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/22170178",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8982821483?itemId=24679498633&vendorItemId=91689543130&pickType=COU_PICK&q=%EC%83%A4%EC%9B%8C%EA%B8%B0%20%ED%99%80%EB%8D%94%20%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=1d40654b2809137&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/7797790876?itemId=21111406588&vendorItemId=88173283604&q=%EC%83%A4%EC%9B%8C%EA%B8%B0%20%ED%99%80%EB%8D%94%20%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=1d40654b2809137&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/7743832976?itemId=20841180385&vendorItemId=89966163786&q=%EC%83%A4%EC%9B%8C%EA%B8%B0%20%ED%99%80%EB%8D%94%20%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=1d40654b2809137&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9387960683?itemId=27876276995&vendorItemId=95661091271&q=%EC%83%A4%EC%9B%8C%EA%B8%B0%20%ED%99%80%EB%8D%94%20%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=1d40654b2809137&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8532175821?itemId=2416425&vendorItemId=3002541572&q=%EC%83%A4%EC%9B%8C%EA%B8%B0%20%ED%99%80%EB%8D%94%20%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=1d40654b2809137&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "샤워기 홀더 거치대",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%83%A4%EC%9B%8C%EA%B8%B0%20%ED%99%80%EB%8D%94%20%EA%B1%B0%EC%B9%98%EB%8C%80&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    }
+  ],
+  "research_round": 3,
+  "round_target": 5,
+  "max_rounds": 30,
+  "selection": {
+    "selected_candidate_ids": [],
+    "selected_price_option": {},
+    "approved": false
+  }
+}

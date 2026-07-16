@@ -1,0 +1,24 @@
+{
+  "source_url": "https://domeggook.com/main/item/itemPopular.php",
+  "category": "multi-category-browser-pilot",
+  "items": [
+    {"rank": 1, "name": "국산 면100 손수건 쁘띠스카프", "url": "https://domeggook.com/7381583", "supply_price": 1350, "moq": 30, "category": "fashion_beauty", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 2, "name": "국산 쁘띠 면 스카프 손수건", "url": "https://domeggook.com/32384624", "supply_price": 1350, "moq": 10, "category": "fashion_beauty", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 3, "name": "국산면 고급 면스카프 손수건", "url": "https://domeggook.com/10218778", "supply_price": 1400, "moq": 5, "category": "fashion_beauty", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 1, "name": "풍기 인견100 여름이불", "url": "https://domeggook.com/57623882", "supply_price": 17500, "moq": 1, "category": "living_hobby", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 2, "name": "식물재배키트 방울토마토 바질", "url": "https://domeggook.com/45088697", "supply_price": 2000, "moq": 3, "category": "living_hobby", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 3, "name": "투명 분리수거봉투 50L", "url": "https://domeggook.com/51365219", "supply_price": 3070, "moq": 5, "category": "living_hobby", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 1, "name": "국내제작 투명젤리 갤럭시 케이스", "url": "https://domeggook.com/10948373", "supply_price": 570, "moq": 10, "category": "electronics_industry", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 2, "name": "투명젤리 갤럭시A16 케이스", "url": "https://domeggook.com/51215854", "supply_price": 570, "moq": 10, "category": "electronics_industry", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 3, "name": "친환경 에어컨 바람막이 원형", "url": "https://domeggook.com/13078855", "supply_price": 20000, "moq": 1, "category": "electronics_industry", "origin_scope": "domestic", "pool_type": "category_top150"},
+    {"rank": 1, "name": "카라비너 자동우산 고리우산", "url": "https://domeggook.com/58088773", "supply_price": 5500, "moq": 1, "category": "fashion_beauty", "origin_scope": "imported", "pool_type": "category_top150"},
+    {"rank": 2, "name": "18컬러 3단 자동 양우산", "url": "https://domeggook.com/3201182", "supply_price": 2900, "moq": 2, "category": "fashion_beauty", "origin_scope": "imported", "pool_type": "category_top150"},
+    {"rank": 3, "name": "150cm 빅사이즈 골프우산", "url": "https://domeggook.com/9556369", "supply_price": 4860, "moq": 2, "category": "fashion_beauty", "origin_scope": "imported", "pool_type": "category_top150"},
+    {"rank": 1, "name": "1.18리터 대용량 스텐 텀블러", "url": "https://domeggook.com/54804743", "supply_price": 5900, "moq": 1, "category": "living_hobby", "origin_scope": "imported", "pool_type": "category_top150"},
+    {"rank": 2, "name": "304스텐 720ml 키링 텀블러", "url": "https://domeggook.com/62893008", "supply_price": 6900, "moq": 2, "category": "living_hobby", "origin_scope": "imported", "pool_type": "category_top150"},
+    {"rank": 3, "name": "리포즈 호텔베개 1000g", "url": "https://domeggook.com/5612224", "supply_price": 4390, "moq": 2, "category": "living_hobby", "origin_scope": "imported", "pool_type": "category_top150"},
+    {"rank": 1, "name": "급속 냉각 199단 미니선풍기", "url": "https://domeggook.com/65062213", "supply_price": 8900, "moq": 1, "category": "electronics_industry", "origin_scope": "imported", "pool_type": "category_top150"},
+    {"rank": 2, "name": "터빈 5단계 휴대용 선풍기 Y32", "url": "https://domeggook.com/59922903", "supply_price": 7900, "moq": 1, "category": "electronics_industry", "origin_scope": "imported", "pool_type": "category_top150"},
+    {"rank": 3, "name": "미니 핸디 선풍기 T10", "url": "https://domeggook.com/64766321", "supply_price": 2900, "moq": 2, "category": "electronics_industry", "origin_scope": "imported", "pool_type": "category_top150"}
+  ]
+}

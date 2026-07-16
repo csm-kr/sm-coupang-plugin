@@ -1,0 +1,220 @@
+{
+  "schema_version": "1.0",
+  "run_id": "resourcing-exact-identity-relaxed",
+  "observed_at": "2026-07-16T12:16:21+09:00",
+  "decision": "CONDITIONAL_MARGIN_CANDIDATES_FOUND",
+  "standard_policy": {
+    "base_margin_pct": 40,
+    "stress_discount_pct": 10,
+    "stress_margin_pct": 30,
+    "standard_pass_count": 0
+  },
+  "conditional_policy": {
+    "base_margin_pct": 35,
+    "stress_discount_pct": 10,
+    "stress_margin_pct": 25,
+    "scope": "표준 기준 미달 후보에 상시 적용하며 사용자 승인 전 SHORTLIST로 자동 승격하지 않음",
+    "conditional_candidate_count": 2
+  },
+  "identity_policy": {
+    "order": ["공급처 이미지·구조·규격·모델·고유 문구", "판매 묶음 수량", "할인 후 현재 실판매가"],
+    "exact_match_price_effect": "완전 동일 상품과 동일 묶음 가격만 직접 가격 제약으로 사용",
+    "non_exact_price_effect": "다른 구조·브랜드·규격 상품은 시장 맥락으로만 사용하고 단독 탈락 근거로 사용하지 않음"
+  },
+  "cost_assumptions": {
+    "rocket_growth_cost_per_bundle": 3000,
+    "fee_rate_pct": 10.8,
+    "vat_mode": "excel_rocket_growth_simplified",
+    "advertising_and_returns_excluded": true
+  },
+  "conditional_test_candidates": [
+    {
+      "rank": 1,
+      "candidate_id": "56587588-hdb1",
+      "name": "HDB-1 스포츠 페이스 마스크 1개",
+      "status": "CONDITIONAL_TEST_PRICE_REVIEW",
+      "wholesale_url": "https://domeggook.com/56587588",
+      "supplier_terms": {
+        "unit_price": 950,
+        "moq": 6,
+        "order_increment": 1,
+        "order_shipping": 3000,
+        "shipping_rule": "100개까지 3,000원",
+        "allocated_shipping_per_sale_bundle": 500,
+        "initial_order_goods_cost": 5700,
+        "initial_order_cash_with_shipping": 8700,
+        "model": "HDB-1",
+        "origin": "중국",
+        "stock": 283169,
+        "option_count": 4,
+        "options": ["블랙", "다크그레이", "그레이", "핑크"]
+      },
+      "identity_evidence": {
+        "supplier_thumbnail": "https://cdn1.domeggook.com/upload/item/2025/04/12/17444569415E992C2E73538310D3F81F/17444569415E992C2E73538310D3F81F_img_330?hash=95136bebb2f52b2fafa69d04a4855af5",
+        "top20_exact_match_count": 0,
+        "basis": "상위 20개 썸네일의 얼굴 덮음 구조·천공 위치·로고·모델이 공급처 상품과 일치하지 않음",
+        "constraint": "다른 상품 가격은 직접 하한·탈락 제약으로 사용하지 않음"
+      },
+      "market_context": {
+        "search_url": "https://www.coupang.com/np/search?q=HDB-1%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EC%8A%A4%ED%8F%AC%EC%B8%A0%20%EB%A7%88%EC%8A%A4%ED%81%AC&channel=user&sorter=saleCountDesc",
+        "observed_at": "2026-07-16T12:07:07+09:00",
+        "observed_cards": 20,
+        "regular_rocket_top10": 3,
+        "seller_rocket_top10": 7,
+        "note": "1개·2개·3개 묶음과 브랜드 상품이 섞여 있어 동일상품 가격 분포로 사용하지 않음"
+      },
+      "test_price": 9900,
+      "fixed_cost_per_bundle": 4450,
+      "base_profit": 3942.72,
+      "base_margin_pct": 39.8255,
+      "stress_price": 8910,
+      "stress_profit": 3147.95,
+      "stress_margin_pct": 35.3305,
+      "standard_floor_price": 10000,
+      "test_floor_price": 8900,
+      "why_not_standard": ["정상 마진 40%에 0.1745%p 미달", "완전 동일 쿠팡 가격 표본이 없음", "자외선 차단 수치·소재 성능 문서 미확인"],
+      "next_gate": "실물 1종과 공급처 성능 문서 확인 후 9,900원 가격안 사용자 승인"
+    },
+    {
+      "rank": 2,
+      "candidate_id": "7215172",
+      "name": "여행용 접이식 방수 백팩 1개",
+      "status": "CONDITIONAL_TEST_PRICE_REVIEW",
+      "wholesale_url": "https://domeggook.com/7215172",
+      "supplier_terms": {
+        "unit_price": 2600,
+        "moq": 2,
+        "order_increment": 1,
+        "order_shipping": 3000,
+        "shipping_rule": "50개까지 3,000원",
+        "allocated_shipping_per_sale_bundle": 1500,
+        "initial_order_goods_cost": 5200,
+        "initial_order_cash_with_shipping": 8200,
+        "origin": "공급처 상세 원문 재확인 필요",
+        "stock": 643
+      },
+      "identity_evidence": {
+        "supplier_thumbnail": "https://cdn1.domeggook.com/upload/item/2017/04/25/1493082930CA0DD1B2738F4498350F1F/1493082930CA0DD1B2738F4498350F1F_img_330?hash=be2d140457f31c76f3c3b44f0648f120",
+        "top20_exact_match_count": 0,
+        "basis": "상위 20개는 전면 스트링·로고·수납부·형상이 달라 완전 동일 판정 불가",
+        "constraint": "다른 백팩의 낮은 가격은 직접 탈락 제약으로 사용하지 않음"
+      },
+      "market_context": {
+        "search_url": "https://www.coupang.com/np/search?q=%EC%97%AC%ED%96%89%EC%9A%A9%20%EC%A0%91%EC%9D%B4%EC%8B%9D%20%EB%B0%B1%ED%8C%A9%20%EC%84%B8%EC%9D%BC%EB%8C%80%EB%B0%95%20%EC%97%AC%ED%96%89%EA%B0%88%EB%95%8C%20%EC%A7%B1%20%EB%B0%A9%EC%88%98%EA%B0%80%EB%B0%A9&channel=user&sorter=saleCountDesc",
+        "observed_at": "2026-07-16T12:12:32+09:00",
+        "observed_cards": 20,
+        "regular_rocket_top10": 1,
+        "seller_rocket_top10": 9,
+        "similar_product_p50": 8370,
+        "note": "완전 다른 구조의 백팩 중앙값이므로 가격 승인 제약이 아니라 수요 위험 참고값"
+      },
+      "test_price": 14900,
+      "fixed_cost_per_bundle": 7100,
+      "base_profit": 5571.72,
+      "base_margin_pct": 37.3941,
+      "stress_price": 13410,
+      "stress_profit": 4375.55,
+      "stress_margin_pct": 32.629,
+      "standard_floor_price": 15900,
+      "test_floor_price": 14200,
+      "why_not_standard": ["정상 마진 40% 미달", "완전 동일 쿠팡 가격 표본이 없음", "14,900원 가격 수용성 근거가 약함", "공급처 이미지 사용권 재확인 필요"],
+      "next_gate": "실물 품질·용량·방수 표현·이미지 사용권 확인 후 14,900원 소량 시험 여부 사용자 승인"
+    }
+  ],
+  "rejected_or_blocked": [
+    {
+      "candidate_id": "43946300-m",
+      "name": "모던 체크 규조토 발매트 M 40x60",
+      "status": "REJECT_EXACT_PRICE",
+      "wholesale_url": "https://domeggook.com/43946300",
+      "supplier_unit_price": 2900,
+      "fixed_cost_per_bundle": 7300,
+      "exact_current_prices": [3660, 4220],
+      "exact_evidence_url": "https://www.coupang.com/vp/products/8894278153?itemId=25967497711&vendorItemId=94614834659",
+      "test_floor_price": 14600,
+      "reason": "동일 제목·동일 블랙 체커보드 M 옵션이 손익분기 이전 가격"
+    },
+    {
+      "candidate_id": "45849391",
+      "name": "빅사이즈 다회용 판초우비",
+      "status": "REJECT_EXACT_PRICE",
+      "wholesale_url": "https://domeggook.com/45849391",
+      "supplier_unit_price": 1900,
+      "fixed_cost_per_bundle": 5900,
+      "exact_current_prices": [2090, 2390, 2600],
+      "exact_evidence_url": "https://www.coupang.com/vp/products/8880879592?itemId=25918810316&vendorItemId=95571966031",
+      "test_floor_price": 11800,
+      "reason": "공급처와 픽셀 수준으로 같은 대표 사진·색상 구성이 고정비보다 낮음"
+    },
+    {
+      "candidate_id": "61944837",
+      "name": "실리콘 스트랩 러닝 무릎보호대 1개",
+      "status": "REJECT_EXACT_PRICE",
+      "wholesale_url": "https://domeggook.com/61944837",
+      "supplier_unit_price": 3280,
+      "fixed_cost_per_bundle": 7780,
+      "exact_current_prices": [4530, 4860, 5000, 5010, 5040],
+      "test_floor_price": 15500,
+      "reason": "동일 대표 이미지·동일 블랙 1P가 고정비보다 낮음"
+    },
+    {
+      "candidate_id": "61398841",
+      "name": "넥 스피릿 경추 지압쿠션 1개",
+      "status": "REJECT_EXACT_PRICE",
+      "wholesale_url": "https://domeggook.com/61398841",
+      "supplier_unit_price": 2650,
+      "fixed_cost_per_bundle": 7150,
+      "exact_current_prices": [3500, 3600, 4370],
+      "test_floor_price": 14300,
+      "reason": "동일 고유 상품명과 구조의 현재가가 고정비보다 낮음"
+    },
+    {
+      "candidate_id": "32598340",
+      "name": "분리형 햇빛차단 모자 1개",
+      "status": "REJECT_EXACT_PRICE",
+      "wholesale_url": "https://domeggook.com/32598340",
+      "supplier_unit_price": 2400,
+      "fixed_cost_per_bundle": 6400,
+      "exact_current_price_range": [4400, 8280],
+      "test_floor_price": 12800,
+      "reason": "상위 20개가 동일 고유 문구와 동일 대표 이미지로 반복되며 조건부 하한보다 낮음"
+    },
+    {
+      "candidate_id": "64210412",
+      "name": "귀걸이 나비 페이스 마스크 1개",
+      "status": "REJECT_EXACT_PRICE",
+      "wholesale_url": "https://domeggook.com/64210412",
+      "supplier_unit_price": 1890,
+      "fixed_cost_per_bundle": 5890,
+      "exact_current_price_range": [2480, 5840],
+      "test_floor_price": 11800,
+      "reason": "동일 긴 상품명과 동일 대표 이미지가 다수 확인되어 다른 프리미엄 나비마스크 가격을 적용할 수 없음"
+    },
+    {
+      "candidate_id": "34856296",
+      "name": "720도 회전 수도꼭지 워터탭 1개",
+      "status": "REJECT_NEAR_EXACT_PRICE",
+      "wholesale_url": "https://domeggook.com/34856296",
+      "supplier_unit_price": 3400,
+      "fixed_cost_per_bundle": 7900,
+      "near_exact_current_prices": [6690, 6990],
+      "test_floor_price": 15800,
+      "reason": "같은 기본형 구조가 고정비보다 낮고 고가 상품은 필터·브랜드·프로 모델이라 다른 제품"
+    },
+    {
+      "candidate_id": "55536873",
+      "name": "차량용 자석 암막 커튼",
+      "status": "PRICE_REVIEW_BLOCKED_BUNDLE_MISMATCH",
+      "wholesale_url": "https://domeggook.com/55536873",
+      "supplier_unit_price": 1900,
+      "reason": "쿠팡 상위 결과는 주로 4P 세트이나 공급처 옵션별 1P 구성이라 같은 묶음 가격 비교가 불가능"
+    }
+  ],
+  "summary": {
+    "screened_market_candidates": 61,
+    "deep_identity_checks": 17,
+    "standard_pass": 0,
+    "conditional_test_price_review": 2,
+    "automatic_order_or_listing_authorized": false
+  }
+}

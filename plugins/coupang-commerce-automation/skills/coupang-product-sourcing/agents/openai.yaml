@@ -1,0 +1,4 @@
+interface:
+  display_name: "쿠팡 상품 소싱 분석"
+  short_description: "도매 후보를 쿠팡 수요·마진·경쟁·운영위험 근거로 검증"
+  default_prompt: "Use $coupang-product-sourcing to collect wholesale candidates, verify Coupang demand and margins, and return an evidence-linked shortlist."

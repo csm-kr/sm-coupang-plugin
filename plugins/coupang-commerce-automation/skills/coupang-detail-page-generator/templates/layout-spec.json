@@ -1,0 +1,24 @@
+{
+  "version": "5.2",
+  "canvas": {"mode": "fixed", "width": 800, "height": 2400, "min_height": 2400, "max_height": 2400},
+  "fonts": {
+    "hook": {"path": "C:/Windows/Fonts/NotoSansKR-VF.ttf", "variation": "Black"},
+    "title": {"path": "C:/Windows/Fonts/NotoSansKR-VF.ttf", "variation": "Black"},
+    "body": {"path": "C:/Windows/Fonts/NotoSansKR-VF.ttf", "variation": "Regular"},
+    "badge": {"path": "C:/Windows/Fonts/arialbd.ttf"}
+  },
+  "pages": [
+    {
+      "page": "01",
+      "role": "hero",
+      "height": 2400,
+      "background": "#FAF8F2",
+      "layout": "hero_full",
+      "purchase_reason": "",
+      "asset_ids": ["PG-01"],
+      "elements": [
+        {"type": "image", "path": "output/generated-pages/PG-01.png", "asset_id": "PG-01", "source_kind": "generated_page", "box": [0, 0, 800, 2020], "fit": "cover"}
+      ]
+    }
+  ]
+}

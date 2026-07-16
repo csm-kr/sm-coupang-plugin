@@ -1,0 +1,42 @@
+{
+  "version": "1.1",
+  "status": "working_draft",
+  "name": "",
+  "name_usage_allowed": false,
+  "naming": {
+    "required_per_product": true,
+    "status": "proposed",
+    "selected_name": "",
+    "candidates": [],
+    "rationale": "",
+    "usage_allowed": false
+  },
+  "style_priority": [
+    "practical_evidence",
+    "professional_function",
+    "emotional_lifestyle"
+  ],
+  "positioning": "",
+  "promise": "",
+  "reasons_to_believe": [],
+  "personality": [],
+  "anti_personality": [],
+  "voice": {
+    "principles": [],
+    "preferred_patterns": [],
+    "forbidden_patterns": []
+  },
+  "visual": {
+    "core_colors": {},
+    "category_accent": "",
+    "typography": {},
+    "photography": [],
+    "components": [],
+    "memory_devices": []
+  },
+  "campaign_rules": {
+    "constants": [],
+    "variables": [],
+    "logo_policy": "no_logo_until_approved"
+  }
+}

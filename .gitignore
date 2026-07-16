@@ -1,0 +1,12 @@
+.codex/runtime/
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv*/
+tmp/
+
+# 재생성 가능한 상세페이지 조사·렌더 산출물
+detail-page/examples/
+detail-page/projects/*/output*/
+detail-page/projects/*/raw/
+detail-page/projects/*/reference/

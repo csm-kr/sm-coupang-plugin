@@ -1,0 +1,43 @@
+{
+  "version": "5.2",
+  "workflow_version": "5.2",
+  "human_origin_policy": "synthetic_only",
+  "real_person_pixels_allowed": false,
+  "pages": [
+    {
+      "job_id": "PG-01",
+      "page": "01",
+      "attempt": 0,
+      "status": "pending",
+      "file": "output/generated-pages/PG-01.png",
+      "sha256": "",
+      "contains_person": true,
+      "person_origin": "synthetic",
+      "synthetic_person_check": "pending",
+      "source_person_pixels": "pending",
+      "text_free": "pending",
+      "art_direction_match": "pending",
+      "commercial_structure": "pending",
+      "sku_identity": "pending",
+      "source_lineage": "pending",
+      "brand_consistency": "pending",
+      "product_fidelity": {
+        "silhouette": "pending",
+        "toe": "pending",
+        "count": "pending",
+        "color": "pending",
+        "openings": "pending",
+        "straps": "pending",
+        "fasteners": "pending",
+        "seams": "pending",
+        "cut_mold_lines": "pending",
+        "sole": "pending",
+        "engravings": "pending",
+        "assembly": "pending",
+        "label": "pending",
+        "material": "pending"
+      },
+      "notes": ""
+    }
+  ]
+}

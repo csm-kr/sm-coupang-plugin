@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "artifact_type": "approval",
+  "target_type": "content_plan",
+  "target_path": "output/planning/content-plan.json",
+  "target_sha256": "",
+  "decision": "pending",
+  "actor_type": "user",
+  "actor_id": "",
+  "approved_at": "",
+  "note": ""
+}

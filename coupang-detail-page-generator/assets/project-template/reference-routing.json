@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "identity_status": "unverified",
+  "canonical_sources": [],
+  "pages": {
+    "01": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "02": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "03": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "04": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "05": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "06": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "07": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "08": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "09": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []},
+    "10": {"required_views": [], "source_ids": [], "rationale": "", "missing_views": []}
+  }
+}
