@@ -1,7 +1,7 @@
 # 쿠팡 커머스 자동화 플러그인 로드맵
 
 - 기준일: 2026-07-17
-- 현재 버전: `coupang-commerce-automation` v0.2.0+codex.20260717073054
+- 현재 버전: `coupang-commerce-automation` v0.2.0+codex.20260717094251
 - 현재 위치: **Phase 1 — 도매꾹 60851997 판매 근거 가격 재검증 완료·가격 검토 차단, 실시간 브라우저 수집 사용자 보류**
 
 > 문서 탐색: [현재 상태](../STATUS.md) · [README](README.md) · [PRD](PRD.md) · [ADR](ADR.md) · [구현 계획](COUPANG-COMMERCE-AUTOMATION-PLUGIN-PLAN.md)

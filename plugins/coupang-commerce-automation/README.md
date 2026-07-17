@@ -65,4 +65,17 @@ foreach ($name in $stageSkills) {
 python C:\Users\csm81\.codex\skills\.system\plugin-creator\scripts\validate_plugin.py plugins\coupang-commerce-automation
 ```
 
+## 다른 컴퓨터에 설치
+
+이 비공개 저장소에 접근할 수 있는 GitHub 계정으로 인증한 뒤 repo marketplace를 등록한다.
+
+```powershell
+gh auth login
+codex plugin marketplace add csm-kr/sm-coupang-plugin --ref main
+codex plugin add coupang-commerce-automation@sm-coupang-plugin
+codex plugin list
+```
+
+로컬 복제본을 마켓플레이스로 사용할 때는 저장소 루트에서 `codex plugin marketplace add .`를 실행해도 된다. 설치 또는 업데이트 후에는 Codex 앱을 다시 열고 새 대화에서 플러그인을 사용한다. 저장소가 비공개이므로 GitHub 접근 권한이 없는 컴퓨터나 계정에서는 설치할 수 없다.
+
 현재 작업 상태는 [STATUS](../../STATUS.md), 전체 구현 순서는 [플러그인 구현 계획](../../docs/COUPANG-COMMERCE-AUTOMATION-PLUGIN-PLAN.md)에서 관리한다.

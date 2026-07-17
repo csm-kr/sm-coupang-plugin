@@ -1,0 +1,20 @@
+{
+  "name": "sm-coupang-plugin",
+  "interface": {
+    "displayName": "Sm Coupang Plugin"
+  },
+  "plugins": [
+    {
+      "name": "coupang-commerce-automation",
+      "source": {
+        "source": "local",
+        "path": "./plugins/coupang-commerce-automation"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

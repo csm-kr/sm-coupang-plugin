@@ -14,6 +14,27 @@ def test_manifest_name_matches_plugin_directory():
     assert manifest["name"] == PLUGIN.name
 
 
+def test_repo_marketplace_exposes_plugin_for_cross_computer_installation():
+    marketplace_path = ROOT / ".agents" / "plugins" / "marketplace.json"
+    marketplace = json.loads(marketplace_path.read_text(encoding="utf-8-sig"))
+
+    assert marketplace["name"] == "sm-coupang-plugin"
+    entry = next(plugin for plugin in marketplace["plugins"] if plugin["name"] == PLUGIN.name)
+    assert entry["source"] == {
+        "source": "local",
+        "path": "./plugins/coupang-commerce-automation",
+    }
+    assert entry["policy"] == {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL",
+    }
+    assert entry["category"] == "Productivity"
+
+    readme = (PLUGIN / "README.md").read_text(encoding="utf-8-sig")
+    assert "codex plugin marketplace add csm-kr/sm-coupang-plugin" in readme
+    assert "coupang-commerce-automation@sm-coupang-plugin" in readme
+
+
 def test_plugin_contains_both_current_skills():
     skills = PLUGIN / "skills"
     assert (skills / "coupang-product-sourcing" / "SKILL.md").is_file()
