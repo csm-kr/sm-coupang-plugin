@@ -1,0 +1,4 @@
+interface:
+  display_name: "도매꾹 베스트 4배 소싱"
+  short_description: "도매꾹 5천원 이하·쿠팡 4배 판매 후보 탐색"
+  default_prompt: "Use $coupang-best-high-markup-sourcing to sample 도매꾹 Best and find verified one-unit Coupang listings priced at least 4× with 5+ reviews."

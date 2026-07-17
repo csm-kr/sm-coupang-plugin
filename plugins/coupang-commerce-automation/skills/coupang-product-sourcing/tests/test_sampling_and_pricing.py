@@ -59,7 +59,7 @@ def test_pricing_rejects_market_mismatch_and_keeps_good_candidate():
         "wholesale_shipping_per_unit": 0, "rocket_growth_cost": 3000,
         "other_cost": 0, "fee_rate_pct": 10.8, "demand_signal_score": 60,
         "vat_mode": "excel_rocket_growth_simplified", "costs_vat_included": True, "input_vat_creditable": True,
-        "market_prices": [{"price": p, "similarity": "near_identical", "is_ad": False, "product_group_id": f"T{i}"}
+        "market_prices": [{"price": p, "similarity": "near_identical", "is_ad": False, "product_group_id": f"T{i}", "review_count": 5}
                           for i, p in enumerate([8900, 9500, 9900, 10310, 10900, 10900, 12300, 12800, 13900, 16940, 19800])],
     }
     good = {
@@ -67,7 +67,7 @@ def test_pricing_rejects_market_mismatch_and_keeps_good_candidate():
         "wholesale_shipping_per_unit": 0, "rocket_growth_cost": 2500,
         "other_cost": 0, "fee_rate_pct": 10.8, "demand_signal_score": 70,
         "vat_mode": "excel_rocket_growth_simplified", "costs_vat_included": True, "input_vat_creditable": True,
-        "market_prices": [{"price": p, "similarity": "near_identical", "is_ad": False, "product_group_id": f"G{i}"}
+        "market_prices": [{"price": p, "similarity": "near_identical", "is_ad": False, "product_group_id": f"G{i}", "review_count": 5}
                           for i, p in enumerate([12900, 13900, 14900, 15900, 16900, 17900, 18900])],
     }
     bad_result = mod.evaluate(tumbler, params)
@@ -78,6 +78,108 @@ def test_pricing_rejects_market_mismatch_and_keeps_good_candidate():
     assert good_result["decision"] == "PRICE_REVIEW"
     assert good_result["price_options"]["recommended"]["base"]["margin_pct"] >= 40
     assert good_result["price_options"]["recommended"]["stress"]["margin_pct"] >= 30
+
+
+def test_pricing_uses_only_demand_backed_current_prices_for_market_distribution():
+    mod = load("recommend_prices")
+    candidate = {
+        "id": "DEMAND-ONLY",
+        "name": "판매 근거 가격만 쓰는 상품",
+        "supply_price": 2500,
+        "wholesale_shipping_per_unit": 0,
+        "rocket_growth_cost": 2500,
+        "other_cost": 0,
+        "fee_rate_pct": 10.8,
+        "vat_mode": "excel_rocket_growth_simplified",
+        "costs_vat_included": True,
+        "input_vat_creditable": True,
+        "market_prices": [
+            {
+                "price": price,
+                "price_verified": True,
+                "similarity": "identical",
+                "is_ad": False,
+                "product_group_id": f"UNSOLD-{index}",
+                "review_count": 0,
+            }
+            for index, price in enumerate([4900, 5100, 5300, 5500, 5700])
+        ] + [
+            {
+                "price": price,
+                "price_verified": True,
+                "similarity": "identical",
+                "is_ad": False,
+                "product_group_id": f"SOLD-{index}",
+                "review_count": 5 + index,
+            }
+            for index, price in enumerate([14900, 15900, 16900, 17900, 18900])
+        ],
+    }
+
+    result = mod.evaluate(candidate, {"min_market_samples": 5})
+
+    distribution = result["market_price_distribution"]
+    assert distribution["p50"] == 16900
+    assert distribution["count"] == 5
+    assert distribution["verified_current_price_count"] == 10
+    assert distribution["demand_backed_price_count"] == 5
+    assert distribution["excluded_no_demand_evidence_count"] == 5
+    assert distribution["price_basis"] == "demand_backed_current_sale_price"
+
+
+def test_pricing_blocks_when_demand_backed_price_samples_are_below_minimum():
+    mod = load("recommend_prices")
+    candidate = {
+        "id": "DEMAND-BLOCKED",
+        "name": "판매 근거 표본 부족 상품",
+        "supply_price": 1800,
+        "wholesale_shipping_per_unit": 60,
+        "rocket_growth_cost": 3000,
+        "other_cost": 0,
+        "fee_rate_pct": 10.8,
+        "vat_mode": "excel_rocket_growth_simplified",
+        "costs_vat_included": True,
+        "input_vat_creditable": True,
+        "market_prices": [
+            {
+                "price": 9000 + index * 100,
+                "price_verified": True,
+                "similarity": "identical",
+                "product_group_id": f"P-{index}",
+                "review_count": 5 if index < 4 else 0,
+            }
+            for index in range(7)
+        ],
+    }
+
+    result = mod.evaluate(candidate, {"min_market_samples": 5})
+
+    assert result["decision"] == "PRICE_REVIEW_BLOCKED"
+    assert result["market_price_distribution"]["demand_backed_price_count"] == 4
+    assert result["market_price_distribution"]["excluded_no_demand_evidence_count"] == 3
+    assert any("판매 근거 가격 표본 부족: 4/5" in reason for reason in result["blockers"])
+
+
+def test_recent_purchase_count_qualifies_as_stronger_demand_evidence():
+    mod = load("recommend_prices")
+    candidate = {
+        "market_prices": [
+            {
+                "price": 12000 + index * 100,
+                "price_verified": True,
+                "similarity": "identical",
+                "product_group_id": f"RECENT-{index}",
+                "review_count": 0,
+                "recent_purchase_count": 1,
+            }
+            for index in range(5)
+        ]
+    }
+
+    group, prices = mod.comparable_prices(candidate, 5)
+
+    assert group == "identical"
+    assert len(prices) == 5
 
 
 def test_pricing_allows_margin_between_35_and_40_as_conditional():
@@ -97,7 +199,7 @@ def test_pricing_allows_margin_between_35_and_40_as_conditional():
         "vat_mode": "excel_rocket_growth_simplified",
         "costs_vat_included": True, "input_vat_creditable": True,
         "market_prices": [
-            {"price": price, "similarity": "identical", "is_ad": False, "product_group_id": f"C{i}"}
+            {"price": price, "similarity": "identical", "is_ad": False, "product_group_id": f"C{i}", "review_count": 5}
             for i, price in enumerate([14500, 14700, 14900, 15100, 15300])
         ],
     }
@@ -139,11 +241,11 @@ def test_price_distribution_does_not_mix_similar_groups_or_duplicate_skus():
     mod = load("recommend_prices")
     candidate = {
         "market_prices": [
-            {"price": 10000 + i * 100, "similarity": "identical", "product_group_id": f"I{i}"} for i in range(5)
+            {"price": 10000 + i * 100, "similarity": "identical", "product_group_id": f"I{i}", "review_count": 5} for i in range(5)
         ] + [
-            {"price": 50000 + i * 100, "similarity": "similar", "product_group_id": f"S{i}"} for i in range(5)
+            {"price": 50000 + i * 100, "similarity": "similar", "product_group_id": f"S{i}", "review_count": 5} for i in range(5)
         ] + [
-            {"price": 99999, "similarity": "identical", "product_group_id": "I0"}
+            {"price": 99999, "similarity": "identical", "product_group_id": "I0", "review_count": 5}
         ]
     }
     group, prices = mod.comparable_prices(candidate, 5)

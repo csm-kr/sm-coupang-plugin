@@ -65,17 +65,26 @@ def relative_asset_url(value: str) -> str:
     return quote(relative, safe="/._-")
 
 
-def media_markup(asset: dict[str, object]) -> str:
+def claim_ids_attribute(values: object) -> str:
+    claim_ids = values if isinstance(values, list) else []
+    return html.escape(" ".join(str(value) for value in claim_ids), quote=True)
+
+
+def media_markup(asset: dict[str, object], claim_ids: object) -> str:
     source = relative_asset_url(str(asset["path"]))
     alt = html.escape(str(asset["alt"]), quote=True)
     asset_id = html.escape(str(asset["id"]), quote=True)
+    claims = claim_ids_attribute(claim_ids)
     kind = str(asset["type"])
     if kind == "video":
         return (
-            f'<video data-asset-id="{asset_id}" controls playsinline preload="metadata" '
+            f'<video data-asset-id="{asset_id}" data-claim-ids="{claims}" controls playsinline preload="metadata" '
             f'aria-label="{alt}"><source src="{source}"></video>'
         )
-    return f'<img data-asset-id="{asset_id}" src="{source}" alt="{alt}" loading="lazy" decoding="async">'
+    return (
+        f'<img data-asset-id="{asset_id}" data-claim-ids="{claims}" src="{source}" '
+        f'alt="{alt}" loading="lazy" decoding="async">'
+    )
 
 
 def build_html(content: dict[str, object], assets: dict[str, object]) -> str:
@@ -91,10 +100,14 @@ def build_html(content: dict[str, object], assets: dict[str, object]) -> str:
         role = html.escape(str(module["role"]))
         headline = html.escape(str(module["headline"]))
         body = html.escape(str(module["body"]))
-        media = "\n".join(media_markup(asset_map[str(asset_id)]) for asset_id in module.get("asset_ids", []))
+        claim_ids = module.get("claim_ids", [])
+        claims = claim_ids_attribute(claim_ids)
+        media = "\n".join(
+            media_markup(asset_map[str(asset_id)], claim_ids) for asset_id in module.get("asset_ids", [])
+        )
         layout = "split" if len(module.get("asset_ids", [])) == 1 else "stack"
         sections.append(
-            f'''    <section class="content-module" data-module-id="{module_id}" data-layout="{layout}">
+            f'''    <section class="content-module" data-module-id="{module_id}" data-claim-ids="{claims}" data-layout="{layout}">
       <div class="module-copy">
         <p class="module-role">{role}</p>
         <!-- headline/body는 승인된 content-plan에서 온 편집 가능한 네이티브 HTML 텍스트입니다. -->

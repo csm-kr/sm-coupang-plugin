@@ -59,6 +59,20 @@ def test_repository_stage_descriptions_route_hybrid_detail_and_channel_packaging
     assert "채널별 정적 렌더링" in stages["html"]["description"]
 
 
+def test_repository_routes_best_high_markup_skill_to_sourcing_stage():
+    config = tdd.load_config(ROOT / "harness" / "stages.json")
+    sourcing = tdd.stage_by_id(config, "sourcing")
+
+    assert tdd.route_stage(
+        config,
+        "coupang-best-high-markup-sourcing/scripts/filter_high_markup_candidates.py",
+    ) == "sourcing"
+    assert any(
+        command["name"] == "best-high-markup-sourcing-skill"
+        for command in sourcing["commands"]
+    )
+
+
 @pytest.mark.parametrize(
     ("path", "expected"),
     [

@@ -254,6 +254,8 @@ def test_hybrid_builder_blocks_failed_material_qa_and_keeps_copy_editable(tmp_pa
 
     assert "더운 날, 목 주변을 가볍게" in html
     assert 'data-module-id="M01"' in html
+    assert 'data-claim-ids="CLAIM-01"' in html
+    assert 'data-asset-id="ASSET-01" data-claim-ids="CLAIM-01"' in html
     assert "../content-assets/hero.png" in html
     assert "data:image" not in html
     assert css_path.is_file()
@@ -338,3 +340,39 @@ def test_manifest_base_accepts_workflow_53_hybrid_contract() -> None:
         "min_width": 360,
         "max_width": 800,
     }
+
+
+def test_skill_reports_numbered_workflow_and_concept_only_prototype_gate() -> None:
+    skill_text = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+    artifact_contract = (SKILL / "references" / "project-artifact-contract.md").read_text(encoding="utf-8")
+    openai_yaml = yaml.safe_load((SKILL / "agents" / "openai.yaml").read_text(encoding="utf-8"))
+
+    required_contract = [
+        "## 10단계 진행 상태",
+        "1. 소싱·가격 승인",
+        "4. 제품기획과 사용자 승인",
+        "5. 콘텐츠기획과 사용자 승인",
+        "6. UI와 장별 자산 전략",
+        "7. 콘텐츠 소재 생성과 소재 QA",
+        "9. 콘텐츠 생성: 이미지+HTML 조립",
+        "10. 통합 QA와 최종 승격",
+        "execution_stage",
+        "asset_scope",
+        "production_gate",
+        "production_use_allowed: false",
+        "output/prototypes/<prototype-id>/",
+    ]
+
+    for item in required_contract:
+        assert item in skill_text
+
+    assert "output/prototypes/<prototype-id>/" in artifact_contract
+    assert "concept_only" in artifact_contract
+    assert "production_use_allowed: false" in artifact_contract
+    assert "실제 SKU 판매용 상태로 승격하지 않는다" in artifact_contract
+
+    default_prompt = openai_yaml["interface"]["default_prompt"]
+    assert "$coupang-detail-page-generator" in default_prompt
+    assert "제품기획" in default_prompt
+    assert "콘텐츠기획" in default_prompt
+    assert "하이브리드 HTML" in default_prompt

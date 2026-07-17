@@ -133,12 +133,16 @@ UTF-8 JSON 파일 하나를 사용한다. `null`은 미확인 값이며 0과 다
 - `is_ad`: 반드시 `true` 또는 `false`
 - `sale_price`, `list_price`, `price`, `price_verified`, `price_basis`, `quantity`, `unit_price`, `rating`, `review_count`
 - `rocket`, `free_shipping`, `seller`, `brand`
-- `recent_purchase_signal`, `recent_review_signal`
+- `recent_purchase_signal`, `recent_purchase_count`, `recent_review_signal`
+- `demand_evidence_verified`: 최근 구매 수 1건 이상 또는 리뷰 5개 이상이면 `true`
+- `demand_evidence_type`: `recent_purchase`, `review_proxy`, `null`
 - `similarity`: `identical`, `near_identical`, `similar`, `different`, `unknown`
 - `image_reuse`: `true`, `false`, `null`
 - `observed_at`: 시간대가 포함된 ISO 8601
 
 `price`는 `price_verified=true`인 할인 후 현재 실판매가와 같아야 한다. 정상가·할인 참고가는 `list_price`에만 보존한다. 한 카드에서 현재 실판매가를 의미적으로 특정할 수 없으면 `price=null`, `price_verified=false`로 두고 비교 분포에서 제외한다.
+
+가격 중앙값에는 `price_verified=true`, 동일 판매 묶음, 동일성 잠금과 함께 `demand_evidence_verified=true`인 행만 사용한다. `recent_purchase_count>=1`은 최근 구매 근거이고 `review_count>=5`는 구매 발생 대리 신호다. 리뷰는 현재 판매자·현재 가격에서의 판매량 확정값이 아니므로 `demand_evidence_type=review_proxy`로 보존한다. 두 근거가 없는 등록가는 시장 맥락에는 남길 수 있지만 가격 분포에서는 제외한다.
 
 ## 점수와 근거
 
@@ -167,7 +171,7 @@ UTF-8 JSON 파일 하나를 사용한다. `null`은 미확인 값이며 0과 다
 
 SHORTLIST 확정에는 `low`, `mid`, `high` 세 시나리오와 각각의 근거가 필요하다.
 
-`price_basis_note`에는 중앙값·하위 가격대·구성수량을 어떻게 반영했는지 적는다. `cost_basis_note`에는 공식 출처와 사용자가 직접 제공한 비용을 구분한다. 비용 URL이 없는 사용자 제공값은 이 메모로 출처를 남긴다.
+`price_basis_note`에는 판매 근거가 있는 가격만 선별한 방법, 중앙값·하위 가격대·구성수량, 제외한 무판매 근거 등록 수를 적는다. `cost_basis_note`에는 공식 출처와 사용자가 직접 제공한 비용을 구분한다. 비용 URL이 없는 사용자 제공값은 이 메모로 출처를 남긴다.
 
 ## 상태값
 

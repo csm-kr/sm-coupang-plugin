@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "run_name": "sourcing-verify-60851997-demand-backed",
+  "stage": "sourcing",
+  "generated_at": "2026-07-17T17:30:00+09:00",
+  "candidate_id": "60851997",
+  "outputs": [
+    "verification-report.html",
+    "verification-report.json"
+  ],
+  "evidence_mode": "existing_public_evidence_recalculation",
+  "browser_use_invoked": false,
+  "nodriver_invoked": false,
+  "decision": "PRICE_REVIEW_BLOCKED"
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "쿠팡 게시 전 QA"
+  short_description: "소재·크롭·순서·주장·HTML을 수치 기준으로 최종 검수"
+  default_prompt: "Use $coupang-publish-qa to run material and integrated acceptance criteria before any commerce package is promoted."

@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "run_name": "sourcing-local-plugin-2026-07-17",
+  "observed_date": "2026-07-17",
+  "status": "INSUFFICIENT_QUALIFIED_CANDIDATES",
+  "terminal_reason": "COUPANG_ACCESS_BLOCKED_ROUND_2",
+  "minimum_qualified_candidates": 5,
+  "qualified_candidates": 0,
+  "standard_candidates": 0,
+  "conditional_candidates": 0,
+  "collection": {
+    "domeggook_pool": 2594,
+    "stratified_sample": 60,
+    "supplier_details_visited": 32,
+    "supplier_terms_verified": 30,
+    "supplier_terms_blocked": 2,
+    "round1_coupang_candidates": 14,
+    "round1_top10_products_per_candidate": 10,
+    "round2_coupang_candidates_blocked": 7,
+    "identical_same_bundle_groups_5_plus_candidates": 3
+  },
+  "pricing": {
+    "rocket_growth_cost_per_sale_bundle": 3000,
+    "fee_rate_pct": 10.8,
+    "standard_margin_pct": {"base": 40, "stress_after_10pct_price_drop": 30},
+    "conditional_margin_pct": {"base": 35, "stress_after_10pct_price_drop": 25}
+  },
+  "cleanup": {
+    "browser_use_run_owned_tabs_remaining": 0,
+    "user_tabs_closed": 0,
+    "owned_nodriver_chrome_processes_remaining": 0,
+    "status": "PASS",
+    "warning": "Windows asyncio closed-pipe warnings were emitted after nodriver stop; no owned Chrome process remained."
+  },
+  "visual_qa": {
+    "report_loaded": true,
+    "excluded_rows_rendered": 60,
+    "status_badge": "INSUFFICIENT_QUALIFIED_CANDIDATES",
+    "status": "PASS"
+  },
+  "artifacts": [
+    "qualified-candidates.html",
+    "qualified-candidates.json",
+    "qualified-input.json",
+    "run-manifest.json"
+  ],
+  "user_selection": {
+    "approved": false,
+    "selected_candidate_ids": [],
+    "reason": "기준 통과 후보가 없어 상품·가격 승인 게이트를 열지 않음"
+  }
+}

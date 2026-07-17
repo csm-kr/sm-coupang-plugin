@@ -1,0 +1,4 @@
+interface:
+  display_name: "쿠팡 콘텐츠 스튜디오"
+  short_description: "주장-이미지 스토리보드부터 ImageGen·HTML·모션까지 설계"
+  default_prompt: "Use $coupang-content-studio to plan claim-linked visuals, generate approved assets, and assemble editable HTML content."

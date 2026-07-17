@@ -7,9 +7,22 @@
 - 소재 QA 정본: `output/qa/material-qa.json`
 - 조립 정본: `output/html/detail-page.html`, `styles.css`, `package-manifest.json`
 - 통합 QA 정본: `output/qa/integration-qa.json`
+- HTML 타이포 정본: `output/qa/typography-metrics.json`, `typography-qa.json`, `typography-screenshots/`
+- 비주얼 정본: `output/planning/visual-storyboard.json`, `visual-layout-metrics.json`, `visual-layout-qa.json`, `visual-layout-screenshots/`
 - 승인 정본: `output/approvals/product-plan-approval.json`, `content-plan-approval.json`
 
 계획·자산·HTML·CSS 중 하나가 바뀌면 연결된 해시가 오래된 상태가 되어 재승인 또는 재QA가 필요하다. 상세 규칙은 [planning-and-hybrid-contract.md](planning-and-hybrid-contract.md)를 따른다.
+
+### 5.3 HTML 한글 타이포 게이트
+
+- 실제 브라우저 viewport가 360px·800px 모두 수집됐는가
+- 캐시를 끄고 현재 HTML·CSS를 새 URL로 측정했는가
+- 문서·요소 가로 넘침, 단어·숫자 중간 분리, 한 글자 고아행이 0건인가
+- 제목의 허용 행수 초과, 글자·행 세로 잘림, 행 겹침, 깨진 대체문자가 0건인가
+- `--strict` 경고가 0건이고 20개 모듈 캡처를 육안 확인했는가
+- 수정은 카피 의미 단위, 컨테이너 폭·패딩, 그리드 비율, 글자 크기 순으로 최소화했는가
+
+상세 명령·오류 코드는 [html-typography-qa.md](html-typography-qa.md)를 따른다. 자동 판정과 육안 판정 중 하나라도 실패하면 `integration-qa`를 통과시키지 않는다.
 
 ## 페이지별 4중 게이트
 
@@ -128,5 +141,17 @@ OCR은 C 게이트의 보조 신호다. 기대 문구와 다른 후보를 찾되
 모든 시도는 `regeneration-log.json`에 실패 유형·타깃 영역·참조 source ID·결과를 남긴다. 제품·레이아웃은 2회 후 중단한다. 한글은 3회 후에도 실패하면 `BLOCKED_TEXT`로 처리하고 최종 이미지에서 제외한다. 로컬 타이포그래피 폴백·외부 조판·텍스트 합성은 금지한다.
 
 ## 최종 판정
+
+### 5.3+ 주장·크롭·순서 게이트
+
+- 핵심 주장마다 `direct` 시각 증거 모듈이 있는가: 100%
+- 모듈마다 claim/evidence/asset ID가 모두 연결되는가: 100%
+- 주장-이미지 연관성 육안 점수가 장별 80/100 이상인가
+- 실제 360px·800px DOM 모듈 순서가 승인 스토리보드와 100% 같은가
+- 피사체 bbox가 95% 이상, 타공·얼굴선·목 끝단·측정점 등 핵심 bbox가 100% 보이는가
+- 모바일·800px에서 카피와 미디어의 위치가 장별 `layout` 계약과 같은가
+- 이미지의 `width`·`height` 또는 `aspect-ratio`가 로딩 전 공간을 확보하는가
+
+자동 검증은 크롭·순서·ID를 판정하고, 육안 검수는 실제 주장과 시각 단서의 의미 연결을 판정한다. 둘 중 하나라도 실패하면 통합 QA를 통과시키지 않는다.
 
 `passed`는 실제 소스 기반 SKU 동일성, 추적 가능한 제품 계보와 canonical routing, 정확히 10장, 워크플로 5.2의 정확한 `800×2400px` 규격, 실제 인물 픽셀 0건, 합성 모델 일관성, 제품 사실성, 무문자 1차 비주얼, 정확한 조건부 타이포, 4중 게이트, 레퍼런스 품질 반영, 근거 기반 카피, 상업성 8/10 이상, 브랜드 점수 8/10 이상이 모두 통과한 경우에만 사용한다.

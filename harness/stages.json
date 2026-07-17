@@ -30,11 +30,15 @@
       "order": 1,
       "status": "implemented",
       "description": "도매 후보 수집, 쿠팡 근거, 가격·마진과 선택 보고서",
-      "paths": ["coupang-product-sourcing/**"],
+      "paths": [
+        "coupang-product-sourcing/**",
+        "coupang-best-high-markup-sourcing/**"
+      ],
       "test_paths": ["coupang-product-sourcing/tests/**"],
       "commands": [
         {"name": "sourcing-tests", "argv": ["python", "-m", "pytest", "coupang-product-sourcing/tests", "-q"]},
         {"name": "sourcing-skill", "argv": ["python", "-X", "utf8", "{home}/.codex/skills/.system/skill-creator/scripts/quick_validate.py", "coupang-product-sourcing"]},
+        {"name": "best-high-markup-sourcing-skill", "argv": ["python", "-X", "utf8", "{home}/.codex/skills/.system/skill-creator/scripts/quick_validate.py", "coupang-best-high-markup-sourcing"]},
         {"name": "report-layout", "argv": ["python", "scripts/tdd.py", "check-reports"]}
       ]
     },

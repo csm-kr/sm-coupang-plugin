@@ -81,6 +81,12 @@ def qualified(row: dict[str, Any]) -> tuple[bool, list[str]]:
     distribution = row.get("market_price_distribution") or {}
     if not isinstance(distribution.get("count"), int) or distribution["count"] < 5:
         gaps.append("비교 가격 표본 5개 미만")
+    if (
+        distribution.get("price_basis") != "demand_backed_current_sale_price"
+        or not isinstance(distribution.get("demand_backed_price_count"), int)
+        or distribution["demand_backed_price_count"] < 5
+    ):
+        gaps.append("판매 근거 가격 중앙값 검증 미완료")
     option = (row.get("price_options") or {}).get("recommended") or {}
     base = option.get("base") or {}
     stress = option.get("stress") or {}

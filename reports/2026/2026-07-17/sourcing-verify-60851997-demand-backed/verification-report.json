@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.1",
+  "run_name": "sourcing-verify-60851997-demand-backed",
+  "generated_at": "2026-07-17T17:30:00+09:00",
+  "decision": "PRICE_REVIEW_BLOCKED",
+  "decision_reason": "완전 동일 1개 구성의 검증 현재가 5건은 모두 판매 근거가 없어 마진 판정용 중앙값을 만들 수 없음",
+  "policy": {
+    "price_basis": "demand_backed_current_sale_price",
+    "minimum_samples": 5,
+    "demand_evidence_rule": "recent_purchase_count>=1_or_review_count>=5",
+    "review_evidence_is_proxy": true,
+    "unsold_listing_prices_excluded": true
+  },
+  "policy_migration": {
+    "previous_decision": "REJECT_CURRENT_SUPPLY_OFFER",
+    "previous_price_basis": "all_verified_identical_current_listings",
+    "previous_all_listing_p50": 5640,
+    "previous_decision_valid": false,
+    "reason": "판매 근거 없는 등록가 전체 중앙값은 새 정책의 마진 판정 근거가 아님",
+    "previous_report": "../../../deprecated/2026/2026-07-17/sourcing-verify-60851997/verification-report.html"
+  },
+  "candidate": {
+    "candidate_id": "60851997",
+    "name": "기능성 깔창 에어쿠션 충격완화 군인 군화 운동화 쫀쫀깔창 키높이인솔",
+    "supplier_url": "https://domeggook.com/60851997?from=lstGen",
+    "supplier_terms": {
+      "verified": true,
+      "unit_supply_price": 1800,
+      "minimum_order_qty": 4,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "shipping_rule": "50개까지 3,000원, 이후 50개마다 3,000원 추가",
+      "sale_bundle_quantity": 1,
+      "observed_at": "2026-07-17T16:01:12+09:00"
+    }
+  },
+  "identity_lock": {
+    "status": "IDENTICAL_CONFIRMED",
+    "confidence": "high",
+    "sale_bundle_quantity": 1,
+    "supplier_source_confirmed_for_all_samples": true
+  },
+  "market": {
+    "observed_at": "2026-07-17T16:01:12+09:00",
+    "samples": [
+      {
+        "product_id": "9538654164",
+        "seller": "윈트마켓",
+        "total_customer_payment": 5470,
+        "review_count": 0,
+        "recent_purchase_count": 0,
+        "demand_evidence_verified": false,
+        "included_in_margin_median": false,
+        "url": "https://www.coupang.com/vp/products/9538654164"
+      },
+      {
+        "product_id": "9475012024",
+        "seller": "제이라이프",
+        "total_customer_payment": 6560,
+        "review_count": 0,
+        "recent_purchase_count": 0,
+        "demand_evidence_verified": false,
+        "included_in_margin_median": false,
+        "url": "https://www.coupang.com/vp/products/9475012024"
+      },
+      {
+        "product_id": "9104195990",
+        "seller": "린이네 건강",
+        "total_customer_payment": 5630,
+        "review_count": 0,
+        "recent_purchase_count": 0,
+        "demand_evidence_verified": false,
+        "included_in_margin_median": false,
+        "url": "https://www.coupang.com/vp/products/9104195990"
+      },
+      {
+        "product_id": "9580730880",
+        "seller": "고마운쇼핑",
+        "total_customer_payment": 5770,
+        "review_count": 0,
+        "recent_purchase_count": 0,
+        "demand_evidence_verified": false,
+        "included_in_margin_median": false,
+        "url": "https://www.coupang.com/vp/products/9580730880"
+      },
+      {
+        "product_id": "9482528407",
+        "seller": "나이스공조",
+        "total_customer_payment": 5640,
+        "review_count": 0,
+        "recent_purchase_count": 0,
+        "demand_evidence_verified": false,
+        "included_in_margin_median": false,
+        "url": "https://www.coupang.com/vp/products/9482528407"
+      }
+    ],
+    "market_price_distribution": {
+      "comparison_group": "identical",
+      "price_basis": "demand_backed_current_sale_price",
+      "verified_current_price_count": 5,
+      "demand_backed_price_count": 0,
+      "excluded_no_demand_evidence_count": 5,
+      "count": 0,
+      "p50": null,
+      "review_evidence_is_proxy": true
+    },
+    "all_listing_price_context": {
+      "decision_basis": false,
+      "min": 5470,
+      "p50": 5640,
+      "max": 6560,
+      "note": "등록 현황 참고값이며 마진 판정에 사용하지 않음"
+    }
+  },
+  "economics": {
+    "market_margin_status": "NOT_CALCULATED_NO_DEMAND_BACKED_P50",
+    "rocket_growth_cost_per_bundle": 3000,
+    "coupang_fee_rate_pct": 10.8,
+    "moq_4_floor": {
+      "official_standard_40_30": 12500,
+      "official_conditional_35_25": 11100,
+      "user_scenario_30_20": 10000
+    },
+    "bulk_50_floor": {
+      "official_standard_40_30": 10900,
+      "official_conditional_35_25": 9700,
+      "user_scenario_30_20": 8700
+    }
+  },
+  "next_evidence_required": [
+    "완전 동일 1개 구성의 독립 상품 5건 이상에서 최근 구매 수 1건 이상 또는 리뷰 5개 이상 확인",
+    "각 판매 근거와 현재 총결제가격을 같은 조사시각으로 기록",
+    "판매 근거 가격 5건 확보 후에만 p50과 정상·스트레스 마진 재계산"
+  ],
+  "browser_policy": {
+    "browser_use_invoked": false,
+    "nodriver_invoked": false,
+    "reason": "사용자 지시로 실시간 브라우저 수집 중단",
+    "reused_existing_public_evidence_only": true
+  }
+}

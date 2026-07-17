@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "run_name": "sourcing-margin-30-20-review",
+  "status": "USER_SCENARIO_REVIEW_30_20",
+  "browser_collection_enabled": false,
+  "round2_candidate_count": 8,
+  "scenario_pass_count": 0,
+  "scenario_watch_count": 1,
+  "official_policy_changed": false,
+  "static_html_qa": {
+    "candidate_cards": 8,
+    "missing_candidate_names": 0,
+    "wholesale_urls": 8,
+    "prior_coupang_search_urls": 7,
+    "status": "PASS"
+  },
+  "cleanup": {
+    "owned_nodriver_chrome_processes_remaining": 0,
+    "browser_use_not_invoked_after_user_stop": true,
+    "status": "PASS"
+  },
+  "artifacts": [
+    "scenario-report.html",
+    "scenario-report.json",
+    "run-manifest.json"
+  ]
+}

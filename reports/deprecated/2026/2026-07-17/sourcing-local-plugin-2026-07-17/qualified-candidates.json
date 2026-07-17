@@ -1,0 +1,1326 @@
+{
+  "schema_version": "1.0",
+  "status": "INSUFFICIENT_QUALIFIED_CANDIDATES",
+  "minimum": 5,
+  "qualified_count": 0,
+  "standard_count": 0,
+  "conditional_count": 0,
+  "qualified_candidates": [],
+  "excluded": [
+    {
+      "candidate_id": "26878137",
+      "name": "롯데 칠성사이다 190ml x 30캔",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/26878137",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "65447989",
+      "name": "큐브 아이스 넥쿨러 아이스 넥밴드 냉감 쿨스카프 얼음목걸이 2세대 개별박스포장",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/65447989",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9600654646?itemId=28660413512&vendorItemId=95602523736&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%202%EC%84%B8%EB%8C%80&searchId=ece6ec747844353&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9600654646?itemId=28660335387&vendorItemId=95602523744&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%202%EC%84%B8%EB%8C%80&searchId=ece6ec747844353&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9559276993?itemId=28525815075&vendorItemId=95472601956&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%202%EC%84%B8%EB%8C%80&searchId=ece6ec747844353&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9548871818?itemId=28489039374&vendorItemId=95598567840&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%202%EC%84%B8%EB%8C%80&searchId=ece6ec747844353&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9573702297?itemId=28576184212&vendorItemId=95520427093&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%202%EC%84%B8%EB%8C%80&searchId=ece6ec747844353&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "큐브 아이스 넥쿨러 2세대",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%202%EC%84%B8%EB%8C%80&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:00:52+09:00"
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "운영·규제 안전 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "65225219",
+      "name": "쿨썸머 넥밴드 선풍기 2color / 휴대용 미니 목걸이 넥선풍기 넥쿨러",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/65225219",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "33927184",
+      "name": "건조한 피부 건선 가려움증 간지러움 땀띠 습진 연고 크림",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/33927184",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "58088773",
+      "name": "디자인 특허등록 제품 카라비너 10k 이중창살 강풍 비바람 강한 자동우산 고리우산",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/58088773",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "56328525",
+      "name": "쿨 아이스 냉감 반팔 티셔츠 기능성 라운드 남성 남자 반팔티",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/56328525",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "49000588",
+      "name": "미숫가루 [새싹보리&검은콩 미숫가루(20p)] 명절선물세트/건강식/간편식/한끼식사대용/추석 설날선물세트",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/49000588",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "13187678",
+      "name": "우산 양산 양우산 자동우산 (인쇄가능) 3단자동우산 우양산 골프우산 UV 자외선 차단 미니우산 암막 방수",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/13187678",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8109253423?itemId=22965024422&vendorItemId=94445332008&q=3%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=d803eb652453073&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9440009279?itemId=28076404436&vendorItemId=95034540375&q=3%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=d803eb652453073&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9443119007?itemId=28087358287&vendorItemId=95599976769&q=3%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=d803eb652453073&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9588717663?itemId=28623470551&vendorItemId=95566673733&q=3%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=d803eb652453073&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9452572789?itemId=28121840934&vendorItemId=95612502584&q=3%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=d803eb652453073&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "3단 자동 암막 양우산",
+        "search_url": "https://www.coupang.com/np/search?q=3%EB%8B%A8%20%EC%9E%90%EB%8F%99%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:00:57+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달"
+      ]
+    },
+    {
+      "candidate_id": "59998546",
+      "name": "전동 불꽃 물총 LED 라이트 워터건 연속 자동연사 워터밤",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/59998546",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "54804743",
+      "name": "1.18리터 대용량 텀블러 스텐 빨대 포함 손잡이 보온 보냉병",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/54804743",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/6792297030?itemId=18629073163&vendorItemId=89360447892&pickType=COU_PICK&q=1.18L%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC%20%EB%B9%A8%EB%8C%80%20%EC%86%90%EC%9E%A1%EC%9D%B4&searchId=603e05945521035&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9397719632?itemId=27912095485&vendorItemId=95456521208&q=1.18L%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC%20%EB%B9%A8%EB%8C%80%20%EC%86%90%EC%9E%A1%EC%9D%B4&searchId=603e05945521035&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/6792297030?itemId=25079058722&vendorItemId=91671811549&q=1.18L%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC%20%EB%B9%A8%EB%8C%80%20%EC%86%90%EC%9E%A1%EC%9D%B4&searchId=603e05945521035&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9397719632?itemId=27912237236&vendorItemId=95456521211&q=1.18L%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC%20%EB%B9%A8%EB%8C%80%20%EC%86%90%EC%9E%A1%EC%9D%B4&searchId=603e05945521035&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8949531373?itemId=24595466543&vendorItemId=91607056552&q=1.18L%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC%20%EB%B9%A8%EB%8C%80%20%EC%86%90%EC%9E%A1%EC%9D%B4&searchId=603e05945521035&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "1.18L 대용량 스텐 텀블러 빨대 손잡이",
+        "search_url": "https://www.coupang.com/np/search?q=1.18L%20%EB%8C%80%EC%9A%A9%EB%9F%89%20%EC%8A%A4%ED%85%90%20%ED%85%80%EB%B8%94%EB%9F%AC%20%EB%B9%A8%EB%8C%80%20%EC%86%90%EC%9E%A1%EC%9D%B4&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:01:02+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    },
+    {
+      "candidate_id": "56954644",
+      "name": "쥐젖제거 크림 연고 쥐젓제거 각질입자 연화제거 울퉁불퉁 눈밑좁쌀 피부고민 피지제거 크림 연고",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/56954644",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "9556369",
+      "name": "[도매라인]* 150cm 고급 빅사이즈장우산 골프우산 대형우산 장우산 양우산 자동우산 선물박스 사은 판촉물",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/9556369",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "10556351",
+      "name": "[도매라인] 차량용 티타늄 우산형 햇빛가리개 썬블럭 햇빛가림막 유리창열차단 여름 주차 쿨링용품",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/10556351",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/6170824709?itemId=12044148715&vendorItemId=79316358756&pickType=COU_PICK&q=%EC%B0%A8%EB%9F%89%EC%9A%A9%20%EC%9A%B0%EC%82%B0%ED%98%95%20%ED%96%87%EB%B9%9B%EA%B0%80%EB%A6%AC%EA%B0%9C&searchId=646786ae7854172&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9505628148?itemId=28322767976&vendorItemId=95635605612&q=%EC%B0%A8%EB%9F%89%EC%9A%A9%20%EC%9A%B0%EC%82%B0%ED%98%95%20%ED%96%87%EB%B9%9B%EA%B0%80%EB%A6%AC%EA%B0%9C&searchId=646786ae7854172&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8835857935?itemId=25749103703&vendorItemId=92552213042&q=%EC%B0%A8%EB%9F%89%EC%9A%A9%20%EC%9A%B0%EC%82%B0%ED%98%95%20%ED%96%87%EB%B9%9B%EA%B0%80%EB%A6%AC%EA%B0%9C&searchId=646786ae7854172&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9505412631?itemId=28321958353&vendorItemId=95274512293&q=%EC%B0%A8%EB%9F%89%EC%9A%A9%20%EC%9A%B0%EC%82%B0%ED%98%95%20%ED%96%87%EB%B9%9B%EA%B0%80%EB%A6%AC%EA%B0%9C&searchId=646786ae7854172&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9560580587?itemId=28530287785&vendorItemId=95476213426&q=%EC%B0%A8%EB%9F%89%EC%9A%A9%20%EC%9A%B0%EC%82%B0%ED%98%95%20%ED%96%87%EB%B9%9B%EA%B0%80%EB%A6%AC%EA%B0%9C&searchId=646786ae7854172&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "차량용 우산형 햇빛가리개",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%B0%A8%EB%9F%89%EC%9A%A9%20%EC%9A%B0%EC%82%B0%ED%98%95%20%ED%96%87%EB%B9%9B%EA%B0%80%EB%A6%AC%EA%B0%9C&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:01:07+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달"
+      ]
+    },
+    {
+      "candidate_id": "59922903",
+      "name": "[터빈선풍기 5단계] 휴대용 2초 급속 냉각 장치 탑재 선풍기 아이스 핸드 손풍기 손선풍기 핸디 선풍기 Y32",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/59922903",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "7281860",
+      "name": "V넥 민소매 나시(3컬러)/ 20수 덤블워싱가공 순면(M-3XL)/국내생산",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/7281860",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "39593522",
+      "name": "홈키파 날파리 초파리 퇴치제 살충제 스프레이 290ml",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/39593522",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "3201182",
+      "name": "[도매라인] 18컬러 3단자동우산 UV 자외선차단 암막 자동우산 양우산 우양산 미니 접이식우산 선물박스",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/3201182",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "62893008",
+      "name": "304스텐 720ml 키링 텀블러 캠핑용품 빨대포함 아웃도어 커피잔 보온병 보냉병 보온보냉병 인쇄가능",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/62893008",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9616494362?itemId=28714028896&vendorItemId=95745909671&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=e35211a15529739&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9618671736?itemId=28721633750&vendorItemId=95788029249&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=e35211a15529739&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9637189106?itemId=28792514615&vendorItemId=95728133598&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=e35211a15529739&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9616494362?itemId=28714028893&vendorItemId=95745909668&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=e35211a15529739&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9616494362?itemId=28714028897&vendorItemId=95745909675&q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=e35211a15529739&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "304스텐 720ml 키링 텀블러",
+        "search_url": "https://www.coupang.com/np/search?q=304%EC%8A%A4%ED%85%90%20720ml%20%ED%82%A4%EB%A7%81%20%ED%85%80%EB%B8%94%EB%9F%AC&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:01:12+09:00"
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "33930312",
+      "name": "피부 화상연고 약 상처 제왕절개 흉터제거 재생연고 화농성 여드름 뾰루지 켈로이드흉터",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/33930312",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "48271421",
+      "name": "여자 Y존 자국방지 레깅스 팬티 특허 쿠치니 패드 요가복 수영복 W존커버",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/48271421",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "57682904",
+      "name": "디핏밴드 모기팔찌 국산 스페셜&라이트 KC인증 실리콘 썸머 밴드",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/57682904",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "48882757",
+      "name": "[도매라인] 와이드양우산*플라워 UV차단 양우산 3단 암막우산 양우산 자외선차단 꽃무늬양산",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/48882757",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9452572789?itemId=28121840934&vendorItemId=95612502584&q=%ED%94%8C%EB%9D%BC%EC%9B%8C%203%EB%8B%A8%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=e5c77dd15526382&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9544209548?itemId=28472264833&vendorItemId=95422583759&q=%ED%94%8C%EB%9D%BC%EC%9B%8C%203%EB%8B%A8%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=e5c77dd15526382&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9615453950?itemId=28710285895&vendorItemId=95651088893&q=%ED%94%8C%EB%9D%BC%EC%9B%8C%203%EB%8B%A8%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=e5c77dd15526382&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9494649002?itemId=28280906407&vendorItemId=95234009839&q=%ED%94%8C%EB%9D%BC%EC%9B%8C%203%EB%8B%A8%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=e5c77dd15526382&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8825782812?itemId=25718745326&vendorItemId=92710353351&q=%ED%94%8C%EB%9D%BC%EC%9B%8C%203%EB%8B%A8%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&searchId=e5c77dd15526382&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "플라워 3단 암막 양우산",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%94%8C%EB%9D%BC%EC%9B%8C%203%EB%8B%A8%20%EC%95%94%EB%A7%89%20%EC%96%91%EC%9A%B0%EC%82%B0&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:01:17+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달"
+      ]
+    },
+    {
+      "candidate_id": "56628327",
+      "name": "쿨링 아이스 와이드 팬츠 2color / 여름 냉감 밴딩 와이드바지",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/56628327",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "5612224",
+      "name": "[도매라인] 리포즈베개 꿀잠 호텔베개 1000g 볼륨빵빵 숙면베개 압축포장 프리미엄 퀼팅베개 74x48",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/5612224",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8317746358?itemId=25201239447&vendorItemId=95424539890&q=%EB%A6%AC%ED%8F%AC%EC%A6%88%20%ED%98%B8%ED%85%94%EB%B2%A0%EA%B0%9C%201000g%2074x48&searchId=2edb963411673683&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8317746358?itemId=25201239449&vendorItemId=95424539889&q=%EB%A6%AC%ED%8F%AC%EC%A6%88%20%ED%98%B8%ED%85%94%EB%B2%A0%EA%B0%9C%201000g%2074x48&searchId=2edb963411673683&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9533817188?itemId=28433597438&vendorItemId=95384445425&q=%EB%A6%AC%ED%8F%AC%EC%A6%88%20%ED%98%B8%ED%85%94%EB%B2%A0%EA%B0%9C%201000g%2074x48&searchId=2edb963411673683&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9483035372?itemId=28236395439&vendorItemId=94988153599&q=%EB%A6%AC%ED%8F%AC%EC%A6%88%20%ED%98%B8%ED%85%94%EB%B2%A0%EA%B0%9C%201000g%2074x48&searchId=2edb963411673683&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9526274062?itemId=28403838493&vendorItemId=95355133574&q=%EB%A6%AC%ED%8F%AC%EC%A6%88%20%ED%98%B8%ED%85%94%EB%B2%A0%EA%B0%9C%201000g%2074x48&searchId=2edb963411673683&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "리포즈 호텔베개 1000g 74x48",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%A6%AC%ED%8F%AC%EC%A6%88%20%ED%98%B8%ED%85%94%EB%B2%A0%EA%B0%9C%201000g%2074x48&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:01:23+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달"
+      ]
+    },
+    {
+      "candidate_id": "30874497",
+      "name": "칼라 면 테이프 무광 50mm x 50M",
+      "decision": "BLOCKED",
+      "wholesale_url": "https://domeggook.com/30874497",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "칼라 면 테이프 무광 50mm x 50M",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%B9%BC%EB%9D%BC%20%EB%A9%B4%20%ED%85%8C%EC%9D%B4%ED%94%84%20%EB%AC%B4%EA%B4%91%2050mm%20x%2050M&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0,
+        "observed_at": "2026-07-17T15:16:39+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "34458366",
+      "name": "로얄 계림 소변기 센서 솔레노이드 솔밸브 전자밸브 CONIX DC6V",
+      "decision": "BLOCKED",
+      "wholesale_url": "https://domeggook.com/34458366",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "로얄 계림 소변기 센서 솔레노이드 솔밸브 전자밸브 CONIX DC6V",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%A1%9C%EC%96%84%20%EA%B3%84%EB%A6%BC%20%EC%86%8C%EB%B3%80%EA%B8%B0%20%EC%84%BC%EC%84%9C%20%EC%86%94%EB%A0%88%EB%85%B8%EC%9D%B4%EB%93%9C%20%EC%86%94%EB%B0%B8%EB%B8%8C%20%EC%A0%84%EC%9E%90%EB%B0%B8%EB%B8%8C%20CONIX%20DC6V&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0,
+        "observed_at": "2026-07-17T15:16:51+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "51204164",
+      "name": "서강유업 딸기시럽 530g x 2개",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/51204164",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "44183044",
+      "name": "순면 여자 트렁크 팬티 네모 엄마 할머니 위생 사각 요실금 질염 빅사이즈 중요부분 이중면 3장 세트",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/44183044",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "26765612",
+      "name": "여자 민소매 인견런닝 케미솔 인견나시 끈런닝 끈나시 여름 시원한 나시",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/26765612",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "57264521",
+      "name": "편안하고 신축성 좋은 빅사이즈 면스판 끈나시0097ak",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/57264521",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "53156349",
+      "name": "[당일출고]방수 야구 캡모자 볼캡 워터밤 물놀이 워터파크 수영장 바캉스 나일론",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/53156349",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8771979123?itemId=25727567984&vendorItemId=92716210414&q=%EB%B0%A9%EC%88%98%20%EB%82%98%EC%9D%BC%EB%A1%A0%20%EC%95%BC%EA%B5%AC%20%EC%BA%A1%EB%AA%A8%EC%9E%90&searchId=dc76a73e5495265&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9587176773?itemId=28618677651&vendorItemId=95561942972&q=%EB%B0%A9%EC%88%98%20%EB%82%98%EC%9D%BC%EB%A1%A0%20%EC%95%BC%EA%B5%AC%20%EC%BA%A1%EB%AA%A8%EC%9E%90&searchId=dc76a73e5495265&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8639068821?itemId=25069471579&vendorItemId=93117899292&q=%EB%B0%A9%EC%88%98%20%EB%82%98%EC%9D%BC%EB%A1%A0%20%EC%95%BC%EA%B5%AC%20%EC%BA%A1%EB%AA%A8%EC%9E%90&searchId=dc76a73e5495265&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/7440134946?itemId=19345001722&vendorItemId=89883183352&q=%EB%B0%A9%EC%88%98%20%EB%82%98%EC%9D%BC%EB%A1%A0%20%EC%95%BC%EA%B5%AC%20%EC%BA%A1%EB%AA%A8%EC%9E%90&searchId=dc76a73e5495265&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9436549877?itemId=28062611422&vendorItemId=95019329750&q=%EB%B0%A9%EC%88%98%20%EB%82%98%EC%9D%BC%EB%A1%A0%20%EC%95%BC%EA%B5%AC%20%EC%BA%A1%EB%AA%A8%EC%9E%90&searchId=dc76a73e5495265&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "방수 나일론 야구 캡모자",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%B0%A9%EC%88%98%20%EB%82%98%EC%9D%BC%EB%A1%A0%20%EC%95%BC%EA%B5%AC%20%EC%BA%A1%EB%AA%A8%EC%9E%90&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:02:29+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달"
+      ]
+    },
+    {
+      "candidate_id": "66404256",
+      "name": "[도매라인] 큐브 아이스 넥쿨러 여름 쿨링 넥밴드 쿨스카프 얼음스카프 냉감 목걸이 개별박스",
+      "decision": "REJECT",
+      "wholesale_url": "https://domeggook.com/66404256",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9559276993?itemId=28525815075&vendorItemId=95472601956&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%20%EA%B0%9C%EB%B3%84%EB%B0%95%EC%8A%A4&searchId=dc6343841120166&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9652113548?itemId=28849968298&vendorItemId=95783777056&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%20%EA%B0%9C%EB%B3%84%EB%B0%95%EC%8A%A4&searchId=dc6343841120166&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9651724945?itemId=28848550941&vendorItemId=95782393335&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%20%EA%B0%9C%EB%B3%84%EB%B0%95%EC%8A%A4&searchId=dc6343841120166&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9572940474?itemId=28573714040&vendorItemId=95604673967&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%20%EA%B0%9C%EB%B3%84%EB%B0%95%EC%8A%A4&searchId=dc6343841120166&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9624965374?itemId=28743978766&vendorItemId=95683182966&q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%20%EA%B0%9C%EB%B3%84%EB%B0%95%EC%8A%A4&searchId=dc6343841120166&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "큐브 아이스 넥쿨러 개별박스",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%81%90%EB%B8%8C%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EB%84%A5%EC%BF%A8%EB%9F%AC%20%EA%B0%9C%EB%B3%84%EB%B0%95%EC%8A%A4&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:02:35+09:00"
+      },
+      "gaps": [
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재"
+      ]
+    },
+    {
+      "candidate_id": "40164562",
+      "name": "3W 콜라겐 화이트닝 크림 60ml",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/40164562",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "9568144",
+      "name": "국산 위생 에티켓 요실금 팬티",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/9568144",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "44701916",
+      "name": "남성 아이스 기능성 라운드 반팔티",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/44701916",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "63626132",
+      "name": "와와일공구 아이네꼬 잡지 2탄",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/63626132",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "50362802",
+      "name": "라인플러스 칼라 화이트 보드마카 12색 세트",
+      "decision": "BLOCKED",
+      "wholesale_url": "https://domeggook.com/50362802",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "라인플러스 칼라 화이트 보드마카 12색 세트",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%9D%BC%EC%9D%B8%ED%94%8C%EB%9F%AC%EC%8A%A4%20%EC%B9%BC%EB%9D%BC%20%ED%99%94%EC%9D%B4%ED%8A%B8%20%EB%B3%B4%EB%93%9C%EB%A7%88%EC%B9%B4%2012%EC%83%89%20%EC%84%B8%ED%8A%B8&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0,
+        "observed_at": "2026-07-17T15:17:53+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "6576597",
+      "name": "현관문 고무패킹 6.3M",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/6576597",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8629678764?itemId=26968896916&vendorItemId=93937810702&q=%ED%98%84%EA%B4%80%EB%AC%B8%20%EA%B3%A0%EB%AC%B4%ED%8C%A8%ED%82%B9%206.3M&searchId=3b94c8df12952392&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/46680684?itemId=165518790&vendorItemId=3020046227&q=%ED%98%84%EA%B4%80%EB%AC%B8%20%EA%B3%A0%EB%AC%B4%ED%8C%A8%ED%82%B9%206.3M&searchId=3b94c8df12952392&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/4605583657?itemId=11121434223&vendorItemId=3814753898&pickType=COU_PICK&q=%ED%98%84%EA%B4%80%EB%AC%B8%20%EA%B3%A0%EB%AC%B4%ED%8C%A8%ED%82%B9%206.3M&searchId=3b94c8df12952392&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/4605583657?itemId=5172413766&vendorItemId=92912457563&q=%ED%98%84%EA%B4%80%EB%AC%B8%20%EA%B3%A0%EB%AC%B4%ED%8C%A8%ED%82%B9%206.3M&searchId=3b94c8df12952392&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8629678764?itemId=26968896914&vendorItemId=93937810701&q=%ED%98%84%EA%B4%80%EB%AC%B8%20%EA%B3%A0%EB%AC%B4%ED%8C%A8%ED%82%B9%206.3M&searchId=3b94c8df12952392&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "현관문 고무패킹 6.3M",
+        "search_url": "https://www.coupang.com/np/search?q=%ED%98%84%EA%B4%80%EB%AC%B8%20%EA%B3%A0%EB%AC%B4%ED%8C%A8%ED%82%B9%206.3M&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:02:40+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달"
+      ]
+    },
+    {
+      "candidate_id": "34786791",
+      "name": "남자 링클프리스판 여름 슬랙스팬츠 냉감바지",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/34786791",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "47964803",
+      "name": "농심 백산수 무라벨 1L x 12개 생수 물1리터",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/47964803",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "64682878",
+      "name": "국내산 남여공용 긴팔 래쉬가드 상의 오버핏 빅사이즈",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/64682878",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "40716194",
+      "name": "대용량 500ML 옷장 습기제거제 10매입 신상품통형 입고",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/40716194",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "55204552",
+      "name": "대용량 4000mAh F330 넥쿨러 아이스 터보 선풍기접이식 목걸이넥밴드 KC",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/55204552",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "26878083",
+      "name": "킨사이다 업소용 1.5L x 12PET",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/26878083",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "64713151",
+      "name": "[도매라인] 1.2L 대용량 스텐304 텀블러 얼음컵 보온보냉 빨대포함 손잡이 차량용 운동용 헬스 물통",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/64713151",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8787565536?itemId=28576661002&vendorItemId=95520879434&q=1.2L%20%EC%8A%A4%ED%85%90304%20%EC%86%90%EC%9E%A1%EC%9D%B4%20%EB%B9%A8%EB%8C%80%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=2ccdcac021416717&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8787565536?itemId=28576661004&vendorItemId=95520879439&q=1.2L%20%EC%8A%A4%ED%85%90304%20%EC%86%90%EC%9E%A1%EC%9D%B4%20%EB%B9%A8%EB%8C%80%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=2ccdcac021416717&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8510625281?itemId=24724741729&vendorItemId=91733900101&q=1.2L%20%EC%8A%A4%ED%85%90304%20%EC%86%90%EC%9E%A1%EC%9D%B4%20%EB%B9%A8%EB%8C%80%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=2ccdcac021416717&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8510625281?itemId=24724689800&vendorItemId=91733850735&q=1.2L%20%EC%8A%A4%ED%85%90304%20%EC%86%90%EC%9E%A1%EC%9D%B4%20%EB%B9%A8%EB%8C%80%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=2ccdcac021416717&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8787769445?itemId=25574741166&vendorItemId=92565793157&q=1.2L%20%EC%8A%A4%ED%85%90304%20%EC%86%90%EC%9E%A1%EC%9D%B4%20%EB%B9%A8%EB%8C%80%20%ED%85%80%EB%B8%94%EB%9F%AC&searchId=2ccdcac021416717&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "1.2L 스텐304 손잡이 빨대 텀블러",
+        "search_url": "https://www.coupang.com/np/search?q=1.2L%20%EC%8A%A4%ED%85%90304%20%EC%86%90%EC%9E%A1%EC%9D%B4%20%EB%B9%A8%EB%8C%80%20%ED%85%80%EB%B8%94%EB%9F%AC&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:02:45+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "운영·규제 안전 검증 미완료"
+      ]
+    },
+    {
+      "candidate_id": "65532436",
+      "name": "초강력 고속 허리선풍기 휴대용 대용량 무선 작업용 캠핑용",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/65532436",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "63264018",
+      "name": "고급형 김치커터 밀폐용기 그레이 김치절단기 김장김치 포기김치 자르미 채소슬라이서 커팅보관통 칼내장",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/63264018",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "34537283",
+      "name": "아이스브레이킹 빙고 게임 판 30매",
+      "decision": "BLOCKED",
+      "wholesale_url": "https://domeggook.com/34537283",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "아이스브레이킹 빙고 게임 판 30매",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%95%84%EC%9D%B4%EC%8A%A4%EB%B8%8C%EB%A0%88%EC%9D%B4%ED%82%B9%20%EB%B9%99%EA%B3%A0%20%EA%B2%8C%EC%9E%84%20%ED%8C%90%2030%EB%A7%A4&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0,
+        "observed_at": "2026-07-17T15:17:04+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "44168380",
+      "name": "손목운동 오토 스핀볼 근력운동 자이로볼 악력기",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/44168380",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/6822263381?itemId=2975636114&vendorItemId=83369376848&pickType=COU_PICK&q=%EC%98%A4%ED%86%A0%20%EC%8A%A4%ED%95%80%EB%B3%BC%20%EC%9E%90%EC%9D%B4%EB%A1%9C%EB%B3%BC%20%EC%95%85%EB%A0%A5%EA%B8%B0&searchId=2d0b285c7525522&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8937118425?itemId=21690331093&vendorItemId=88740164483&q=%EC%98%A4%ED%86%A0%20%EC%8A%A4%ED%95%80%EB%B3%BC%20%EC%9E%90%EC%9D%B4%EB%A1%9C%EB%B3%BC%20%EC%95%85%EB%A0%A5%EA%B8%B0&searchId=2d0b285c7525522&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9452356513?itemId=28120975535&vendorItemId=95077106664&q=%EC%98%A4%ED%86%A0%20%EC%8A%A4%ED%95%80%EB%B3%BC%20%EC%9E%90%EC%9D%B4%EB%A1%9C%EB%B3%BC%20%EC%95%85%EB%A0%A5%EA%B8%B0&searchId=2d0b285c7525522&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9518137046?itemId=28371028550&vendorItemId=95330028471&q=%EC%98%A4%ED%86%A0%20%EC%8A%A4%ED%95%80%EB%B3%BC%20%EC%9E%90%EC%9D%B4%EB%A1%9C%EB%B3%BC%20%EC%95%85%EB%A0%A5%EA%B8%B0&searchId=2d0b285c7525522&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9452356513?itemId=28197820732&vendorItemId=95152160030&q=%EC%98%A4%ED%86%A0%20%EC%8A%A4%ED%95%80%EB%B3%BC%20%EC%9E%90%EC%9D%B4%EB%A1%9C%EB%B3%BC%20%EC%95%85%EB%A0%A5%EA%B8%B0&searchId=2d0b285c7525522&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "오토 스핀볼 자이로볼 악력기",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%98%A4%ED%86%A0%20%EC%8A%A4%ED%95%80%EB%B3%BC%20%EC%9E%90%EC%9D%B4%EB%A1%9C%EB%B3%BC%20%EC%95%85%EB%A0%A5%EA%B8%B0&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:02:50+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달"
+      ]
+    },
+    {
+      "candidate_id": "66271798",
+      "name": "오리온 고래밥 볶음양념맛 46g x 10개",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/66271798",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "52733730",
+      "name": "가볍고 편한 EVA 향균 실내화 사무실 학교",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/52733730",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "41332407",
+      "name": "강력 옥상 지붕 배관 누수 방수 부틸 테이프 10cm 5m",
+      "decision": "BLOCKED",
+      "wholesale_url": "https://domeggook.com/41332407",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "강력 옥상 지붕 배관 누수 방수 부틸 테이프 10cm 5m",
+        "search_url": "https://www.coupang.com/np/search?q=%EA%B0%95%EB%A0%A5%20%EC%98%A5%EC%83%81%20%EC%A7%80%EB%B6%95%20%EB%B0%B0%EA%B4%80%20%EB%88%84%EC%88%98%20%EB%B0%A9%EC%88%98%20%EB%B6%80%ED%8B%B8%20%ED%85%8C%EC%9D%B4%ED%94%84%2010cm%205m&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0,
+        "observed_at": "2026-07-17T15:17:16+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "63258385",
+      "name": "에어 냉각 쿨링펜 선풍기 휴대용 손잡이 걸이 탑재",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/63258385",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "20788309",
+      "name": "매직온450백색 전TV 딜라이브 셋톱박스 통합리모컨",
+      "decision": "BLOCKED",
+      "wholesale_url": "https://domeggook.com/20788309",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "매직온450백색 전TV 딜라이브 셋톱박스 통합리모컨",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%A7%A4%EC%A7%81%EC%98%A8450%EB%B0%B1%EC%83%89%20%EC%A0%84TV%20%EB%94%9C%EB%9D%BC%EC%9D%B4%EB%B8%8C%20%EC%85%8B%ED%86%B1%EB%B0%95%EC%8A%A4%20%ED%86%B5%ED%95%A9%EB%A6%AC%EB%AA%A8%EC%BB%A8&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0,
+        "observed_at": "2026-07-17T15:17:28+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "65719657",
+      "name": "체리 보냉백 소풍가방 런치백 피크닉 도시락 보온 보냉 가방 KK1054",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/65719657",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "62961116",
+      "name": "대흥 D링 합지바인더 A3 D536 7cm 가로형",
+      "decision": "BLOCKED",
+      "wholesale_url": "https://domeggook.com/62961116",
+      "coupang_urls": [],
+      "coupang_search_evidence": {
+        "keyword": "대흥 D링 합지바인더 A3 D536 7cm 가로형",
+        "search_url": "https://www.coupang.com/np/search?q=%EB%8C%80%ED%9D%A5%20D%EB%A7%81%20%ED%95%A9%EC%A7%80%EB%B0%94%EC%9D%B8%EB%8D%94%20A3%20D536%207cm%20%EA%B0%80%EB%A1%9C%ED%98%95&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 0,
+        "observed_at": "2026-07-17T15:17:40+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "19221477",
+      "name": "책상팔걸이 팔받침대 팔거치대 마우스거치대 팔 패드",
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "wholesale_url": "https://domeggook.com/19221477",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8670726949?itemId=26124841941&vendorItemId=93127140770&q=%EC%B1%85%EC%83%81%20%ED%8C%94%EB%B0%9B%EC%B9%A8%EB%8C%80%20%EB%A7%88%EC%9A%B0%EC%8A%A4%20%ED%8C%94%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=73a02ab87365256&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/7553692858?itemId=19884896676&vendorItemId=85146544719&q=%EC%B1%85%EC%83%81%20%ED%8C%94%EB%B0%9B%EC%B9%A8%EB%8C%80%20%EB%A7%88%EC%9A%B0%EC%8A%A4%20%ED%8C%94%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=73a02ab87365256&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/6538606839?itemId=14374467099&vendorItemId=92396165504&q=%EC%B1%85%EC%83%81%20%ED%8C%94%EB%B0%9B%EC%B9%A8%EB%8C%80%20%EB%A7%88%EC%9A%B0%EC%8A%A4%20%ED%8C%94%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=73a02ab87365256&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9554983349?itemId=28510807904&vendorItemId=95424252054&q=%EC%B1%85%EC%83%81%20%ED%8C%94%EB%B0%9B%EC%B9%A8%EB%8C%80%20%EB%A7%88%EC%9A%B0%EC%8A%A4%20%ED%8C%94%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=73a02ab87365256&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8973874356?itemId=26266327811&vendorItemId=93244563809&q=%EC%B1%85%EC%83%81%20%ED%8C%94%EB%B0%9B%EC%B9%A8%EB%8C%80%20%EB%A7%88%EC%9A%B0%EC%8A%A4%20%ED%8C%94%EA%B1%B0%EC%B9%98%EB%8C%80&searchId=73a02ab87365256&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ],
+      "coupang_search_evidence": {
+        "keyword": "책상 팔받침대 마우스 팔거치대",
+        "search_url": "https://www.coupang.com/np/search?q=%EC%B1%85%EC%83%81%20%ED%8C%94%EB%B0%9B%EC%B9%A8%EB%8C%80%20%EB%A7%88%EC%9A%B0%EC%8A%A4%20%ED%8C%94%EA%B1%B0%EC%B9%98%EB%8C%80&channel=user&sorter=saleCountDesc",
+        "observed_product_count": 10,
+        "observed_at": "2026-07-17T15:02:55+09:00"
+      },
+      "gaps": [
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 직접판매 동일·근접상품 존재"
+      ]
+    },
+    {
+      "candidate_id": "63561157",
+      "name": "카메라 컴퓨터 자동차 청소 먼지 제거 스프레이 300ml 공간 활용 데스크 트레이 책상",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/63561157",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "63563457",
+      "name": "갤럭시 S26 골드 스트랩 목걸이 도난방지 핸드폰 케이스",
+      "decision": "BLOCKED",
+      "wholesale_url": "https://domeggook.com/63563457",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    },
+    {
+      "candidate_id": "46517512",
+      "name": "(업글버전)3단 접이식 탁상용 선풍기 USB 무선",
+      "decision": "HARD_FILTER_OR_BLOCKED",
+      "wholesale_url": "https://domeggook.com/46517512",
+      "coupang_urls": [],
+      "coupang_search_evidence": {},
+      "gaps": [
+        "공급처 MOQ·구매단위 검증 미완료",
+        "쿠팡 할인 후 실판매가 검증 미완료",
+        "판매 묶음 수량 검증 미완료",
+        "가격·마진 게이트 미통과",
+        "차단 사유 존재",
+        "쿠팡 상품 URL 5개 또는 검색 키워드 증거 누락",
+        "비교 가격 표본 5개 미만",
+        "정상 마진 35% 또는 10% 하락 후 마진 25% 미달",
+        "쿠팡 수요 검증 미완료",
+        "운영·규제 안전 검증 미완료",
+        "쿠팡 직접판매 여부 미확인"
+      ]
+    }
+  ],
+  "research_round": 2,
+  "round_target": 5,
+  "max_rounds": 2,
+  "selection": {
+    "selected_candidate_ids": [],
+    "selected_price_option": {},
+    "approved": false
+  }
+}

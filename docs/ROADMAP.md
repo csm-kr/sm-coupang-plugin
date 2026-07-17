@@ -1,44 +1,66 @@
 # 쿠팡 커머스 자동화 플러그인 로드맵
 
-- 기준일: 2026-07-16
-- 현재 버전: `coupang-commerce-automation` v0.1.0
-- 현재 위치: **Phase 1 — 동일상품 우선 재소싱, 조건부 마진 2건 가격 검토**
+- 기준일: 2026-07-17
+- 현재 버전: `coupang-commerce-automation` v0.2.0+codex.20260717073054
+- 현재 위치: **Phase 1 — 도매꾹 60851997 판매 근거 가격 재검증 완료·가격 검토 차단, 실시간 브라우저 수집 사용자 보류**
 
 > 문서 탐색: [현재 상태](../STATUS.md) · [README](README.md) · [PRD](PRD.md) · [ADR](ADR.md) · [구현 계획](COUPANG-COMMERCE-AUTOMATION-PLUGIN-PLAN.md)
 
 ## 한눈에 보는 여정
 
-```mermaid
-flowchart LR
-    START([출발<br/>아이디어·요구사항])
-    P1["🚗💨 현재 위치<br/><b>Phase 1</b><br/>가격·샘플 재검증"]
-    P2["Phase 2<br/>공통 계약·자동 승격"]
-    P3["Phase 3<br/>모션·HTML·게시 QA"]
-    P4["Phase 4<br/>성과 피드백·채널 확장"]
-    GOAL([목적지<br/>근거 기반 커머스 자동화])
-
-    START --> P1 --> P2 --> P3 --> P4 --> GOAL
-
-    classDef done fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke-width:2px;
-    classDef current fill:#fef3c7,stroke:#f59e0b,color:#78350f,stroke-width:4px;
-    classDef next fill:#e0f2fe,stroke:#0284c7,color:#0c4a6e,stroke-width:2px;
-    classDef future fill:#f3f4f6,stroke:#6b7280,color:#374151,stroke-width:2px;
-    classDef goal fill:#ede9fe,stroke:#7c3aed,color:#4c1d95,stroke-width:2px;
-
-    class START done;
-    class P1 current;
-    class P2 next;
-    class P3,P4 future;
-    class GOAL goal;
-```
-
 ```text
-출발 ───── 🚗💨 ───── 🛣️ ───── 🛣️ ───── 🏁
-            지금
-          Phase 1       Phase 2       Phase 3       Phase 4
+┌──────────────┐   ┌────────────────┐   ┌────────────────┐   ┌────────────────┐   ┌──────────────┐
+│ 소싱·상품선택 │ → │ Phase 1 · 지금  │ → │ Phase 2         │ → │ Phase 3         │ → │ Phase 4       │
+│ HDB-1·9,900원│   │ 기획·품질 프리뷰│   │ 공통계약·승격   │   │ 모션·채널 QA    │   │ 판매 피드백    │
+└──────────────┘   └────────────────┘   └────────────────┘   └────────────────┘   └──────────────┘
+                         │
+                         ├─ 프로토타입: 10/10 HTML·GIF·통합 QA 완료, 최종 승격 금지
+                         └─ 판매용: 6/10 UI·자산 전략 완료, 실제 SKU 단독 원본·실측·라벨 대기
 ```
 
-> 자동차가 있는 **Phase 1**이 현재 위치다. 표준 40%/30% 통과는 0건이며, HDB-1 스포츠 마스크와 접이식 백팩은 상시 허용되는 35%/25% 조건부 마진 가격 검토 상태다. 실물·권리·가격 승인 전에는 상세페이지 제작으로 넘어가지 않는다.
+> **Phase 1**이 현재 위치다. 사용자는 HDB-1 스포츠 마스크 1개·9,900원안, 제품명 `숨트임`, 1차 제품기획과 콘텐츠기획을 승인했다. `concept_only` 분기는 합성 모델 2장, 10모듈 시각 스토리보드, HTML·GIF와 수치형 통합 QA까지 통과했지만 실제 SKU 근거나 판매용 결과가 아니다. 판매용 분기는 실제 SKU 단독 원본이 없어 `BLOCKED_IDENTITY_ASSETS`다. 자산 기반 콘텐츠기획 v2의 해시 승인, 사람 없는 실제 SKU 정·후·측면·타공·4색·라벨·실측과 간이 실험이 남아 있다. 제품명과 브랜드명은 분리하며 `에어베일`은 미승인이다.
+
+## 2026-07-17 도매꾹 60851997 개별 후보 검증
+
+| 항목 | 결과 |
+|---|---|
+| 공급조건 | 1,800원 · MOQ 4개 · 50개까지 도매 배송비 3,000원 |
+| 동일상품 가격 | 검증 현재가 5건 · 판매 근거 가격 0건 · 마진 판정 p50 미산출 |
+| 동일성 | 대표 이미지·고유 상품명·위탁 공급사 `(주)제이케이엔터테인먼트` 일치 |
+| 등록가 참고 | 5,470~6,560원 · 전체 등록가 p50 5,640원은 마진 판정에 미사용 |
+| 원가 가격 하한 | MOQ 4개 30%/20% 10,000원 · 50개 매입 30%/20% 8,700원 |
+| 판정 | `PRICE_REVIEW_BLOCKED`, 사용자 선택·`SHORTLIST`·상세페이지 승격 금지 |
+| 수집 제한 | `browser-use`·`nodriver` 미호출, 판매량순 TOP10 일반 로켓 수는 미검증 |
+| 보고서 | [HTML](../reports/2026/2026-07-17/sourcing-verify-60851997-demand-backed/verification-report.html) · [JSON](../reports/2026/2026-07-17/sourcing-verify-60851997-demand-backed/verification-report.json) |
+
+기존 등록가 전체 p50 5,640원 기반 탈락 판정은 철회했다. 5건 모두 리뷰 0건이고 최근 구매 수가 미확인이라 판매 근거 가격 중앙값을 만들 수 없으므로 현재 상태는 `PRICE_REVIEW_BLOCKED`다. 판매 근거 가격 5건을 확보하기 전에는 낮은 등록가만으로 탈락시키거나 높은 한 건으로 마진을 승인하지 않는다.
+
+## 2026-07-17 30%/20% 사용자 탐색 시나리오
+
+| 항목 | 결과 |
+|---|---|
+| 시나리오 | 정상가 30%, 판매가 10% 하락 후 20% |
+| 정책 영향 | 공식 STANDARD 40%/30%·CONDITIONAL 35%/25% 변경 없음 |
+| 2차 후보 | 8개 상단 카드 노출, 7개 필요 판매가 계산·1개 공급조건 차단 |
+| 1차 재계산 | 시나리오 통과 0개, 재고·중복 문제의 넥쿨러 1개 `WATCH_30_20` |
+| 브라우저 | 사용자 지시로 `browser-use`·`nodriver` 재수집 중단 |
+| 보관 보고서 | [HTML](../reports/deprecated/2026/2026-07-17/sourcing-margin-30-20-review/scenario-report.html) · [JSON](../reports/deprecated/2026/2026-07-17/sourcing-margin-30-20-review/scenario-report.json) |
+
+2차 후보가 기존 보고서에서 보이지 않았던 원인은 합격 카드와 60행 제외 표를 분리한 생성기 구조였다. 이번 보고서는 2차 8개를 첫 섹션에 고정했다. 시장가격이 없는 상태에서 계산한 값은 원가 기준 최소 필요 판매가일 뿐 가격 수용성 근거가 아니므로 사용자 선택·`SHORTLIST`·상세페이지 승격에 사용하지 않는다.
+
+## 2026-07-17 로컬 플러그인 소싱 실행
+
+| 항목 | 결과 |
+|---|---|
+| 후보 풀·표본 | 도매꾹 Best 2,594개 · 층화 표본 60개 |
+| 공급처 상세 검증 | 32개 방문 · 30개 공급조건 통과 · 2개 차단 |
+| 1차 쿠팡 조사 | 14개 × 판매량순 상위 10개 |
+| 동일상품·동일 묶음 독립 판매군 5개 이상 | 3개 |
+| 표준·조건부 통과 | 0개·0개 |
+| 2차 상태 | 7개 모두 결과 0개 재현, `COUPANG_ACCESS_BLOCKED_ROUND_2` 안전 중단 |
+| 보고서 | [HTML](../reports/deprecated/2026/2026-07-17/sourcing-local-plugin-2026-07-17/qualified-candidates.html) · [JSON](../reports/deprecated/2026/2026-07-17/sourcing-local-plugin-2026-07-17/qualified-candidates.json) |
+
+이번 실행은 상품·가격 사용자 선택 게이트를 열지 않았다. 동일상품 근거가 있는 후보도 조건부 마진 하한 또는 운영 안전 게이트를 넘지 못했다. 다음 소싱 재개는 쿠팡 공개 검색 접근이 정상화된 뒤 2차 후보부터 이어가며, 목록 카드 값이 아니라 공급처 상세 컨트롤러의 단가·MOQ·배송비를 계속 정본으로 사용한다.
 
 ## 2026-07-16 실제 소싱 실증
 
@@ -50,13 +72,20 @@ flowchart LR
 | 전체 조사 후보 | 28개 |
 | 기준 통과 | 10개, 최소 목표 5개 달성 |
 | 쿠팡 근거 | 후보별 판매량순 상위 상품과 최소 5개 URL |
-| 현재 상태 | `AWAITING_USER_SELECTION` |
+| 현재 상태 | 프로토타입 10/10 `CONCEPT_ONLY_PROTOTYPE_QA_PASSED_NOT_PROMOTABLE` · 판매용 6/10 `BLOCKED_IDENTITY_ASSETS` |
 | 이전 보고서 | [기준 통과 후보 HTML](../reports/deprecated/2026/2026-07-16/sourcing-qualified-5/qualified-candidates.html) |
 | 후속 선택 상태 | `PRICE_REVIEW_BLOCKED` |
 | 이전 선택 재검증 | [아이스 쿨링 스카프 결정 보고서](../reports/deprecated/2026/2026-07-16/sourcing-selection-cooling-scarf/selection-decision.html) |
 | 이전 근거 계약 재계산 | [아이스 쿨링 스카프 v2 판정](../reports/deprecated/2026/2026-07-16/sourcing-recheck-cooling-scarf-v2/decision.html) |
 | 이전 #8 재검증 | [국산면 고급 면스카프 판정](../reports/deprecated/2026/2026-07-16/sourcing-recheck-cotton-scarf-8/decision.html) |
-| 현재 동일상품 우선 재소싱 | [조건부 마진 검토 보고서](../reports/2026/2026-07-16/resourcing-exact-identity-relaxed/report.html) |
+| 이전 동일상품 우선 재소싱 | [조건부 마진 검토 보고서](../reports/deprecated/2026/2026-07-16/resourcing-exact-identity-relaxed/report.html) |
+| 승인된 HDB-1 제품기획 | [1차 제품기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/product-plan-draft.md) |
+| 승인된 HDB-1 콘텐츠기획 | [1차 콘텐츠기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/content-plan-draft.md) |
+| 자산 기반 콘텐츠기획 v2 | [11개 자산 배치 초안](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/asset-backed-content-plan-v2.md) |
+| 기획 승인 게이트 | [SHA-256 승인 기록](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/approval-records.md) |
+| 실제 자산 인입 결과 | [자산·근거 인입](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/asset-evidence-intake.md) |
+| 콘셉트 품질 프로토타입 | [10모듈 HTML·GIF·QA 보고](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/concept-only-prototype-report.md) |
+| 시각 스토리보드·수치형 QA | [모델·커버 범위·크롭·순서 개선](../reports/2026/2026-07-16/hdb1-visual-storyboard-qa/report.md) |
 
 이 실증에서 쿠팡 Browser Use 검색은 Akamai 세션 판정으로 접근이 불안정했다. 실제 Chrome을 표시하는 `nodriver`에서 홈 진입으로 세션을 준비하고 검색을 직렬 처리하는 조합을 현재 표준으로 채택했다. 이는 CAPTCHA나 로그인을 우회하는 절차가 아니며, 결과가 두 번 연속 비면 차단 상태를 저장하고 중단한다.
 
@@ -68,6 +97,7 @@ flowchart LR
 
 - [x] `coupang-commerce-automation` 플러그인 골격 및 매니페스트 구성
 - [x] `coupang-product-sourcing` 스킬 포함
+- [x] `coupang-best-high-markup-sourcing` 전용 Best 고배수 탐색 스킬 포함
 - [x] `coupang-detail-page-generator` 스킬 포함
 - [x] 도매 후보 층화 표본화, 가격안 및 마진 평가 스크립트 구현
 - [x] 기준 통과 후보 HTML 보고서와 사용자 선택 대기 흐름 구현
@@ -79,13 +109,21 @@ flowchart LR
 - [x] 10장 상세페이지 계획·생성 지원과 OCR·제품 동일성·광고 표현 QA 구현
 - [x] 워크플로 5.3 상품기획·콘텐츠기획 산출물 분리와 사용자 승인 해시 게이트 구현
 - [x] 이미지·GIF·영상 외부 자산 + 네이티브 HTML 하이브리드 조립기 구현
-- [x] 소재별 자동·육안 QA와 조립 후 통합 QA 계약·회귀 테스트 6개 구현
+- [x] 소재별 자동·육안 QA와 조립 후 통합 QA·GIF 빌더 회귀 테스트 8개 구현
+- [x] 가상 원본을 격리한 `concept_only` 10모듈 HTML·3초 GIF·소재/통합 QA 대표 프로토타입 검증
+- [x] 실제 문자 좌표 기반 360·800px 한글 줄바꿈·고아행·행수·잘림·겹침 검증기와 모듈별 캡처 구현
+- [x] 10모듈 주장-근거-자산 시각 스토리보드와 구조화 ImageGen 프롬프트 구현
+- [x] 합성 성인 모델 2장으로 상단선·타공·귀·목 하단의 착용 범위 프리뷰 구현
+- [x] 실제 브라우저 좌표 기반 모듈 순서·주장-자산 연결·주 피사체·핵심 부위 크롭 검증 구현
+- [x] 오케스트레이터·상품기획·콘텐츠 스튜디오·게시 QA 단계 스킬을 플러그인에 추가
+- [x] 콘텐츠 생성·조립 QA 체크리스트와 실제 원본 교체 절차 문서화
 - [x] 1차 간이검증→판매 신호 게이트→2차 심화검증의 2단계 운영 결정 문서화
 - [x] 2차 진입 기준을 캠페인 시작 후 14일 이내 판매 2개 이상·ROAS 400% 이상의 `AND` 조건으로 확정
 - [ ] `phase_1`·`phase_2` 검증 상태, 미검증 주장 차단과 재승인 계약 구현
 - [x] PRD, ADR, ROADMAP 문서화
 - [x] 플러그인 매니페스트 검증 통과
-- [x] 소싱 단위 테스트 26개 통과
+- [x] 소싱 단위 테스트 37개 통과
+- [x] 상세 원문 개당 5,000원 이하·쿠팡 완전 동일 1개 현재가 4배 이상·리뷰 5개 이상 탐색 게이트 구현
 - [x] `docs/` 기준 문서 파일명과 링크 정리
 - [x] 루트·단계별 `AGENTS.md` 라우팅 구성
 - [x] 단계별 TDD 실행기와 Codex `PreToolUse`·`PostToolUse`·`Stop` 훅 구성
@@ -102,13 +140,14 @@ flowchart LR
 - [x] `SOURCING-OFFER-EVIDENCE-001` 3회 발생에 따른 `RULE.md` 강제 규칙 승격
 - [x] 제품 동일성 선확정, 비동일 상품 가격의 보조 맥락화, 표준 40%/30%와 조건부 35%/25% 상시 분리 기준 반영
 - [x] 61개 재선별·17개 심화 동일성 검토, 조건부 시험판매 가격 검토 2건 보고
+- [x] 로컬 플러그인 실행으로 60개 층화 표본·32개 공급처 상세·14개 쿠팡 동일성 검토 및 통과 0건 보고
 - [ ] 대체 공급 오퍼 또는 다음 후보 재검증과 사용자 가격 승인
 
 완료 조건:
 
 - 플러그인 검증이 오류 없이 통과한다.
 - 소싱 테스트와 상세페이지 검증 스크립트가 대표 샘플에서 재현 가능하게 통과한다.
-- 사용자가 두 스킬의 현재 지원 범위와 제한을 README에서 이해할 수 있다.
+- 사용자가 일곱 스킬의 현재 지원 범위·AC·승인 책임과 제한을 README에서 이해할 수 있다.
 
 ### Phase 2. 공통 프로젝트 계약과 자동 승격 — 다음 목적지
 
@@ -133,12 +172,15 @@ flowchart LR
 목표: 정적 상세페이지 이후의 실행 자산과 판매 채널 패키지를 완성한다.
 
 - [ ] `commerce-motion-maker` 스킬 추가
-- [ ] 3~6초 GIF 및 6~15초 짧은 영상 제작 흐름 구현
+- [x] 두 장 이상을 교차 전환하는 3~6초 GIF 빌더와 정적 대체 프로토타입 구현
+- [ ] 실제 제품 촬영 기반 3~6초 GIF 및 6~15초 짧은 영상 제작 흐름 구현
 - [ ] 실촬영 필수 장면과 생성 가능 장면 자동 구분
 - [ ] `commerce-html-builder` 독립 스킬 추가
 - [x] 상세페이지 스킬 내부 모바일 우선 하이브리드 HTML 5.3 기반 구현
+- [x] `concept_only` 10개 모듈을 360·800px에서 렌더링하고 모션 정지·감소된 모션·대체 텍스트·가로 넘침 QA
+- [x] HDB-1 HTML 80개 텍스트 요소의 실제 줄 좌표 QA와 viewport별 모듈 캡처 20개 통과
 - [ ] 쿠팡용 정적 이미지와 오픈마켓용 HTML·미디어 패키지 분리
-- [ ] `commerce-publish-qa` 스킬 추가
+- [x] `coupang-publish-qa` 기본 스킬과 수치형 AC 계약 추가
 - [ ] 깨진 링크, 접근성, 파일 용량, 채널 규격 및 출처 최신성 검사
 - [ ] 실패 모듈만 이전 게이트로 돌리는 롤백 구현
 
@@ -173,73 +215,53 @@ flowchart LR
 
 ## 기능 트랙별 선후관계
 
-```mermaid
-flowchart LR
-    subgraph NOW["Phase 1 · 기반 안정화"]
-        A[플러그인·두 스킬<br/>통합 완료]
-        B["🚗 회귀 테스트·<br/>필드 매핑"]
-        A --> B
-    end
-
-    subgraph CONNECT["Phase 2 · 연결"]
-        C[공통 프로젝트<br/>스키마]
-        D[후보 자동 승격·<br/>중단 후 재개]
-        C --> D
-    end
-
-    subgraph PRODUCE["Phase 3 · 제작·출고"]
-        E[모션 제작]
-        F[HTML·채널<br/>패키징]
-        G[게시 전 통합 QA]
-        E --> F --> G
-    end
-
-    subgraph GROW["Phase 4 · 성장"]
-        H[판매 성과<br/>피드백]
-        I[공급처·채널<br/>어댑터 확장]
-        H --> I
-    end
-
-    B --> C
-    D --> E
-    G --> H
-
-    classDef done fill:#dcfce7,stroke:#16a34a,color:#14532d,stroke-width:2px;
-    classDef current fill:#fef3c7,stroke:#f59e0b,color:#78350f,stroke-width:4px;
-    classDef planned fill:#f3f4f6,stroke:#6b7280,color:#374151,stroke-width:2px;
-    class A done;
-    class B current;
-    class C,D,E,F,G,H,I planned;
+```text
+[Phase 1 · 기반 안정화]
+  플러그인·일곱 단계 스킬 통합 완료
+            ↓
+  지금: 회귀 테스트·실제 SKU 필드 매핑
+            ↓
+[Phase 2 · 연결]
+  공통 프로젝트 스키마 → 후보 자동 승격·중단 후 재개
+            ↓
+[Phase 3 · 제작·출고]
+  실제 모션 제작 → HTML·채널 패키징 → 게시 전 통합 QA
+            ↓
+[Phase 4 · 성장]
+  판매 성과 피드백 → 공급처·채널 어댑터 확장
 ```
 
 확정된 일정 추정치가 없으므로 날짜 대신 의존 관계를 표시한다. 각 단계는 앞 단계의 완료 조건과 QA 통과를 기준으로 진입한다.
 
 ## 의사결정 게이트
 
-```mermaid
-flowchart TD
-    A[Phase 1 안정화] --> B{테스트와 계약이<br/>재현 가능한가?}
-    B -- 아니요 --> A1[실패한 스킬·검증기 보완]
-    A1 --> A
-    B -- 예 --> C[Phase 2 자동 승격]
-    C --> D{출처·승인·가격 정보가<br/>손실 없이 전달되는가?}
-    D -- 아니요 --> C1[스키마·마이그레이션 보완]
-    C1 --> C
-    D -- 예 --> E[Phase 3 모션·HTML·게시 QA]
-    E --> F{채널 패키지가<br/>안전하게 출고 가능한가?}
-    F -- 아니요 --> E1[실패 모듈만 롤백]
-    E1 --> E
-    F -- 예 --> G[Phase 4 성과 피드백·확장]
+```text
+Phase 1 안정화
+  └─ 테스트와 계약이 재현 가능한가?
+      ├─ 아니요 → 실패한 스킬·검증기 보완 → Phase 1 재검증
+      └─ 예     → Phase 2 자동 승격
+                    └─ 출처·승인·가격이 손실 없이 전달되는가?
+                        ├─ 아니요 → 스키마·마이그레이션 보완 → Phase 2 재검증
+                        └─ 예     → Phase 3 모션·HTML·게시 QA
+                                      └─ 채널 패키지가 안전하게 출고 가능한가?
+                                          ├─ 아니요 → 실패 모듈만 롤백 → Phase 3 재검증
+                                          └─ 예     → Phase 4 성과 피드백·확장
 ```
 
 ## 현재 스프린트 우선순위
 
-1. HDB-1 스포츠 마스크 또는 접이식 백팩의 시험판매 검토를 계속할지 사용자 결정을 받는다.
-2. 선택 후보의 실물·규격·성능 문서·이미지 사용권과 실제 로켓그로스 비용을 확인한다.
-3. 경제성 통과 후보는 1차 간이 실험·최소 SKU 사실·필수 법률 정보를 확인하고 사용자 가격 승인을 받는다.
-4. `handoff-shortlist.json`과 `product-plan.json`의 필드 차이를 표로 확정한다.
-5. Phase 2의 `commerce-project.json` 최소 스키마와 승인·상태 전이 규칙을 구현한다.
-6. 승인된 실제 SKU에서 `phase_1` 주장 상태와 5.3 하이브리드 HTML·소재 QA·통합 QA 대표 산출물을 검증한다.
+1. 사용자가 실시간 브라우저 재수집을 다시 허용하면 2차 후보 7개의 쿠팡 가격·동일성 표본부터 재개한다. 허용 전에는 원가 하한만 보존하고 상품 선택 게이트를 열지 않는다.
+2. 사용자가 11개 자산의 역할·10장 배치·06장 `원단형 귀 구멍` 표현을 포함한 자산 기반 콘텐츠기획 v2를 승인하거나 수정한다.
+3. 승인 후 실제 HDB-1 제품 단독 정·후·좌우·펼침, 타공 매크로, A~E 실측, 4색 동일 구도, 포장·케어라벨 자산을 확보한다. 공급처의 실제 인물 포함 사진은 제작 입력에서 제외한다.
+4. 샘플 라벨의 76/24 일치 여부, A~E 치수 허용 오차·KC 적용 범위와 착용·호흡·물빠짐·내구·넥커버 간이 실험을 확인한다.
+5. 사람 없는 실제 SKU canonical source 3~5개로 동일성을 잠근 뒤 실사진·GIF·영상 소재를 제작하고 소재별 QA를 수행한다.
+6. 외부 자산과 네이티브 HTML을 조립하고 360·800px 실제 문자 좌표 QA, 통합 QA와 쿠팡용 정적 렌더를 검증한다.
+7. 승인 제품명 `숨트임`과 브랜드명을 분리한다. 제안 브랜드명 `에어베일`은 별도 사용자 승인받거나 무브랜드 제작을 확정한다.
+8. 실제 크기·무게·입고 조건으로 로켓그로스 비용과 9,900원 마진을 재계산한다.
+9. 1차 UPF50+ 시험 이미지 원본·보고서 번호·출처 문구를 QA하고, 전체 성적서·시료 매핑은 2차 심화검증에 등록한다.
+10. `handoff-shortlist.json`과 `product-plan.json`의 필드 차이를 표로 확정한다.
+11. Phase 2의 `commerce-project.json` 최소 스키마와 승인·상태 전이 규칙을 구현한다.
+12. 승인된 실제 SKU에서 `phase_1` 주장 상태와 5.3 하이브리드 HTML·소재 QA·통합 QA 대표 산출물을 검증한다.
 
 ## 관련 문서
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "쿠팡 상세페이지 스튜디오"
-  short_description: "원본·경쟁 리뷰 기반 상세페이지를 기획·생성·검수"
-  default_prompt: "Use $coupang-detail-page-generator to 실제 상품과 Browser Use 경쟁조사를 근거로 제품별 브랜드와 800×2400 상세페이지 10장을 제작하고, 한글은 영역 편집 3회 안에서 해결하되 로컬 타이포 폴백 없이 4중 검수해줘."
+  short_description: "제품·콘텐츠기획부터 소재·HTML·2층 QA까지"
+  default_prompt: "Use $coupang-detail-page-generator to 실제 SKU 근거를 잠그고 제품기획·콘텐츠기획 승인을 거쳐 무문자 시각 소재와 편집 가능한 하이브리드 HTML을 만들고 소재·통합 QA까지 수행해줘."

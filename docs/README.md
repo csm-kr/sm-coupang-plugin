@@ -15,6 +15,7 @@
 | [ADR](ADR.md) | 장기 영향을 주는 아키텍처 결정과 결과 | 기술 결정 채택·대체 시 |
 | [ROADMAP](ROADMAP.md) | 현재 위치, 단계별 목표와 완료 조건 | 구현 상태 또는 우선순위 변경 시 |
 | [구현 계획](COUPANG-COMMERCE-AUTOMATION-PLUGIN-PLAN.md) | 상세 파이프라인, 스킬 구성과 산출물 계약 | 구현 절차·계약 변경 시 |
+| [콘텐츠 생성·조립 QA 체크리스트](CONTENT-PRODUCTION-CHECKLIST.md) | 이미지·GIF·HTML 소재 QA, 통합 QA와 실제 원본 교체 게이트 | 제작·QA·스킬 계약 변경 시 |
 | [소싱 프로세스](SOURCING-PROCESS.md) | 소싱 판단 원칙과 전체 흐름 | 평가 정책 변경 시 |
 | [소싱 실행 가이드](SOURCING-EXECUTION-GUIDE.md) | 로컬 실행 명령과 안전 중단 조건 | 명령·도구·경로 변경 시 |
 | [소싱 파일럿 001](SOURCING-PILOT-001-TUMBLER.md) | 첫 실증 조사와 판정 기록 | 원칙적으로 고정, 정정 시 이력 기록 |
@@ -50,15 +51,16 @@
 
 ## 현재 기준선
 
-- 플러그인 버전: `0.1.0`
+- 플러그인 버전: `0.2.0`
 - 첫 번째 자동화 단계: **소싱**
-- 현재 상태: #7 아이스 쿨링 스카프와 #8 국산면 고급 면스카프의 현재 공급 오퍼가 실판매가 재계산에서 탈락; #9 검증 대기
+- 현재 상태: HDB-1 `숨트임` `concept_only` 합성 모델 2장·10모듈 스토리보드·3초 GIF·반응형 HTML의 수치형 QA 완료; 실제 제작은 사람 없는 실제 SKU 원본 대기
 - 조사 도구: 도매꾹은 Browser Use, 쿠팡은 실제 Chrome을 여는 `nodriver` 수집기
 - 플러그인 검증: 통과
-- 소싱 테스트: 20개 통과, 공급조건·할인 후 실판매가·쿠팡 DOM·붙여 쓴 묶음 수량 회귀 테스트 포함
-- 하니스 테스트: 35개 통과, ISSUE 3회 → RULE 승격 검사 포함
-- 플러그인 계약 테스트: 3개 통과
-- 대표 산출물: [현재 동일상품 우선 재소싱 HTML](../reports/2026/2026-07-16/resourcing-exact-identity-relaxed/report.html)
+- 소싱 테스트: 37개 통과, 공급조건·할인 후 실판매가·판매 근거 가격 표본·쿠팡 DOM·묶음 수량과 Best 고배수 탐색 경계값 회귀 테스트 포함
+- 하니스 테스트: 43개 통과, 새 고배수 소싱 경로 라우팅과 ISSUE 3회 → RULE 승격 검사 포함
+- 플러그인 계약 테스트: 10개 통과
+- 상세페이지 계약 테스트: 19개 통과, GIF·한글 타이포·시각 스토리보드·크롭 검증 포함
+- 대표 산출물: [승인된 HDB-1 제품기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/product-plan-draft.md) · [승인된 콘텐츠기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/content-plan-draft.md) · [11개 자산 기반 콘텐츠기획 v2](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/asset-backed-content-plan-v2.md) · [실제 자산·근거 인입](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/asset-evidence-intake.md) · [콘셉트 HTML·GIF 품질 프로토타입](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/concept-only-prototype-report.md) · [시각 스토리보드·수치형 QA](../reports/2026/2026-07-16/hdb1-visual-storyboard-qa/report.md)
 - 개발 기준: 단계별 TDD 실행기와 `PreToolUse`·`PostToolUse`·`Stop` 훅 적용
 - 보고서 기준: `reports/YYYY/YYYY-MM-DD/<run-name>/`
-- 다음 작업: #9 자동 병 오프너의 검증된 묶음 원가와 현재 실판매가를 확보하고, 통과한 경우에만 실물 검증·사용자 승인으로 진행
+- 다음 작업: 자산 기반 콘텐츠기획 v2 해시 승인과 실제 HDB-1 제품 단독 정·후·좌우·펼침·타공·실측·4색·라벨 확보 후 콘셉트 자산을 교체하고 소재·통합 QA 재실행; 제품명 `숨트임`은 승인, `에어베일`은 미승인

@@ -89,9 +89,22 @@ def floor_price(candidate: dict[str, Any], target_margin: float, discount: float
     return result if actual > 0 and economics(candidate, actual)["margin_pct"] >= target_margin else None
 
 
-def comparable_prices(candidate: dict[str, Any], min_samples: int) -> tuple[str | None, list[float]]:
+def demand_evidence_verified(row: dict[str, Any]) -> bool:
+    """Require a purchase signal or at least five reviews for a price row."""
+    recent_purchase = number(row.get("recent_purchase_count"))
+    if recent_purchase is not None and recent_purchase >= 1:
+        return True
+    review_count = number(row.get("review_count"))
+    return review_count is not None and review_count >= 5
+
+
+def comparable_price_evidence(
+    candidate: dict[str, Any], min_samples: int
+) -> tuple[str | None, list[float], dict[str, Any]]:
     groups: dict[str, list[float]] = {"identical": [], "near_identical": [], "similar": []}
     seen: set[str] = set()
+    verified_current_price_count = 0
+    demand_backed_price_count = 0
     for row in candidate.get("market_prices") or []:
         price = number(row.get("price")) if isinstance(row, dict) else None
         if price is None or price <= 0:
@@ -110,35 +123,78 @@ def comparable_prices(candidate: dict[str, Any], min_samples: int) -> tuple[str 
         if group_id in seen:
             continue
         seen.add(group_id)
+        verified_current_price_count += 1
+        if not demand_evidence_verified(row):
+            continue
+        demand_backed_price_count += 1
         groups[similarity].append(price)
+    metadata = {
+        "verified_current_price_count": verified_current_price_count,
+        "demand_backed_price_count": demand_backed_price_count,
+        "excluded_no_demand_evidence_count": (
+            verified_current_price_count - demand_backed_price_count
+        ),
+        "price_basis": "demand_backed_current_sale_price",
+        "demand_evidence_rule": "recent_purchase_count>=1_or_review_count>=5",
+        "review_evidence_is_proxy": True,
+    }
     if len(groups["identical"]) >= min_samples:
-        return "identical", groups["identical"]
+        return "identical", groups["identical"], metadata
     near = groups["identical"] + groups["near_identical"]
     if len(near) >= min_samples:
-        return "near_identical", near
+        return "near_identical", near, metadata
     if len(groups["similar"]) >= min_samples:
-        return "similar", groups["similar"]
-    return None, near if len(near) >= len(groups["similar"]) else groups["similar"]
+        return "similar", groups["similar"], metadata
+    return None, near if len(near) >= len(groups["similar"]) else groups["similar"], metadata
+
+
+def comparable_prices(candidate: dict[str, Any], min_samples: int) -> tuple[str | None, list[float]]:
+    comparison_group, prices, _ = comparable_price_evidence(candidate, min_samples)
+    return comparison_group, prices
+
+
+def price_distribution(
+    comparison_group: str | None,
+    prices: list[float],
+    metadata: dict[str, Any],
+) -> dict[str, Any]:
+    distribution: dict[str, Any] = {
+        "comparison_group": comparison_group,
+        "count": len(prices),
+        **metadata,
+    }
+    if prices:
+        distribution.update({
+            "min": min(prices),
+            "p10": round(percentile(prices, .10), 2),
+            "p25": round(percentile(prices, .25), 2),
+            "p50": round(percentile(prices, .50), 2),
+            "p75": round(percentile(prices, .75), 2),
+            "max": max(prices),
+        })
+    return distribution
 
 
 def evaluate(candidate: dict[str, Any], params: dict[str, Any]) -> dict[str, Any]:
     min_samples = int(params.get("min_market_samples", 5))
     validation_errors = validate_candidate(candidate, params)
-    comparison_group, prices = comparable_prices(candidate, min_samples)
+    comparison_group, prices, price_evidence = comparable_price_evidence(candidate, min_samples)
+    distribution = price_distribution(comparison_group, prices, price_evidence)
     if validation_errors or len(prices) < min_samples or comparison_group is None:
+        sample_blocker = (
+            f"판매 근거 가격 표본 부족: {len(prices)}/{min_samples}"
+            if len(prices) < min_samples
+            else None
+        )
         return {
             "candidate_id": candidate.get("id"), "name": candidate.get("name"),
             "decision": "PRICE_REVIEW_BLOCKED",
             "blockers": validation_errors
-            + ([f"비교 표본 부족: {len(prices)}/{min_samples}"] if len(prices) < min_samples else []),
+            + ([sample_blocker] if sample_blocker else []),
+            "market_price_distribution": distribution,
             "source_ref": {"id": candidate.get("id"), "url": candidate.get("url")},
         }
 
-    distribution = {
-        "comparison_group": comparison_group, "count": len(prices), "min": min(prices), "p10": round(percentile(prices, .10), 2),
-        "p25": round(percentile(prices, .25), 2), "p50": round(percentile(prices, .50), 2),
-        "p75": round(percentile(prices, .75), 2), "max": max(prices),
-    }
     standard_base_margin = float(params.get("base_margin_pct", 40))
     standard_stress_margin = float(params.get("stress_margin_pct", 30))
     conditional_base_margin = float(params.get("conditional_base_margin_pct", 35))

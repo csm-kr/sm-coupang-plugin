@@ -1,18 +1,25 @@
 {
   "name": "coupang-commerce-automation",
-  "version": "0.1.0",
-  "description": "도매 소싱, 쿠팡 경쟁·마진 검증, 사용자 선택, 상세페이지와 HTML 제작을 연결하는 커머스 자동화 플러그인",
+  "version": "0.2.0+codex.20260717073054",
+  "description": "\ub3c4\ub9e4 \uc18c\uc2f1, \uc0c1\ud488\uae30\ud68d, \ucf58\ud150\uce20 \uc2a4\ud1a0\ub9ac\ubcf4\ub4dc, \uc0c1\uc138\ud398\uc774\uc9c0 \uc870\ub9bd\uacfc \uac8c\uc2dc QA\ub97c \uc2b9\uc778 \uac8c\uc774\ud2b8\ub85c \uc5f0\uacb0\ud558\ub294 \ucee4\uba38\uc2a4 \uc790\ub3d9\ud654 \ud50c\ub7ec\uadf8\uc778",
   "author": {
     "name": "Coupang Automation Project"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Coupang Commerce Automation",
-    "shortDescription": "소싱부터 쿠팡 상세페이지·HTML까지 근거 기반으로 자동화합니다.",
-    "longDescription": "도매꾹·도매매 후보 조사, 로켓그로스 마진 계산, 쿠팡 직접판매와 판매자로켓 구분, HTML 선택 보고서, 사용자 승인 및 상세페이지 제작을 하나의 승인형 파이프라인으로 연결합니다.",
+    "shortDescription": "\uc18c\uc2f1\ubd80\ud130 \uc0c1\ud488\uae30\ud68d\u00b7\ucf58\ud150\uce20\u00b7\uac8c\uc2dc QA\uae4c\uc9c0 \ub2e8\uacc4\ubcc4\ub85c \uc548\ub0b4\ud569\ub2c8\ub2e4.",
+    "longDescription": "\ud604\uc7ac \ub2e8\uacc4\uc640 \ud1b5\uacfc \uae30\uc900\uc744 \uba3c\uc800 \ubcf4\uc5ec\uc8fc\uace0, \ub3c4\ub9e4 \uc18c\uc2f1, \uc0c1\ud488\uae30\ud68d, \ucf58\ud150\uce20 \uc2a4\ud1a0\ub9ac\ubcf4\ub4dc, ImageGen \uc790\uc0b0, \ud3b8\uc9d1 \uac00\ub2a5\ud55c HTML, \ubaa8\uc158\uacfc \uac8c\uc2dc \uc804 QA\ub97c \uc0ac\uc6a9\uc790 \uc2b9\uc778 \uac8c\uc774\ud2b8\ub85c \uc5f0\uacb0\ud569\ub2c8\ub2e4.",
     "developerName": "Coupang Automation Project",
     "category": "Productivity",
-    "capabilities": ["product-sourcing", "market-validation", "detail-page-generation"],
-    "defaultPrompt": "쿠팡 소싱 후보를 조사하고 기준 통과 상품의 HTML 보고서를 만들어줘."
+    "capabilities": [
+      "orchestration",
+      "product-sourcing",
+      "product-planning",
+      "content-storyboarding",
+      "detail-page-generation",
+      "publish-qa"
+    ],
+    "defaultPrompt": "\ud604\uc7ac \ub2e8\uacc4\uc640 \ud1b5\uacfc \uae30\uc900\uc744 \ubcf4\uc5ec\uc8fc\uace0, \ub2e4\uc74c \uc0ac\uc6a9\uc790 \uc2b9\uc778 \uc9c8\ubb38\uc744 \ud55c \ubc88\uc5d0 \ud558\ub098\ub9cc \ud574\uc918."
   }
 }

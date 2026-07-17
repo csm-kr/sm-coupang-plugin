@@ -1,7 +1,7 @@
 # 쿠팡 커머스 자동화 플러그인 구현 계획
 
 - 문서 상태: Active
-- 기준 버전: `coupang-commerce-automation` v0.1.0
+- 기준 버전: `coupang-commerce-automation` v0.2.0
 - 기준일: 2026-07-16
 
 > 문서 탐색: [현재 상태](../STATUS.md) · [README](README.md) · [PRD](PRD.md) · [ADR](ADR.md) · [ROADMAP](ROADMAP.md)
@@ -14,13 +14,15 @@
 
 | 구성요소 | 상태 | 근거 |
 |---|---|---|
-| 플러그인 골격·매니페스트 | Implemented | 플러그인 검증 통과 |
-| `coupang-product-sourcing` | Implemented | 단위 테스트 26개 통과, 3회차·28개 조사·10개 통과 HTML 생성 |
-| `coupang-detail-page-generator` | Partial | 5.3 분리 기획·사용자 승인·하이브리드 HTML·2층 QA 구현, 실제 SKU 회귀 필요 |
+| 플러그인 골격·매니페스트 | Implemented | v0.2.0 플러그인 검증 통과 |
+| 오케스트레이터·단계 스킬 | Implemented | 현재 단계·AC·한 질문 UX, 상품기획·콘텐츠·게시 QA 스킬 검증 통과 |
+| `coupang-product-sourcing` | Implemented | 단위 테스트 37개 통과, 3회차·28개 조사·10개 통과 HTML 생성 |
+| `coupang-best-high-markup-sourcing` | Implemented | Best 층화 표본·개당 5,000원 이하·쿠팡 동일 1개 현재가 4배 이상·리뷰 5개 이상 탐색 게이트와 회귀 테스트 6개 |
+| `coupang-detail-page-generator` | Partial | 5.3 분리 승인, 시각 스토리보드, 하이브리드 HTML·2층 좌표 QA와 `concept_only` 대표 프로토타입 구현, 실제 SKU 회귀 필요 |
 | 소싱→상세페이지 자동 승격 | Planned | 공통 계약 미구현 |
-| 모션·채널 패키징·게시 QA | Planned | HTML 기반 구현 완료, 독립 모션·채널 패키지 미구현 |
+| 모션·채널 패키징·게시 QA | Partial | 3초 GIF 빌더·정적 대체·반응형 HTML 프로토타입 검증, 독립 스킬·채널 패키지 미구현 |
 
-기준 통과 보고서는 `AWAITING_USER_SELECTION`으로 생성됐고, 이후 사용자가 아이스 쿨링 스카프를 재검증 후보로 선택했다. 해당 이력은 [선택 재검증 보고서](../reports/deprecated/2026/2026-07-16/sourcing-selection-cooling-scarf/selection-decision.html)에 보관됐다. 현재는 [동일상품 우선 재소싱 결과](../reports/2026/2026-07-16/resourcing-exact-identity-relaxed/report.html)의 조건부 후보 2건을 검토 중이며 가격·묶음·샘플 승인 전에는 자동 승격하지 않는다.
+기준 통과와 재검증 이력은 `reports/deprecated/`에 보관한다. 사용자는 [동일상품 우선 재소싱 결과](../reports/deprecated/2026/2026-07-16/resourcing-exact-identity-relaxed/report.html)의 조건부 후보 중 HDB-1 스포츠 마스크·판매가 9,900원안을 선택하고 [1차 제품기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/product-plan-draft.md)과 별도 [1차 콘텐츠기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/content-plan-draft.md)을 승인했다. 실제 제품 단독 원본이 없는 상태에서 제작 방식의 품질을 확인하도록 `concept_only` 예외를 허용해 10모듈 HTML·3초 GIF·2층 QA 프로토타입을 완성했다. 실제 SKU 자산·간이 QA가 잠기기 전에는 이를 최종 승격하지 않는다.
 
 ## 3. 목표 파이프라인
 
@@ -34,8 +36,9 @@
 → 사용자 상품·가격 승인
 → 제품 사실·자산 계보 잠금
 → 경쟁상품·리뷰 조사
-→ 상품기획 작성 → 사용자 승인
+→ 제품기획 작성 → 사용자 승인
 → 콘텐츠기획 작성 → 사용자 승인
+→ 주장-근거-장면 시각 스토리보드·수치형 AC
 → 이미지·실사진·GIF·영상 소재 제작
 → 소재별 자동 QA + 육안 QA
 → 이미지+HTML 조립
@@ -66,7 +69,7 @@
 - 공급가, 수수료, 로켓그로스 비용, 부가세 기반 수익성 평가
 - 사용자 후보·가격 선택 및 승인 기록
 - 실제 제품 사실, 시각적 불변 특성과 자산 계보 관리
-- 제품별 브랜드·오퍼의 상품기획과 장별 콘텐츠기획
+- 제품별 브랜드·오퍼의 제품기획과 장별 콘텐츠기획
 - 두 계획의 사용자 승인 해시
 - 이미지·GIF·영상 외부 자산과 편집 가능한 HTML·CSS 조립
 - 소재별 QA와 조립 후 통합 QA
@@ -83,6 +86,20 @@
 
 ## 5. 스킬 구성
 
+### 5.0 단계 스킬 토폴로지 — v0.2.0
+
+| 스킬 | 단일 책임 | 사용자 UX |
+|---|---|---|
+| `coupang-commerce-orchestrator` | 현재 단계·AC·차단·다음 스킬 라우팅 | 현재 상태를 먼저 보여주고 한 번에 하나의 질문 |
+| `coupang-product-sourcing` | 후보·시장·마진 근거 | 상품·가격 선택 대기 |
+| `coupang-best-high-markup-sourcing` | Best 저단가·동일상품 고배수 탐색 일치 | 전체 소싱 검증 필요 상태 보고 |
+| `coupang-product-planning` | 저평점 불만→SKU 해결 가능성→근거·실험 | 상품기획 승인 질문 |
+| `coupang-content-studio` | 주장-근거-장면 스토리보드·ImageGen·소재 QA | 콘텐츠기획 승인 질문 |
+| `coupang-detail-page-generator` | 이미지·GIF+HTML 조립과 브라우저 QA | 조립 결과와 수정 모듈 보고 |
+| `coupang-publish-qa` | 순서·크롭·타이포·접근성·광고·채널 판정 | 게시 가능/차단 한 질문 |
+
+오케스트레이터는 전문 스킬의 근거 판정이나 사용자 승인을 대신하지 않는다. 각 응답은 `현재 단계 → 완료 근거 → Acceptance Criteria → 차단 사유 → 다음 한 질문` 순서를 사용한다.
+
 ### 5.1 `coupang-product-sourcing` — 현재 구현
 
 책임:
@@ -96,6 +113,15 @@
 - 도매꾹 Browser Use와 쿠팡 `nodriver` 역할 분리
 - 쿠팡 홈 선진입, 직렬 검색, 결과 0개 시 1회 재시도와 안전 중단
 - 판매량순 상위 10개 중 일반 로켓 3개 이하 허용, 판매자로켓 허용
+
+#### `coupang-best-high-markup-sourcing` — 전용 탐색 프로필
+
+- 도매꾹 Best 전체·카테고리 TOP 150을 일반 소싱과 같은 40%·35%·25% 순위 구간으로 층화 표본화
+- 상세 원문의 개당 단가 5,000원 이하와 판매 묶음 1개를 선확정
+- 쿠팡의 완전 동일 1개 상품, 할인 후 현재가 4배 이상, 같은 판매상품 리뷰 5개 이상을 `HIGH_MARKUP_DISCOVERY`로 분류
+- 리뷰를 구매 발생 대리 신호로만 사용하고 정상가·다른 묶음·유사상품·미검증 동일성 오탐 차단
+- 일반 가격 계산도 등록가 전체가 아니라 최근 구매 수 1건 이상 또는 리뷰 5개 이상인 동일상품 현재가 5건 이상의 중앙값을 사용하고, 판매 근거 없는 등록가는 제외
+- 전체 마진·수요·경쟁·운영 검증과 사용자 승인 전 `SHORTLIST` 승격 금지
 
 주요 산출물:
 
@@ -111,7 +137,7 @@
 
 - 제품 사실 및 정체성 잠금
 - 실제 브라우저 기반 경쟁상품·리뷰 조사
-- 제품별 브랜드·오퍼 상품기획과 사용자 승인
+- 제품별 브랜드·오퍼 제품기획과 사용자 승인
 - 장별 카피·근거·자산 콘텐츠기획과 사용자 승인
 - 이미지·GIF·영상 외부 자산과 편집 가능한 HTML 조립
 - 실사진 교체와 GIF 실행안
@@ -123,7 +149,7 @@
 |---|---|---|
 | A | 제품 사실·정체성 잠금 | 사실 원장, 불변 특성, 자산 계보 |
 | B | 경쟁상품·리뷰 조사 | 출처, 고객 불안 지도, 기획 원칙 |
-| C | 상품기획·사용자 승인 | 타깃·문제·오퍼·주장, 브랜드, 승인 해시 |
+| C | 제품기획·사용자 승인 | 타깃·문제·오퍼·주장, 브랜드, 승인 해시 |
 | D | 콘텐츠기획·사용자 승인 | 장별 HTML 카피·근거·자산·QA, 승인 해시 |
 | E | UI·자산 전략 | UI 가이드, 장별 제작 방식 |
 | F | 제품 보존 파일럿·소재 제작 | 이미지·GIF·영상 자산, 재생성 로그 |
@@ -138,6 +164,7 @@
 - 실촬영 필수 장면과 생성 가능한 보조 장면 분리
 - 제품 구조·색상·사용 방식 변경 금지
 - 모션 실패 시 정적 대체 이미지 제공
+- 두 장 이상의 정적 프레임을 3~6초 GIF로 조립하는 빌더와 회귀 테스트는 상세페이지 스킬 내부에서 먼저 검증했다.
 
 ### 5.4 `commerce-html-builder` — 기반 구현, 독립 스킬 계획
 
@@ -146,8 +173,10 @@
 - 이미지 대체 텍스트, 영상 재생 제어, 모션 감소 설정 지원
 - 채널 기능 제한 시 정적 이미지로 안전하게 대체
 - 쿠팡 업로드용 정적 이미지와 오픈마켓용 HTML·미디어 분리
+- HDB-1 `concept_only` 대표 프로젝트에서 10개 모듈, 360·800px, GIF 정지·정적 대체, 접근성·가로 넘침 검사를 통과했다.
+- 공통 제작·QA 입력은 [콘텐츠 생성·조립 QA 체크리스트](CONTENT-PRODUCTION-CHECKLIST.md)로 축적한다.
 
-### 5.5 `commerce-publish-qa` — 계획
+### 5.5 `coupang-publish-qa` — 기본 스킬 구현, 채널 계약 확장 계획
 
 - 제품 사실 및 자산 계보 재검증
 - 한글 OCR과 승인 문구 비교
@@ -174,11 +203,13 @@ coupang-commerce-automation/
 ├─ .codex-plugin/
 │  └─ plugin.json
 ├─ skills/
+│  ├─ coupang-commerce-orchestrator/
 │  ├─ coupang-product-sourcing/
+│  ├─ coupang-best-high-markup-sourcing/
+│  ├─ coupang-product-planning/
+│  ├─ coupang-content-studio/
 │  ├─ coupang-detail-page-generator/
-│  ├─ commerce-motion-maker/
-│  ├─ commerce-html-builder/
-│  └─ commerce-publish-qa/
+│  └─ coupang-publish-qa/
 ├─ scripts/
 │  ├─ initialize_campaign.py
 │  ├─ promote_shortlist.py
@@ -270,7 +301,7 @@ initialized
 사용자 승인이 필요한 지점은 세 곳이다.
 
 1. 소싱 보고서에서 상품과 가격안을 선택할 때
-2. 고객·문제·포지셔닝·가격·묶음·주장을 포함한 상품기획을 확정할 때
+2. 고객·문제·포지셔닝·가격·묶음·주장을 포함한 제품기획을 확정할 때
 3. 카피·순서·근거·자산·QA 기준을 포함한 콘텐츠기획을 확정할 때
 
 각 기획 승인은 현재 JSON의 SHA-256에 묶인 `actor_type: user` 기록이어야 한다. 승인 전에는 시각 소재 제작을 시작하지 않으며 승인 뒤 계획이 바뀌면 재승인을 요구한다. 일괄 제작 요청이나 에이전트 추천은 승인으로 대체하지 않는다.
@@ -286,24 +317,33 @@ initialized
 
 ### 조립 후 통합 자동·육안 QA
 
-- 상품기획·콘텐츠기획 정렬과 구매 흐름
+- 제품기획·콘텐츠기획 정렬과 구매 흐름
 - HTML·CSS·외부 자산 참조 완결성
 - 모바일 반응형, 접근성, 브랜드 일관성
 - 전체 문맥의 과장 광고·인증·성능·사회적 증거 위험
+- 스토리보드 모듈 순서와 HTML 순서 100% 일치
+- 모듈 주장-미디어 자산 연결 100%, 핵심 주장 직접 시각화 100%
+- 주 피사체 가시율 95% 이상, 핵심 영역 가시율 100%
+- 모듈별 주장-이미지 연관성 육안 점수 80/100 이상
+- 360px·800px 한글 타이포 오류와 strict 경고 0건
 
 두 QA가 모두 통과해야 최종본으로 승격한다. 실패는 전체 재생성이 아니라 실패 페이지와 원인 단계로 롤백한다.
+
+`concept_only`는 조립 품질을 통과해도 실제 제품 동일성은 `blocked`다. 실제 canonical product master로 교체한 뒤 소재 QA와 통합 QA를 모두 다시 실행해야 한다.
 
 ## 11. 구현 순서
 
 ### P0. 문서·검증 기준선 — 진행 중
 
 - [x] 플러그인 검증 통과
-- [x] 소싱 테스트 26개 통과
+- [x] 소싱 테스트 37개 통과
+- [x] 도매꾹 Best 5,000원 이하·쿠팡 동일 1개 4배·리뷰 5개 고배수 탐색 스킬과 플러그인 사본 구현
 - [x] 도매꾹 Best 3회차·28개 실제 조사
 - [x] 기준 통과 10개 HTML 보고서와 사용자 선택 대기 상태 생성
 - [x] Browser Use + `nodriver` 수집 조합 실증
 - [x] PRD·ADR·ROADMAP 정리
-- [x] 상세페이지 5.3 계약 대표 회귀 테스트 6개
+- [x] 상세페이지 5.3 계약·GIF 빌더 대표 회귀 테스트 8개
+- [x] HDB-1 `concept_only` 10모듈·3초 GIF·HTML 대표 프로토타입과 소재/통합 QA
 - [ ] 승인된 실제 SKU 시각 대표 회귀 픽스처
 - [ ] 통합 회귀 명령
 

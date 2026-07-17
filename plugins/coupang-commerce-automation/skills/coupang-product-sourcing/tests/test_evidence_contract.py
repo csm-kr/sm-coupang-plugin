@@ -149,6 +149,17 @@ def test_coupang_collector_card_script_captures_product_thumbnail_url():
     assert ".slice(0,5)" in script
 
 
+def test_coupang_collector_card_script_captures_recent_purchase_evidence():
+    sys.path.insert(0, str(ROOT / "scripts"))
+    mod = load("collect_coupang_nodriver")
+
+    script = mod.build_card_extract_script(10)
+
+    assert "recent_purchase_signal" in script
+    assert "recent_purchase_count" in script
+    assert "명 이상 구매" in script
+
+
 def test_coupang_collector_keeps_explicit_candidate_id_with_wholesale_url_only():
     sys.path.insert(0, str(ROOT / "scripts"))
     mod = load("collect_coupang_nodriver")
@@ -193,6 +204,7 @@ def test_pricing_candidate_uses_verified_bundle_cost_and_matching_sale_prices_on
                 "price": 6900 + index * 100,
                 "price_verified": True,
                 "quantity": 2,
+                "review_count": 5,
                 "url": f"https://www.coupang.com/vp/products/{index}",
             }
             for index in range(5)
@@ -212,4 +224,43 @@ def test_pricing_candidate_uses_verified_bundle_cost_and_matching_sale_prices_on
     assert len(candidate["market_prices"]) == 5
     assert evidence["supplier_terms_verified"] is True
     assert evidence["market_prices_verified"] is True
+    assert evidence["verified_current_price_count"] == 5
+    assert evidence["demand_backed_price_count"] == 5
+    assert evidence["excluded_no_demand_evidence_count"] == 0
     assert evidence["excluded_market_products"][0]["reason"] == "판매 묶음 수량 불일치"
+
+
+def test_pricing_candidate_does_not_count_zero_review_listings_as_demand_backed():
+    mod = load("price_nodriver_candidates")
+    row = {
+        "candidate_id": "60851997",
+        "name": "동일상품 판매 근거 검증",
+        "url": "https://domeggook.com/60851997",
+        "supply_price": 1800,
+        "moq": 4,
+        "sale_bundle_quantity": 1,
+        "procurement_quantity": 50,
+        "supplier_terms": verified_supplier_terms(unit_price=1800, moq=4, shipping=3000),
+        "coupang_products": [
+            {
+                "name": f"동일상품 옵션 {index}",
+                "price": 5500 + index * 100,
+                "price_verified": True,
+                "quantity": 1,
+                "review_count": 5 if index < 4 else 0,
+                "url": f"https://www.coupang.com/vp/products/{index}",
+            }
+            for index in range(7)
+        ],
+    }
+
+    candidate, evidence = mod.build_pricing_candidate(
+        row, rocket_growth_cost=3000, fee_rate=10.8, min_market_samples=5
+    )
+
+    assert len(candidate["market_prices"]) == 7
+    assert sum(price["demand_evidence_verified"] for price in candidate["market_prices"]) == 4
+    assert evidence["verified_current_price_count"] == 7
+    assert evidence["demand_backed_price_count"] == 4
+    assert evidence["excluded_no_demand_evidence_count"] == 3
+    assert evidence["market_prices_verified"] is False

@@ -32,7 +32,7 @@ Claude 전용 `.claude/settings.json`은 복사하지 않았다. Codex가 공식
 | 순서 | 단계 | 현재 상태 | 구현 경로 | 테스트 경로 |
 |---:|---|---|---|---|
 | 0 | `harness` | Implemented | `scripts/`, `.codex/`, `harness/` | `tests/harness/` |
-| 1 | `sourcing` | Implemented | `coupang-product-sourcing/` | 해당 스킬 `tests/` |
+| 1 | `sourcing` | Implemented | `coupang-product-sourcing/`, `coupang-best-high-markup-sourcing/` | `coupang-product-sourcing/tests/` |
 | 2 | `handoff` | Planned | `commerce-project/` | `tests/handoff/` |
 | 3 | `detail-page` | Partial | `coupang-detail-page-generator/` | `tests/detail_page/` |
 | 4 | `motion` | Planned | `commerce-motion-maker/` | `tests/motion/` |

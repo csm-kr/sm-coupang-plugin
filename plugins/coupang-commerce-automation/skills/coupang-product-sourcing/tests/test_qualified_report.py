@@ -25,7 +25,12 @@ def valid_row(index: int) -> dict:
         "wholesale_url": f"https://domeggook.com/{1000 + index}",
         "coupang_urls": [f"https://www.coupang.com/vp/products/{2000 + index}-{n}" for n in range(5)],
         "supply_price": 3000, "recommendation_score": 80 - index,
-        "market_price_distribution": {"count": 8, "p50": 15900},
+        "market_price_distribution": {
+            "count": 8,
+            "p50": 15900,
+            "price_basis": "demand_backed_current_sale_price",
+            "demand_backed_price_count": 8,
+        },
         "price_options": {"recommended": {
             "price": 15900, "base": {"margin_pct": 44.2}, "stress": {"margin_pct": 34.1}
         }},
@@ -95,6 +100,17 @@ def test_unverified_supplier_terms_or_sale_prices_cannot_qualify():
     passed, gaps = mod.qualified(market)
     assert not passed
     assert "쿠팡 할인 후 실판매가 검증 미완료" in gaps
+
+
+def test_report_rejects_market_distribution_without_demand_backed_price_basis():
+    mod = load_report_module()
+    row = valid_row(1)
+    row["market_price_distribution"] = {"count": 8, "p50": 6900}
+
+    passed, gaps = mod.qualified(row)
+
+    assert passed is False
+    assert "판매 근거 가격 중앙값 검증 미완료" in gaps
 
 
 def test_main_writes_html_report(tmp_path, monkeypatch):

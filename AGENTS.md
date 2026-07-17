@@ -1,6 +1,6 @@
 # 쿠팡 커머스 자동화 에이전트 라우터
 
-이 저장소는 도매 상품 소싱부터 쿠팡 시장·마진 검증, 사용자 선택, 상세페이지·GIF·영상·HTML 제작과 게시 전 QA까지 연결하는 Codex 플러그인을 개발한다. 현재 포함 스킬은 `coupang-product-sourcing`과 `coupang-detail-page-generator`이며, 아이스 쿨링 스카프가 재검증 후보로 선택됐지만 가격·묶음·실물 검증이 차단 상태다.
+이 저장소는 도매 상품 소싱부터 쿠팡 시장·마진 검증, 사용자 선택, 상세페이지·GIF·영상·HTML 제작과 게시 전 QA까지 연결하는 Codex 플러그인을 개발한다. 일반 소싱 외에 도매꾹 Best의 개당 5,000원 이하·쿠팡 동일 1개 상품 현재가 4배 이상·리뷰 5개 이상 탐색 프로필을 제공하며, 탐색 일치는 전체 소싱 검증 전 자동 승격하지 않는다.
 
 이 파일은 얇은 라우터다. 상세 요구와 결정의 정본은 `docs/`이며, 작업 경로에 더 가까운 `AGENTS.md`가 이 파일을 보완한다.
 
@@ -29,6 +29,7 @@
 | 작업 | 경로 | 추가 지침 | 주요 정본 |
 |---|---|---|---|
 | 소싱 | `coupang-product-sourcing/` | [소싱 AGENTS](coupang-product-sourcing/AGENTS.md) | `docs/SOURCING-PROCESS.md` |
+| 고배수 소싱 | `coupang-best-high-markup-sourcing/` | [고배수 소싱 AGENTS](coupang-best-high-markup-sourcing/AGENTS.md) | 해당 스킬 `SKILL.md`·`references/` |
 | 상세페이지 스킬 | `coupang-detail-page-generator/` | [상세페이지 AGENTS](coupang-detail-page-generator/AGENTS.md) | 해당 스킬 `SKILL.md`·`references/` |
 | 상세페이지 실행 결과 | `detail-page/` | [작업 영역 AGENTS](detail-page/AGENTS.md) | 프로젝트 manifest·사실 원장 |
 | 플러그인 패키지 | `plugins/coupang-commerce-automation/` | [플러그인 AGENTS](plugins/coupang-commerce-automation/AGENTS.md) | `docs/COUPANG-COMMERCE-AUTOMATION-PLUGIN-PLAN.md` |
@@ -97,7 +98,7 @@ python scripts\tdd.py report-path sourcing-qualified-5 --create
 - 정상가 마진 40% 이상, 판매가 10% 하락 후 30% 이상은 `STANDARD` 기준으로 사용한다.
 - 판매량순 상위 10개의 일반 로켓은 3개 이하 허용하고 판매자로켓은 허용한다.
 - 공급처 단가·MOQ·구매단위·배송비·판매 묶음 수량은 원문과 조사시각으로 검증한다. 기본값으로 자격을 통과시키지 않는다.
-- 쿠팡 가격은 정상가가 아니라 의미가 확인된 할인 후 현재 실판매가만 사용하고, 판매 묶음 수량이 같은 표본끼리 비교한다.
+- 쿠팡 가격은 정상가가 아니라 의미가 확인된 할인 후 현재 실판매가만 사용하고, 판매 묶음 수량이 같은 표본끼리 비교한다. 시장 중앙값은 최근 구매 수 1건 이상 또는 같은 판매상품 리뷰 5개 이상인 판매 근거 가격만으로 계산하며, 근거 없는 등록가는 제외한다. 판매 근거 가격이 5건 미만이면 `PRICE_REVIEW_BLOCKED`로 두고 리뷰가 판매량 확정값이 아닌 대리 신호임을 표시한다.
 - 가격 비교 전에 공급처와 쿠팡 상품의 이미지·구조·규격·모델·고유 문구를 확인해 완전 동일 여부를 먼저 잠근다. 완전 동일 상품 가격은 직접 제약으로 사용하지만 다른 상품 가격은 시장 맥락일 뿐 단독 탈락 근거로 사용하지 않는다.
 - 표준 기준을 충족하지 못했더라도 정상가 35% 이상이고 판매가 10% 하락 후 25% 이상이면 `CONDITIONAL_TEST_PRICE_REVIEW`로 허용한다. 조건부 후보는 표준 통과와 구분하고 자동 `SHORTLIST`·핸드오프에 합치지 않으며, 실물·권리·가격 수용성 확인과 사용자 승인을 받기 전 진행하지 않는다.
 - 로켓그로스 비용 3,000원/묶음과 수수료 10.8%는 탐색 시나리오일 뿐이며, 공급조건·실판매가가 검증되지 않으면 `PRICE_REVIEW_BLOCKED`다.

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>60851997 판매 근거 가격 재검증</title>
+  <style>
+    :root{color-scheme:light;--ink:#172033;--muted:#5c667a;--line:#dce3ee;--blue:#2357d6;--amber:#8a4b08;--amber-bg:#fff7e8;--surface:#f5f7fb}
+    *{box-sizing:border-box} body{margin:0;background:var(--surface);color:var(--ink);font-family:Arial,"Noto Sans KR",sans-serif;line-height:1.6}
+    main{max-width:1040px;margin:28px auto;padding:28px;background:#fff;border-radius:18px;box-shadow:0 10px 30px #17203312}
+    h1,h2{line-height:1.3} h1{margin:0 0 8px;font-size:30px} h2{margin-top:32px;font-size:21px}
+    .lead{color:var(--muted);margin-top:0}.status{padding:18px;border:1px solid #f2cd91;background:var(--amber-bg);border-radius:14px;color:var(--amber)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.metric{padding:16px;border:1px solid var(--line);border-radius:12px}.metric small{display:block;color:var(--muted)}.metric strong{font-size:22px}
+    table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:11px;border-bottom:1px solid var(--line);text-align:left}th{background:#f8fafc}.excluded{color:#a03a2a;font-weight:700}
+    code{background:#eef2f8;padding:2px 6px;border-radius:6px}a{color:var(--blue)}.note{padding:14px 16px;background:#eef4ff;border-radius:12px}.muted{color:var(--muted)}
+    @media(max-width:720px){main{margin:0;padding:20px;border-radius:0}.metrics{grid-template-columns:repeat(2,1fr)}.table-wrap{overflow:auto}table{min-width:720px}}
+  </style>
+</head>
+<body><main>
+  <h1>60851997 판매 근거 가격 재검증</h1>
+  <p class="lead">기존 등록가 전체 중앙값 대신, 판매·수요 근거가 확인된 동일상품 현재가만 마진 기준으로 재평가했습니다.</p>
+  <div class="status"><strong>판정: PRICE_REVIEW_BLOCKED</strong><br>검증 현재가 5건 모두 리뷰 0건이고 최근 구매 수도 확인되지 않아, 마진 계산에 사용할 판매 근거 가격 중앙값이 없습니다. 기존 <code>REJECT_CURRENT_SUPPLY_OFFER</code> 가격 판정은 철회합니다.</div>
+  <div class="metrics">
+    <div class="metric"><small>검증 현재가</small><strong>5건</strong></div>
+    <div class="metric"><small>판매 근거 가격</small><strong>0건</strong></div>
+    <div class="metric"><small>중앙값 제외</small><strong>5건</strong></div>
+    <div class="metric"><small>마진 기준 p50</small><strong>미산출</strong></div>
+  </div>
+
+  <h2>왜 판정이 바뀌었나</h2>
+  <p>이전 계산은 5,470~6,560원의 등록가 5건을 모두 사용해 p50 5,640원을 만들었습니다. 새 정책에서는 최근 구매 수 1건 이상 또는 같은 판매상품 리뷰 5개 이상인 가격만 포함합니다. 따라서 이 5건은 등록 현황 참고값으로만 남고, 낮은 등록가 때문에 후보를 탈락시키는 근거가 되지 않습니다.</p>
+  <p class="note">리뷰 5개 이상은 구매 발생의 대리 신호입니다. 현재 판매자와 현재 가격에서 5건이 팔렸다는 확정값은 아니므로, 최근 구매 수가 보이면 그 근거를 우선합니다.</p>
+
+  <h2>동일상품 가격 근거</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>상품</th><th>총결제가격</th><th>리뷰</th><th>최근 구매</th><th>마진 중앙값 포함</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.coupang.com/vp/products/9538654164">9538654164</a></td><td>5,470원</td><td>0</td><td>미확인</td><td class="excluded">제외</td></tr>
+      <tr><td><a href="https://www.coupang.com/vp/products/9475012024">9475012024</a></td><td>6,560원</td><td>0</td><td>미확인</td><td class="excluded">제외</td></tr>
+      <tr><td><a href="https://www.coupang.com/vp/products/9104195990">9104195990</a></td><td>5,630원</td><td>0</td><td>미확인</td><td class="excluded">제외</td></tr>
+      <tr><td><a href="https://www.coupang.com/vp/products/9580730880">9580730880</a></td><td>5,770원</td><td>0</td><td>미확인</td><td class="excluded">제외</td></tr>
+      <tr><td><a href="https://www.coupang.com/vp/products/9482528407">9482528407</a></td><td>5,640원</td><td>0</td><td>미확인</td><td class="excluded">제외</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>현재 결론</h2>
+  <p>공급 조건은 단가 1,800원, MOQ 4개, 50개까지 배송비 3,000원으로 유지됩니다. 하지만 판매 근거 가격 p50이 없으므로 “몇 원에 팔면 마진이 된다”는 시장 수용성 계산은 아직 열 수 없습니다. 완전 동일 1개 구성에서 판매 근거가 있는 독립 가격 5건을 확보한 뒤 다시 계산해야 합니다.</p>
+  <ul>
+    <li>정상 40%·10% 하락 후 30% 가격 하한: MOQ 4개 12,500원, 50개 매입 10,900원</li>
+    <li>조건부 35%·25% 가격 하한: MOQ 4개 11,100원, 50개 매입 9,700원</li>
+    <li>사용자 30%·20% 시나리오 하한: MOQ 4개 10,000원, 50개 매입 8,700원</li>
+  </ul>
+  <p class="muted">위 가격은 원가 기반 최소 필요 판매가이며, 실제로 그 가격에 팔린다는 시장 근거는 아닙니다. 사용자 지시에 따라 browser-use와 nodriver는 실행하지 않았습니다.</p>
+  <p><a href="../../../deprecated/2026/2026-07-17/sourcing-verify-60851997/verification-report.html">이전 등록가 전체 중앙값 보고서</a> · <a href="verification-report.json">JSON 근거</a> · <a href="https://domeggook.com/60851997?from=lstGen">공급처</a></p>
+</main></body>
+</html>

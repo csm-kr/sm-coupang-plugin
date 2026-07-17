@@ -1,0 +1,15 @@
+{
+  "run_name": "sourcing-verify-60851997",
+  "generated_at": "2026-07-17T16:01:12+09:00",
+  "candidate_id": "60851997",
+  "decision": "REJECT_CURRENT_SUPPLY_OFFER",
+  "browser_use_not_invoked": true,
+  "nodriver_not_invoked": true,
+  "browser_cleanup_status": "NOT_APPLICABLE",
+  "static_qa": {
+    "supplier_url_count": 1,
+    "coupang_product_link_count": 5,
+    "candidate_name_present": true,
+    "decision_present": true
+  }
+}

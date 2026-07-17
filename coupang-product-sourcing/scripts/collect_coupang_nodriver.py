@@ -35,7 +35,7 @@ def resolve_candidate_id(row: dict, keyword: str) -> str:
 
 def build_card_extract_script(top_n: int) -> str:
     """Build the card extraction script used by the live nodriver collector."""
-    return f'''JSON.stringify(Array.from(document.querySelectorAll('{CARD}')).slice(0,{int(top_n)}).map(card => {{
+    return rf'''JSON.stringify(Array.from(document.querySelectorAll('{CARD}')).slice(0,{int(top_n)}).map(card => {{
         const img=card.querySelector('img'); const a=card.querySelector('a[href]');
         const r=card.querySelector('{REVIEW}'); let rocket=false, seller=false;
         const price_nodes=[];
@@ -52,7 +52,12 @@ def build_card_extract_script(top_n: int) -> str:
             if (/[\\d,]+\\s*원/.test(text)) price_nodes.push({{role:'',tag_name:el.tagName,class_name,text}});
         }}
         for (const im of card.querySelectorAll('img')) {{ const s=im.getAttribute('src')||''; if (/logo_rocket/i.test(s)) {{ if (/merchant/i.test(s)) seller=true; else rocket=true; }} }}
-        return {{name:img?(img.alt||''):'', image_url:img?(img.currentSrc||img.src||''):'', review:r?(r.innerText||''):'', price_nodes, rocket, seller_rocket:seller, url:a?a.href:''}};
+        const card_text=(card.innerText||'').replace(/\s+/g,' ');
+        const purchase_match=card_text.match(/(?:최근|한\s*달간|지난\s*달)[^\d]{{0,10}}([\d,]+)\s*명(?:\s*이상)?\s*구매|([\d,]+)\s*명 이상 구매/);
+        const purchase_digits=purchase_match?String(purchase_match[1]||purchase_match[2]||'').replace(/[^0-9]/g,''):'';
+        const recent_purchase_signal=purchase_match?purchase_match[0]:'';
+        const recent_purchase_count=purchase_digits?Number(purchase_digits):0;
+        return {{name:img?(img.alt||''):'', image_url:img?(img.currentSrc||img.src||''):'', review:r?(r.innerText||''):'', recent_purchase_signal, recent_purchase_count, price_nodes, rocket, seller_rocket:seller, url:a?a.href:''}};
     }}))'''
 
 

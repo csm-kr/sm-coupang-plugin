@@ -1,0 +1,93 @@
+---
+name: coupang-best-high-markup-sourcing
+description: 도매꾹 Best 전체·카테고리 TOP 150을 층화 샘플링하고, 공급처 원문의 개당 단가가 5,000원 이하인 1개 상품 중 쿠팡의 완전 동일한 1개 구성 현재 실판매가가 도매 단가의 4배 이상이며 해당 판매상품 리뷰가 5개 이상인 후보를 찾고 전체 소싱 게이트로 재검증한다. 도매꾹 베스트 저단가 상품, 쿠팡 고배수 판매상품, 4배 마진 후보, 리뷰가 있는 리셀 후보, 소싱 아이템 발굴을 요청할 때 사용한다.
+---
+
+# 도매꾹 Best 4배 소싱
+
+도매꾹 Best를 분산 표본화해 사용자의 세 조건을 만족하는 `HIGH_MARKUP_DISCOVERY`를 찾는다. 이 상태는 탐색 일치일 뿐 수익성 승인이나 `SHORTLIST`가 아니다.
+
+## 준비
+
+1. [입출력 계약](references/input-output-contract.md)을 끝까지 읽는다.
+2. 설치된 `browser-use` 스킬을 읽고 도매꾹 조사에 적용한다.
+3. 저장소의 `docs/RULE.md`, `docs/ISSUE.md`, `coupang-product-sourcing/SKILL.md`와 소싱 입력·조사·평가 계약을 따른다.
+4. CAPTCHA·로그인·접근 통제를 우회하지 않는다. 유료 원격 브라우저는 사용자 승인 없이 시작하지 않는다.
+
+## 탐색 조건
+
+다음 조건을 모두 만족할 때만 탐색 일치로 분류한다.
+
+- 도매꾹 상세 원문에서 확인한 개당 단가가 5,000원 이하
+- 판매 묶음이 1개이고 쿠팡 비교상품도 1개 구성
+- 공급처와 쿠팡 상품의 이미지·외형·구조·규격·모델·고유 문구를 확인해 `identical`로 잠금
+- 쿠팡의 의미가 확인된 할인 후 현재 실판매가가 도매 단가의 4배 이상
+- 같은 쿠팡 판매상품의 리뷰 5개 이상
+
+리뷰 수는 구매 발생의 대리 신호일 뿐 구매자 수나 최근 수요의 확정값이 아니다. 정상가·취소선 가격, 다른 묶음, 유사상품, 미검증 동일성은 조건 충족에 사용하지 않는다.
+
+## 실행
+
+### 1. 도매꾹 Best 풀 수집
+
+Browser Use로 `https://domeggook.com/main/item/itemPopular.php`를 연다. 전체와 6개 대분류의 카테고리 TOP 150 및 도전! 베스트에서 상품 URL, 순위, 카테고리, 원산지, 풀 유형을 수집한다. 목록 단가는 후보 탐색용으로만 보존하고 가격 판정에는 사용하지 않는다.
+
+수집 탭의 target ID를 기록하고 회차가 끝나면 현재 실행이 연 탭만 닫는다.
+
+### 2. 층화 샘플링
+
+기본 30개를 상위 1~30위 40%, 중위 31~75위 35%, 하위 76~150위 25%로 나누고 카테고리·원산지·풀 유형·상품명 중복을 분산한다.
+
+```powershell
+python coupang-product-sourcing\scripts\sample_top150.py `
+  --input <run-dir>\domeggook-pool.json `
+  --output <run-dir>\sampling-plan.json `
+  --target 30
+```
+
+### 3. 공급조건 원문 확인
+
+샘플 상품의 도매꾹 상세페이지에서 같은 조사시각 기준으로 개당 단가, MOQ, 구매 증분, 주문 배송비, 실제 매입 수량, 판매 묶음 수량을 확인한다. 판매 묶음은 1개로 고정한다. MOQ가 여러 개여도 개당 단가는 탐색 조건에 사용할 수 있지만, 배송비를 포함한 실제 판매 묶음 원가는 별도 계산한다.
+
+하나라도 없거나 충돌하면 `PRICE_REVIEW_BLOCKED`로 둔다. 상세 원문의 개당 단가가 5,000원을 초과하면 쿠팡 심화 조사를 생략하고 `FILTERED_OUT`으로 보존한다.
+
+### 4. 쿠팡 현재가·리뷰·동일성 확인
+
+프로젝트 표준인 표시형 `nodriver` Chrome으로 홈 선진입 후 후보별 검색을 직렬 처리한다. 검색 카드와 필요 시 상세페이지에서 다음을 기록한다.
+
+- 상품 URL, 판매자, 1개 구성 수량
+- 할인 후 현재 실판매가와 가격 의미
+- 리뷰 수와 조사시각
+- 대표·상세 이미지, 구조, 규격, 모델, 고유 문구의 동일성 근거
+
+완전 동일성을 육안 확인한 행만 `similarity: identical`, `identity_verified: true`로 기록한다. 검색결과 제목 토큰만으로 동일성을 확정하지 않는다. 결과 0개 재시도, CAPTCHA, 로그인 또는 접근 차단 시 안전 중단하고 브라우저를 정리한다.
+
+### 5. 탐색 게이트 실행
+
+```powershell
+python coupang-best-high-markup-sourcing\scripts\filter_high_markup_candidates.py `
+  --input <run-dir>\enriched-candidates.json `
+  --output <run-dir>\high-markup-discoveries.json `
+  --max-supply-price 5000 `
+  --min-markup-multiple 4 `
+  --min-reviews 5
+```
+
+출력의 `HIGH_MARKUP_DISCOVERY`만 다음 검토 대상으로 삼는다. 조건 미충족과 차단 후보도 삭제하지 않고 이유·URL과 함께 보존한다.
+
+### 6. 전체 소싱 재검증
+
+탐색 일치 후보마다 기존 `coupang-product-sourcing`의 다음 게이트를 모두 적용한다.
+
+- 도매 배송비 배분, 로켓그로스 비용, 수수료, 부가세를 포함한 판매 묶음 원가
+- 동일상품·동일 묶음의 비교 가능한 일반상품 표본 5개 이상
+- 정상 40%·10% 인하 후 30% 표준 마진 또는 35%·25% 조건부 마진
+- 최근 리뷰·구매·노출·다판매자 수요, 일반 로켓 TOP10, 규제·권리·반품·공급 위험
+
+한 판매자가 4배 가격과 리뷰 5개를 만족해도 시장 전체 가격 수용성은 확정되지 않는다. 전체 검증과 사용자 상품·가격 승인 전 `SHORTLIST`, 발주, 상세페이지 제작으로 승격하지 않는다.
+
+## 반복과 보고
+
+기본 목표는 `HIGH_MARKUP_DISCOVERY` 5개다. 부족하면 다음 카테고리·순위·원산지 표본으로 반복하되 조사 ID를 저장해 중복을 막는다. 최대 회차, 풀 소진, CAPTCHA, 로그인 또는 사이트 차단에서 중단한다.
+
+보고서에는 모든 후보의 도매꾹 URL, 쿠팡 URL, 개당 단가, 현재 실판매가, 배수, 리뷰 수, 동일성 근거, 판정과 다음 게이트를 표시한다. 최종 상태는 전체 검증 결과에 따라 `RESEARCH_EXPANSION_REQUIRED`, `INSUFFICIENT_QUALIFIED_CANDIDATES` 또는 `AWAITING_USER_SELECTION` 중 하나로 둔다.

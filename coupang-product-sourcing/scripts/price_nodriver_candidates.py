@@ -40,6 +40,25 @@ def similarity(candidate_name: str, product_name: str) -> str:
     return "unrelated"
 
 
+def review_count(product: dict) -> int:
+    value = product.get("review_count")
+    if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+        return value
+    if isinstance(value, float) and value >= 0 and value.is_integer():
+        return int(value)
+    digits = re.sub(r"[^0-9]", "", str(product.get("review") or ""))
+    return int(digits) if digits else 0
+
+
+def recent_purchase_count(product: dict) -> int:
+    value = product.get("recent_purchase_count")
+    if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+        return value
+    if isinstance(value, float) and value >= 0 and value.is_integer():
+        return int(value)
+    return 0
+
+
 def build_pricing_candidate(
     row: dict,
     *,
@@ -74,14 +93,26 @@ def build_pricing_candidate(
         if quantity != sale_quantity:
             excluded.append({"url": product.get("url"), "reason": "판매 묶음 수량 불일치", "observed_quantity": quantity})
             continue
+        reviews = review_count(product)
+        recent_purchases = recent_purchase_count(product)
+        demand_backed = reviews >= 5 or recent_purchases >= 1
         market.append({
             "price": int(product["price"]), "price_verified": True, "quantity": quantity,
             "similarity": label, "is_ad": False,
             "product_group_id": re.sub(r"[?#].*$", "", str(product.get("url") or index)),
             "url": product.get("url"), "observed_at": product.get("observed_at"),
+            "review_count": reviews,
+            "recent_purchase_count": recent_purchases,
+            "demand_evidence_verified": demand_backed,
+            "demand_evidence_type": (
+                "recent_purchase" if recent_purchases >= 1
+                else "review_proxy" if reviews >= 5
+                else None
+            ),
         })
     supplier_verified = not supplier_errors
-    market_verified = len(market) >= min_market_samples
+    demand_backed_count = sum(bool(row["demand_evidence_verified"]) for row in market)
+    market_verified = demand_backed_count >= min_market_samples
     candidate = {
         "id": row.get("candidate_id"), "name": row.get("name"),
         "url": row.get("wholesale_url") or row.get("url"),
@@ -94,12 +125,18 @@ def build_pricing_candidate(
         "market_prices": market,
         "required_bundle_quantity": sale_quantity,
         "require_verified_market_prices": True,
+        "require_demand_evidence": True,
     }
     evidence = {
         "supplier_terms_verified": supplier_verified,
         "supplier_term_errors": supplier_errors,
         "market_prices_verified": market_verified,
         "verified_market_price_count": len(market),
+        "verified_current_price_count": len(market),
+        "demand_backed_price_count": demand_backed_count,
+        "excluded_no_demand_evidence_count": len(market) - demand_backed_count,
+        "demand_price_basis": "demand_backed_current_sale_price",
+        "minimum_review_proxy_count": 5,
         "excluded_market_products": excluded,
         "source_cost_per_sale_bundle": source_cost,
     }
@@ -135,7 +172,8 @@ def main() -> int:
         verification_blockers = list(evidence["supplier_term_errors"])
         if not evidence["market_prices_verified"]:
             verification_blockers.append(
-                f"할인 후 실판매가·동일 묶음 표본 부족: {evidence['verified_market_price_count']}/{params['min_market_samples']}"
+                "할인 후 실판매가·동일 묶음·판매 근거 가격 표본 부족: "
+                f"{evidence['demand_backed_price_count']}/{params['min_market_samples']}"
             )
         if verification_blockers:
             priced["decision"] = "PRICE_REVIEW_BLOCKED"
@@ -152,8 +190,7 @@ def main() -> int:
             "fee_rate_pct": args.fee_rate,
         }
         merged["market_similarity_rows"] = candidate["market_prices"]
-        reviews = [int(re.sub(r"[^0-9]", "", str(p.get("review") or "")) or 0) for p in row.get("coupang_products") or []]
-        merged["demand_verified"] = len(reviews) >= 5 and any(reviews)
+        merged["demand_verified"] = evidence["demand_backed_price_count"] >= params["min_market_samples"]
         low_risk = not any(word in str(row.get("name") or "") for word in ("선풍기", "텀블러", "식물재배", "화장품", "식품", "유아", "전기"))
         merged["operations_safe"] = low_risk
         products = row.get("coupang_products") or []

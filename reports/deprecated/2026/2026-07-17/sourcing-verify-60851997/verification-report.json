@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0",
+  "run_name": "sourcing-verify-60851997",
+  "generated_at": "2026-07-17T16:01:12+09:00",
+  "decision": "REJECT_CURRENT_SUPPLY_OFFER",
+  "decision_reason": "완전 동일 1개 구성의 쿠팡 총결제가격 회랑이 공식·조건부 및 사용자 30%/20% 시나리오 원가 하한보다 낮음",
+  "candidate": {
+    "candidate_id": "60851997",
+    "name": "기능성 깔창 에어쿠션 충격완화 군인 군화 운동화 쫀쫀깔창 키높이인솔",
+    "supplier_url": "https://domeggook.com/60851997?from=lstGen",
+    "supplier_terms": {
+      "verified": true,
+      "unit_supply_price": 1800,
+      "minimum_order_qty": 4,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "shipping_rule": "50개까지 3,000원, 이후 50개마다 3,000원 추가",
+      "sale_bundle_quantity": 1,
+      "observed_at": "2026-07-17T16:01:12+09:00"
+    },
+    "inventory": {
+      "total": 2808,
+      "options": [
+        {
+          "size": "230(35-36)",
+          "stock": 550
+        },
+        {
+          "size": "240(37-38)",
+          "stock": 509
+        },
+        {
+          "size": "250(39-40)",
+          "stock": 538
+        },
+        {
+          "size": "260(41-42)",
+          "stock": 380
+        },
+        {
+          "size": "270(43-44)",
+          "stock": 411
+        },
+        {
+          "size": "280(45-46)",
+          "stock": 420
+        }
+      ]
+    },
+    "origin": "중국",
+    "model": "쿠션 깔창",
+    "manufacturer": "(주)제이케이엔터테인먼트",
+    "item_status": "진행중",
+    "image_use": "사용허용",
+    "claims_requiring_evidence": [
+      "충격 완화",
+      "탈취",
+      "항균",
+      "통풍"
+    ]
+  },
+  "identity_lock": {
+    "status": "IDENTICAL_CONFIRMED",
+    "confidence": "high",
+    "evidence": [
+      "도매꾹과 쿠팡 9538654164 대표 이미지의 외형·백색 셀 구조·회색 메시·청색 뒤꿈치 패드가 일치",
+      "쿠팡 비교상품 5건의 제목이 공급처 고유 제목과 일치",
+      "쿠팡 5개 상품 페이지의 위탁판매 공급사정보가 (주)제이케이엔터테인먼트로 확인됨",
+      "판매 묶음 수량은 모두 1개 구성"
+    ],
+    "supplier_image": "https://cdn1.domeggook.com/upload/item/2025/09/18/17581618735B3F337E0EE6D61A07018C/17581618735B3F337E0EE6D61A07018C_img_330?hash=2f3b0713c0552b38d71d5b13901a9a22",
+    "coupang_image": "https://thumbnail.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/1521/b2592132f89b05db00d6b70601b89e759731660774934057e4513bb54125.png"
+  },
+  "market": {
+    "query": "군인깔창 / 공급처 고유 상품명",
+    "observed_at": "2026-07-17T16:01:12+09:00",
+    "samples": [
+      {
+        "product_id": "9538654164",
+        "seller": "윈트마켓",
+        "sale_price": 2470,
+        "customer_shipping": 3000,
+        "total_customer_payment": 5470,
+        "quantity": 1,
+        "review_count": 0,
+        "supplier_source_confirmed": true,
+        "url": "https://www.coupang.com/vp/products/9538654164"
+      },
+      {
+        "product_id": "9475012024",
+        "seller": "제이라이프",
+        "sale_price": 6560,
+        "customer_shipping": 0,
+        "total_customer_payment": 6560,
+        "quantity": 1,
+        "review_count": 0,
+        "supplier_source_confirmed": true,
+        "url": "https://www.coupang.com/vp/products/9475012024"
+      },
+      {
+        "product_id": "9104195990",
+        "seller": "린이네 건강",
+        "sale_price": 5630,
+        "customer_shipping": 0,
+        "total_customer_payment": 5630,
+        "quantity": 1,
+        "review_count": 0,
+        "supplier_source_confirmed": true,
+        "url": "https://www.coupang.com/vp/products/9104195990"
+      },
+      {
+        "product_id": "9580730880",
+        "seller": "고마운쇼핑",
+        "sale_price": 5770,
+        "customer_shipping": 0,
+        "total_customer_payment": 5770,
+        "quantity": 1,
+        "review_count": 0,
+        "supplier_source_confirmed": true,
+        "url": "https://www.coupang.com/vp/products/9580730880"
+      },
+      {
+        "product_id": "9482528407",
+        "seller": "나이스공조",
+        "sale_price": 5640,
+        "customer_shipping": 0,
+        "total_customer_payment": 5640,
+        "quantity": 1,
+        "review_count": 0,
+        "supplier_source_confirmed": true,
+        "url": "https://www.coupang.com/vp/products/9482528407"
+      }
+    ],
+    "price_basis": "1개 구성의 상품가와 고객 배송비를 합한 총결제가격",
+    "distribution": {
+      "comparison_group": "identical",
+      "count": 5,
+      "min": 5470,
+      "p10": 5534,
+      "p25": 5630,
+      "p50": 5640,
+      "p75": 5770,
+      "max": 6560
+    },
+    "demand_observation": "동일 상품 판매자는 다수지만 표본 상품평은 대부분 0건이고, 군인깔창 검색에서 최저가 동일상품은 57위로 관찰됨",
+    "competition_completion": "판매량순 TOP10 일반 로켓 수는 사용자 지시로 browser-use·nodriver를 쓰지 않아 미검증"
+  },
+  "cost_scenario": {
+    "rocket_growth_cost_per_bundle": 3000,
+    "coupang_fee_rate_pct": 10.8,
+    "vat_mode": "excel_rocket_growth_simplified",
+    "other_cost": 0,
+    "caution": "탐색 시나리오이며 실제 포장·입고·반품비가 추가되면 결과는 더 나빠질 수 있음"
+  },
+  "economics": {
+    "moq_4": {
+      "procurement_quantity": 4,
+      "wholesale_shipping_per_unit": 750,
+      "fixed_cost_per_bundle": 5550,
+      "at_market_p50": {
+        "sale_price": 5640,
+        "profit": -467.21,
+        "margin_pct": -8.2838
+      },
+      "official_standard_floor_40_30": 12500,
+      "official_conditional_floor_35_25": 11100,
+      "user_scenario_floor_30_20": 10000
+    },
+    "bulk_50": {
+      "procurement_quantity": 50,
+      "wholesale_shipping_per_unit": 60,
+      "fixed_cost_per_bundle": 4860,
+      "at_market_p50": {
+        "sale_price": 5640,
+        "profit": 153.79,
+        "margin_pct": 2.7268
+      },
+      "official_standard_floor_40_30": 10900,
+      "official_conditional_floor_35_25": 9700,
+      "user_scenario_floor_30_20": 8700
+    }
+  },
+  "reentry_conditions": [
+    "로켓그로스 비용 3,000원과 50개 매입 배송배분 60원을 유지하면, 사용자 30%/20% 시나리오에서 시장 중앙값 5,640원 판매를 위해 공급단가가 약 91원 이하여야 함",
+    "시장 최고가 6,560원을 기준으로도 사용자 30%/20% 시나리오 공급단가는 약 605원 이하여야 함",
+    "현재 1,800원 공급가로 재검토하려면 로켓그로스가 아닌 별도 이행 방식, 검증된 다입수 묶음 시장, 또는 실증 가능한 차별화 가격 수용성 근거가 필요함"
+  ],
+  "browser_policy": {
+    "browser_use_invoked": false,
+    "nodriver_invoked": false,
+    "public_web_and_direct_http_only": true,
+    "visual_browser_qa": "NOT_RUN_BY_USER_DIRECTION"
+  }
+}
