@@ -1,12 +1,13 @@
 # Coupang Commerce Automation Plugin
 
-도매 상품 소싱부터 상품기획, 콘텐츠 스토리보드, 상세페이지 조립과 게시 전 QA까지 연결하는 로컬 Codex 플러그인이다. 오케스트레이터는 매 응답에서 현재 단계·완료 조건·차단 사유를 먼저 보여주고, 사용자에게는 한 번에 하나의 질문만 한다.
+도매 상품 소싱부터 상품기획, 콘텐츠 스토리보드, 상세페이지 조립과 게시 전 QA까지 연결하는 로컬 Codex 플러그인이다. React 로컬 대시보드는 프로젝트별 폴더·현재 단계·필수 입력·승인 게이트를 브라우저에서 보여주고 버튼 한 번으로 현재 Codex 작업을 실행해 내장 콘솔에 표시한다. 오케스트레이터는 매 응답에서 현재 단계·완료 조건·차단 사유를 먼저 보여주며 사용자에게 한 번에 하나의 질문만 한다.
 
 ## 단계별 스킬
 
 - `coupang-product-sourcing`: 도매꾹·도매매 후보 조사, 동일상품·동일 묶음 중 판매 근거가 있는 쿠팡 현재가 5개, 로켓 경쟁 판정, 로켓그로스 마진, HTML 보고서
 - `coupang-best-high-markup-sourcing`: 도매꾹 Best 층화 표본에서 개당 5,000원 이하·쿠팡 동일 1개 상품 현재가 4배 이상·리뷰 5개 이상인 탐색 후보를 찾고 전체 소싱 게이트로 재검증
 - `coupang-commerce-orchestrator`: 현재 단계 카드, 승인 게이트, 다음 전문 스킬 라우팅과 재개 지점을 관리
+- `coupang-workflow-ui`: 프로젝트 생성·목록·폴더 지도·현재 단계·필수 입력·승인 게이트, Codex 자동 실행과 읽기 전용 실시간 콘솔을 React 로컬 대시보드로 제공
 - `coupang-product-planning`: 경쟁사 저평점 리뷰를 선택 SKU가 해결 가능한 문제로 변환하고 1차·2차 검증 계획과 상품기획을 분리
 - `coupang-content-studio`: 주장-근거-장면 스토리보드, ImageGen 구조화 프롬프트, 모델·치수 장면, 이미지·GIF 소재 QA를 관리
 - `coupang-detail-page-generator`: 승인된 스토리보드와 외부 자산을 편집 가능한 HTML·CSS로 조립하고 소재·통합 QA를 수행
@@ -25,10 +26,28 @@
 - HTML은 모듈 순서와 `data-claim-ids`·`data-asset-id`를 보존해 주장과 이미지가 실제로 같은 장면에 있는지 검사한다.
 - 수정은 실패 모듈만 이전 단계로 되돌리고, 승인된 다른 모듈은 유지한다.
 
+## 브라우저 프로젝트 대시보드
+
+저장소 루트에서 다음 명령으로 정적 빌드를 검사하고 대시보드를 연다.
+
+```powershell
+python plugins\coupang-commerce-automation\skills\coupang-workflow-ui\scripts\serve_workflow_ui.py --check --no-open
+python plugins\coupang-commerce-automation\skills\coupang-workflow-ui\scripts\serve_workflow_ui.py --workspace .
+```
+
+대시보드에서 새 프로젝트를 만들면 `commerce-project/projects/<project-id>/` 아래에 `project.json`, 입력, 소싱, 상품기획, 콘텐츠기획, 원본·생성·모션 자산, 상세페이지, QA, 피드백 폴더가 생성된다. `reports/`의 날짜별 실행 보고서는 복사하지 않고 프로젝트 상태의 `links.reportRuns`에 경로만 등록한다. 기존 `detail-page/projects/`는 자동 이동·삭제하지 않고 읽기 전용 레거시 목록으로 표시한다.
+
+필수 입력을 채운 뒤 `Codex 작업 시작`을 누르면 UI 서버가 현재 단계의 전문 스킬을 `codex exec --json --sandbox workspace-write --ignore-user-config --ephemeral`로 실행한다. 인증은 유지하되 전역 모델·MCP 설정과 세션 누적은 자동 실행에서 격리한다. 진행 이벤트와 최종 응답은 같은 화면의 `Codex 실행 콘솔`에 표시되며 실행 중지 버튼을 제공한다. Codex CLI 설치와 로그인이 필요하다.
+
+콘솔은 일반 셸 입력을 받지 않는다. 같은 프로젝트의 Codex 작업은 한 번에 하나만 실행하고 잠긴 미래 단계는 차단한다. 비대화형 실행에서 새 승인이 필요한 작업은 실패 상태를 표시하며 `danger-full-access`나 승인 우회로 자동 전환하지 않는다. 콘솔 로그는 서버 메모리에만 있어 UI 서버를 다시 시작하면 복구되지 않는다.
+
+UI의 완료 체크는 사용자의 진행 메모다. 실제 단계 통과는 각 전문 스킬의 근거·테스트·자동 및 육안 QA 결과로만 확정한다.
+
 ## 현재 상태
 
 - 플러그인 스캐폴드와 manifest 검증 완료
-- 오케스트레이터와 일반·고배수 소싱·상품기획·콘텐츠·상세페이지·게시 QA의 7개 스킬 구성
+- 오케스트레이터·브라우저 프로젝트 UI와 일반·고배수 소싱·상품기획·콘텐츠·상세페이지·게시 QA의 8개 스킬 구성
+- React 19·Vite 정적 대시보드, `127.0.0.1` 프로젝트·Codex 실행 API, 읽기 전용 내장 콘솔과 `commerce-project` 단계별 폴더 관리자 구현
 - 고배수 소싱은 `HIGH_MARKUP_DISCOVERY`까지만 자동 판정하며 전체 마진·수요·경쟁 검증 전 `SHORTLIST`로 승격하지 않음
 - 일반 가격 계산은 최근 구매 수 1건 이상 또는 리뷰 5개 이상인 현재가만 중앙값에 포함하고 판매 근거 없는 등록가를 제외하며, 근거 표본 5건 미만은 `PRICE_REVIEW_BLOCKED` 처리
 - 1단계 소싱은 도매꾹 Browser Use + 쿠팡 `nodriver` 조합으로 실제 실행 완료
@@ -61,6 +80,16 @@ foreach ($name in $stageSkills) {
   New-Item -ItemType Directory -Path $dst -Force | Out-Null
   Copy-Item -Path (Join-Path $src '*') -Destination $dst -Recurse -Force
 }
+
+Push-Location 'coupang-workflow-ui\assets\react-app'
+npm ci
+npm test
+npm run build
+Pop-Location
+
+$src = (Resolve-Path 'coupang-workflow-ui').Path
+$dst = Join-Path (Resolve-Path 'plugins\coupang-commerce-automation\skills').Path 'coupang-workflow-ui'
+robocopy $src $dst /E /XD node_modules | Out-Null
 
 python C:\Users\csm81\.codex\skills\.system\plugin-creator\scripts\validate_plugin.py plugins\coupang-commerce-automation
 ```

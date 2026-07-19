@@ -41,15 +41,15 @@ def build_card_extract_script(top_n: int) -> str:
         const price_nodes=[];
         for (const el of card.querySelectorAll('[class*="PriceArea_priceArea"] *')) {{
             const text=(el.innerText||'').trim(); const class_name=el.getAttribute('class')||'';
-            if (!/[\\d,]+\\s*원/.test(text)) continue;
+            if (!/[\d,]+\s*원/.test(text)) continue;
             let role='';
             if (el.tagName==='DEL' || el.closest('del')) role='list_price';
-            else if (!el.closest('[class*="feePrice"]') && /(^|\\s)fw-font-bold(\\s|$)/.test(class_name)) role='sale_price';
+            else if (!el.closest('[class*="feePrice"]') && /(^|\s)fw-font-bold(\s|$)/.test(class_name)) role='sale_price';
             if (role) price_nodes.push({{role,tag_name:el.tagName,class_name,text}});
         }}
         for (const el of card.querySelectorAll('[class*="ProductPrice_priceValue"],[class*="sales-price"],[class*="sale-price"],[class*="discount-price"],[class*="final-price"],[class*="origin-price"],[class*="list-price"]')) {{
             const text=(el.innerText||'').trim(); const class_name=el.getAttribute('class')||'';
-            if (/[\\d,]+\\s*원/.test(text)) price_nodes.push({{role:'',tag_name:el.tagName,class_name,text}});
+            if (/[\d,]+\s*원/.test(text)) price_nodes.push({{role:'',tag_name:el.tagName,class_name,text}});
         }}
         for (const im of card.querySelectorAll('img')) {{ const s=im.getAttribute('src')||''; if (/logo_rocket/i.test(s)) {{ if (/merchant/i.test(s)) seller=true; else rocket=true; }} }}
         const card_text=(card.innerText||'').replace(/\s+/g,' ');

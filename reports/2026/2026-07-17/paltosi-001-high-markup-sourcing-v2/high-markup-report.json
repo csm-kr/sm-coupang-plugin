@@ -1,0 +1,391 @@
+{
+  "schema_version": "1.0",
+  "project_id": "paltosi-001",
+  "project_name": "팔토시",
+  "created_at": "2026-07-17T23:35:26+09:00",
+  "status": "RESEARCH_EXPANSION_REQUIRED",
+  "sourcing_decision": "PRICE_REVIEW_BLOCKED",
+  "user_approval": false,
+  "inputs": {
+    "category": "쿨 팔토시",
+    "mode": "high-markup",
+    "initial_budget": 50000,
+    "target_margin": "35/25"
+  },
+  "discovery_thresholds": {
+    "max_unit_supply_price": 5000,
+    "required_sale_bundle_quantity": 1,
+    "min_current_sale_price_multiple": 4,
+    "min_review_count": 5,
+    "required_similarity": "identical"
+  },
+  "summary": {
+    "best_pool_matches": 10,
+    "supplier_terms_verified": 10,
+    "budget_pass": 10,
+    "coupang_cards_preserved": 200,
+    "one_unit_cards": 80,
+    "one_unit_review_5_plus": 28,
+    "verified_current_prices": 0,
+    "identity_verified": 0,
+    "high_markup_discoveries": 0
+  },
+  "gate_note": "리뷰는 구매 발생 대리 신호일 뿐 현재 가격의 판매량 확정값이 아니다. 현재가와 완전 동일성이 검증되지 않아 4배·마진·SHORTLIST 판정을 열지 않았다.",
+  "project_state_conflict": {
+    "project_json_current_stage": "handoff",
+    "project_json_sourcing_completed": true,
+    "report_links": 0,
+    "operational_stage": "sourcing",
+    "reason": "소싱 근거 링크와 사용자 상품·가격 승인이 없어 handoff 게이트 불충족"
+  },
+  "collection": {
+    "browser_use_opened_targets": 2,
+    "browser_use_closed_targets": 2,
+    "browser_use_cleanup_status": "PASS",
+    "nodriver_status": "STOPPED_AFTER_ZERO_RESULT_RETRY",
+    "nodriver_cleanup_status": "PASS",
+    "blocker": "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY",
+    "diagnostic_observation": "3개 구성 카드의 현재가 15,290원은 확인했으나 1개 구성·리뷰·완전 동일성 게이트에 사용할 수 없음"
+  },
+  "candidates": [
+    {
+      "candidate_id": "59912463",
+      "rank": 31,
+      "category": "패션잡화/화장품",
+      "name": "팔을 조이지 않는 자외선차단 무지 루즈핏 쿨토시 헐렁한쿨토시 운전 낚시 등산 캠핑 쿨토시 아웃도어토시",
+      "wholesale_url": "https://domeggook.com/59912463?market=dome",
+      "unit_supply_price": 1700,
+      "moq": 3,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 3,
+      "initial_goods_cost": 5100,
+      "initial_checkout_cash": 8100,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 5,
+      "one_unit_review_5_plus": 5,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%ED%8C%94%EC%9D%84%20%EC%A1%B0%EC%9D%B4%EC%A7%80%20%EC%95%8A%EB%8A%94%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EB%AC%B4%EC%A7%80%20%EB%A3%A8%EC%A6%88%ED%95%8F%20%EC%BF%A8%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9531582428?itemId=28425358183&vendorItemId=95376333895&q=%ED%8C%94%EC%9D%84%20%EC%A1%B0%EC%9D%B4%EC%A7%80%20%EC%95%8A%EB%8A%94%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EB%AC%B4%EC%A7%80%20%EB%A3%A8%EC%A6%88%ED%95%8F%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=f07ae17a13134465&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8786321040?itemId=25568710263&vendorItemId=92560238151&q=%ED%8C%94%EC%9D%84%20%EC%A1%B0%EC%9D%B4%EC%A7%80%20%EC%95%8A%EB%8A%94%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EB%AC%B4%EC%A7%80%20%EB%A3%A8%EC%A6%88%ED%95%8F%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=f07ae17a13134465&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8786321040?itemId=25568710259&vendorItemId=92560238175&q=%ED%8C%94%EC%9D%84%20%EC%A1%B0%EC%9D%B4%EC%A7%80%20%EC%95%8A%EB%8A%94%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EB%AC%B4%EC%A7%80%20%EB%A3%A8%EC%A6%88%ED%95%8F%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=f07ae17a13134465&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8869816829?itemId=25914022902&vendorItemId=92899665541&q=%ED%8C%94%EC%9D%84%20%EC%A1%B0%EC%9D%B4%EC%A7%80%20%EC%95%8A%EB%8A%94%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EB%AC%B4%EC%A7%80%20%EB%A3%A8%EC%A6%88%ED%95%8F%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=f07ae17a13134465&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9611241124?itemId=28694951491&vendorItemId=95684281975&q=%ED%8C%94%EC%9D%84%20%EC%A1%B0%EC%9D%B4%EC%A7%80%20%EC%95%8A%EB%8A%94%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EB%AC%B4%EC%A7%80%20%EB%A3%A8%EC%A6%88%ED%95%8F%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=f07ae17a13134465&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "46670176",
+      "rank": 68,
+      "category": "패션잡화/화장품",
+      "name": "손등 보호 아이스 여성 운전 등산 골프 쿨토시 팔토시 개별 opp 포장",
+      "wholesale_url": "https://domeggook.com/46670176?market=dome",
+      "unit_supply_price": 1450,
+      "moq": 4,
+      "order_increment": 1,
+      "wholesale_shipping_total": 2800,
+      "procurement_quantity": 4,
+      "initial_goods_cost": 5800,
+      "initial_checkout_cash": 8600,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 3,
+      "one_unit_review_5_plus": 3,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EC%86%90%EB%93%B1%20%EB%B3%B4%ED%98%B8%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%97%AC%EC%84%B1%20%EC%9A%B4%EC%A0%84%20%EB%93%B1%EC%82%B0%20%EA%B3%A8%ED%94%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9422807558?itemId=28007480941&vendorItemId=92431206742&q=%EC%86%90%EB%93%B1%20%EB%B3%B4%ED%98%B8%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%97%AC%EC%84%B1%20%EC%9A%B4%EC%A0%84%20%EB%93%B1%EC%82%B0%20%EA%B3%A8%ED%94%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=cc7ef06713137481&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8034397764?itemId=22474865608&vendorItemId=89517552848&pickType=COU_PICK&q=%EC%86%90%EB%93%B1%20%EB%B3%B4%ED%98%B8%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%97%AC%EC%84%B1%20%EC%9A%B4%EC%A0%84%20%EB%93%B1%EC%82%B0%20%EA%B3%A8%ED%94%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=cc7ef06713137481&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8659740316?itemId=25134804179&vendorItemId=89865148112&q=%EC%86%90%EB%93%B1%20%EB%B3%B4%ED%98%B8%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%97%AC%EC%84%B1%20%EC%9A%B4%EC%A0%84%20%EB%93%B1%EC%82%B0%20%EA%B3%A8%ED%94%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=cc7ef06713137481&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9374111594?itemId=27824441482&vendorItemId=93098515492&q=%EC%86%90%EB%93%B1%20%EB%B3%B4%ED%98%B8%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%97%AC%EC%84%B1%20%EC%9A%B4%EC%A0%84%20%EB%93%B1%EC%82%B0%20%EA%B3%A8%ED%94%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=cc7ef06713137481&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9615063584?itemId=28708849181&vendorItemId=95286561401&q=%EC%86%90%EB%93%B1%20%EB%B3%B4%ED%98%B8%20%EC%95%84%EC%9D%B4%EC%8A%A4%20%EC%97%AC%EC%84%B1%20%EC%9A%B4%EC%A0%84%20%EB%93%B1%EC%82%B0%20%EA%B3%A8%ED%94%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=cc7ef06713137481&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "55832433",
+      "rank": 114,
+      "category": "패션잡화/화장품",
+      "name": "[라벨 쿨링 팔토시] 남녀공용 여름팔토시 UV차단 자외선차단토시",
+      "wholesale_url": "https://domeggook.com/55832433?market=dome",
+      "unit_supply_price": 940,
+      "moq": 6,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 6,
+      "initial_goods_cost": 5640,
+      "initial_checkout_cash": 8640,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 18,
+      "one_unit_review_5_plus": 0,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EB%9D%BC%EB%B2%A8%20%EC%BF%A8%EB%A7%81%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EB%82%A8%EB%85%80%EA%B3%B5%EC%9A%A9%20%EC%97%AC%EB%A6%84%ED%8C%94%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8997136946?itemId=26361357214&vendorItemId=95421552682&q=%EB%9D%BC%EB%B2%A8%20%EC%BF%A8%EB%A7%81%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EB%82%A8%EB%85%80%EA%B3%B5%EC%9A%A9%20%EC%97%AC%EB%A6%84%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=78495e5c10087038&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9649030315?itemId=28838649567&vendorItemId=95772890644&q=%EB%9D%BC%EB%B2%A8%20%EC%BF%A8%EB%A7%81%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EB%82%A8%EB%85%80%EA%B3%B5%EC%9A%A9%20%EC%97%AC%EB%A6%84%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=78495e5c10087038&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9028332906?itemId=26480995350&vendorItemId=95445294179&q=%EB%9D%BC%EB%B2%A8%20%EC%BF%A8%EB%A7%81%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EB%82%A8%EB%85%80%EA%B3%B5%EC%9A%A9%20%EC%97%AC%EB%A6%84%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=78495e5c10087038&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9645590016?itemId=28825073341&vendorItemId=95759714298&q=%EB%9D%BC%EB%B2%A8%20%EC%BF%A8%EB%A7%81%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EB%82%A8%EB%85%80%EA%B3%B5%EC%9A%A9%20%EC%97%AC%EB%A6%84%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=78495e5c10087038&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9645590016?itemId=28825073339&vendorItemId=95759714297&q=%EB%9D%BC%EB%B2%A8%20%EC%BF%A8%EB%A7%81%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EB%82%A8%EB%85%80%EA%B3%B5%EC%9A%A9%20%EC%97%AC%EB%A6%84%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=78495e5c10087038&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "59545276",
+      "rank": 39,
+      "category": "스포츠/건강/식품",
+      "name": "쿨링 손등 헐렁한 쿨토시 팔토시 자외선차단 토시",
+      "wholesale_url": "https://domeggook.com/59545276?market=dome",
+      "unit_supply_price": 950,
+      "moq": 6,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 6,
+      "initial_goods_cost": 5700,
+      "initial_checkout_cash": 8700,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 8,
+      "one_unit_review_5_plus": 8,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EC%BF%A8%EB%A7%81%20%EC%86%90%EB%93%B1%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9569202932?itemId=28560332460&vendorItemId=95505138920&q=%EC%BF%A8%EB%A7%81%20%EC%86%90%EB%93%B1%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=0e172c6c18110117&sourceType=search&itemsCount=58&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9563552025?itemId=28540501115&vendorItemId=92137068644&q=%EC%BF%A8%EB%A7%81%20%EC%86%90%EB%93%B1%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=0e172c6c18110117&sourceType=search&itemsCount=58&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9507720608?itemId=28330681349&vendorItemId=95297175801&q=%EC%BF%A8%EB%A7%81%20%EC%86%90%EB%93%B1%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=0e172c6c18110117&sourceType=search&itemsCount=58&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8832164064?itemId=25735225533&vendorItemId=92724759467&q=%EC%BF%A8%EB%A7%81%20%EC%86%90%EB%93%B1%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=0e172c6c18110117&sourceType=search&itemsCount=58&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8440464117?itemId=24414699376&vendorItemId=91429215762&q=%EC%BF%A8%EB%A7%81%20%EC%86%90%EB%93%B1%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=0e172c6c18110117&sourceType=search&itemsCount=58&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "57843446",
+      "rank": 49,
+      "category": "스포츠/건강/식품",
+      "name": "쿨토시 무봉제 자외선차단 손등쿨토시 아이스쿨토시",
+      "wholesale_url": "https://domeggook.com/57843446?market=dome",
+      "unit_supply_price": 180,
+      "moq": 30,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 30,
+      "initial_goods_cost": 5400,
+      "initial_checkout_cash": 8400,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 3,
+      "one_unit_review_5_plus": 2,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EC%BF%A8%ED%86%A0%EC%8B%9C%20%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EC%86%90%EB%93%B1%EC%BF%A8%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/8551236631?itemId=23611105687&vendorItemId=75339198124&q=%EC%BF%A8%ED%86%A0%EC%8B%9C%20%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EC%86%90%EB%93%B1%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=953bb9bd2960768&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/8551236631?itemId=23611086581&vendorItemId=75339198112&q=%EC%BF%A8%ED%86%A0%EC%8B%9C%20%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EC%86%90%EB%93%B1%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=953bb9bd2960768&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8616907993?itemId=24997086275&vendorItemId=89656530335&pickType=COU_PICK&q=%EC%BF%A8%ED%86%A0%EC%8B%9C%20%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EC%86%90%EB%93%B1%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=953bb9bd2960768&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9562464409?itemId=28536650415&vendorItemId=95608651028&q=%EC%BF%A8%ED%86%A0%EC%8B%9C%20%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EC%86%90%EB%93%B1%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=953bb9bd2960768&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/8616907993?itemId=24997086276&vendorItemId=89656530308&q=%EC%BF%A8%ED%86%A0%EC%8B%9C%20%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%9E%90%EC%99%B8%EC%84%A0%EC%B0%A8%EB%8B%A8%20%EC%86%90%EB%93%B1%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=953bb9bd2960768&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "22104558",
+      "rank": 59,
+      "category": "스포츠/건강/식품",
+      "name": "국내생산 UV차단 비타민 여름 쿨토시 골프토시 팔토시 냉토시 스포츠토시 등산 낚시",
+      "wholesale_url": "https://domeggook.com/22104558?market=dome",
+      "unit_supply_price": 1500,
+      "moq": 10,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 10,
+      "initial_goods_cost": 15000,
+      "initial_checkout_cash": 18000,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 17,
+      "one_unit_review_5_plus": 0,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EA%B5%AD%EB%82%B4%EC%83%9D%EC%82%B0%20UV%EC%B0%A8%EB%8B%A8%20%EB%B9%84%ED%83%80%EB%AF%BC%20%EC%97%AC%EB%A6%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/6581869117?itemId=14814995870&vendorItemId=82054631317&q=%EA%B5%AD%EB%82%B4%EC%83%9D%EC%82%B0%20UV%EC%B0%A8%EB%8B%A8%20%EB%B9%84%ED%83%80%EB%AF%BC%20%EC%97%AC%EB%A6%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=5c76057f10205104&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/6581869117?itemId=14814995865&vendorItemId=82054631296&q=%EA%B5%AD%EB%82%B4%EC%83%9D%EC%82%B0%20UV%EC%B0%A8%EB%8B%A8%20%EB%B9%84%ED%83%80%EB%AF%BC%20%EC%97%AC%EB%A6%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=5c76057f10205104&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/6581869117?itemId=14814995863&vendorItemId=82054631287&q=%EA%B5%AD%EB%82%B4%EC%83%9D%EC%82%B0%20UV%EC%B0%A8%EB%8B%A8%20%EB%B9%84%ED%83%80%EB%AF%BC%20%EC%97%AC%EB%A6%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=5c76057f10205104&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/6581869117?itemId=14814995872&vendorItemId=82054631322&q=%EA%B5%AD%EB%82%B4%EC%83%9D%EC%82%B0%20UV%EC%B0%A8%EB%8B%A8%20%EB%B9%84%ED%83%80%EB%AF%BC%20%EC%97%AC%EB%A6%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=5c76057f10205104&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9618657736?itemId=28721576220&vendorItemId=95662042581&q=%EA%B5%AD%EB%82%B4%EC%83%9D%EC%82%B0%20UV%EC%B0%A8%EB%8B%A8%20%EB%B9%84%ED%83%80%EB%AF%BC%20%EC%97%AC%EB%A6%84%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=5c76057f10205104&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "55873582",
+      "rank": 62,
+      "category": "스포츠/건강/식품",
+      "name": "[보리별] 플리츠 쿨토시 핑거홀 손등 토시 넉넉한핏 여름 냉감 팔토시 운전 골프 암슬리브",
+      "wholesale_url": "https://domeggook.com/55873582?market=dome",
+      "unit_supply_price": 2500,
+      "moq": 3,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 3,
+      "initial_goods_cost": 7500,
+      "initial_checkout_cash": 10500,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 5,
+      "one_unit_review_5_plus": 2,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EB%B3%B4%EB%A6%AC%EB%B3%84%20%ED%94%8C%EB%A6%AC%EC%B8%A0%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%95%91%EA%B1%B0%ED%99%80%20%EC%86%90%EB%93%B1%20%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9502065470?itemId=28308882921&vendorItemId=95261545089&q=%EB%B3%B4%EB%A6%AC%EB%B3%84%20%ED%94%8C%EB%A6%AC%EC%B8%A0%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%95%91%EA%B1%B0%ED%99%80%20%EC%86%90%EB%93%B1%20%ED%86%A0%EC%8B%9C&searchId=1387da8814065930&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9562822126?itemId=28537869745&vendorItemId=95482840880&q=%EB%B3%B4%EB%A6%AC%EB%B3%84%20%ED%94%8C%EB%A6%AC%EC%B8%A0%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%95%91%EA%B1%B0%ED%99%80%20%EC%86%90%EB%93%B1%20%ED%86%A0%EC%8B%9C&searchId=1387da8814065930&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9502065470?itemId=28308882924&vendorItemId=95261545093&q=%EB%B3%B4%EB%A6%AC%EB%B3%84%20%ED%94%8C%EB%A6%AC%EC%B8%A0%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%95%91%EA%B1%B0%ED%99%80%20%EC%86%90%EB%93%B1%20%ED%86%A0%EC%8B%9C&searchId=1387da8814065930&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9558162090?itemId=28521736717&vendorItemId=95469178982&q=%EB%B3%B4%EB%A6%AC%EB%B3%84%20%ED%94%8C%EB%A6%AC%EC%B8%A0%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%95%91%EA%B1%B0%ED%99%80%20%EC%86%90%EB%93%B1%20%ED%86%A0%EC%8B%9C&searchId=1387da8814065930&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9502065470?itemId=28308882922&vendorItemId=95261545088&q=%EB%B3%B4%EB%A6%AC%EB%B3%84%20%ED%94%8C%EB%A6%AC%EC%B8%A0%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%95%91%EA%B1%B0%ED%99%80%20%EC%86%90%EB%93%B1%20%ED%86%A0%EC%8B%9C&searchId=1387da8814065930&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "59942266",
+      "rank": 79,
+      "category": "스포츠/건강/식품",
+      "name": "여름 무지 헐렁한 쿨토시 2p 팔토시 자외선차단 여름팔토시",
+      "wholesale_url": "https://domeggook.com/59942266?market=dome",
+      "unit_supply_price": 1700,
+      "moq": 3,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 3,
+      "initial_goods_cost": 5100,
+      "initial_checkout_cash": 8100,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 7,
+      "one_unit_review_5_plus": 7,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EC%97%AC%EB%A6%84%20%EB%AC%B4%EC%A7%80%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%202p%20%ED%8C%94%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9516545017?itemId=28375543183&vendorItemId=95327801456&q=%EC%97%AC%EB%A6%84%20%EB%AC%B4%EC%A7%80%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%202p%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=984965fa15289208&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9522662446?itemId=28389272228&vendorItemId=95340856326&pickType=COU_PICK&q=%EC%97%AC%EB%A6%84%20%EB%AC%B4%EC%A7%80%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%202p%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=984965fa15289208&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/8718190538?itemId=25322727284&vendorItemId=92543082016&q=%EC%97%AC%EB%A6%84%20%EB%AC%B4%EC%A7%80%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%202p%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=984965fa15289208&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8869816829?itemId=25914022902&vendorItemId=92899665541&q=%EC%97%AC%EB%A6%84%20%EB%AC%B4%EC%A7%80%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%202p%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=984965fa15289208&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9611241124?itemId=28694951491&vendorItemId=95684281975&q=%EC%97%AC%EB%A6%84%20%EB%AC%B4%EC%A7%80%20%ED%97%90%EB%A0%81%ED%95%9C%20%EC%BF%A8%ED%86%A0%EC%8B%9C%202p%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=984965fa15289208&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "38338318",
+      "rank": 83,
+      "category": "스포츠/건강/식품",
+      "name": "스킨 화이트 블랙 팔토시 스킨색 살색 쿨토시 손등가리개 자외선차단 골프",
+      "wholesale_url": "https://domeggook.com/38338318?market=dome",
+      "unit_supply_price": 240,
+      "moq": 30,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 30,
+      "initial_goods_cost": 7200,
+      "initial_checkout_cash": 10200,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 2,
+      "one_unit_review_5_plus": 1,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EC%8A%A4%ED%82%A8%20%ED%99%94%EC%9D%B4%ED%8A%B8%20%EB%B8%94%EB%9E%99%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EC%8A%A4%ED%82%A8%EC%83%89%20%EC%82%B4%EC%83%89%20%EC%BF%A8%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9511906052?itemId=28345890575&vendorItemId=95659727362&q=%EC%8A%A4%ED%82%A8%20%ED%99%94%EC%9D%B4%ED%8A%B8%20%EB%B8%94%EB%9E%99%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EC%8A%A4%ED%82%A8%EC%83%89%20%EC%82%B4%EC%83%89%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=d2379bed10089936&sourceType=search&itemsCount=59&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9581385945?itemId=28600584538&vendorItemId=95544209372&q=%EC%8A%A4%ED%82%A8%20%ED%99%94%EC%9D%B4%ED%8A%B8%20%EB%B8%94%EB%9E%99%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EC%8A%A4%ED%82%A8%EC%83%89%20%EC%82%B4%EC%83%89%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=d2379bed10089936&sourceType=search&itemsCount=59&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9558221113?itemId=28521949550&vendorItemId=95469341358&q=%EC%8A%A4%ED%82%A8%20%ED%99%94%EC%9D%B4%ED%8A%B8%20%EB%B8%94%EB%9E%99%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EC%8A%A4%ED%82%A8%EC%83%89%20%EC%82%B4%EC%83%89%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=d2379bed10089936&sourceType=search&itemsCount=59&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/8522440703?itemId=23791326844&vendorItemId=92401228771&q=%EC%8A%A4%ED%82%A8%20%ED%99%94%EC%9D%B4%ED%8A%B8%20%EB%B8%94%EB%9E%99%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EC%8A%A4%ED%82%A8%EC%83%89%20%EC%82%B4%EC%83%89%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=d2379bed10089936&sourceType=search&itemsCount=59&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9613596358?itemId=28703496972&vendorItemId=95644498309&q=%EC%8A%A4%ED%82%A8%20%ED%99%94%EC%9D%B4%ED%8A%B8%20%EB%B8%94%EB%9E%99%20%ED%8C%94%ED%86%A0%EC%8B%9C%20%EC%8A%A4%ED%82%A8%EC%83%89%20%EC%82%B4%EC%83%89%20%EC%BF%A8%ED%86%A0%EC%8B%9C&searchId=d2379bed10089936&sourceType=search&itemsCount=59&searchRank=4&rank=4"
+      ]
+    },
+    {
+      "candidate_id": "64702385",
+      "rank": 86,
+      "category": "스포츠/건강/식품",
+      "name": "[총알배송] 무봉제 에어핏 벌집 쿨토시 팔토시 UV차단 자외선차단 냉감소재 검사 완료",
+      "wholesale_url": "https://domeggook.com/64702385?market=dome",
+      "unit_supply_price": 1350,
+      "moq": 5,
+      "order_increment": 1,
+      "wholesale_shipping_total": 3000,
+      "procurement_quantity": 5,
+      "initial_goods_cost": 6750,
+      "initial_checkout_cash": 9750,
+      "observed_coupang_cards": 20,
+      "one_unit_cards": 12,
+      "one_unit_review_5_plus": 0,
+      "verified_current_prices": 0,
+      "identity_verified_count": 0,
+      "decision": "PRICE_REVIEW_BLOCKED",
+      "blockers": [
+        "COUPANG_CURRENT_SALE_PRICE_UNVERIFIED",
+        "EXACT_IDENTITY_UNVERIFIED",
+        "COUPANG_ACCESS_BLOCKED_AFTER_ZERO_RESULT_RETRY"
+      ],
+      "coupang_search_url": "https://www.coupang.com/np/search?q=%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%97%90%EC%96%B4%ED%95%8F%20%EB%B2%8C%EC%A7%91%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&channel=user&sorter=saleCountDesc",
+      "coupang_urls": [
+        "https://www.coupang.com/vp/products/9550826417?itemId=28496455147&vendorItemId=95446345898&q=%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%97%90%EC%96%B4%ED%95%8F%20%EB%B2%8C%EC%A7%91%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=631ebf2114388926&sourceType=search&itemsCount=60&searchRank=0&rank=0",
+        "https://www.coupang.com/vp/products/9550826417?itemId=28496455146&vendorItemId=95446345900&q=%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%97%90%EC%96%B4%ED%95%8F%20%EB%B2%8C%EC%A7%91%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=631ebf2114388926&sourceType=search&itemsCount=60&searchRank=1&rank=1",
+        "https://www.coupang.com/vp/products/9550826417?itemId=28496455145&vendorItemId=95446345899&q=%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%97%90%EC%96%B4%ED%95%8F%20%EB%B2%8C%EC%A7%91%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=631ebf2114388926&sourceType=search&itemsCount=60&searchRank=2&rank=2",
+        "https://www.coupang.com/vp/products/9533898392?itemId=28433871567&vendorItemId=95626424003&q=%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%97%90%EC%96%B4%ED%95%8F%20%EB%B2%8C%EC%A7%91%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=631ebf2114388926&sourceType=search&itemsCount=60&searchRank=3&rank=3",
+        "https://www.coupang.com/vp/products/9558551925?itemId=28523194805&vendorItemId=95530853633&q=%EB%AC%B4%EB%B4%89%EC%A0%9C%20%EC%97%90%EC%96%B4%ED%95%8F%20%EB%B2%8C%EC%A7%91%20%EC%BF%A8%ED%86%A0%EC%8B%9C%20%ED%8C%94%ED%86%A0%EC%8B%9C&searchId=631ebf2114388926&sourceType=search&itemsCount=60&searchRank=4&rank=4"
+      ]
+    }
+  ],
+  "next_allowed_step": "쿠팡 공개 검색 접근이 정상화된 뒤 현재가·리뷰·이미지 동일성 재수집. 사용자 선택·가격 승인 전 handoff 금지",
+  "forbidden_actions_confirmed": [
+    "공급처 연락",
+    "발주",
+    "결제",
+    "상품 등록",
+    "광고 집행",
+    "상세페이지 제작"
+  ]
+}

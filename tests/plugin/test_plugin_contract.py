@@ -1,12 +1,19 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import re
+import subprocess
+import sys
+import threading
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
 PLUGIN = ROOT / "plugins" / "coupang-commerce-automation"
+WORKFLOW_UI = ROOT / "coupang-workflow-ui"
 
 
 def test_manifest_name_matches_plugin_directory():
@@ -215,3 +222,263 @@ def test_orchestrator_contract_defines_resume_approval_and_visual_rollback_rules
     assert "rollback_to" in contract
     assert "주 피사체 가시율 95%" in contract
     assert "핵심 영역 가시율 100%" in contract
+
+
+def test_workflow_ui_skill_packages_a_built_react_dashboard():
+    packaged = PLUGIN / "skills" / "coupang-workflow-ui"
+    required = (
+        Path("SKILL.md"),
+        Path("agents/openai.yaml"),
+        Path("scripts/project_store.py"),
+        Path("scripts/codex_runner.py"),
+        Path("scripts/serve_workflow_ui.py"),
+        Path("assets/react-app/package.json"),
+        Path("assets/react-app/src/App.jsx"),
+        Path("assets/react-app/src/workflow.js"),
+        Path("assets/react-app/src/workflow.test.js"),
+        Path("assets/dashboard/index.html"),
+    )
+
+    for relative in required:
+        source_file = WORKFLOW_UI / relative
+        packaged_file = packaged / relative
+        assert source_file.is_file(), source_file
+        assert packaged_file.is_file(), packaged_file
+        assert packaged_file.read_bytes() == source_file.read_bytes(), relative
+
+    assert (WORKFLOW_UI / "scripts" / "project_store.py").read_bytes() == (
+        ROOT / "commerce-project" / "scripts" / "project_store.py"
+    ).read_bytes()
+
+    manifest = json.loads((PLUGIN / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8-sig"))
+    assert "workflow-dashboard" in manifest["interface"]["capabilities"]
+    assert any((WORKFLOW_UI / "assets" / "dashboard" / "assets").glob("*.js"))
+    assert any((WORKFLOW_UI / "assets" / "dashboard" / "assets").glob("*.css"))
+    assert not (packaged / "assets" / "react-app" / "node_modules").exists()
+
+
+def test_workflow_ui_exposes_codex_run_controls_and_an_embedded_console():
+    app = (WORKFLOW_UI / "assets" / "react-app" / "src" / "App.jsx").read_text(
+        encoding="utf-8-sig"
+    )
+    server = (WORKFLOW_UI / "scripts" / "serve_workflow_ui.py").read_text(
+        encoding="utf-8-sig"
+    )
+
+    assert 'method: "POST"' in app
+    assert 'api("/api/runs"' in app
+    assert "Codex 작업 시작" in app
+    assert "Codex 실행 콘솔" in app
+    assert 'method: "DELETE"' in app
+    assert 'path == "/api/runs"' in server
+    assert 'prefix = "/api/runs/"' in server
+
+
+def test_workflow_ui_logic_enforces_stage_gates_and_builds_codex_prompt():
+    completed = subprocess.run(
+        ["node", "--test", "src/workflow.test.js"],
+        cwd=WORKFLOW_UI / "assets" / "react-app",
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+
+
+def test_workflow_ui_generates_a_safe_default_project_id_for_beginners():
+    completed = subprocess.run(
+        [
+            "node",
+            "--input-type=module",
+            "--eval",
+            (
+                "import { createDefaultProjectId } from './src/workflow.js'; "
+                "console.log(createDefaultProjectId(new Date('2026-07-17T02:30:45.123Z')));"
+            ),
+        ],
+        cwd=WORKFLOW_UI / "assets" / "react-app",
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    assert completed.stdout.strip() == "project-20260717-023045-123"
+
+
+def test_workflow_ui_server_can_preflight_packaged_assets_without_opening_browser():
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(WORKFLOW_UI / "scripts" / "serve_workflow_ui.py"),
+            "--check",
+            "--no-open",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    assert "dashboard ready" in completed.stdout.casefold()
+
+
+def test_workflow_ui_api_creates_lists_and_updates_real_project_folders(tmp_path: Path):
+    server_path = WORKFLOW_UI / "scripts" / "serve_workflow_ui.py"
+    spec = importlib.util.spec_from_file_location("serve_workflow_ui", server_path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    server = module.create_server(0, tmp_path)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    origin = f"http://127.0.0.1:{server.server_port}"
+
+    def request(path: str, method: str = "GET", payload: dict | None = None):
+        data = json.dumps(payload).encode("utf-8") if payload is not None else None
+        req = urllib.request.Request(
+            origin + path,
+            data=data,
+            method=method,
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=3) as response:
+            return json.loads(response.read().decode("utf-8"))
+
+    try:
+        created = request(
+            "/api/projects",
+            "POST",
+            {
+                "projectId": "summer-mask-001",
+                "name": "여름 스포츠 마스크",
+                "channel": "coupang",
+                "sourcingMode": "standard",
+            },
+        )
+        assert created["project"]["id"] == "summer-mask-001"
+        assert request("/api/projects")["projects"][0]["currentStage"] == "sourcing"
+
+        created["workflow"]["blockedReason"] = "실제 SKU 사진 필요"
+        updated = request("/api/projects/summer-mask-001", "PUT", created)
+        assert updated["workflow"]["blockedReason"] == "실제 SKU 사진 필요"
+        assert (
+            tmp_path
+            / "commerce-project"
+            / "projects"
+            / "summer-mask-001"
+            / "project.json"
+        ).is_file()
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=3)
+
+
+def test_workflow_ui_api_starts_streams_and_stops_the_current_codex_stage(tmp_path: Path):
+    server_path = WORKFLOW_UI / "scripts" / "serve_workflow_ui.py"
+    spec = importlib.util.spec_from_file_location("serve_workflow_ui_runs", server_path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    class FakeRunManager:
+        def __init__(self):
+            self.started = []
+            self.stopped = []
+            self.run = {
+                "runId": "run-001",
+                "projectId": "summer-mask-001",
+                "stageId": "sourcing",
+                "status": "running",
+                "events": [],
+            }
+
+        def runtime_status(self):
+            return {"codexAvailable": True, "sandbox": "workspace-write"}
+
+        def start_run(self, project_id, stage_id, prompt):
+            self.started.append((project_id, stage_id, prompt))
+            return self.run
+
+        def list_runs(self, project_id=None):
+            return [self.run] if project_id in {None, self.run["projectId"]} else []
+
+        def get_run(self, run_id):
+            if run_id != self.run["runId"]:
+                raise FileNotFoundError(run_id)
+            return self.run
+
+        def stop_run(self, run_id):
+            self.stopped.append(run_id)
+            self.run = {**self.run, "status": "stopped"}
+            return self.run
+
+        def stop_all(self):
+            return None
+
+    runs = FakeRunManager()
+    server = module.create_server(0, tmp_path, run_manager=runs)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    origin = f"http://127.0.0.1:{server.server_port}"
+
+    def request(path: str, method: str = "GET", payload: dict | None = None):
+        data = json.dumps(payload).encode("utf-8") if payload is not None else None
+        req = urllib.request.Request(
+            origin + path,
+            data=data,
+            method=method,
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=3) as response:
+            return json.loads(response.read().decode("utf-8"))
+
+    try:
+        request(
+            "/api/projects",
+            "POST",
+            {
+                "projectId": "summer-mask-001",
+                "name": "여름 스포츠 마스크",
+                "channel": "coupang",
+                "sourcingMode": "standard",
+            },
+        )
+        started = request(
+            "/api/runs",
+            "POST",
+            {
+                "projectId": "summer-mask-001",
+                "stageId": "sourcing",
+                "prompt": "소싱을 시작해줘.",
+            },
+        )
+        assert started["runId"] == "run-001"
+        assert runs.started == [("summer-mask-001", "sourcing", "소싱을 시작해줘.")]
+        assert request("/api/runs?projectId=summer-mask-001")["runs"][0]["status"] == "running"
+        assert request("/api/runs/run-001")["projectId"] == "summer-mask-001"
+        assert request("/api/runs/run-001", "DELETE")["status"] == "stopped"
+
+        try:
+            request(
+                "/api/runs",
+                "POST",
+                {
+                    "projectId": "summer-mask-001",
+                    "stageId": "detail-page",
+                    "prompt": "잠긴 단계를 실행해줘.",
+                },
+            )
+        except urllib.error.HTTPError as error:
+            assert error.code == 409
+        else:
+            raise AssertionError("잠긴 미래 단계의 Codex 실행이 허용됐습니다.")
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=3)

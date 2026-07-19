@@ -33,13 +33,13 @@ Claude 전용 `.claude/settings.json`은 복사하지 않았다. Codex가 공식
 |---:|---|---|---|---|
 | 0 | `harness` | Implemented | `scripts/`, `.codex/`, `harness/` | `tests/harness/` |
 | 1 | `sourcing` | Implemented | `coupang-product-sourcing/`, `coupang-best-high-markup-sourcing/` | `coupang-product-sourcing/tests/` |
-| 2 | `handoff` | Planned | `commerce-project/` | `tests/handoff/` |
+| 2 | `handoff` | Partial | `commerce-project/` | `tests/handoff/` |
 | 3 | `detail-page` | Partial | `coupang-detail-page-generator/` | `tests/detail_page/` |
 | 4 | `motion` | Planned | `commerce-motion-maker/` | `tests/motion/` |
 | 5 | `html` | Planned | `commerce-html-builder/` | `tests/html/` |
 | 6 | `publish-qa` | Planned | `commerce-publish-qa/` | `tests/publish_qa/` |
 | 7 | `feedback` | Planned | `commerce-feedback/` | `tests/feedback/` |
-| 8 | `plugin` | Implemented | 플러그인 패키지 | `tests/harness/` + 플러그인 검증기 |
+| 8 | `plugin` | Implemented | `plugins/coupang-commerce-automation/`, `coupang-workflow-ui/` | `tests/plugin/` + 플러그인 검증기 |
 
 계획 단계의 테스트 디렉터리가 없으면 검증이 실패한다. 해당 단계의 첫 작업은 검증 도구와 실패 테스트를 만드는 것이다.
 

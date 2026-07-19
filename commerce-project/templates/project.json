@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "project": {
+    "id": "example-project-001",
+    "name": "새 상품 프로젝트",
+    "channel": "coupang",
+    "sourcingMode": "standard",
+    "status": "active",
+    "createdAt": null,
+    "updatedAt": null
+  },
+  "workflow": {
+    "currentStage": "sourcing",
+    "completedStages": [],
+    "blockedReason": null
+  },
+  "stageData": {
+    "sourcing": {"inputs": {}, "completed": false, "approved": false},
+    "handoff": {"inputs": {}, "completed": false, "approved": false},
+    "product-planning": {"inputs": {}, "completed": false, "approved": false},
+    "content-planning": {"inputs": {}, "completed": false, "approved": false},
+    "detail-page": {"inputs": {}, "completed": false, "approved": false},
+    "motion": {"inputs": {}, "completed": false, "approved": false},
+    "html": {"inputs": {}, "completed": false, "approved": false},
+    "publish-qa": {"inputs": {}, "completed": false, "approved": false},
+    "feedback": {"inputs": {}, "completed": false, "approved": false}
+  },
+  "folderMap": {
+    "intake": "00-intake",
+    "sourcing": "10-sourcing",
+    "productPlanning": "20-product-planning",
+    "contentPlanning": "30-content-planning",
+    "sourceAssets": "40-assets/source",
+    "generatedAssets": "40-assets/generated",
+    "motionAssets": "40-assets/motion",
+    "detailHtml": "50-detail-page/html",
+    "channelPackages": "50-detail-page/channel-packages",
+    "qa": "60-qa",
+    "feedback": "70-feedback",
+    "links": "links"
+  },
+  "links": {
+    "reportRuns": [],
+    "legacyDetailPageProjects": []
+  }
+}

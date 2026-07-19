@@ -1,0 +1,266 @@
+from __future__ import annotations
+
+import json
+import os
+import shutil
+import subprocess
+import threading
+import uuid
+from copy import deepcopy
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any, Callable
+
+
+ACTIVE_STATUSES = {"queued", "running", "stopping"}
+MAX_PROMPT_BYTES = 64 * 1024
+MAX_EVENTS = 2_000
+MAX_EVENT_BYTES = 256 * 1024
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def resolve_codex_command(
+    *,
+    which: Callable[[str], str | None] = shutil.which,
+    platform: str = os.name,
+) -> str | None:
+    candidates = ("codex", "codex.exe") if platform == "nt" else ("codex",)
+    for candidate in candidates:
+        if resolved := which(candidate):
+            return resolved
+    return None
+
+
+class CodexRunManager:
+    """Run one non-interactive Codex task per project and retain live events in memory."""
+
+    def __init__(
+        self,
+        workspace: str | Path,
+        *,
+        codex_command: str | None = None,
+        process_factory: Callable[..., Any] = subprocess.Popen,
+    ):
+        self.workspace = Path(workspace).resolve()
+        self.codex_command = codex_command or resolve_codex_command()
+        self.process_factory = process_factory
+        self._lock = threading.RLock()
+        self._runs: dict[str, dict[str, Any]] = {}
+        self._active_by_project: dict[str, str] = {}
+
+    def runtime_status(self) -> dict[str, Any]:
+        return {
+            "codexAvailable": bool(self.codex_command),
+            "codexCommand": Path(self.codex_command).name if self.codex_command else None,
+            "sandbox": "workspace-write",
+            "userConfig": "ignored",
+            "sessionPersistence": "ephemeral",
+            "workspace": str(self.workspace),
+        }
+
+    def start_run(self, project_id: str, stage_id: str, prompt: str) -> dict[str, Any]:
+        project_id = str(project_id).strip()
+        stage_id = str(stage_id).strip()
+        if not project_id or not stage_id:
+            raise ValueError("프로젝트 ID와 단계 ID가 필요합니다.")
+        if not isinstance(prompt, str) or not prompt.strip():
+            raise ValueError("Codex 실행 문장이 필요합니다.")
+        if len(prompt.encode("utf-8")) > MAX_PROMPT_BYTES:
+            raise ValueError("Codex 실행 문장은 64KB 이하여야 합니다.")
+        if not self.codex_command:
+            raise FileNotFoundError("Codex CLI를 찾을 수 없습니다. codex 로그인을 확인해 주세요.")
+
+        with self._lock:
+            active_id = self._active_by_project.get(project_id)
+            if active_id and self._runs[active_id]["status"] in ACTIVE_STATUSES:
+                raise RuntimeError("이 프로젝트에서 Codex가 이미 실행 중입니다.")
+
+            run_id = f"run-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}-{uuid.uuid4().hex[:8]}"
+            record = {
+                "runId": run_id,
+                "projectId": project_id,
+                "stageId": stage_id,
+                "status": "queued",
+                "startedAt": utc_now(),
+                "finishedAt": None,
+                "exitCode": None,
+                "threadId": None,
+                "error": None,
+                "events": [],
+                "_nextSequence": 0,
+                "_process": None,
+            }
+            self._runs[run_id] = record
+            self._active_by_project[project_id] = run_id
+
+        worker = threading.Thread(
+            target=self._execute,
+            args=(run_id, prompt),
+            name=f"codex-{run_id}",
+            daemon=True,
+        )
+        worker.start()
+        return self.get_run(run_id)
+
+    def _execute(self, run_id: str, prompt: str) -> None:
+        command = [
+            str(self.codex_command),
+            "exec",
+            "--json",
+            "--sandbox",
+            "workspace-write",
+            "--ignore-user-config",
+            "--ephemeral",
+            "--cd",
+            str(self.workspace),
+            "-",
+        ]
+        options: dict[str, Any] = {
+            "cwd": str(self.workspace),
+            "stdin": subprocess.PIPE,
+            "stdout": subprocess.PIPE,
+            "stderr": subprocess.STDOUT,
+            "text": True,
+            "encoding": "utf-8",
+            "errors": "replace",
+            "bufsize": 1,
+            "shell": False,
+        }
+        if os.name == "nt":
+            options["creationflags"] = subprocess.CREATE_NO_WINDOW
+
+        try:
+            with self._lock:
+                if self._runs[run_id]["status"] == "stopping":
+                    self._finish(run_id, "stopped", None)
+                    return
+
+            process = self.process_factory(command, **options)
+            with self._lock:
+                record = self._runs[run_id]
+                record["_process"] = process
+                if record["status"] == "stopping":
+                    process.terminate()
+                else:
+                    record["status"] = "running"
+
+            if process.stdin is None or process.stdout is None:
+                raise RuntimeError("Codex 실행 스트림을 열지 못했습니다.")
+            process.stdin.write(prompt)
+            process.stdin.flush()
+            process.stdin.close()
+
+            for raw_line in process.stdout:
+                line = raw_line.strip()
+                if not line:
+                    continue
+                self._append_event(run_id, line)
+
+            exit_code = process.wait()
+            with self._lock:
+                status = "stopped" if self._runs[run_id]["status"] == "stopping" else (
+                    "succeeded" if exit_code == 0 else "failed"
+                )
+            self._finish(run_id, status, exit_code)
+        except Exception as error:
+            self._append_event(
+                run_id,
+                json.dumps(
+                    {"type": "error", "message": str(error)},
+                    ensure_ascii=False,
+                ),
+            )
+            with self._lock:
+                stopping = self._runs[run_id]["status"] == "stopping"
+                self._runs[run_id]["error"] = None if stopping else str(error)
+            self._finish(run_id, "stopped" if stopping else "failed", None)
+
+    def _append_event(self, run_id: str, line: str) -> None:
+        encoded = line.encode("utf-8", errors="replace")
+        if len(encoded) > MAX_EVENT_BYTES:
+            line = encoded[:MAX_EVENT_BYTES].decode("utf-8", errors="replace") + "…"
+        try:
+            event = json.loads(line)
+            if not isinstance(event, dict):
+                event = {"type": "console", "text": line}
+        except json.JSONDecodeError:
+            event = {"type": "console", "text": line}
+
+        with self._lock:
+            record = self._runs[run_id]
+            sequence = record["_nextSequence"]
+            record["_nextSequence"] += 1
+            event = {
+                **event,
+                "sequence": sequence,
+                "receivedAt": utc_now(),
+            }
+            if event.get("type") == "thread.started" and event.get("thread_id"):
+                record["threadId"] = event["thread_id"]
+            record["events"].append(event)
+            if len(record["events"]) > MAX_EVENTS:
+                record["events"] = record["events"][-MAX_EVENTS:]
+
+    def _finish(self, run_id: str, status: str, exit_code: int | None) -> None:
+        with self._lock:
+            record = self._runs[run_id]
+            record["status"] = status
+            record["exitCode"] = exit_code
+            record["finishedAt"] = utc_now()
+            record["_process"] = None
+            if self._active_by_project.get(record["projectId"]) == run_id:
+                self._active_by_project.pop(record["projectId"], None)
+
+    def get_run(self, run_id: str) -> dict[str, Any]:
+        with self._lock:
+            if run_id not in self._runs:
+                raise FileNotFoundError(f"Codex 실행을 찾을 수 없습니다: {run_id}")
+            return self._snapshot(self._runs[run_id])
+
+    def list_runs(self, project_id: str | None = None) -> list[dict[str, Any]]:
+        with self._lock:
+            records = [
+                record
+                for record in self._runs.values()
+                if project_id is None or record["projectId"] == project_id
+            ]
+            records.sort(key=lambda record: (record["startedAt"], record["runId"]), reverse=True)
+            return [self._snapshot(record) for record in records[:20]]
+
+    def stop_run(self, run_id: str) -> dict[str, Any]:
+        with self._lock:
+            if run_id not in self._runs:
+                raise FileNotFoundError(f"Codex 실행을 찾을 수 없습니다: {run_id}")
+            record = self._runs[run_id]
+            if record["status"] not in ACTIVE_STATUSES:
+                return self._snapshot(record)
+            record["status"] = "stopping"
+            process = record["_process"]
+
+        if process is not None and process.poll() is None:
+            process.terminate()
+            threading.Thread(target=self._kill_later, args=(process,), daemon=True).start()
+        return self.get_run(run_id)
+
+    def _kill_later(self, process: Any) -> None:
+        try:
+            return_code = process.wait(timeout=3)
+        except (subprocess.TimeoutExpired, TypeError):
+            if process.poll() is None:
+                process.kill()
+        else:
+            if return_code is None and process.poll() is None:
+                process.kill()
+
+    def stop_all(self) -> None:
+        with self._lock:
+            run_ids = [run_id for run_id, record in self._runs.items() if record["status"] in ACTIVE_STATUSES]
+        for run_id in run_ids:
+            self.stop_run(run_id)
+
+    @staticmethod
+    def _snapshot(record: dict[str, Any]) -> dict[str, Any]:
+        return deepcopy({key: value for key, value in record.items() if not key.startswith("_")})

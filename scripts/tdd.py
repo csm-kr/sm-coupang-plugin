@@ -181,6 +181,7 @@ def check_routing(root: Path = ROOT) -> VerificationResult:
         "coupang-product-sourcing/AGENTS.md",
         "coupang-detail-page-generator/AGENTS.md",
         "detail-page/AGENTS.md",
+        "commerce-project/AGENTS.md",
         "plugins/coupang-commerce-automation/AGENTS.md",
         "reports/AGENTS.md",
         "tests/AGENTS.md",

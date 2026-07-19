@@ -59,6 +59,23 @@ def test_repository_stage_descriptions_route_hybrid_detail_and_channel_packaging
     assert "채널별 정적 렌더링" in stages["html"]["description"]
 
 
+def test_handoff_stage_tracks_the_partial_project_workspace_implementation():
+    config = tdd.load_config(ROOT / "harness" / "stages.json")
+    handoff = tdd.stage_by_id(config, "handoff")
+
+    assert handoff["status"] == "partial"
+    assert "프로젝트 폴더" in handoff["description"]
+    assert "보고서 링크" in handoff["description"]
+
+
+def test_routing_check_requires_the_common_project_agents_file():
+    source = (ROOT / "scripts" / "tdd.py").read_text(encoding="utf-8-sig")
+    root_agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8-sig")
+
+    assert '"commerce-project/AGENTS.md"' in source
+    assert "`commerce-project/`" in root_agents
+
+
 def test_repository_routes_best_high_markup_skill_to_sourcing_stage():
     config = tdd.load_config(ROOT / "harness" / "stages.json")
     sourcing = tdd.stage_by_id(config, "sourcing")
@@ -70,6 +87,20 @@ def test_repository_routes_best_high_markup_skill_to_sourcing_stage():
     assert any(
         command["name"] == "best-high-markup-sourcing-skill"
         for command in sourcing["commands"]
+    )
+
+
+def test_repository_routes_workflow_ui_skill_to_plugin_stage():
+    config = tdd.load_config(ROOT / "harness" / "stages.json")
+    plugin = tdd.stage_by_id(config, "plugin")
+
+    assert tdd.route_stage(
+        config,
+        "coupang-workflow-ui/assets/dashboard/index.html",
+    ) == "plugin"
+    assert any(
+        command["name"] == "workflow-ui-skill"
+        for command in plugin["commands"]
     )
 
 

@@ -16,10 +16,11 @@
 |---|---|---|
 | 플러그인 골격·매니페스트 | Implemented | v0.2.0 플러그인 검증 통과 |
 | 오케스트레이터·단계 스킬 | Implemented | 현재 단계·AC·한 질문 UX, 상품기획·콘텐츠·게시 QA 스킬 검증 통과 |
+| React 프로젝트 UI·작업공간 | Implemented | 9단계 대시보드, 로컬 프로젝트 API, Codex 자동 실행·내장 콘솔, 단계별 폴더·보고서 링크·레거시 발견 테스트 통과 |
 | `coupang-product-sourcing` | Implemented | 단위 테스트 37개 통과, 3회차·28개 조사·10개 통과 HTML 생성 |
 | `coupang-best-high-markup-sourcing` | Implemented | Best 층화 표본·개당 5,000원 이하·쿠팡 동일 1개 현재가 4배 이상·리뷰 5개 이상 탐색 게이트와 회귀 테스트 6개 |
 | `coupang-detail-page-generator` | Partial | 5.3 분리 승인, 시각 스토리보드, 하이브리드 HTML·2층 좌표 QA와 `concept_only` 대표 프로토타입 구현, 실제 SKU 회귀 필요 |
-| 소싱→상세페이지 자동 승격 | Planned | 공통 계약 미구현 |
+| 소싱→상세페이지 자동 승격 | Partial | 프로젝트 상태·폴더 계약 구현, 후보 전체 필드 자동 승격 미구현 |
 | 모션·채널 패키징·게시 QA | Partial | 3초 GIF 빌더·정적 대체·반응형 HTML 프로토타입 검증, 독립 스킬·채널 패키지 미구현 |
 
 기준 통과와 재검증 이력은 `reports/deprecated/`에 보관한다. 사용자는 [동일상품 우선 재소싱 결과](../reports/deprecated/2026/2026-07-16/resourcing-exact-identity-relaxed/report.html)의 조건부 후보 중 HDB-1 스포츠 마스크·판매가 9,900원안을 선택하고 [1차 제품기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/product-plan-draft.md)과 별도 [1차 콘텐츠기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/content-plan-draft.md)을 승인했다. 실제 제품 단독 원본이 없는 상태에서 제작 방식의 품질을 확인하도록 `concept_only` 예외를 허용해 10모듈 HTML·3초 GIF·2층 QA 프로토타입을 완성했다. 실제 SKU 자산·간이 QA가 잠기기 전에는 이를 최종 승격하지 않는다.
@@ -91,6 +92,7 @@
 | 스킬 | 단일 책임 | 사용자 UX |
 |---|---|---|
 | `coupang-commerce-orchestrator` | 현재 단계·AC·차단·다음 스킬 라우팅 | 현재 상태를 먼저 보여주고 한 번에 하나의 질문 |
+| `coupang-workflow-ui` | 프로젝트·단계·입력·승인·폴더·보고서 링크의 브라우저 UI와 단계 제한 Codex 실행기 | 버튼 한 번으로 현재 단계 실행, 내장 콘솔에서 진행·실패·중지 확인 |
 | `coupang-product-sourcing` | 후보·시장·마진 근거 | 상품·가격 선택 대기 |
 | `coupang-best-high-markup-sourcing` | Best 저단가·동일상품 고배수 탐색 일치 | 전체 소싱 검증 필요 상태 보고 |
 | `coupang-product-planning` | 저평점 불만→SKU 해결 가능성→근거·실험 | 상품기획 승인 질문 |
@@ -205,6 +207,7 @@ coupang-commerce-automation/
 │  └─ plugin.json
 ├─ skills/
 │  ├─ coupang-commerce-orchestrator/
+│  ├─ coupang-workflow-ui/
 │  ├─ coupang-product-sourcing/
 │  ├─ coupang-best-high-markup-sourcing/
 │  ├─ coupang-product-planning/
@@ -223,6 +226,28 @@ coupang-commerce-automation/
 │  └─ claims-and-social-proof-policy.md
 └─ README.md
 ```
+
+저장소의 런타임 프로젝트는 플러그인 배포 폴더와 분리해 다음 구조를 사용한다.
+
+```text
+commerce-project/
+├─ schema/project-state.schema.json
+├─ templates/project.json
+├─ scripts/project_store.py
+└─ projects/<project-id>/
+   ├─ project.json
+   ├─ 00-intake/
+   ├─ 10-sourcing/
+   ├─ 20-product-planning/
+   ├─ 30-content-planning/
+   ├─ 40-assets/{source,generated,motion}/
+   ├─ 50-detail-page/{html,channel-packages}/
+   ├─ 60-qa/
+   ├─ 70-feedback/
+   └─ links/
+```
+
+`reports/`는 날짜별 실행 이력 정본으로 유지하고 프로젝트에는 링크만 둔다. 기존 `detail-page/projects/`는 자동 이동하지 않는다.
 
 `SKILL.md`에는 핵심 실행 순서만 두고, 스키마·정책·채널 규격은 `references/`, 반복 계산과 검증은 `scripts/`로 분리한다.
 
@@ -345,12 +370,16 @@ initialized
 - [x] PRD·ADR·ROADMAP 정리
 - [x] 상세페이지 5.3 계약·GIF 빌더 대표 회귀 테스트 8개
 - [x] HDB-1 `concept_only` 10모듈·3초 GIF·HTML 대표 프로토타입과 소재/통합 QA
+- [x] React 프로젝트 대시보드와 9단계 필수 입력·승인·차단 UI
+- [x] 공통 프로젝트 폴더·상태·목록·보고서 링크와 레거시 발견 API
+- [x] `workspace-write` Codex 자동 실행, JSONL 내장 콘솔, 프로젝트별 동시 실행 제한과 중지 API
 - [ ] 승인된 실제 SKU 시각 대표 회귀 픽스처
 - [ ] 통합 회귀 명령
 
 ### P1. 공통 계약과 연결
 
-- [ ] `commerce-project.json` 스키마
+- [x] 프로젝트 상태·폴더 스키마 `1.0.0`
+- [x] 프로젝트 생성·목록·갱신과 원자적 저장
 - [ ] `promote_shortlist.py`
 - [ ] 공통 계약 검증기
 - [ ] 상태 전이·마이그레이션 테스트
@@ -373,13 +402,14 @@ initialized
 
 ## 12. 검증 순서
 
-1. 플러그인 매니페스트 검증
-2. 소싱 단위 테스트
-3. 공통 계약 스키마 검증
-4. 소싱→상세페이지 승격 통합 테스트
-5. 상세페이지 대표 프로젝트 자동 QA
-6. 접촉 시트 기반 육안 QA
-7. 채널 패키지 QA
+1. 플러그인 매니페스트·8개 스킬 검증
+2. React 단계 로직·정적 빌드·프로젝트 API 검증
+3. 소싱 단위 테스트
+4. 공통 계약 스키마 검증
+5. 소싱→상세페이지 승격 통합 테스트
+6. 상세페이지 대표 프로젝트 자동 QA
+7. 접촉 시트 기반 육안 QA
+8. 채널 패키지 QA
 
 ## 13. 완료 산출물
 

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://coupang-commerce.local/schema/project-state.schema.json",
+  "title": "Coupang Commerce Project State",
+  "type": "object",
+  "required": ["schemaVersion", "project", "workflow", "stageData", "folderMap", "links"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "project": {
+      "type": "object",
+      "required": ["id", "name", "channel", "sourcingMode", "status", "createdAt", "updatedAt"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$"},
+        "name": {"type": "string", "minLength": 1},
+        "channel": {"type": "string", "minLength": 1},
+        "sourcingMode": {"enum": ["standard", "high-markup"]},
+        "status": {"enum": ["active", "blocked", "completed", "archived"]},
+        "createdAt": {"type": "string"},
+        "updatedAt": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "workflow": {
+      "type": "object",
+      "required": ["currentStage", "completedStages", "blockedReason"]
+    },
+    "stageData": {
+      "type": "object",
+      "required": ["sourcing", "handoff", "product-planning", "content-planning", "detail-page", "motion", "html", "publish-qa", "feedback"]
+    },
+    "folderMap": {"type": "object"},
+    "links": {"type": "object"}
+  },
+  "additionalProperties": false
+}

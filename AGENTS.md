@@ -32,6 +32,7 @@
 | 고배수 소싱 | `coupang-best-high-markup-sourcing/` | [고배수 소싱 AGENTS](coupang-best-high-markup-sourcing/AGENTS.md) | 해당 스킬 `SKILL.md`·`references/` |
 | 상세페이지 스킬 | `coupang-detail-page-generator/` | [상세페이지 AGENTS](coupang-detail-page-generator/AGENTS.md) | 해당 스킬 `SKILL.md`·`references/` |
 | 상세페이지 실행 결과 | `detail-page/` | [작업 영역 AGENTS](detail-page/AGENTS.md) | 프로젝트 manifest·사실 원장 |
+| 프로젝트 상태·핸드오프 | `commerce-project/` | [프로젝트 AGENTS](commerce-project/AGENTS.md) | 공통 `project.json`·프로젝트 폴더 계약 |
 | 플러그인 패키지 | `plugins/coupang-commerce-automation/` | [플러그인 AGENTS](plugins/coupang-commerce-automation/AGENTS.md) | `docs/COUPANG-COMMERCE-AUTOMATION-PLUGIN-PLAN.md` |
 | 보고서 | `reports/` | [보고서 AGENTS](reports/AGENTS.md) | `docs/REPORTS.md` |
 | 문서 | `docs/` | [문서 AGENTS](docs/AGENTS.md) | `docs/README.md` |

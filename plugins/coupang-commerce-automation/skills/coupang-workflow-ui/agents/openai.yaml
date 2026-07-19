@@ -1,0 +1,4 @@
+interface:
+  display_name: "쿠팡 워크플로 대시보드"
+  short_description: "현재 단계를 버튼으로 실행하고 Codex 로그를 브라우저에서 확인"
+  default_prompt: "Use $coupang-workflow-ui to open the project dashboard, run the current Codex step, and show its live console safely."

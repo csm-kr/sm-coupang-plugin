@@ -3,6 +3,7 @@ __pycache__/
 .pytest_cache/
 *.pyc
 .venv*/
+node_modules/
 tmp/
 
 # 재생성 가능한 상세페이지 조사·렌더 산출물
