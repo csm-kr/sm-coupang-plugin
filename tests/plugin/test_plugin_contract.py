@@ -287,6 +287,81 @@ def test_workflow_ui_logic_enforces_stage_gates_and_builds_codex_prompt():
     assert completed.returncode == 0, completed.stdout + completed.stderr
 
 
+def test_workflow_ui_category_is_optional_and_defaults_to_the_full_best_pool():
+    completed = subprocess.run(
+        [
+            "node",
+            "--input-type=module",
+            "--eval",
+            (
+                "import { STAGES, buildCodexPrompt, createInitialState, deriveProgress, "
+                "setStageCompleted, updateStageInput } from './src/workflow.js'; "
+                "let state = createInitialState('2026-07-19T00:00:00Z'); "
+                "for (const [field, value] of Object.entries({ "
+                "budget: '300000', targetMargin: '40/30' })) "
+                "state = updateStageInput(state, 'sourcing', field, value); "
+                "const sourcing = STAGES.find((stage) => stage.id === 'sourcing'); "
+                "const category = sourcing.inputs.find((input) => input.id === 'category'); "
+                "state = setStageCompleted(state, 'sourcing', true); "
+                "console.log(JSON.stringify({ required: category.required, "
+                "type: category.type, options: (category.options ?? []).map(([value]) => value), "
+                "hasSourcingMode: sourcing.inputs.some((input) => input.id === 'sourcingMode'), "
+                "projectSourcingMode: state.project.sourcingMode, "
+                "currentStageId: deriveProgress(state).currentStageId, "
+                "prompt: buildCodexPrompt(state, 'sourcing') }));"
+            ),
+        ],
+        cwd=WORKFLOW_UI / "assets" / "react-app",
+        check=False,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+    payload = json.loads(completed.stdout)
+    assert payload["required"] is False
+    assert payload["type"] == "select"
+    assert payload["options"] == [
+        "전체",
+        "패션잡화/화장품",
+        "의류/언더웨어",
+        "출산/유아동/완구",
+        "가구/생활/취미",
+        "스포츠/건강/식품",
+        "가전/휴대폰/산업",
+    ]
+    assert payload["hasSourcingMode"] is False
+    assert payload["projectSourcingMode"] == "high-markup"
+    assert payload["currentStageId"] == "handoff"
+    assert "$coupang-commerce-automation:coupang-best-high-markup-sourcing" in payload["prompt"]
+    assert "도매꾹 Best 전체·6개 대분류" in payload["prompt"]
+    assert "패션잡화/화장품" in payload["prompt"]
+    assert "가전/휴대폰/산업" in payload["prompt"]
+    assert "미입력 필수 항목: 없음" in payload["prompt"]
+    assert "설명만 하지 말고 실제 조사를 실행" in payload["prompt"]
+    assert "HTML·JSON 보고서" in payload["prompt"]
+    assert "수익률 최저~최고" in payload["prompt"]
+    assert "links.reportRuns" in payload["prompt"]
+
+    app = (WORKFLOW_UI / "assets" / "react-app" / "src" / "App.jsx").read_text(encoding="utf-8-sig")
+    assert '<option value="standard">일반 소싱</option>' not in app
+    assert "도매꾹 Best 고배수 탐색" in app
+
+
+def test_workflow_ui_handoff_is_an_inline_click_confirm_and_advance_flow():
+    app = (WORKFLOW_UI / "assets" / "react-app" / "src" / "App.jsx").read_text(encoding="utf-8-sig")
+
+    assert "CandidateDecisionPanel" in app
+    assert "소싱 후보를 이 화면에서 비교하고 선택하세요" in app
+    assert "상품·가격 확정하고 상품기획으로" in app
+    assert "selectSourcingCandidate" in app
+    assert "confirmSourcingSelection" in app
+    assert "WorkspaceViewer" in app
+    assert "onDrop" in app
+    assert "HTML·이미지 미리보기" in app
+
+
 def test_workflow_ui_generates_a_safe_default_project_id_for_beginners():
     completed = subprocess.run(
         [
@@ -373,6 +448,119 @@ def test_workflow_ui_api_creates_lists_and_updates_real_project_folders(tmp_path
             / "summer-mask-001"
             / "project.json"
         ).is_file()
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=3)
+
+
+def test_workflow_ui_serves_only_files_inside_the_workspace_reports_root(tmp_path: Path):
+    server_path = WORKFLOW_UI / "scripts" / "serve_workflow_ui.py"
+    spec = importlib.util.spec_from_file_location("serve_workflow_ui_reports", server_path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    report = tmp_path / "reports" / "2026" / "2026-07-19" / "sample" / "report.html"
+    report.parent.mkdir(parents=True)
+    report.write_text("<html><body>신규 소싱 보고서</body></html>", encoding="utf-8")
+    (tmp_path / "STATUS.md").write_text("외부 파일", encoding="utf-8")
+
+    server = module.create_server(0, tmp_path)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    origin = f"http://127.0.0.1:{server.server_port}"
+
+    try:
+        with urllib.request.urlopen(
+            origin + "/reports/2026/2026-07-19/sample/report.html",
+            timeout=3,
+        ) as response:
+            assert response.status == 200
+            assert "신규 소싱 보고서" in response.read().decode("utf-8")
+
+        try:
+            urllib.request.urlopen(origin + "/reports/%2e%2e/STATUS.md", timeout=3)
+        except urllib.error.HTTPError as error:
+            assert error.code == 404
+        else:
+            raise AssertionError("reports 루트 밖 파일이 노출됐습니다.")
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=3)
+
+
+def test_workflow_ui_project_workspace_lists_previews_and_accepts_image_drop_uploads(tmp_path: Path):
+    server_path = WORKFLOW_UI / "scripts" / "serve_workflow_ui.py"
+    spec = importlib.util.spec_from_file_location("serve_workflow_ui_workspace", server_path)
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    store = module.ProjectStore(tmp_path)
+    project = store.create_project("summer-mask-001", "여름 스포츠 마스크", "coupang", "high-markup")
+    project_root = tmp_path / "commerce-project" / "projects" / "summer-mask-001"
+    preview = project_root / "50-detail-page" / "html" / "detail-page.html"
+    preview.write_text("<html><body><h1>상세페이지 미리보기</h1></body></html>", encoding="utf-8")
+
+    report = tmp_path / "reports" / "2026" / "2026-07-19" / "sample" / "report.html"
+    report.parent.mkdir(parents=True)
+    report.write_text("<html><body>소싱 보고서</body></html>", encoding="utf-8")
+    store.register_report(project["project"]["id"], report)
+
+    server = module.create_server(0, tmp_path)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    origin = f"http://127.0.0.1:{server.server_port}"
+
+    try:
+        with urllib.request.urlopen(origin + "/api/projects/summer-mask-001/workspace", timeout=3) as response:
+            workspace = json.loads(response.read().decode("utf-8"))
+        assert workspace["uploadTarget"] == "40-assets/source"
+        assert any(
+            item["path"] == "50-detail-page/html/detail-page.html"
+            and item["kind"] == "html"
+            and item["source"] == "project"
+            for item in workspace["files"]
+        )
+        assert any(item["source"] == "report" and item["kind"] == "html" for item in workspace["files"])
+
+        with urllib.request.urlopen(
+            origin + "/project-files/summer-mask-001/50-detail-page/html/detail-page.html",
+            timeout=3,
+        ) as response:
+            assert "상세페이지 미리보기" in response.read().decode("utf-8")
+            assert "script-src 'none'" in response.headers["Content-Security-Policy"]
+
+        png = b"\x89PNG\r\n\x1a\n" + b"candidate-image"
+        upload = urllib.request.Request(
+            origin + "/api/projects/summer-mask-001/assets?filename=front-view.png",
+            data=png,
+            method="POST",
+            headers={"Content-Type": "image/png"},
+        )
+        with urllib.request.urlopen(upload, timeout=3) as response:
+            uploaded = json.loads(response.read().decode("utf-8"))
+        assert uploaded["path"] == "40-assets/source/front-view.png"
+        assert (project_root / "40-assets" / "source" / "front-view.png").read_bytes() == png
+
+        with urllib.request.urlopen(origin + uploaded["href"], timeout=3) as response:
+            assert response.read() == png
+
+        for filename, expected_status in (("front-view.png", 409), ("..%2Fevil.png", 400)):
+            duplicate = urllib.request.Request(
+                origin + f"/api/projects/summer-mask-001/assets?filename={filename}",
+                data=png,
+                method="POST",
+                headers={"Content-Type": "image/png"},
+            )
+            try:
+                urllib.request.urlopen(duplicate, timeout=3)
+            except urllib.error.HTTPError as error:
+                assert error.code == expected_status
+            else:
+                raise AssertionError(f"안전하지 않은 업로드가 허용됐습니다: {filename}")
     finally:
         server.shutdown()
         server.server_close()

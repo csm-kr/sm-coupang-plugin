@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import functools
 import json
+import mimetypes
 import sys
 import threading
 import webbrowser
@@ -24,6 +25,7 @@ from codex_runner import CodexRunManager  # noqa: E402
 
 
 MAX_JSON_BYTES = 2 * 1024 * 1024
+MAX_IMAGE_UPLOAD_BYTES = 20 * 1024 * 1024
 
 
 class DashboardHandler(SimpleHTTPRequestHandler):
@@ -45,7 +47,14 @@ class DashboardHandler(SimpleHTTPRequestHandler):
     def end_headers(self) -> None:
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
-        self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'")
+        self.send_header(
+            "Content-Security-Policy",
+            getattr(
+                self,
+                "_content_security_policy",
+                "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'",
+            ),
+        )
         super().end_headers()
 
     def _send_json(self, payload: Any, status: HTTPStatus = HTTPStatus.OK) -> None:
@@ -68,6 +77,18 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             raise ValueError("JSON 객체가 필요합니다.")
         return payload
 
+    def _read_binary(self, maximum_bytes: int) -> bytes:
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+        except ValueError as exc:
+            raise ValueError("Content-Length가 올바르지 않습니다.") from exc
+        if length <= 0 or length > maximum_bytes:
+            raise ValueError(f"파일은 1바이트 이상 {maximum_bytes // (1024 * 1024)}MB 이하여야 합니다.")
+        body = self.rfile.read(length)
+        if len(body) != length:
+            raise ValueError("업로드 파일을 끝까지 읽지 못했습니다.")
+        return body
+
     def _project_id(self, path: str) -> str | None:
         prefix = "/api/projects/"
         if not path.startswith(prefix):
@@ -82,6 +103,24 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         run_id = unquote(path[len(prefix):]).strip("/")
         return run_id if run_id and "/" not in run_id else None
 
+    def _project_action_id(self, path: str, action: str) -> str | None:
+        prefix = "/api/projects/"
+        suffix = f"/{action}"
+        if not path.startswith(prefix) or not path.endswith(suffix):
+            return None
+        project_id = unquote(path[len(prefix):-len(suffix)]).strip("/")
+        return project_id if project_id and "/" not in project_id else None
+
+    def _project_file(self, path: str) -> tuple[str, str] | None:
+        prefix = "/project-files/"
+        if not path.startswith(prefix):
+            return None
+        remainder = unquote(path[len(prefix):]).strip("/")
+        if "/" not in remainder:
+            return None
+        project_id, relative_path = remainder.split("/", 1)
+        return (project_id, relative_path) if project_id and relative_path else None
+
     def _handle_error(self, error: Exception) -> None:
         if isinstance(error, FileNotFoundError):
             status = HTTPStatus.NOT_FOUND
@@ -94,6 +133,44 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         else:
             status = HTTPStatus.INTERNAL_SERVER_ERROR
         self._send_json({"error": str(error)}, status)
+
+    def _send_report_file(self, path: str) -> None:
+        relative_path = Path(unquote(path).lstrip("/"))
+        reports_root = (self.project_store.workspace / "reports").resolve()
+        target = (self.project_store.workspace / relative_path).resolve()
+        if not target.is_relative_to(reports_root) or not target.is_file():
+            raise FileNotFoundError("보고서 파일을 찾을 수 없습니다.")
+        body = target.read_bytes()
+        content_type = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
+        if content_type.startswith("text/") or content_type in {"application/json", "image/svg+xml"}:
+            content_type += "; charset=utf-8"
+        self._content_security_policy = (
+            "default-src 'self' data:; script-src 'none'; style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data: https:; connect-src 'none'; base-uri 'none'; frame-ancestors 'self'"
+        )
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _send_project_file(self, project_id: str, relative_path: str) -> None:
+        target = self.project_store.resolve_project_file(project_id, relative_path)
+        body = target.read_bytes()
+        content_type = mimetypes.guess_type(target.name)[0] or "application/octet-stream"
+        if content_type.startswith("text/") or content_type in {"application/json", "image/svg+xml"}:
+            content_type += "; charset=utf-8"
+        self._content_security_policy = (
+            "default-src 'self' data:; script-src 'none'; style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data:; connect-src 'none'; base-uri 'none'; frame-ancestors 'self'"
+        )
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(body)
 
     def do_GET(self) -> None:
         parsed = urlparse(self.path)
@@ -115,8 +192,17 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             if run_id := self._run_id(path):
                 self._send_json(self.run_manager.get_run(run_id))
                 return
+            if project_id := self._project_action_id(path, "workspace"):
+                self._send_json(self.project_store.list_workspace_files(project_id))
+                return
             if project_id := self._project_id(path):
                 self._send_json(self.project_store.get_project(project_id))
+                return
+            if project_file := self._project_file(path):
+                self._send_project_file(*project_file)
+                return
+            if path.startswith("/reports/"):
+                self._send_report_file(path)
                 return
             if path.startswith("/api/"):
                 self._send_json({"error": "API 경로를 찾을 수 없습니다."}, HTTPStatus.NOT_FOUND)
@@ -127,11 +213,23 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         super().do_GET()
 
     def do_POST(self) -> None:
-        path = urlparse(self.path).path
-        if path not in {"/api/projects", "/api/runs"}:
+        parsed = urlparse(self.path)
+        path = parsed.path
+        asset_project_id = self._project_action_id(path, "assets")
+        if path not in {"/api/projects", "/api/runs"} and not asset_project_id:
             self._send_json({"error": "API 경로를 찾을 수 없습니다."}, HTTPStatus.NOT_FOUND)
             return
         try:
+            if asset_project_id:
+                filename = parse_qs(parsed.query).get("filename", [""])[0]
+                created = self.project_store.save_uploaded_image(
+                    asset_project_id,
+                    filename,
+                    self.headers.get("Content-Type", ""),
+                    self._read_binary(MAX_IMAGE_UPLOAD_BYTES),
+                )
+                self._send_json(created, HTTPStatus.CREATED)
+                return
             payload = self._read_json()
             if path == "/api/runs":
                 project_id = payload.get("projectId", "")
@@ -149,7 +247,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     payload.get("projectId", ""),
                     payload.get("name", ""),
                     payload.get("channel", "coupang"),
-                    payload.get("sourcingMode", "standard"),
+                    payload.get("sourcingMode", "high-markup"),
                 )
             self._send_json(created, HTTPStatus.CREATED)
         except Exception as error:

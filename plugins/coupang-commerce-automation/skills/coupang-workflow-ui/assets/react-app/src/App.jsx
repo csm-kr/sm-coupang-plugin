@@ -4,10 +4,18 @@ import {
   STAGES,
   buildCodexPrompt,
   canCompleteStage,
+  confirmSourcingSelection,
   createDefaultProjectId,
   deriveProgress,
   formatCodexEvent,
+  formatOptionalPercent,
+  formatOptionalWon,
   isRunActive,
+  normalizeSourcingReport,
+  reportHref,
+  selectSourcingCandidate,
+  shouldRefreshProjectAfterRun,
+  sourcingReportJsonHrefs,
   setStageApproval,
   setStageCompleted,
   updateStageInput,
@@ -48,12 +56,26 @@ function formatDate(value) {
   return new Intl.DateTimeFormat("ko-KR", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(value));
 }
 
+const CANDIDATE_DECISIONS = {
+  SHORTLIST: ["선택 가능", "selectable", "전체 소싱 검증을 통과했습니다."],
+  CONDITIONAL_TEST_PRICE_REVIEW: ["조건부 검토", "conditional", "실물·권리·가격 수용성 확인이 더 필요합니다."],
+  HIGH_MARKUP_DISCOVERY: ["전체 검증 대기", "discovery", "고배수 탐색 일치이며 SHORTLIST 재검증 전입니다."],
+  PRICE_REVIEW_BLOCKED: ["추가 조사 필요", "blocked", "가격·동일성 또는 공급조건 근거가 부족합니다."],
+  FILTERED_OUT: ["기준 미달", "rejected", "탐색 기준을 충족하지 못했습니다."],
+  REJECT: ["제외", "rejected", "전체 소싱 검증에서 제외됐습니다."],
+};
+
+function candidateDecision(candidate) {
+  return CANDIDATE_DECISIONS[candidate.sourceDecision]
+    ?? [candidate.sourceDecision || "판정 대기", "blocked", "판정 근거를 확인해 주세요."];
+}
+
 function CreateProjectDialog({ onClose, onCreated }) {
   const [form, setForm] = useState(() => ({
     projectId: createDefaultProjectId(),
     name: "",
     channel: "coupang",
-    sourcingMode: "standard",
+    sourcingMode: "high-markup",
   }));
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -101,11 +123,8 @@ function CreateProjectDialog({ onClose, onCreated }) {
               </select>
             </label>
             <label>
-              <span>탐색 방식</span>
-              <select value={form.sourcingMode} onChange={(event) => setForm({ ...form, sourcingMode: event.target.value })}>
-                <option value="standard">일반 소싱</option>
-                <option value="high-markup">Best 고배수 탐색</option>
-              </select>
+              <span>탐색 기준</span>
+              <input value="도매꾹 Best 고배수 탐색" readOnly />
             </label>
           </div>
           {error && <p className="form-error">{error}</p>}
@@ -176,7 +195,156 @@ function FormField({ input, value, disabled, onChange }) {
       {input.suffix && <span>{input.suffix}</span>}
     </div>
   );
-  return <label className="field-label" htmlFor={id}><span>{input.label}<b>필수</b></span>{control}</label>;
+  return <label className="field-label" htmlFor={id}><span>{input.label}<b>{input.required ? "필수" : "선택"}</b></span>{control}</label>;
+}
+
+function CandidateDecisionPanel({ project, disabled, onSelect, onPriceChange, onConfirm, onReturnToSourcing }) {
+  const [report, setReport] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [activeCandidateId, setActiveCandidateId] = useState(project.stageData.handoff.selection?.candidateId ?? "");
+  const reportKey = (project.links?.reportRuns ?? []).join("|");
+  const selectedId = project.stageData.handoff.inputs?.candidateId ?? "";
+  const approvedPrice = project.stageData.handoff.inputs?.approvedPrice ?? "";
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadCandidates() {
+      setLoading(true);
+      setError("");
+      const hrefs = sourcingReportJsonHrefs(project.links?.reportRuns);
+      if (hrefs.length === 0) {
+        if (!cancelled) {
+          setReport(null);
+          setLoading(false);
+        }
+        return;
+      }
+      const settled = await Promise.allSettled(hrefs.map(async (href) => {
+        const payload = await api(href);
+        return normalizeSourcingReport(payload, href);
+      }));
+      const loaded = settled
+        .filter((result) => result.status === "fulfilled")
+        .map((result) => result.value)
+        .find((item) => item.candidates.length > 0);
+      if (!cancelled) {
+        setReport(loaded ?? null);
+        setError(loaded ? "" : "연결된 소싱 JSON에서 후보 데이터를 읽지 못했습니다.");
+        setLoading(false);
+      }
+    }
+    loadCandidates().catch((loadError) => {
+      if (!cancelled) {
+        setError(loadError.message);
+        setLoading(false);
+      }
+    });
+    return () => { cancelled = true; };
+  }, [project.project.id, reportKey]);
+
+  useEffect(() => {
+    if (selectedId) setActiveCandidateId(selectedId);
+    else if (!activeCandidateId && report?.candidates[0]) setActiveCandidateId(report.candidates[0].candidateId);
+  }, [selectedId, report]);
+
+  if (loading) {
+    return <div className="candidate-loading"><div className="loader" /><p>소싱 결과를 후보 카드로 정리하고 있습니다…</p></div>;
+  }
+
+  if (!report) {
+    return (
+      <div className="candidate-empty">
+        <strong>UI에서 판단할 소싱 후보가 아직 없습니다.</strong>
+        <p>{error || "소싱 실행이 끝나 후보 JSON이 프로젝트에 연결되면 이곳에 자동으로 표시됩니다."}</p>
+        <button className="ghost-button" type="button" onClick={onReturnToSourcing}>소싱 단계 확인하기</button>
+      </div>
+    );
+  }
+
+  const selectableCount = report.candidates.filter((candidate) => candidate.selectable).length;
+  const active = report.candidates.find((candidate) => candidate.candidateId === activeCandidateId)
+    ?? report.candidates[0];
+  const selected = report.candidates.find((candidate) => candidate.candidateId === selectedId);
+  const activeDecision = candidateDecision(active);
+  const canConfirm = Boolean(selected?.selectable && Number(approvedPrice) > 0 && !disabled);
+
+  return (
+    <section className="candidate-decision" aria-labelledby="candidate-decision-title">
+      <div className="candidate-decision-head">
+        <div>
+          <h3 id="candidate-decision-title">소싱 후보를 이 화면에서 비교하고 선택하세요</h3>
+          <p>후보 ID를 다시 입력하거나 보고서를 하나씩 열 필요가 없습니다.</p>
+        </div>
+        <span>{report.candidates.length}개 중 <strong>{selectableCount}개</strong> 선택 가능</span>
+      </div>
+
+      <div className="candidate-grid" role="list" aria-label="소싱 후보">
+        {report.candidates.map((candidate) => {
+          const decision = candidateDecision(candidate);
+          const isActive = candidate.candidateId === active.candidateId;
+          const isSelected = candidate.candidateId === selectedId;
+          return (
+            <button
+              key={`${candidate.reportPath}:${candidate.candidateId}`}
+              className={`candidate-card ${isActive ? "active" : ""} ${isSelected ? "selected" : ""}`}
+              type="button"
+              role="listitem"
+              aria-pressed={isSelected}
+              onClick={() => {
+                setActiveCandidateId(candidate.candidateId);
+                if (candidate.selectable && !disabled) onSelect(candidate);
+              }}
+            >
+              <span className={`candidate-decision-chip ${decision[1]}`}>{decision[0]}</span>
+              <small>{candidate.candidateId || "ID 확인 대기"}</small>
+              <strong>{candidate.productName || "상품명 확인 대기"}</strong>
+              <span className="candidate-card-metrics">
+                <i><b>공급가</b>{formatOptionalWon(candidate.unitSupplyPrice)}</i>
+                <i><b>판매가</b>{formatOptionalWon(candidate.recommendedPrice)}</i>
+                <i><b>마진</b>{formatOptionalPercent(candidate.marginLow)}~{formatOptionalPercent(candidate.marginHigh)}</i>
+              </span>
+              <em>{isSelected ? "현재 선택" : candidate.selectable ? "클릭해 선택" : "클릭해 사유 확인"}</em>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className={`candidate-detail ${activeDecision[1]}`}>
+        <div className="candidate-detail-title">
+          <div><span className={`candidate-decision-chip ${activeDecision[1]}`}>{activeDecision[0]}</span><h4>{active.productName}</h4></div>
+          <p>{activeDecision[2]}</p>
+        </div>
+        <dl className="candidate-facts">
+          <div><dt>공급가 / MOQ</dt><dd>{formatOptionalWon(active.unitSupplyPrice)} / {active.minimumOrderQuantity ?? "확인 대기"}개</dd></div>
+          <div><dt>도매 배송비</dt><dd>{formatOptionalWon(active.wholesaleShippingTotal)}</dd></div>
+          <div><dt>판매 근거 현재가</dt><dd>{formatOptionalWon(active.marketPriceMin)} ~ {formatOptionalWon(active.marketPriceMax)} · {active.marketEvidenceCount}건</dd></div>
+          <div><dt>예상 수익률</dt><dd>{formatOptionalPercent(active.marginLow)} ~ {formatOptionalPercent(active.marginHigh)}</dd></div>
+        </dl>
+        {active.blockers.length > 0 && (
+          <div className="candidate-blockers"><strong>다음 단계 전 확인할 점</strong><ul>{active.blockers.map((blocker) => <li key={blocker}>{blocker}</li>)}</ul></div>
+        )}
+      </div>
+
+      {selectableCount === 0 ? (
+        <div className="candidate-no-pass">
+          <div><strong>지금은 다음 단계로 넘길 후보가 없습니다.</strong><p>차단 사유를 해결한 뒤 소싱을 다시 실행하면 이 화면이 자동 갱신됩니다.</p></div>
+          <button className="ghost-button" type="button" onClick={onReturnToSourcing}>소싱으로 돌아가기</button>
+        </div>
+      ) : (
+        <div className="candidate-confirm">
+          <label>
+            <span>최종 판매가 <b>필수</b></span>
+            <div className="input-with-suffix"><input type="number" min="1" value={approvedPrice} disabled={!selected || disabled} onChange={(event) => onPriceChange(event.target.value)} placeholder="후보를 먼저 선택하세요" /><span>원</span></div>
+          </label>
+          <div>
+            <p>{selected ? <><strong>{selected.productName}</strong>을 선택했습니다. 가격을 확인하면 바로 다음 단계로 이동합니다.</> : "선택 가능한 후보 카드를 클릭해 주세요."}</p>
+            <button className="complete-button candidate-confirm-button" type="button" disabled={!canConfirm} onClick={onConfirm}>상품·가격 확정하고 상품기획으로</button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
 }
 
 function FolderMap({ project, legacy }) {
@@ -190,7 +358,12 @@ function FolderMap({ project, legacy }) {
       </div>
       <p className="folder-help">보고서는 복사하지 않고 아래 경로만 연결합니다.</p>
       <div className="report-links">
-        {(project.links?.reportRuns ?? []).length === 0 ? <span>연결된 보고서 없음</span> : project.links.reportRuns.map((path) => <code key={path}>{path}</code>)}
+        {(project.links?.reportRuns ?? []).length === 0 ? <span>연결된 보고서 없음</span> : project.links.reportRuns.map((path) => {
+          const href = reportHref(path);
+          return href
+            ? <a key={path} href={href} target="_blank" rel="noreferrer">{path}</a>
+            : <code key={path}>{path}</code>;
+        })}
       </div>
       {legacy.length > 0 && (
         <details className="legacy-list">
@@ -198,6 +371,135 @@ function FolderMap({ project, legacy }) {
           {legacy.map((item) => <p key={item.path}><strong>{item.name}</strong><code>{item.path}</code></p>)}
         </details>
       )}
+    </section>
+  );
+}
+
+function formatFileSize(bytes) {
+  const value = Number(bytes);
+  if (!Number.isFinite(value)) return "";
+  if (value < 1024) return `${value} B`;
+  if (value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
+  return `${(value / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function uploadContentType(file) {
+  if (file.type) return file.type;
+  const extension = file.name.split(".").pop()?.toLowerCase();
+  return {
+    gif: "image/gif",
+    jpeg: "image/jpeg",
+    jpg: "image/jpeg",
+    png: "image/png",
+    webp: "image/webp",
+  }[extension] ?? "application/octet-stream";
+}
+
+function WorkspacePreview({ file, onClose }) {
+  return (
+    <div className="workspace-preview-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <section className="workspace-preview" role="dialog" aria-modal="true" aria-labelledby="workspace-preview-title">
+        <header>
+          <div><p className="eyebrow">PROJECT PREVIEW</p><h2 id="workspace-preview-title">{file.name}</h2><code>{file.path}</code></div>
+          <button className="icon-button" type="button" onClick={onClose} aria-label="미리보기 닫기">×</button>
+        </header>
+        <div className={`workspace-preview-canvas ${file.kind}`}>
+          {file.kind === "image"
+            ? <img src={file.href} alt={`${file.name} 프로젝트 자산 미리보기`} />
+            : <iframe src={file.href} title={`${file.name} 미리보기`} sandbox="" />}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function WorkspaceViewer({ project, onToast }) {
+  const [workspace, setWorkspace] = useState({ files: [], uploadTarget: "40-assets/source" });
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [previewFile, setPreviewFile] = useState(null);
+  const reportKey = (project.links?.reportRuns ?? []).join("|");
+
+  async function loadFiles() {
+    setLoading(true);
+    try {
+      const payload = await api(`/api/projects/${encodeURIComponent(project.project.id)}/workspace`);
+      setWorkspace(payload);
+    } catch (error) {
+      onToast(`프로젝트 파일 확인 실패: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    setPreviewFile(null);
+    loadFiles();
+  }, [project.project.id, reportKey]);
+
+  async function uploadFiles(fileList) {
+    const files = [...fileList];
+    if (files.length === 0) return;
+    setUploading(true);
+    const results = await Promise.allSettled(files.map(async (file) => {
+      const response = await fetch(
+        `/api/projects/${encodeURIComponent(project.project.id)}/assets?filename=${encodeURIComponent(file.name)}`,
+        { method: "POST", headers: { "Content-Type": uploadContentType(file) }, body: file },
+      );
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(payload.error || `${file.name} 업로드 실패 (${response.status})`);
+      return payload;
+    }));
+    const succeeded = results.filter((result) => result.status === "fulfilled");
+    const failed = results.filter((result) => result.status === "rejected");
+    if (succeeded.length > 0) {
+      await loadFiles();
+      onToast(`${succeeded.length}개 이미지를 ${workspace.uploadTarget}에 저장했습니다.`);
+    }
+    if (failed.length > 0) onToast(failed[0].reason?.message || `${failed.length}개 이미지 업로드에 실패했습니다.`);
+    setUploading(false);
+    setDragging(false);
+  }
+
+  const groups = workspace.files.reduce((result, file) => {
+    const group = file.source === "report" ? "연결된 보고서" : file.path.includes("/") ? file.path.split("/", 1)[0] : "프로젝트 루트";
+    if (!result[group]) result[group] = [];
+    result[group].push(file);
+    return result;
+  }, {});
+
+  return (
+    <section className="side-card workspace-viewer">
+      <div className="side-card-title"><p className="eyebrow">PROJECT EXPLORER</p><h3>작업 파일과 미리보기</h3></div>
+      <p className="workspace-viewer-help">HTML·이미지 미리보기를 이 작업창 안에서 확인합니다.</p>
+      <label
+        className={`asset-dropzone ${dragging ? "dragging" : ""} ${uploading ? "uploading" : ""}`}
+        onDragEnter={(event) => { event.preventDefault(); setDragging(true); }}
+        onDragOver={(event) => { event.preventDefault(); setDragging(true); }}
+        onDragLeave={(event) => { event.preventDefault(); if (!event.currentTarget.contains(event.relatedTarget)) setDragging(false); }}
+        onDrop={(event) => { event.preventDefault(); uploadFiles(event.dataTransfer.files); }}
+      >
+        <input type="file" accept=".png,.jpg,.jpeg,.gif,.webp" multiple disabled={uploading} onChange={(event) => { uploadFiles(event.target.files); event.target.value = ""; }} />
+        <span>{uploading ? "저장 중…" : dragging ? "여기에 놓으세요" : "이미지 드래그앤드롭"}</span>
+        <small>{workspace.uploadTarget}</small>
+      </label>
+      <div className="workspace-file-tree" aria-label="프로젝트 파일">
+        {loading && <p className="empty-note">파일을 불러오는 중…</p>}
+        {!loading && workspace.files.length === 0 && <p className="empty-note">아직 프로젝트 파일이 없습니다.</p>}
+        {!loading && Object.entries(groups).map(([group, files]) => (
+          <details key={group} open>
+            <summary><span>▾</span>{group}<small>{files.length}</small></summary>
+            {files.map((file) => (
+              <button key={`${file.source}:${file.path}`} type="button" disabled={!['html', 'image', 'json', 'text'].includes(file.kind)} onClick={() => setPreviewFile(file)} title={file.path}>
+                <i>{file.kind === "image" ? "▧" : file.kind === "html" ? "◇" : file.kind === "json" ? "{}" : "·"}</i>
+                <span><strong>{file.name}</strong><small>{formatFileSize(file.size)}</small></span>
+              </button>
+            ))}
+          </details>
+        ))}
+      </div>
+      {previewFile && <WorkspacePreview file={previewFile} onClose={() => setPreviewFile(null)} />}
     </section>
   );
 }
@@ -312,7 +614,26 @@ export default function App() {
     const poll = async () => {
       try {
         const latest = await api(`/api/runs/${encodeURIComponent(run.runId)}`);
-        if (!cancelled) setRun(latest);
+        if (!cancelled) {
+          setRun(latest);
+          if (shouldRefreshProjectAfterRun(latest)) {
+            const refreshed = await api(`/api/projects/${encodeURIComponent(latest.projectId)}`);
+            if (!cancelled) {
+              setProject(refreshed);
+              setProjects((current) => current.map((item) => (
+                item.projectId === refreshed.project.id
+                  ? {
+                    ...item,
+                    name: refreshed.project.name,
+                    currentStage: refreshed.workflow.currentStage,
+                    blockedReason: refreshed.workflow.blockedReason,
+                    updatedAt: refreshed.project.updatedAt,
+                  }
+                  : item
+              )));
+            }
+          }
+        }
       } catch (error) {
         if (!cancelled) setToast(`Codex 로그 확인 실패: ${error.message}`);
       }
@@ -422,6 +743,26 @@ export default function App() {
     URL.revokeObjectURL(url);
   }
 
+  function chooseSourcingCandidate(candidate) {
+    try {
+      commit(selectSourcingCandidate(project, candidate, candidate.recommendedPrice ?? ""));
+      setToast(`${candidate.productName} 후보를 선택했습니다. 판매가를 확인해 주세요.`);
+    } catch (error) {
+      setToast(error.message);
+    }
+  }
+
+  function confirmCandidateAndAdvance() {
+    try {
+      const next = confirmSourcingSelection(project);
+      commit(next);
+      setSelectedStageId("product-planning");
+      setToast("상품과 가격을 저장하고 상품기획 단계로 이동했습니다.");
+    } catch (error) {
+      setToast(error.message);
+    }
+  }
+
   if (loading) return <main className="loading-screen"><div className="loader" /><p>프로젝트를 불러오는 중입니다…</p></main>;
   if (connectionError) return (
     <main className="error-screen"><div className="brand-mark">CO</div><p className="eyebrow">LOCAL SERVER</p><h1>프로젝트 서버에 연결할 수 없어요</h1><p>{connectionError}</p><button className="primary-button" type="button" onClick={() => loadWorkspace()}>다시 연결</button></main>
@@ -453,7 +794,7 @@ export default function App() {
             <div>
               <p className="breadcrumb">프로젝트 / <strong>{project.project.id}</strong></p>
               <h1>{project.project.name}</h1>
-              <div className="hero-tags"><span>{project.project.channel}</span><span>{project.project.sourcingMode === "high-markup" ? "Best 고배수 탐색" : "일반 소싱"}</span><span>9단계 중 {progress.completedCount}단계 완료</span></div>
+              <div className="hero-tags"><span>{project.project.channel}</span><span>도매꾹 Best 고배수 탐색</span><span>9단계 중 {progress.completedCount}단계 완료</span></div>
             </div>
             <div className="progress-dial" style={{ "--progress": `${progress.percentage * 3.6}deg` }}><span><strong>{progress.percentage}%</strong><small>진행률</small></span></div>
           </section>
@@ -468,15 +809,26 @@ export default function App() {
 
               {selectedStage.status === "locked" && <div className="locked-banner"><span>🔒</span><p><strong>아직 이 단계를 실행할 수 없어요.</strong><br />현재 단계의 필수 입력과 승인을 먼저 완료해 주세요.</p></div>}
 
-              <div className="section-title"><span>01</span><div><h3>이번 단계에 필요한 데이터</h3><p>아는 값만 정확히 입력하고, 모르면 비워 두세요.</p></div></div>
-              <div className="field-grid">
-                {selectedStage.inputs.map((input) => <FormField key={input.id} input={input} value={record.inputs[input.id]} disabled={selectedStage.status === "locked"} onChange={(value) => commit(updateStageInput(project, selectedStage.id, input.id, value))} />)}
-              </div>
+              <div className="section-title"><span>01</span><div><h3>{selectedStage.id === "handoff" ? "후보 확인과 선택" : "이번 단계에 필요한 데이터"}</h3><p>{selectedStage.id === "handoff" ? "소싱 결과를 비교하고 다음 단계로 넘길 상품 하나를 고릅니다." : "아는 값만 정확히 입력하고, 모르면 비워 두세요."}</p></div></div>
+              {selectedStage.id === "handoff" ? (
+                <CandidateDecisionPanel
+                  project={project}
+                  disabled={selectedStage.status === "locked"}
+                  onSelect={chooseSourcingCandidate}
+                  onPriceChange={(value) => commit(updateStageInput(project, "handoff", "approvedPrice", value))}
+                  onConfirm={confirmCandidateAndAdvance}
+                  onReturnToSourcing={() => setSelectedStageId("sourcing")}
+                />
+              ) : (
+                <div className="field-grid">
+                  {selectedStage.inputs.map((input) => <FormField key={input.id} input={input} value={record.inputs[input.id]} disabled={selectedStage.status === "locked"} onChange={(value) => commit(updateStageInput(project, selectedStage.id, input.id, value))} />)}
+                </div>
+              )}
 
               <div className="section-title"><span>02</span><div><h3>완료 기준</h3><p>Codex의 실제 결과와 비교해 확인하세요.</p></div></div>
               <ul className="acceptance-list">{selectedStage.acceptance.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul>
 
-              {selectedStage.approvalGate && (
+              {selectedStage.approvalGate && selectedStage.id !== "handoff" && (
                 <label className={`approval-box ${record.approved ? "checked" : ""}`}>
                   <input type="checkbox" checked={record.approved} disabled={selectedStage.status === "locked"} onChange={(event) => commit(setStageApproval(project, selectedStage.id, event.target.checked))} />
                   <span className="custom-check">✓</span><span><strong>사용자 승인 게이트</strong><small>{selectedStage.approvalGate}</small></span>
@@ -488,7 +840,7 @@ export default function App() {
                 <input value={project.workflow.blockedReason ?? ""} onChange={(event) => commit({ ...project, workflow: { ...project.workflow, blockedReason: event.target.value || null } })} placeholder="예: 실제 SKU 정면 사진이 필요함" />
               </label>
 
-              <div className="stage-actions">
+              {selectedStage.id !== "handoff" && <div className="stage-actions">
                 {selectedStage.complete ? (
                   <button className="complete-button undo" type="button" onClick={() => commit(setStageCompleted(project, selectedStage.id, false))}>완료 취소</button>
                 ) : (
@@ -500,14 +852,15 @@ export default function App() {
                     setToast("단계를 완료하고 다음 단계로 이동했습니다.");
                   }}>이 단계 완료</button>
                 )}
-              </div>
-              {selectedStage.missing.length > 0 && selectedStage.status === "current" && <p className="missing-note">아직 필요한 입력: {selectedStage.missing.map((input) => input.label).join(", ")}</p>}
-              {selectedStage.status !== "locked" && (
+              </div>}
+              {selectedStage.id !== "handoff" && selectedStage.missing.length > 0 && selectedStage.status === "current" && <p className="missing-note">아직 필요한 입력: {selectedStage.missing.map((input) => input.label).join(", ")}</p>}
+              {selectedStage.status !== "locked" && selectedStage.id !== "handoff" && (
                 <CodexConsole runtime={runtime} run={run} starting={startingRun} onStart={startCodex} onStop={stopCodex} />
               )}
             </section>
             <aside className="context-column">
               <section className="side-card now-card"><p className="eyebrow">NOW</p><span className="now-step">{stageById(project.workflow.currentStage).step}</span><h3>지금 할 일</h3><p>{stageById(project.workflow.currentStage).summary}</p>{project.workflow.blockedReason && <div className="current-blocker"><strong>확인 필요</strong><span>{project.workflow.blockedReason}</span></div>}</section>
+              <WorkspaceViewer project={project} onToast={setToast} />
               <FolderMap project={project} legacy={legacy} />
             </aside>
           </div>

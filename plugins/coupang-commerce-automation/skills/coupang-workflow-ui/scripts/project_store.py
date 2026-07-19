@@ -9,6 +9,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 
 SCHEMA_VERSION = "1.0.0"
@@ -38,6 +39,26 @@ FOLDER_MAP = {
     "feedback": "70-feedback",
     "links": "links",
 }
+IMAGE_UPLOAD_TYPES = {
+    ".gif": {"image/gif"},
+    ".jpg": {"image/jpeg", "image/jpg"},
+    ".jpeg": {"image/jpeg", "image/jpg"},
+    ".png": {"image/png"},
+    ".webp": {"image/webp"},
+}
+WORKSPACE_FILE_KINDS = {
+    ".gif": "image",
+    ".htm": "html",
+    ".html": "html",
+    ".jpeg": "image",
+    ".jpg": "image",
+    ".json": "json",
+    ".md": "text",
+    ".png": "image",
+    ".txt": "text",
+    ".webp": "image",
+}
+MAX_WORKSPACE_FILES = 1000
 
 
 def utc_now() -> str:
@@ -202,6 +223,137 @@ class ProjectStore:
         if relative not in links:
             links.append(relative)
         return self.update_project(project_id, payload)
+
+    def _resolve_project_file(self, project_id: str, relative_path: str | Path) -> Path:
+        project_root = self._project_root(project_id).resolve()
+        relative = Path(relative_path)
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError("프로젝트 내부 상대 경로가 필요합니다.")
+        target = (project_root / relative).resolve()
+        try:
+            target.relative_to(project_root)
+        except ValueError as exc:
+            raise ValueError("프로젝트 경로 밖의 파일에는 접근할 수 없습니다.") from exc
+        return target
+
+    @staticmethod
+    def _workspace_kind(path: Path) -> str:
+        return WORKSPACE_FILE_KINDS.get(path.suffix.casefold(), "file")
+
+    def _project_file_entry(self, project_id: str, path: Path) -> dict[str, Any]:
+        project_root = self._project_root(project_id).resolve()
+        relative = path.relative_to(project_root).as_posix()
+        return {
+            "name": path.name,
+            "path": relative,
+            "kind": self._workspace_kind(path),
+            "source": "project",
+            "size": path.stat().st_size,
+            "href": f"/project-files/{quote(project_id)}/{quote(relative, safe='/')}",
+        }
+
+    def list_workspace_files(self, project_id: str) -> dict[str, Any]:
+        payload = self.get_project(project_id)
+        project_root = self._project_root(project_id).resolve()
+        files: list[dict[str, Any]] = []
+        for path in sorted(project_root.rglob("*"), key=lambda item: item.as_posix().casefold()):
+            if len(files) >= MAX_WORKSPACE_FILES:
+                break
+            if path.is_symlink() or not path.is_file():
+                continue
+            resolved = path.resolve()
+            try:
+                resolved.relative_to(project_root)
+            except ValueError:
+                continue
+            files.append(self._project_file_entry(project_id, path))
+
+        reports_root = (self.workspace / "reports").resolve()
+        for report_path in payload.get("links", {}).get("reportRuns", []):
+            path = (self.workspace / str(report_path)).resolve()
+            try:
+                path.relative_to(reports_root)
+            except ValueError:
+                continue
+            if not path.is_file() or path.is_symlink():
+                continue
+            relative = path.relative_to(self.workspace).as_posix()
+            files.append(
+                {
+                    "name": path.name,
+                    "path": relative,
+                    "kind": self._workspace_kind(path),
+                    "source": "report",
+                    "size": path.stat().st_size,
+                    "href": f"/{quote(relative, safe='/')}",
+                }
+            )
+
+        upload_target = str(payload.get("folderMap", {}).get("sourceAssets", FOLDER_MAP["sourceAssets"]))
+        self._resolve_project_file(project_id, upload_target)
+        return {
+            "projectId": project_id,
+            "files": files,
+            "uploadTarget": Path(upload_target).as_posix(),
+            "acceptedImageTypes": sorted({mime for values in IMAGE_UPLOAD_TYPES.values() for mime in values}),
+            "truncated": len(files) >= MAX_WORKSPACE_FILES,
+        }
+
+    def resolve_project_file(self, project_id: str, relative_path: str | Path) -> Path:
+        target = self._resolve_project_file(project_id, relative_path)
+        if not target.is_file() or target.is_symlink():
+            raise FileNotFoundError("프로젝트 파일을 찾을 수 없습니다.")
+        return target
+
+    @staticmethod
+    def _valid_image_signature(extension: str, body: bytes) -> bool:
+        if extension == ".png":
+            return body.startswith(b"\x89PNG\r\n\x1a\n")
+        if extension in {".jpg", ".jpeg"}:
+            return body.startswith(b"\xff\xd8\xff")
+        if extension == ".gif":
+            return body.startswith((b"GIF87a", b"GIF89a"))
+        if extension == ".webp":
+            return len(body) >= 12 and body.startswith(b"RIFF") and body[8:12] == b"WEBP"
+        return False
+
+    def save_uploaded_image(
+        self,
+        project_id: str,
+        filename: str,
+        content_type: str,
+        body: bytes,
+    ) -> dict[str, Any]:
+        if not isinstance(filename, str) or not filename or len(filename) > 160:
+            raise ValueError("업로드 파일명이 올바르지 않습니다.")
+        if Path(filename).name != filename or filename in {".", ".."}:
+            raise ValueError("파일명에는 폴더 경로를 넣을 수 없습니다.")
+        extension = Path(filename).suffix.casefold()
+        if extension not in IMAGE_UPLOAD_TYPES:
+            raise ValueError("PNG, JPG, GIF, WEBP 이미지만 업로드할 수 있습니다.")
+        normalized_type = str(content_type).split(";", 1)[0].strip().casefold()
+        if normalized_type not in IMAGE_UPLOAD_TYPES[extension]:
+            raise ValueError("파일 확장자와 이미지 형식이 일치하지 않습니다.")
+        if not self._valid_image_signature(extension, body):
+            raise ValueError("이미지 파일 형식 시그니처를 확인할 수 없습니다.")
+
+        payload = self.get_project(project_id)
+        upload_target = str(payload.get("folderMap", {}).get("sourceAssets", FOLDER_MAP["sourceAssets"]))
+        directory = self._resolve_project_file(project_id, upload_target)
+        directory.mkdir(parents=True, exist_ok=True)
+        if directory.is_symlink():
+            raise ValueError("심볼릭 링크 폴더에는 업로드할 수 없습니다.")
+        target = self._resolve_project_file(project_id, Path(upload_target) / filename)
+        try:
+            with target.open("xb") as stream:
+                stream.write(body)
+        except FileExistsError as exc:
+            raise FileExistsError(f"같은 이름의 프로젝트 파일이 이미 있습니다: {filename}") from exc
+        except Exception:
+            if target.exists():
+                target.unlink()
+            raise
+        return self._project_file_entry(project_id, target)
 
     def discover_legacy_projects(self) -> list[dict[str, str]]:
         root = self.workspace / "detail-page" / "projects"

@@ -77,3 +77,12 @@
 - 1회 발생: 호환 CLI로 실행한 한 줄 스모크 테스트가 60초 동안 이벤트를 내지 않고 전역 MCP 자식 프로세스를 유지해 제한 시간 후 해당 프로세스 트리만 종료했다.
 - 방지: 자동 실행은 Codex 인증을 유지하면서 `--ignore-user-config --ephemeral`로 전역 모델·MCP 설정과 세션 저장을 격리한다. 같은 한 줄 스모크 테스트는 6.1초에 JSONL 완료 이벤트를 반환했다.
 - 회귀 테스트: `tests/plugin/test_codex_runner.py`
+
+## WORKFLOW-UI-NULL-METRIC-ZERO-001
+
+- 반복 횟수: 1
+- 상태: 수정 및 회귀 방지 구현
+- 원인: 후보 카드의 선택적 가격·마진 포매터가 `Number(null)`과 `Number("")`을 0으로 변환해 미검증 값을 실제 0원·0.0%처럼 표시했다.
+- 1회 발생: 2026-07-19 깔창 프로젝트 상품·가격 선택 화면의 브라우저 QA에서 판매가·수익률이 `null`인 `PRICE_REVIEW_BLOCKED` 후보가 `0원`, `0.0%`로 노출됐다.
+- 방지: 선택적 숫자 포매터는 `null`, `undefined`, 빈 문자열을 숫자 변환 전에 차단하고 `확인 대기`로 표시한다. 실제 숫자 0만 `0원`·`0.0%`로 표시한다.
+- 회귀 테스트: `coupang-workflow-ui/assets/react-app/src/workflow.test.js`

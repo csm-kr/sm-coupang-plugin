@@ -126,6 +126,36 @@ def test_discover_legacy_workspaces_exposes_existing_detail_page_folders_read_on
     assert (legacy / "keep.txt").read_text(encoding="utf-8") == "legacy"
 
 
+def test_project_workspace_lists_preview_files_and_safely_saves_source_images(tmp_path: Path):
+    store = load_module().ProjectStore(tmp_path)
+    project = store.create_project("summer-mask-001", "여름 스포츠 마스크", "coupang", "high-markup")
+    project_root = tmp_path / "commerce-project" / "projects" / "summer-mask-001"
+    html = project_root / "50-detail-page" / "html" / "detail-page.html"
+    html.write_text("<html><body>미리보기</body></html>", encoding="utf-8")
+    report = tmp_path / "reports" / "2026" / "2026-07-19" / "sample" / "report.html"
+    report.parent.mkdir(parents=True)
+    report.write_text("<html><body>보고서</body></html>", encoding="utf-8")
+    store.register_report(project["project"]["id"], report)
+
+    workspace = store.list_workspace_files("summer-mask-001")
+    assert workspace["uploadTarget"] == "40-assets/source"
+    assert any(item["path"] == "50-detail-page/html/detail-page.html" for item in workspace["files"])
+    assert any(item["source"] == "report" for item in workspace["files"])
+    assert store.resolve_project_file("summer-mask-001", "50-detail-page/html/detail-page.html") == html
+
+    png = b"\x89PNG\r\n\x1a\n" + b"source-image"
+    uploaded = store.save_uploaded_image("summer-mask-001", "front-view.png", "image/png", png)
+    assert uploaded["path"] == "40-assets/source/front-view.png"
+    assert (project_root / uploaded["path"]).read_bytes() == png
+
+    with pytest.raises(FileExistsError):
+        store.save_uploaded_image("summer-mask-001", "front-view.png", "image/png", png)
+    with pytest.raises(ValueError, match="폴더 경로"):
+        store.save_uploaded_image("summer-mask-001", "../outside.png", "image/png", png)
+    with pytest.raises(ValueError, match="형식"):
+        store.save_uploaded_image("summer-mask-001", "fake.jpg", "image/jpeg", png)
+
+
 def test_project_state_schema_and_template_are_machine_readable():
     schema = json.loads(
         (ROOT / "commerce-project" / "schema" / "project-state.schema.json").read_text(encoding="utf-8")
