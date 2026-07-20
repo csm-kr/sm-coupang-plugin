@@ -60,10 +60,15 @@ def build_chrome_args(*, port: int, profile_dir: Path) -> list[str]:
     ]
 
 
-def build_harness_env(endpoint: str, base: dict[str, str] | None = None) -> dict[str, str]:
+def build_harness_env(
+    endpoint: str,
+    base: dict[str, str] | None = None,
+    *,
+    session_name: str,
+) -> dict[str, str]:
     env = dict(os.environ if base is None else base)
-    env.pop("BU_NAME", None)
     env.pop("BU_CDP_WS", None)
+    env["BU_NAME"] = session_name
     env["BU_CDP_URL"] = endpoint
     return env
 
@@ -86,14 +91,32 @@ def run_harness(executable: str, script: bytes, env: dict[str, str]) -> int:
     child_env = dict(env)
     child_env["PYTHONUTF8"] = "1"
     child_env["PYTHONIOENCODING"] = "utf-8"
-    result = subprocess.run(
-        [executable],
-        input=script,
-        text=False,
-        env=child_env,
-        check=False,
-    )
-    return int(result.returncode)
+    result = None
+    cleanup_returncode = 1
+    try:
+        result = subprocess.run(
+            [executable],
+            input=script,
+            text=False,
+            env=child_env,
+            check=False,
+        )
+    finally:
+        for attempt in range(3):
+            cleanup = subprocess.run(
+                [executable, "--reload"],
+                stdin=subprocess.DEVNULL,
+                env=child_env,
+                check=False,
+            )
+            cleanup_returncode = int(cleanup.returncode)
+            if cleanup_returncode == 0:
+                break
+            if attempt < 2:
+                time.sleep(0.2)
+    if result is not None and result.returncode:
+        return int(result.returncode)
+    return cleanup_returncode
 
 
 def wait_for_cdp(endpoint: str, process: subprocess.Popen, timeout: float) -> None:
@@ -154,7 +177,14 @@ def main() -> int:
         )
         try:
             wait_for_cdp(endpoint, process, args.startup_timeout)
-            return run_harness(harness, script, build_harness_env(endpoint))
+            return run_harness(
+                harness,
+                script,
+                build_harness_env(
+                    endpoint,
+                    session_name=f"domeggook-{port}",
+                ),
+            )
         finally:
             stop_owned_process(process)
 

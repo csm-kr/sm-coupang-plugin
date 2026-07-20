@@ -7,10 +7,10 @@
     "sourcingMode": "high-markup",
     "status": "active",
     "createdAt": "2026-07-17T14:03:30Z",
-    "updatedAt": "2026-07-20T02:00:37Z"
+    "updatedAt": "2026-07-20T02:16:07Z"
   },
   "workflow": {
-    "currentStage": "sourcing",
+    "currentStage": "product-planning",
     "completedStages": [],
     "blockedReason": "SOURCING_HEADLESS_BROWSER_RUNTIME_BLOCKED"
   },
@@ -36,8 +36,8 @@
       "inputs": {},
       "completed": false,
       "approved": false,
-      "priorStageConfirmed": false,
-      "priorStageConfirmedAt": null
+      "priorStageConfirmed": true,
+      "priorStageConfirmedAt": "2026-07-20T02:16:06.950Z"
     },
     "content-planning": {
       "inputs": {},

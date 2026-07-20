@@ -1,4 +1,4 @@
 interface:
   display_name: "쿠팡 제품기획"
-  short_description: "저별점 리뷰를 SKU 근거·소구·1차/2차 검증으로 연결"
-  default_prompt: "Use $coupang-product-planning to turn approved sourcing evidence into a review-led, evidence-bounded product plan."
+  short_description: "공급처·경쟁 리뷰 조사 후 오퍼를 함께 결정하는 제품기획"
+  default_prompt: "$coupang-product-planning으로 공급처 상세 URL 하나에서 공급처 사실과 쿠팡 저별점 리뷰를 먼저 조사하고, 결과를 바탕으로 나와 오퍼를 결정해 제품기획을 만들어줘."

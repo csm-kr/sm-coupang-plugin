@@ -54,10 +54,11 @@
 
 ## SOURCING-BROWSER-FOCUS-DEPENDENCY-001
 
-- 반복 횟수: 1
-- 상태: 수정 및 회귀 방지 구현
+- 반복 횟수: 2
+- 상태: 2회차 재발 확인·사용자 탭 정리 완료·데몬 격리 회귀 수정 대기
 - 원인: 도매꾹 Browser Use가 사용자의 기존 Chrome 원격 디버깅 세션에 연결하고 쿠팡 `nodriver`가 `headless=False`로 새 창을 열어, 소싱 중 활성 창과 키보드 포커스가 바뀌고 사용자의 병행 작업을 방해했다.
 - 1회 발생: 2026-07-20 사용자가 도매꾹·쿠팡 수집 중 포커스가 맞지 않아 다른 작업이 방해된다고 보고.
+- 2회 발생: 2026-07-20 제품기획 검색 검증에서 임시 headless Chrome용 `BU_CDP_URL`을 전달했지만 기존 Browser Harness 데몬의 사용자 Chrome에 도매꾹·상세 이미지·쿠팡 검색 탭이 생성되어 사용자가 브라우저가 계속 열린다고 보고. 작업 탭은 즉시 전부 닫고 추가 조사를 중단했다.
 - 방지: 도매꾹은 별도 임시 프로필의 로컬 headless Chrome에 Browser Harness를 연결하고, 쿠팡은 `headless=True`의 임시 `nodriver` 세션을 사용한다. 기존 Chrome에는 연결하지 않으며 실패 시 표시형 브라우저로 자동 전환하지 않는다.
 - 회귀 테스트: `coupang-product-sourcing/tests/test_evidence_contract.py`
 

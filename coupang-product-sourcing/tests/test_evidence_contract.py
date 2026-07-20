@@ -240,14 +240,18 @@ def test_browser_harness_launcher_builds_focus_free_headless_chrome_contract(tmp
     profile_dir = tmp_path / "profile"
 
     args = mod.build_chrome_args(port=9333, profile_dir=profile_dir)
-    env = mod.build_harness_env("http://127.0.0.1:9333", {"BU_NAME": "old", "BU_CDP_WS": "ws://old"})
+    env = mod.build_harness_env(
+        "http://127.0.0.1:9333",
+        {"BU_NAME": "old", "BU_CDP_WS": "ws://old"},
+        session_name="domeggook-9333",
+    )
 
     assert "--headless=new" in args
     assert "--remote-debugging-port=9333" in args
     assert f"--user-data-dir={profile_dir}" in args
     assert "--start-maximized" not in args
     assert env["BU_CDP_URL"] == "http://127.0.0.1:9333"
-    assert "BU_NAME" not in env
+    assert env["BU_NAME"] == "domeggook-9333"
     assert "BU_CDP_WS" not in env
 
 
@@ -263,13 +267,44 @@ def test_browser_harness_launcher_preserves_utf8_stdin_as_bytes(monkeypatch):
     monkeypatch.setattr(mod.subprocess, "run", fake_run)
 
     payload = mod.read_script_bytes(io.BytesIO(script))
-    result = mod.run_harness("browser-harness", payload, {"BU_CDP_URL": "http://127.0.0.1:9333"})
+    result = mod.run_harness(
+        "browser-harness",
+        payload,
+        {"BU_CDP_URL": "http://127.0.0.1:9333", "BU_NAME": "domeggook-9333"},
+    )
 
     assert result == 0
     assert calls[0][1]["input"] == script
     assert calls[0][1]["text"] is False
     assert calls[0][1]["env"]["PYTHONUTF8"] == "1"
     assert calls[0][1]["env"]["PYTHONIOENCODING"] == "utf-8"
+    assert calls[1][0] == ["browser-harness", "--reload"]
+    assert calls[1][1]["env"]["BU_NAME"] == "domeggook-9333"
+
+
+def test_browser_harness_launcher_retries_named_daemon_cleanup(monkeypatch):
+    mod = load("run_headless_browser_harness")
+    returncodes = iter((0, 1, 0))
+    calls = []
+
+    def fake_run(argv, **kwargs):
+        calls.append((argv, kwargs))
+        return type("Result", (), {"returncode": next(returncodes)})()
+
+    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+    monkeypatch.setattr(mod.time, "sleep", lambda _seconds: None)
+
+    result = mod.run_harness(
+        "browser-harness",
+        b"print('ok')\n",
+        {"BU_CDP_URL": "http://127.0.0.1:9333", "BU_NAME": "domeggook-9333"},
+    )
+
+    assert result == 0
+    assert [call[0] for call in calls[1:]] == [
+        ["browser-harness", "--reload"],
+        ["browser-harness", "--reload"],
+    ]
 
 
 def test_browser_harness_launcher_normalizes_windows_cp949_pipe_to_utf8():
