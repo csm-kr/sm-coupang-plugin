@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   PROJECT_ID_PATTERN,
   STAGES,
+  actualDomeggookSamples,
+  actualSourcingPairs,
   buildCodexPrompt,
   canCompleteStage,
   confirmSourcingSelection,
@@ -17,7 +19,10 @@ import {
   selectSourcingCandidate,
   shouldRefreshProjectAfterRun,
   sourcingReportJsonHrefs,
+  sourcingReportMatchesRun,
+  sourcingResultState,
   stageActionCopy,
+  setPriorStageConfirmation,
   setStageApproval,
   setStageCompleted,
   updateStageInput,
@@ -181,7 +186,7 @@ function StageRail({ progress, selectedId, onSelect }) {
           className={`stage-item ${stage.status} ${selectedId === stage.id ? "selected" : ""}`}
         >
           <span className="stage-number">{stage.complete ? "✓" : stage.step}</span>
-          <span><strong>{stage.shortTitle}</strong><small>{stage.status === "locked" ? "앞 단계 대기" : AVAILABILITY[stage.availability][0]}</small></span>
+          <span><strong>{stage.shortTitle}</strong><small>{stage.status === "locked" ? "앞 단계 대기" : stage.status === "confirmed" ? "사용자 완료 확인" : AVAILABILITY[stage.availability][0]}</small></span>
         </button>
       ))}
     </nav>
@@ -221,6 +226,7 @@ function FlowSummary({ stage, run, runtime, starting, onStart }) {
         </button>
       )}
       {copy.action === "locked" && <span className="flow-summary-locked">잠김</span>}
+      {copy.action === "confirmed" && <span className="flow-summary-confirmed">완료 확인</span>}
     </section>
   );
 }
@@ -241,6 +247,129 @@ function FormField({ input, value, disabled, onChange }) {
     </div>
   );
   return <label className="field-label" htmlFor={id}><span>{input.label}<b>{input.required ? "필수" : "선택"}</b></span>{control}</label>;
+}
+
+function SourcingResultPanel({ project, run, onContinue }) {
+  const [report, setReport] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const reportKey = (project.links?.reportRuns ?? []).join("|");
+  const runReportKey = (run?.artifacts ?? []).join("|");
+  const state = sourcingResultState(run);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadResult() {
+      if (!["completed", "failed"].includes(state.mode)) return;
+      setLoading(true);
+      setError("");
+      const reportPaths = state.mode === "failed" && (run?.artifacts ?? []).length > 0
+        ? run.artifacts
+        : project.links?.reportRuns;
+      const hrefs = sourcingReportJsonHrefs(reportPaths);
+      const settled = await Promise.allSettled(hrefs.map(async (href) => (
+        normalizeSourcingReport(await api(href), href)
+      )));
+      const reports = settled
+        .filter((result) => result.status === "fulfilled")
+        .map((result) => result.value);
+      const loaded = state.mode === "failed"
+        ? reports.find((item) => sourcingReportMatchesRun(item, run))
+        : reports.find((item) => item.status !== "UNKNOWN" || item.candidates.length > 0);
+      if (!cancelled) {
+        setReport(loaded ?? null);
+        setError(loaded ? "" : "이번 실행의 소싱 보고서를 읽지 못했습니다.");
+        setLoading(false);
+      }
+    }
+    loadResult().catch((loadError) => {
+      if (!cancelled) {
+        setError(loadError.message);
+        setLoading(false);
+      }
+    });
+    return () => { cancelled = true; };
+  }, [project.project.id, reportKey, runReportKey, run?.startedAt, state.mode]);
+
+  if (state.mode === "running") {
+    return <section className="sourcing-result-state running" aria-live="polite"><strong>진행중입니다.</strong></section>;
+  }
+  if (!["completed", "failed"].includes(state.mode)) {
+    return <section className={`sourcing-result-state ${state.mode}`} aria-live="polite"><strong>{state.message}</strong></section>;
+  }
+  if (loading) {
+    return <section className="sourcing-result-state loading" aria-live="polite"><strong>실제 결과를 불러오는 중입니다.</strong></section>;
+  }
+
+  const pairs = actualSourcingPairs(report);
+  const samples = actualDomeggookSamples(report);
+  const artifactPath = (run?.artifacts ?? []).find((path) => path.endsWith(".html"))
+    ?? report?.reportPath?.replace(/\.json$/i, ".html")
+    ?? "";
+  const artifactHref = reportHref(artifactPath);
+  const selectableCount = pairs.filter((pair) => pair.selectable).length;
+
+  if (state.mode === "failed" || pairs.length === 0) {
+    const runFailed = state.mode === "failed";
+    const failureMessage = runFailed
+      ? state.message
+      : report?.failureReason || error || "설정 조건을 충족한 pair가 확인되지 않았습니다.";
+    return (
+      <section className="sourcing-failure" aria-labelledby="sourcing-failure-title">
+        <div className="sourcing-results-head">
+          <div><p className="eyebrow">{runFailed ? "FAILED" : "BLOCKED"}</p><h3 id="sourcing-failure-title">{runFailed ? "소싱 실패" : "소싱 검증 미완료"}</h3></div>
+          <span><strong>{samples.length}개</strong> 샘플 기록</span>
+        </div>
+        <div className="sourcing-failure-reason"><small>실패 이유</small><strong>{failureMessage}</strong></div>
+        <div className="sourcing-samples">
+          <h4>도매꾹 확인 샘플</h4>
+          {samples.length > 0 ? (
+            <ul>{samples.map((sample) => (
+              <li key={`${sample.reportPath}:${sample.candidateId || sample.supplierUrl}`}>
+                <a href={sample.supplierUrl} target="_blank" rel="noreferrer">{sample.productName || sample.candidateId}</a>
+                <span>{[sample.category, sample.rank ? `${sample.rank}위` : "", formatOptionalWon(sample.unitSupplyPrice)].filter(Boolean).join(" · ")}</span>
+              </li>
+            ))}</ul>
+          ) : <p>{error || "이번 실행에서 기록된 도매꾹 샘플이 없습니다."}</p>}
+        </div>
+        {artifactHref && <div className="sourcing-result-actions"><a className="ghost-button" href={artifactHref} target="_blank" rel="noreferrer">{runFailed ? "실패 보고서 보기" : "조사 보고서 보기"}</a></div>}
+      </section>
+    );
+  }
+
+  return (
+    <section className="sourcing-results" aria-labelledby="sourcing-results-title">
+      <div className="sourcing-results-head">
+        <div><p className="eyebrow">RESULT</p><h3 id="sourcing-results-title">실제 결과</h3></div>
+        <span><strong>{pairs.length}개</strong> pair 발견</span>
+      </div>
+      <div className="sourcing-result-grid">
+        {pairs.map((pair) => (
+            <article className="sourcing-result-card" key={`${pair.reportPath}:${pair.candidateId}`}>
+              <div>
+                <small>도매꾹</small>
+                <a href={pair.supplierUrl} target="_blank" rel="noreferrer">{pair.productName || "도매꾹 상품"}</a>
+                <strong>{formatOptionalWon(pair.unitSupplyPrice)}</strong>
+              </div>
+              <span aria-hidden="true">↔</span>
+              <div>
+                <small>쿠팡</small>
+                <a href={pair.coupangUrl} target="_blank" rel="noreferrer">{pair.coupangProductName || "쿠팡 판매 상품"}</a>
+                <strong>{formatOptionalWon(pair.currentSalePrice)}</strong>
+              </div>
+              <footer>
+                <b>{formatOptionalMultiple(pair.markupMultiple)}</b>
+                {pair.salesEvidenceLabel && <em>{pair.salesEvidenceLabel}</em>}
+              </footer>
+            </article>
+        ))}
+      </div>
+      <div className="sourcing-result-actions">
+        {artifactHref && <a className="ghost-button" href={artifactHref} target="_blank" rel="noreferrer">실제 보고서 보기</a>}
+        {selectableCount > 0 && <button className="complete-button" type="button" onClick={onContinue}>상품 선택으로 이동</button>}
+      </div>
+    </section>
+  );
 }
 
 function CandidateDecisionPanel({ project, disabled, onSelect, onPriceChange, onConfirm, onReturnToSourcing }) {
@@ -460,7 +589,7 @@ function WorkspacePreview({ file, onClose }) {
   );
 }
 
-function WorkspaceViewer({ project, onToast }) {
+function WorkspaceViewer({ project, onToast, variant = "explorer", refreshKey = 0, onAssetsChanged }) {
   const [workspace, setWorkspace] = useState({ files: [], uploadTarget: "40-assets/source" });
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -483,7 +612,7 @@ function WorkspaceViewer({ project, onToast }) {
   useEffect(() => {
     setPreviewFile(null);
     loadFiles();
-  }, [project.project.id, reportKey]);
+  }, [project.project.id, reportKey, refreshKey]);
 
   async function uploadFiles(fileList) {
     const files = [...fileList];
@@ -502,6 +631,7 @@ function WorkspaceViewer({ project, onToast }) {
     const failed = results.filter((result) => result.status === "rejected");
     if (succeeded.length > 0) {
       await loadFiles();
+      onAssetsChanged?.();
       onToast(`${succeeded.length}개 이미지를 ${workspace.uploadTarget}에 저장했습니다.`);
     }
     if (failed.length > 0) onToast(failed[0].reason?.message || `${failed.length}개 이미지 업로드에 실패했습니다.`);
@@ -509,7 +639,13 @@ function WorkspaceViewer({ project, onToast }) {
     setDragging(false);
   }
 
-  const groups = workspace.files.reduce((result, file) => {
+  const sourceImages = workspace.files.filter((file) => (
+    file.source === "project"
+    && file.kind === "image"
+    && (file.path === workspace.uploadTarget || file.path.startsWith(`${workspace.uploadTarget}/`))
+  ));
+  const visibleFiles = variant === "stage-assets" ? sourceImages : workspace.files;
+  const groups = visibleFiles.reduce((result, file) => {
     const group = file.source === "report" ? "연결된 보고서" : file.path.includes("/") ? file.path.split("/", 1)[0] : "프로젝트 루트";
     if (!result[group]) result[group] = [];
     result[group].push(file);
@@ -517,9 +653,12 @@ function WorkspaceViewer({ project, onToast }) {
   }, {});
 
   return (
-    <section className="side-card workspace-viewer">
-      <div className="side-card-title"><p className="eyebrow">PROJECT EXPLORER</p><h3>작업 파일과 미리보기</h3></div>
-      <p className="workspace-viewer-help">HTML·이미지 미리보기를 이 작업창 안에서 확인합니다.</p>
+    <section className={`${variant === "stage-assets" ? "stage-asset-workspace" : "side-card"} workspace-viewer`}>
+      <div className="side-card-title">
+        <p className="eyebrow">{variant === "stage-assets" ? "PRODUCT ASSETS" : "PROJECT EXPLORER"}</p>
+        <h3>{variant === "stage-assets" ? "이미지 드래그앤드롭과 미리보기" : "작업 파일과 미리보기"}</h3>
+      </div>
+      <p className="workspace-viewer-help">{variant === "stage-assets" ? "이미지 경로를 입력하지 마세요. 파일을 놓으면 원본 자산 폴더에 저장되고, 폴더 안 기존 이미지도 바로 미리볼 수 있습니다." : "HTML·이미지 미리보기와 JSON·텍스트 확인을 이 작업창 안에서 처리합니다."}</p>
       <label
         className={`asset-dropzone ${dragging ? "dragging" : ""} ${uploading ? "uploading" : ""}`}
         onDragEnter={(event) => { event.preventDefault(); setDragging(true); }}
@@ -528,24 +667,37 @@ function WorkspaceViewer({ project, onToast }) {
         onDrop={(event) => { event.preventDefault(); uploadFiles(event.dataTransfer.files); }}
       >
         <input type="file" accept=".png,.jpg,.jpeg,.gif,.webp" multiple disabled={uploading} onChange={(event) => { uploadFiles(event.target.files); event.target.value = ""; }} />
-        <span>{uploading ? "저장 중…" : dragging ? "여기에 놓으세요" : "이미지 드래그앤드롭"}</span>
-        <small>{workspace.uploadTarget}</small>
+        <span>{uploading ? "저장 중…" : dragging ? "여기에 놓으세요" : "이미지를 끌어다 놓거나 클릭해 선택"}</span>
+        <small>PNG·JPG·GIF·WEBP · 파일당 20MB 이하</small>
       </label>
-      <div className="workspace-file-tree" aria-label="프로젝트 파일">
-        {loading && <p className="empty-note">파일을 불러오는 중…</p>}
-        {!loading && workspace.files.length === 0 && <p className="empty-note">아직 프로젝트 파일이 없습니다.</p>}
-        {!loading && Object.entries(groups).map(([group, files]) => (
-          <details key={group} open>
-            <summary><span>▾</span>{group}<small>{files.length}</small></summary>
-            {files.map((file) => (
-              <button key={`${file.source}:${file.path}`} type="button" disabled={!['html', 'image', 'json', 'text'].includes(file.kind)} onClick={() => setPreviewFile(file)} title={file.path}>
-                <i>{file.kind === "image" ? "▧" : file.kind === "html" ? "◇" : file.kind === "json" ? "{}" : "·"}</i>
-                <span><strong>{file.name}</strong><small>{formatFileSize(file.size)}</small></span>
-              </button>
-            ))}
-          </details>
-        ))}
-      </div>
+      {variant === "stage-assets" ? (
+        <div className="asset-preview-grid" aria-label="원본 자산 폴더 이미지 미리보기">
+          {loading && <p className="empty-note">폴더 이미지를 불러오는 중…</p>}
+          {!loading && sourceImages.length === 0 && <p className="empty-note">아직 이미지가 없습니다. 실제 SKU와 라벨 사진을 여기에 놓으세요.</p>}
+          {!loading && sourceImages.map((file) => (
+            <button key={`${file.source}:${file.path}`} type="button" onClick={() => setPreviewFile(file)} title={`${file.name} 크게 보기`}>
+              <img src={file.href} alt={`${file.name} 자산 썸네일`} />
+              <span><strong>{file.name}</strong><small>{formatFileSize(file.size)}</small></span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="workspace-file-tree" aria-label="프로젝트 파일">
+          {loading && <p className="empty-note">파일을 불러오는 중…</p>}
+          {!loading && workspace.files.length === 0 && <p className="empty-note">아직 프로젝트 파일이 없습니다.</p>}
+          {!loading && Object.entries(groups).map(([group, files]) => (
+            <details key={group} open>
+              <summary><span>▾</span>{group}<small>{files.length}</small></summary>
+              {files.map((file) => (
+                <button key={`${file.source}:${file.path}`} type="button" disabled={!['html', 'image', 'json', 'text'].includes(file.kind)} onClick={() => setPreviewFile(file)} title={file.path}>
+                  <i>{file.kind === "image" ? "▧" : file.kind === "html" ? "◇" : file.kind === "json" ? "{}" : "·"}</i>
+                  <span><strong>{file.name}</strong><small>{formatFileSize(file.size)}</small></span>
+                </button>
+              ))}
+            </details>
+          ))}
+        </div>
+      )}
       {previewFile && <WorkspacePreview file={previewFile} onClose={() => setPreviewFile(null)} />}
     </section>
   );
@@ -609,6 +761,7 @@ export default function App() {
   const [runtime, setRuntime] = useState(null);
   const [run, setRun] = useState(null);
   const [startingRun, setStartingRun] = useState(false);
+  const [workspaceRevision, setWorkspaceRevision] = useState(0);
   const saveTimer = useRef(null);
 
   const progress = useMemo(() => project ? deriveProgress(project) : null, [project]);
@@ -810,6 +963,17 @@ export default function App() {
     }
   }
 
+  function continueFromSourcing() {
+    try {
+      const next = setStageCompleted(project, "sourcing", true);
+      commit(next);
+      setSelectedStageId("handoff");
+      setToast("실제 소싱 결과를 확인했습니다. 상품과 가격을 선택해 주세요.");
+    } catch (error) {
+      setToast(error.message);
+    }
+  }
+
   if (loading) return <main className="loading-screen"><div className="loader" /><p>프로젝트를 불러오는 중입니다…</p></main>;
   if (connectionError) return (
     <main className="error-screen"><div className="brand-mark">CF</div><p className="eyebrow">LOCAL SERVER</p><h1>프로젝트 서버에 연결할 수 없어요</h1><p>{connectionError}</p><button className="primary-button" type="button" onClick={() => loadWorkspace()}>다시 연결</button></main>
@@ -877,7 +1041,18 @@ export default function App() {
                 onStart={startCodex}
               />
 
-              {selectedStage.status === "locked" && <div className="locked-banner"><span aria-hidden="true">!</span><p><strong>아직 이 단계를 실행할 수 없어요.</strong><br />현재 단계의 필수 입력과 승인을 먼저 완료해 주세요.</p></div>}
+              {selectedStage.priorStageConfirmation && (selectedStage.status === "locked" || record.priorStageConfirmed) && (
+                <label className={`prior-stage-confirmation ${record.priorStageConfirmed ? "checked" : ""}`}>
+                  <input
+                    type="checkbox"
+                    checked={record.priorStageConfirmed === true}
+                    onChange={(event) => commit(setPriorStageConfirmation(project, selectedStage.id, event.target.checked))}
+                  />
+                  <span className="custom-check">✓</span>
+                  <span><strong>앞 단계 완료 확인</strong><small>{selectedStage.priorStageConfirmation} 이 확인은 외부 작업의 품질 검증을 대신하지 않으며, Codex가 근거를 다시 확인합니다.</small></span>
+                </label>
+              )}
+              {selectedStage.status === "locked" && <div className="locked-banner"><span aria-hidden="true">!</span><p><strong>아직 이 단계를 실행할 수 없어요.</strong><br />현재 단계의 필수 입력과 승인을 먼저 완료하거나, 상품기획이라면 위에서 앞 단계 완료를 확인해 주세요.</p></div>}
 
               <div className="section-title"><span>01</span><div><h3>{selectedStage.id === "handoff" ? "후보 확인과 선택" : "이번 단계에 필요한 데이터"}</h3><p>{selectedStage.id === "handoff" ? "소싱 결과를 비교하고 다음 단계로 넘길 상품 하나를 고릅니다." : "아는 값만 정확히 입력하고, 모르면 비워 두세요."}</p></div></div>
               {selectedStage.id === "handoff" ? (
@@ -895,42 +1070,65 @@ export default function App() {
                 </div>
               )}
 
+              {selectedStage.id === "product-planning" && selectedStage.status !== "locked" && (
+                <aside className="planning-research-note">
+                  <span aria-hidden="true">⌕</span>
+                  <div><strong>경쟁사 저평점 리뷰는 Codex가 조사합니다.</strong><p>사용자는 리뷰 URL이나 조사 파일을 넣지 않습니다. Codex가 공개된 별점 1~3점 리뷰의 URL·조사시각·표본 범위와 반복 불만을 근거로 남깁니다.</p></div>
+                </aside>
+              )}
+
+              {selectedStage.assetInput && selectedStage.status !== "locked" && (
+                <WorkspaceViewer
+                  project={project}
+                  onToast={setToast}
+                  variant="stage-assets"
+                  refreshKey={workspaceRevision}
+                  onAssetsChanged={() => setWorkspaceRevision((value) => value + 1)}
+                />
+              )}
+
               {selectedStage.status !== "locked" && selectedStage.id !== "handoff" && (
                 <CodexConsole runtime={runtime} run={run} starting={startingRun} onStart={startCodex} onStop={stopCodex} />
               )}
 
-              <div className="section-title"><span>02</span><div><h3>결과 확인과 승인</h3><p>Codex가 만든 근거와 아래 완료 기준을 함께 확인하세요.</p></div></div>
-              <ul className="acceptance-list">{selectedStage.acceptance.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul>
+              {selectedStage.id === "sourcing" ? (
+                <SourcingResultPanel project={project} run={run} onContinue={continueFromSourcing} />
+              ) : (
+                <>
+                  <div className="section-title"><span>02</span><div><h3>결과 확인과 승인</h3><p>현재 단계의 실제 결과와 승인 조건을 확인하세요.</p></div></div>
+                  <ul className="acceptance-list">{selectedStage.acceptance.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul>
 
-              {selectedStage.approvalGate && selectedStage.id !== "handoff" && (
-                <label className={`approval-box ${record.approved ? "checked" : ""}`}>
-                  <input type="checkbox" checked={record.approved} disabled={selectedStage.status === "locked"} onChange={(event) => commit(setStageApproval(project, selectedStage.id, event.target.checked))} />
-                  <span className="custom-check">✓</span><span><strong>사용자 승인 게이트</strong><small>{selectedStage.approvalGate}</small></span>
-                </label>
+                  {selectedStage.approvalGate && selectedStage.id !== "handoff" && (
+                    <label className={`approval-box ${record.approved ? "checked" : ""}`}>
+                      <input type="checkbox" checked={record.approved} disabled={selectedStage.status === "locked"} onChange={(event) => commit(setStageApproval(project, selectedStage.id, event.target.checked))} />
+                      <span className="custom-check">✓</span><span><strong>사용자 승인 게이트</strong><small>{selectedStage.approvalGate}</small></span>
+                    </label>
+                  )}
+
+                  <label className="blocker-field">
+                    <span>현재 차단 사유 <small>선택</small></span>
+                    <input value={project.workflow.blockedReason ?? ""} onChange={(event) => commit({ ...project, workflow: { ...project.workflow, blockedReason: event.target.value || null } })} placeholder="예: 실제 SKU 정면 사진이 필요함" />
+                  </label>
+
+                  {selectedStage.id !== "handoff" && <div className="stage-actions">
+                    {selectedStage.complete ? (
+                      <button className="complete-button undo" type="button" onClick={() => commit(setStageCompleted(project, selectedStage.id, false))}>완료 취소</button>
+                    ) : (
+                      <button className="complete-button" type="button" disabled={!canCompleteStage(project, selectedStage.id)} onClick={() => {
+                        const next = setStageCompleted(project, selectedStage.id, true);
+                        commit(next);
+                        const nextId = deriveProgress(next).currentStageId;
+                        if (nextId) setSelectedStageId(nextId);
+                        setToast("단계를 완료하고 다음 단계로 이동했습니다.");
+                      }}>이 단계 완료</button>
+                    )}
+                  </div>}
+                  {selectedStage.id !== "handoff" && selectedStage.missing.length > 0 && selectedStage.status === "current" && <p className="missing-note">아직 필요한 입력: {selectedStage.missing.map((input) => input.label).join(", ")}</p>}
+                </>
               )}
-
-              <label className="blocker-field">
-                <span>현재 차단 사유 <small>선택</small></span>
-                <input value={project.workflow.blockedReason ?? ""} onChange={(event) => commit({ ...project, workflow: { ...project.workflow, blockedReason: event.target.value || null } })} placeholder="예: 실제 SKU 정면 사진이 필요함" />
-              </label>
-
-              {selectedStage.id !== "handoff" && <div className="stage-actions">
-                {selectedStage.complete ? (
-                  <button className="complete-button undo" type="button" onClick={() => commit(setStageCompleted(project, selectedStage.id, false))}>완료 취소</button>
-                ) : (
-                  <button className="complete-button" type="button" disabled={!canCompleteStage(project, selectedStage.id)} onClick={() => {
-                    const next = setStageCompleted(project, selectedStage.id, true);
-                    commit(next);
-                    const nextId = deriveProgress(next).currentStageId;
-                    if (nextId) setSelectedStageId(nextId);
-                    setToast("단계를 완료하고 다음 단계로 이동했습니다.");
-                  }}>이 단계 완료</button>
-                )}
-              </div>}
-              {selectedStage.id !== "handoff" && selectedStage.missing.length > 0 && selectedStage.status === "current" && <p className="missing-note">아직 필요한 입력: {selectedStage.missing.map((input) => input.label).join(", ")}</p>}
             </section>
             <aside className="context-column">
-              <WorkspaceViewer project={project} onToast={setToast} />
+              <WorkspaceViewer project={project} onToast={setToast} refreshKey={workspaceRevision} onAssetsChanged={() => setWorkspaceRevision((value) => value + 1)} />
               <FolderMap project={project} legacy={legacy} />
             </aside>
           </div>

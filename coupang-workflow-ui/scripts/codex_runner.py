@@ -34,6 +34,41 @@ def resolve_codex_command(
     return None
 
 
+def terminate_process_tree(
+    process: Any,
+    *,
+    platform: str = os.name,
+    command_runner: Callable[..., Any] = subprocess.run,
+) -> None:
+    """Stop the launched Codex wrapper and every descendant it created."""
+    if process.poll() is not None:
+        return
+
+    pid = getattr(process, "pid", None)
+    if platform == "nt" and isinstance(pid, int) and pid > 0:
+        try:
+            result = command_runner(
+                ["taskkill", "/PID", str(pid), "/T", "/F"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                shell=False,
+                creationflags=subprocess.CREATE_NO_WINDOW,
+                check=False,
+            )
+        except (OSError, ValueError):
+            result = None
+        if result is not None and result.returncode == 0:
+            return
+
+    try:
+        process.terminate()
+    except OSError:
+        pass
+
+
 class CodexRunManager:
     """Run one non-interactive Codex task per project and retain live events in memory."""
 
@@ -43,10 +78,12 @@ class CodexRunManager:
         *,
         codex_command: str | None = None,
         process_factory: Callable[..., Any] = subprocess.Popen,
+        process_tree_terminator: Callable[[Any], None] | None = None,
     ):
         self.workspace = Path(workspace).resolve()
         self.codex_command = codex_command or resolve_codex_command()
         self.process_factory = process_factory
+        self.process_tree_terminator = process_tree_terminator or terminate_process_tree
         self._lock = threading.RLock()
         self._runs: dict[str, dict[str, Any]] = {}
         self._active_by_project: dict[str, str] = {}
@@ -145,13 +182,17 @@ class CodexRunManager:
                     return
 
             process = self.process_factory(command, **options)
+            stop_immediately = False
             with self._lock:
                 record = self._runs[run_id]
                 record["_process"] = process
                 if record["status"] == "stopping":
-                    process.terminate()
+                    stop_immediately = True
                 else:
                     record["status"] = "running"
+
+            if stop_immediately:
+                self.process_tree_terminator(process)
 
             if process.stdin is None or process.stdout is None:
                 raise RuntimeError("Codex 실행 스트림을 열지 못했습니다.")
@@ -332,7 +373,7 @@ class CodexRunManager:
             process = record["_process"]
 
         if process is not None and process.poll() is None:
-            process.terminate()
+            self.process_tree_terminator(process)
             threading.Thread(target=self._kill_later, args=(process,), daemon=True).start()
         return self.get_run(run_id)
 

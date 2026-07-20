@@ -33,6 +33,7 @@
 | ADR-021 | 공개 RDS 원칙 기반의 독립 커머스 UI 시스템 | Accepted | Implemented |
 | ADR-022 | 고배수 소싱을 판매 근거 pair 존재성 판정으로 분리 | Accepted | Implemented |
 | ADR-022 | 공급처·쿠팡 소싱 브라우저를 로컬 headless로 격리 | Accepted | Implemented |
+| ADR-023 | 상품기획 직접 진입 확인과 역할별 입력 분리 | Accepted | Implemented |
 
 `Accepted`는 결정이 유효하다는 뜻이며 구현 완료를 뜻하지 않는다. 구현 상태는 [ROADMAP](ROADMAP.md)과 함께 관리한다.
 
@@ -517,6 +518,31 @@ PowerShell 표준입력으로 Browser Harness 스크립트를 전달할 때는 U
 ### 마이그레이션
 
 기존 표시형 브라우저 실행 보고서는 당시 실행의 역사적 근거로 보존한다. 새 실행부터 도매꾹은 headless Browser Harness 실행기, 쿠팡은 headless `nodriver` 수집기를 사용하고 실행 기록의 `browser_tool`을 각각 `browser-harness-headless`, `nodriver-headless`로 남긴다.
+
+## ADR-023. 상품기획 직접 진입 확인과 역할별 입력 분리
+
+### 배경
+
+워크플로 UI 밖에서 상품·가격 선택을 이미 끝낸 프로젝트도 상품기획 화면을 사용해야 하지만, 기존 순차 게이트는 앞 단계 레코드가 완료되지 않으면 상품기획을 잠갔다. 또한 상품기획 폼이 실제 SKU 이미지 경로와 경쟁사 저평점 리뷰 경로를 사용자에게 요구해, 사용자가 제공할 제품 사실과 Codex가 조사할 시장 근거의 책임이 섞였다.
+
+### 결정
+
+- 상품기획에 `앞 단계 완료 확인`을 두고 사용자가 UI 밖의 완료를 명시적으로 확인하면 상품기획을 현재 단계로 연다.
+- 이 확인은 소싱·상품가격 단계의 `completed`·`approved`를 변경하거나 완료 단계 수에 합산하지 않는다. `coupang-product-planning`이 승인 SKU·가격·공급처 근거를 다시 검증한다.
+- 사용자는 사이즈·실측, 구성, 소재, 관리법을 각각 필수 입력한다.
+- 경쟁사 별점 1~3점 리뷰는 기존 `coupang-product-planning`이 Browser Harness로 직접 조사하고 URL·조사시각·표본 범위를 남긴다. 사용자에게 리뷰 경로나 조사 파일을 요구하지 않는다.
+- 상품기획·상세페이지·모션의 이미지 입력은 경로 필드를 제거하고 `folderMap.sourceAssets` 드래그앤드롭과 기존 폴더 썸네일·확대 미리보기로 통일한다.
+
+### 결과
+
+- 장점: 기존 프로젝트가 상태 파일을 조작하지 않고 상품기획부터 안전하게 재개할 수 있다.
+- 장점: 사용자 제공 사실, 업로드 자산, Codex 조사 근거의 책임과 출처가 분명해진다.
+- 비용: 사용자 확인으로 진입한 프로젝트는 앞 단계 완료율이 낮게 보일 수 있으며 상품기획 실행 때 근거 재검증 시간이 든다.
+- 위험: 사용자 확인을 근거 통과로 오해할 수 있으므로 UI 문구와 프롬프트에 검증 대체가 아님을 계속 표시한다.
+
+### 마이그레이션
+
+기존 `project.json`은 그대로 읽는다. 사용자가 체크한 시점부터 상품기획 레코드에 선택 필드 `priorStageConfirmed`와 `priorStageConfirmedAt`을 추가하며, 기존 `identityAssets`, `lowRatingReviews`, `sourceAssets`, `motionAssets` 입력값은 삭제하지 않지만 새 폼과 실행 입력에 사용하지 않는다.
 
 ## 결정 요약
 

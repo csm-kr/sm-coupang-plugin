@@ -51,16 +51,16 @@
 
 ## 현재 기준선
 
-- 플러그인 버전: `0.2.0+codex.20260720005143`
+- 플러그인 버전: `0.2.0+codex.20260720015552`
 - 첫 번째 자동화 단계: **소싱**
 - 현재 상태: HDB-1 `숨트임` `concept_only` 합성 모델 2장·10모듈 스토리보드·3초 GIF·반응형 HTML의 수치형 QA 완료; 실제 제작은 사람 없는 실제 SKU 원본 대기
 - 조사 도구: 도매꾹은 임시 로컬 headless Chrome에 연결한 Browser Harness, 쿠팡은 임시 headless Chrome을 여는 `nodriver` 수집기
 - 플러그인 검증: 통과
 - 프로젝트 UI: 독립 `Commerce Flow` 토큰·가로 9단계 내비게이션·현재 할 일 단일 CTA, 로컬 API·공통 프로젝트 폴더 관리자·Codex 자동 실행과 읽기 전용 내장 콘솔 구현, 360px·800px Browser Harness QA와 JSONL 런타임 스모크 통과
-- 소싱 테스트: 53개 통과, 공급조건·할인 후 실판매가·판매 근거 가격 표본·쿠팡 DOM·묶음 수량, 실제 카테고리 기본 순환과 사용자 공급가 상한·최소 가격 배수·리뷰/만족 라벨 기반 고배수 pair 회귀 테스트 포함
+- 소싱 테스트: 54개 통과, 공급조건·할인 후 실판매가·판매 근거 가격 표본·쿠팡 DOM·묶음 수량, 실제 카테고리 기본 순환과 사용자 공급가 상한·최소 가격 배수·리뷰/만족 라벨 기반 고배수 pair·실패 시 도매꾹 표본 보존 회귀 테스트 포함
 - 하니스 테스트: 46개 통과, 공통 프로젝트 AGENTS 라우팅과 ISSUE 3회 → RULE 승격 검사 포함
-- 핸드오프 프로젝트 저장소 테스트: 6개 통과
-- 플러그인 계약 테스트: 31개 통과, React 단계·실행·보고서 링크·단일 행동·접근성 로직 21개 통과, 선택 카테고리·사용자 지정 배수 pair 비교·신규 보고서 성공 게이트·초보 사용자용 프로젝트 ID 자동 생성 포함
+- 핸드오프 프로젝트 저장소 테스트: 8개 통과, 새 프로젝트의 `전체`·`5,000원`·`3배` 기본 소싱 입력 포함
+- 플러그인 계약 테스트: 36개 통과, React 단계·실행·보고서 링크·단일 행동·접근성 로직 31개 통과, 기본 소싱 입력·사용자 지정 배수 pair 비교·실행 중 단문·실행 실패와 완료 후 검증 차단의 이유·현재 도매꾹 샘플·실제 pair 결과 전환·신규 보고서 성공 게이트·초보 사용자용 프로젝트 ID 자동 생성·Windows Codex 프로세스 트리 중지 포함
 - 상세페이지 계약 테스트: 19개 통과, GIF·한글 타이포·시각 스토리보드·크롭 검증 포함
 - 대표 산출물: [승인된 HDB-1 제품기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/product-plan-draft.md) · [승인된 콘텐츠기획](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/content-plan-draft.md) · [11개 자산 기반 콘텐츠기획 v2](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/asset-backed-content-plan-v2.md) · [실제 자산·근거 인입](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/asset-evidence-intake.md) · [콘셉트 HTML·GIF 품질 프로토타입](../reports/deprecated/2026/2026-07-16/hdb1-product-planning-phase1/concept-only-prototype-report.md) · [시각 스토리보드·수치형 QA](../reports/2026/2026-07-16/hdb1-visual-storyboard-qa/report.md)
 - 개발 기준: 단계별 TDD 실행기와 `PreToolUse`·`PostToolUse`·`Stop` 훅 적용

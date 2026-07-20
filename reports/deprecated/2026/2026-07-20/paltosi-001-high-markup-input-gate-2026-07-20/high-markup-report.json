@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.2",
+  "project_id": "paltosi-001",
+  "project_name": "팔토시",
+  "run_name": "paltosi-001-high-markup-input-gate-2026-07-20",
+  "created_at": "2026-07-20T10:01:40+09:00",
+  "stage": "sourcing",
+  "status": "RESEARCH_EXPANSION_REQUIRED",
+  "run_outcome": "INPUT_VALIDATION_BLOCKED",
+  "discovery_status": "NOT_EVALUATED",
+  "confirmed_inputs": {
+    "category": "전체"
+  },
+  "thresholds": {
+    "max_unit_supply_price": null,
+    "required_sale_bundle_quantity": 1,
+    "min_current_sale_price_multiple": null,
+    "min_review_count": 1,
+    "min_satisfaction_count": 100,
+    "sales_evidence_rule": "review_or_satisfaction_badge"
+  },
+  "required_input_validation": {
+    "valid": false,
+    "missing": [
+      "max_unit_supply_price",
+      "min_current_sale_price_multiple"
+    ],
+    "conflict": {
+      "code": "REQUEST_PROJECT_INPUT_STATE_CONFLICT",
+      "request_declares_missing": [
+        "max_unit_supply_price",
+        "min_current_sale_price_multiple"
+      ],
+      "project_file_observation": {
+        "max_unit_supply_price": "5000",
+        "min_current_sale_price_multiple": "3",
+        "accepted_as_current_user_input": false,
+        "reason": "이번 요청이 두 값을 미입력으로 명시했고 사용자 승인도 없어 작업 트리의 값을 임곗값으로 채택하지 않음"
+      }
+    },
+    "defaults_applied": false
+  },
+  "research_execution": {
+    "web_collection_started": false,
+    "domeggook_requests": 0,
+    "coupang_requests": 0,
+    "candidate_count": 0,
+    "pair_count": 0,
+    "qualifying_pair_count": 0,
+    "reason": "개당 공급가 상한과 최소 가격 배수 없이는 상세 원문 단가 필터와 고배수 pair 판정을 재현할 수 없어 입력 게이트에서 안전 중단"
+  },
+  "pairs": [],
+  "discovery_rules": {
+    "comparison_unit": "도매꾹 상세 원문의 1개 공급가 ↔ 쿠팡 동일 1개 구성의 할인 후 현재 실판매가",
+    "identity_requirement": "대표·상세 이미지, 외형, 구조, 규격, 모델, 고유 문구를 대조한 완전 동일 상품만 인정",
+    "sales_evidence_requirement": "같은 쿠팡 판매상품의 리뷰 1개 이상 또는 만족 인원 100명 이상 라벨",
+    "match_rule": "사용자가 확정한 최소 가격 배수 이상인 판매 근거 pair가 하나라도 있으면 탐색 일치",
+    "lower_price_listings_do_not_disqualify": true,
+    "review_evidence_is_proxy": true
+  },
+  "blockers": [
+    {
+      "code": "MISSING_MAX_UNIT_SUPPLY_PRICE",
+      "message": "도매꾹 개당 공급가 상한이 확정되지 않음"
+    },
+    {
+      "code": "MISSING_MIN_MARKUP_MULTIPLE",
+      "message": "최소 가격 배수가 확정되지 않음"
+    },
+    {
+      "code": "REQUEST_PROJECT_INPUT_STATE_CONFLICT",
+      "message": "요청문은 미입력으로 선언하지만 project.json 작업 트리에는 미확정 값이 있어 사용자 확인 전 채택할 수 없음"
+    }
+  ],
+  "approval_gate": {
+    "sourcing_completed": false,
+    "user_approved": false,
+    "shortlist_allowed": false,
+    "handoff_allowed": false,
+    "detail_page_allowed": false
+  },
+  "resume_points": [
+    "개당 공급가 상한을 원 단위 숫자로 확정",
+    "최소 가격 배수를 0보다 큰 숫자로 확정",
+    "두 값 확인 후 도매꾹 Best 전체 TOP 150 수집과 층화 표본 30개 조사부터 재개"
+  ],
+  "next_allowed_step": "REQUIRED_THRESHOLD_CONFIRMATION",
+  "forbidden_actions_confirmed": [
+    "공급처 연락",
+    "발주",
+    "결제",
+    "상품 등록",
+    "광고 집행",
+    "상세페이지 제작"
+  ]
+}

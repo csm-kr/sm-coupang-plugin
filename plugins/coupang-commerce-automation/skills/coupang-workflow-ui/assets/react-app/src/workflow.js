@@ -10,6 +10,11 @@ export const DOMEGGOOK_BEST_CATEGORIES = [
   "스포츠/건강/식품",
   "가전/휴대폰/산업",
 ];
+export const DEFAULT_SOURCING_INPUTS = {
+  category: "전체",
+  maxUnitSupplyPrice: "5000",
+  minMarkupMultiple: "3",
+};
 
 export function createDefaultProjectId(now = new Date()) {
   const timestamp = now.toISOString().replace(/\D/g, "").slice(0, 17);
@@ -26,6 +31,13 @@ export function stageActionCopy(stage, run) {
       action: "locked",
       label: "앞 단계를 먼저 완료하세요",
       helper: "필수 입력과 승인 게이트를 통과하면 자동으로 열립니다.",
+    };
+  }
+  if (stage?.status === "confirmed") {
+    return {
+      action: "confirmed",
+      label: "사용자가 앞 단계 완료를 확인함",
+      helper: "외부에서 끝낸 작업의 근거는 상품기획 실행 시 다시 확인합니다.",
     };
   }
   if (stage?.id === "handoff") {
@@ -58,6 +70,58 @@ export function stageActionCopy(stage, run) {
 
 export function shouldRefreshProjectAfterRun(run) {
   return Boolean(run && ["succeeded", "failed", "stopped"].includes(run.status));
+}
+
+export function sourcingResultState(run) {
+  if (isRunActive(run)) return { mode: "running", message: "진행중입니다." };
+  if (run?.status === "succeeded") return { mode: "completed", message: "" };
+  if (run?.status === "failed") return { mode: "failed", message: sourcingFailureReason(run) };
+  if (run?.status === "stopped") return { mode: "stopped", message: "실행이 중지되었습니다." };
+  return { mode: "idle", message: "아직 실행하지 않았습니다." };
+}
+
+export function sourcingFailureReason(run) {
+  if (typeof run?.error === "string" && run.error.trim()) return run.error.trim();
+  const events = Array.isArray(run?.events) ? [...run.events].reverse() : [];
+  for (const event of events) {
+    const message = event?.error?.message
+      ?? (typeof event?.error === "string" ? event.error : undefined)
+      ?? event?.message;
+    if (["turn.failed", "error", "artifact_validation.failed"].includes(event?.type) && String(message ?? "").trim()) {
+      return String(message).trim();
+    }
+  }
+  if (run?.exitCode !== null && run?.exitCode !== undefined) {
+    return `Codex 실행이 종료 코드 ${run.exitCode}로 실패했습니다.`;
+  }
+  return "실행 결과를 만들지 못했습니다.";
+}
+
+export function actualSourcingPairs(report) {
+  return (Array.isArray(report?.candidates) ? report.candidates : []).filter((candidate) => (
+    Boolean(candidate?.supplierUrl)
+    && Boolean(candidate?.coupangUrl)
+    && candidate?.currentSalePrice !== null
+    && candidate?.currentSalePrice !== undefined
+    && candidate?.markupMultiple !== null
+    && candidate?.markupMultiple !== undefined
+  ));
+}
+
+export function actualDomeggookSamples(report) {
+  return (Array.isArray(report?.candidates) ? report.candidates : []).filter((candidate) => (
+    Boolean(candidate?.supplierUrl)
+    && Boolean(candidate?.productName || candidate?.candidateId)
+  ));
+}
+
+export function sourcingReportMatchesRun(report, run) {
+  const reportPath = String(report?.reportPath ?? "").replace(/\.json$/i, ".html");
+  const artifacts = Array.isArray(run?.artifacts) ? run.artifacts : [];
+  if (reportPath && artifacts.includes(reportPath)) return true;
+  const createdAt = Date.parse(report?.createdAt ?? "");
+  const startedAt = Date.parse(run?.startedAt ?? "");
+  return Number.isFinite(createdAt) && Number.isFinite(startedAt) && createdAt >= startedAt;
 }
 
 export function reportHref(path) {
@@ -120,6 +184,7 @@ export function normalizeSourcingReport(payload, sourcePath) {
     ...(Array.isArray(payload?.candidates) ? payload.candidates : []),
     ...(Array.isArray(payload?.matches) ? payload.matches : []),
     ...(Array.isArray(payload?.excluded) ? payload.excluded : []),
+    ...(Array.isArray(payload?.sampled_items) ? payload.sampled_items : []),
   ];
   const seen = new Set();
   const candidates = rows.flatMap((candidate, index) => {
@@ -148,6 +213,8 @@ export function normalizeSourcingReport(payload, sourcePath) {
       candidateId,
       productName,
       supplierUrl,
+      category: String(candidate.category ?? candidate.best_category ?? "").trim(),
+      rank: numberOrNull(candidate.rank ?? candidate.best_rank),
       unitSupplyPrice: numberOrNull(supplier.unit_supply_price ?? supplier.supply_price ?? candidate.unit_supply_price),
       minimumOrderQuantity: numberOrNull(supplier.minimum_order_qty ?? supplier.moq ?? candidate.minimum_order_qty),
       wholesaleShippingTotal: numberOrNull(
@@ -182,6 +249,14 @@ export function normalizeSourcingReport(payload, sourcePath) {
   return {
     status: String(payload?.status ?? "UNKNOWN"),
     decision: String(payload?.sourcing_decision ?? payload?.decision ?? "UNKNOWN"),
+    createdAt: String(payload?.created_at ?? payload?.createdAt ?? payload?.observed_at ?? ""),
+    failureReason: String(
+      payload?.failure_reason
+        ?? payload?.full_sourcing_revalidation?.reason
+        ?? payload?.blocked_reason
+        ?? payload?.final_gate_note
+        ?? "",
+    ).trim(),
     reportPath,
     candidates,
   };
@@ -272,12 +347,21 @@ export const STAGES = [
     availability: "ready",
     skill: "coupang-product-planning",
     approvalGate: "현재 상품기획 버전을 제가 직접 승인합니다.",
+    priorStageConfirmation: "상품·가격 선택 단계를 이미 완료했습니다.",
+    assetInput: {
+      mode: "drag-drop",
+      folderKey: "sourceAssets",
+      label: "실제 SKU·라벨 이미지",
+      help: "정면·후면·측면·구성품·케어라벨 이미지를 드래그앤드롭하세요.",
+    },
     inputs: [
-      field("identityAssets", "실제 SKU 사진·파일 경로", "textarea", { placeholder: "정면·후면·측면·라벨 경로 또는 URL" }),
-      field("measurements", "실측·라벨 정보", "textarea", { placeholder: "사이즈, 구성, 소재, 관리법" }),
-      field("lowRatingReviews", "경쟁사 저평점 리뷰 근거", "textarea", { placeholder: "별점 1~3점 리뷰 URL 또는 조사 파일" }),
+      field("supplierUrl", "공급처 상세 URL", "url", { placeholder: "https://..." }),
+      field("sizeMeasurements", "사이즈·실측", "textarea", { placeholder: "단위, 측정 시작점·끝점, 허용 오차 상태" }),
+      field("packageComposition", "구성", "textarea", { placeholder: "본품·부속품·판매 묶음 수량" }),
+      field("materials", "소재", "textarea", { placeholder: "라벨 또는 공급처 원문 기준 소재·혼용률" }),
+      field("careInstructions", "관리법", "textarea", { placeholder: "케어라벨·공급처·실험 근거가 있는 세탁·보관법" }),
     ],
-    acceptance: ["제품 사실과 미검증 가설이 분리됨", "저평점 불만과 해결 가능성이 연결됨", "phase_1·phase_2 계획이 구분됨"],
+    acceptance: ["사이즈·구성·소재·관리법이 근거와 연결됨", "Codex가 조사한 저평점 불만과 SKU 해결 가능성이 연결됨", "phase_1·phase_2 계획이 구분됨"],
   },
   {
     id: "content-planning",
@@ -303,9 +387,14 @@ export const STAGES = [
     summary: "승인된 기획과 실제 자산으로 이미지·HTML을 조립합니다.",
     availability: "partial",
     skill: "coupang-detail-page-generator",
+    assetInput: {
+      mode: "drag-drop",
+      folderKey: "sourceAssets",
+      label: "상세페이지 제작용 실제 제품 이미지",
+      help: "경로 대신 실제 제품 이미지를 드래그앤드롭하고 기존 자산을 미리 확인하세요.",
+    },
     inputs: [
       field("contentPlan", "승인된 콘텐츠기획 경로", "text", { placeholder: "30-content-planning/content-plan.json" }),
-      field("sourceAssets", "실제 제품 자산 폴더", "text", { placeholder: "40-assets/source" }),
       field("identityStatus", "제품 동일성 상태", "select", {
         options: [["verified", "실제 SKU 확인 완료"], ["concept-only", "연출 프리뷰 전용"], ["blocked", "확인 대기"]],
       }),
@@ -320,9 +409,14 @@ export const STAGES = [
     summary: "한 동작이나 효용을 실촬영 또는 허용 자산으로 증명합니다.",
     availability: "planned",
     skill: "coupang-content-studio",
+    assetInput: {
+      mode: "drag-drop",
+      folderKey: "sourceAssets",
+      label: "모션 제작용 촬영·프레임 이미지",
+      help: "촬영 원본이나 프레임 이미지를 드래그앤드롭하세요.",
+    },
     inputs: [
       field("motionGoal", "증명할 한 가지 효용", "text", { placeholder: "예: 착용 범위 변화" }),
-      field("motionAssets", "촬영·프레임 자산 경로", "text", { placeholder: "40-assets/motion" }),
     ],
     acceptance: ["3~6초 안에 하나의 효용만 보여줌", "정적 대체 이미지가 있음", "감소된 모션 설정에 대응함"],
   },
@@ -389,7 +483,11 @@ export function createInitialState(now = new Date().toISOString()) {
     },
     workflow: { currentStage: "sourcing", completedStages: [], blockedReason: null },
     stageData: Object.fromEntries(
-      STAGES.map((stage) => [stage.id, { inputs: {}, completed: false, approved: false }]),
+      STAGES.map((stage) => [stage.id, {
+        inputs: stage.id === "sourcing" ? { ...DEFAULT_SOURCING_INPUTS } : {},
+        completed: false,
+        approved: false,
+      }]),
     ),
     folderMap: {},
     links: { reportRuns: [], legacyDetailPageProjects: [] },
@@ -414,15 +512,20 @@ export function missingInputs(state, stageId) {
 }
 
 export function deriveProgress(state) {
+  const confirmedEntryIndex = state.stageData?.["product-planning"]?.priorStageConfirmed === true
+    ? STAGES.findIndex((stage) => stage.id === "product-planning")
+    : 0;
   let previousComplete = true;
   let currentStageId = null;
-  const stages = STAGES.map((stage) => {
+  const stages = STAGES.map((stage, index) => {
+    if (index === confirmedEntryIndex && confirmedEntryIndex > 0) previousComplete = true;
     const record = state.stageData?.[stage.id] ?? { inputs: {}, completed: false, approved: false };
     const missing = missingInputs(state, stage.id);
     const approvalReady = !stage.approvalGate || record.approved === true;
     const complete = previousComplete && record.completed === true && missing.length === 0 && approvalReady;
     let status = "locked";
     if (complete) status = "completed";
+    else if (index < confirmedEntryIndex) status = "confirmed";
     else if (previousComplete && currentStageId === null) {
       status = "current";
       currentStageId = stage.id;
@@ -468,6 +571,26 @@ export function setStageApproval(state, stageId, approved, now) {
     { ...state, stageData: { ...state.stageData, [stageId]: { ...record, approved: Boolean(approved) } } },
     now,
   );
+}
+
+export function setPriorStageConfirmation(state, stageId, confirmed, now) {
+  const stage = getStage(stageId);
+  if (!stage.priorStageConfirmation) {
+    throw new Error("이 단계는 앞 단계 완료 확인으로 열 수 없습니다.");
+  }
+  const timestamp = now ?? new Date().toISOString();
+  const record = state.stageData[stageId] ?? { inputs: {}, completed: false, approved: false };
+  return withDerivedWorkflow(touch({
+    ...state,
+    stageData: {
+      ...state.stageData,
+      [stageId]: {
+        ...record,
+        priorStageConfirmed: Boolean(confirmed),
+        priorStageConfirmedAt: confirmed ? timestamp : null,
+      },
+    },
+  }, timestamp));
 }
 
 export function selectSourcingCandidate(state, candidate, approvedPrice, now) {
@@ -606,8 +729,28 @@ export function buildCodexPrompt(state, stageId) {
     "- 리뷰 또는 100명 이상 만족 라벨이 있는 쿠팡 판매상품을 판매 근거가 있는 pair로 인정한다.",
     "- 설정한 최소 가격 배수 이상인 pair가 하나라도 존재하면 탐색 일치로 보고한다.",
     "- 기준을 충족한 비싼 pair가 있으면 더 싼 등록은 탈락 근거로 사용하지 않는다.",
+    "- 성공 여부와 관계없이 이번 실행의 도매꾹 샘플을 JSON sampled_items와 HTML에 남긴다.",
+    "- 실패·차단 시 사람이 읽을 수 있는 실패 이유를 JSON과 HTML에 함께 남긴다.",
     "- 생성한 보고서 상대 경로를 project.json의 links.reportRuns에 등록한다.",
     "- 접근 차단 시 값을 꾸미지 말고 실제 조사한 후보와 차단 사유·재개 지점을 같은 보고서에 남긴다.",
+  ] : [];
+  const assetExecution = stage.assetInput ? [
+    "",
+    "이미지 입력 요구:",
+    `- 사용자가 경로를 입력하는 방식이 아니라 UI에서 드래그앤드롭한 project.folderMap.${stage.assetInput.folderKey} 폴더의 기존 이미지를 직접 확인한다.`,
+    "- 실제 이미지가 부족하면 임의 파일 경로를 요구하지 말고 필요한 촬영 구도나 라벨 면을 구체적으로 요청한다.",
+  ] : [];
+  const planningExecution = stage.id === "product-planning" ? [
+    "",
+    "상품기획 조사 요구:",
+    "- 공급처 상세 URL 하나만으로 조사를 시작할 수 있으며 상세 본문·옵션·상품정보·공개 후기·문의를 먼저 조사한다.",
+    "- 색상·사이즈·구성·소재·관리법과 가능한 소구점 조사 결과를 사용자에게 먼저 보고한다.",
+    "- 사용자가 판매가·묶음·판매 옵션과 소구점을 선택하기 전에는 오퍼 결정 게이트를 통과하거나 최종 상품기획을 확정하지 않는다.",
+    "- 경쟁사 별점 1~3점 저평점 리뷰를 Codex가 직접 조사해 URL·조사시각·표본 범위와 반복 불만을 기록한다.",
+    "- 리뷰 URL이나 조사 파일 경로를 사용자에게 입력시키지 않는다.",
+    "- 접근 통제·로그인·CAPTCHA를 우회하지 않으며 공개 근거를 확보하지 못하면 차단 상태와 재개 조건을 기록한다.",
+    "- 사이즈·구성·소재·관리법 각각을 업로드된 라벨·실측·공급처 원문 중 하나 이상의 근거에 연결한다.",
+    "- 앞 단계 완료 확인은 사용자 진행 확인일 뿐이므로 승인된 SKU·가격과 공급처 원문을 다시 확인한 뒤 product-plan을 작성한다.",
   ] : [];
   return [
     `Use $coupang-commerce-automation:${specialist} to handle the next step.`,
@@ -619,7 +762,10 @@ export function buildCodexPrompt(state, stageId) {
     knownInputs || "- 아직 입력 없음",
     `미입력 필수 항목: ${missing}`,
     `사용자 승인: ${record.approved ? "승인함" : "미승인"}`,
+    ...(stage.priorStageConfirmation ? [`앞 단계 완료 사용자 확인: ${record.priorStageConfirmed ? "확인함" : "미확인"}`] : []),
     ...sourcingExecution,
+    ...assetExecution,
+    ...planningExecution,
     "",
     "앞 단계의 근거와 승인 게이트를 다시 확인하고 다음 한 단계만 진행해줘. 공급처 연락·발주·결제, 상품 등록, 광고 집행은 하지 마.",
   ].join("\n");

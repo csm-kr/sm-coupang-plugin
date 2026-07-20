@@ -7,12 +7,12 @@
     "sourcingMode": "high-markup",
     "status": "active",
     "createdAt": "2026-07-17T14:03:30Z",
-    "updatedAt": "2026-07-20T00:24:15Z"
+    "updatedAt": "2026-07-20T02:00:37Z"
   },
   "workflow": {
     "currentStage": "sourcing",
     "completedStages": [],
-    "blockedReason": "COUPANG_BROWSER_CONNECT_FAILED_BEFORE_SITE_ACCESS"
+    "blockedReason": "SOURCING_HEADLESS_BROWSER_RUNTIME_BLOCKED"
   },
   "stageData": {
     "sourcing": {
@@ -20,7 +20,9 @@
         "category": "전체",
         "sourcingMode": "high-markup",
         "budget": "50000",
-        "targetMargin": "35/25"
+        "targetMargin": "35/25",
+        "maxUnitSupplyPrice": "5000",
+        "minMarkupMultiple": "3"
       },
       "completed": false,
       "approved": false
@@ -33,7 +35,9 @@
     "product-planning": {
       "inputs": {},
       "completed": false,
-      "approved": false
+      "approved": false,
+      "priorStageConfirmed": false,
+      "priorStageConfirmedAt": null
     },
     "content-planning": {
       "inputs": {},
@@ -83,8 +87,11 @@
   "links": {
     "reportRuns": [
       "reports/2026/2026-07-17/paltosi-001-high-markup-sourcing-v2/high-markup-report.html",
-      "reports/2026/2026-07-19/paltosi-001-high-markup-sourcing-2026-07-19/high-markup-report.html",
-      "reports/2026/2026-07-20/paltosi-001-high-markup-sourcing-2026-07-20/high-markup-report.html"
+      "reports/deprecated/2026/2026-07-19/paltosi-001-high-markup-sourcing-2026-07-19/high-markup-report.html",
+      "reports/deprecated/2026/2026-07-20/paltosi-001-high-markup-sourcing-2026-07-20/high-markup-report.html",
+      "reports/deprecated/2026/2026-07-20/paltosi-001-high-markup-input-gate-2026-07-20/high-markup-report.html",
+      "reports/deprecated/2026/2026-07-20/paltosi-001-high-markup-sourcing-runtime-blocked/high-markup-report.html",
+      "reports/2026/2026-07-20/paltosi-001-high-markup-sourcing-runtime-blocked-r2/high-markup-report.html"
     ],
     "legacyDetailPageProjects": []
   }

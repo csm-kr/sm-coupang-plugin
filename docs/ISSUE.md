@@ -114,3 +114,21 @@
 - 1회 발생: 2026-07-19 깔창 프로젝트 상품·가격 선택 화면의 브라우저 QA에서 판매가·수익률이 `null`인 `PRICE_REVIEW_BLOCKED` 후보가 `0원`, `0.0%`로 노출됐다.
 - 방지: 선택적 숫자 포매터는 `null`, `undefined`, 빈 문자열을 숫자 변환 전에 차단하고 `확인 대기`로 표시한다. 실제 숫자 0만 `0원`·`0.0%`로 표시한다.
 - 회귀 테스트: `coupang-workflow-ui/assets/react-app/src/workflow.test.js`
+
+## WORKFLOW-UI-CODEX-STOP-TREE-001
+
+- 반복 횟수: 1
+- 상태: 수정 및 회귀 방지 구현
+- 원인: Windows에서 npm `codex.CMD` 실행 래퍼에만 `terminate()`를 호출해 하위 `node.exe`·`codex.exe`가 출력 파이프를 계속 점유했고, 실행 상태가 `stopping`에서 끝나지 않았다.
+- 1회 발생: 2026-07-20 `paltosi-001` 소싱 실행 중지 후 UI가 `중지 중`에 고착되고 실제 Codex 자식 프로세스 트리가 남음.
+- 방지: Windows 중지는 서버가 시작한 실행 래퍼 PID에 `taskkill /T /F`를 적용해 해당 프로세스 트리 전체를 종료하고, 실패할 때만 기존 단일 프로세스 종료로 폴백한다.
+- 회귀 테스트: `tests/plugin/test_codex_runner.py`
+
+## WORKFLOW-UI-SOURCING-RESULT-NOISE-001
+
+- 반복 횟수: 1
+- 상태: 수정 및 회귀 방지 구현
+- 원인: 소싱 실행 중에도 정적 완료 기준, 수기 차단 사유 입력과 내부 차단 코드가 결과 영역에 노출되어 실제 조사 결과와 진행 상태를 가렸다.
+- 1회 발생: 2026-07-20 실제 소싱 진행 화면에서 `MISSING_REQUIRED_INPUTS_REQUEST_PROJECT_CONFLICT`와 일반 체크리스트가 사용자 결과처럼 표시됨.
+- 방지: 실행 중에는 `진행중입니다.`만 표시하고, 완료 뒤에는 최신 보고서의 완전한 도매꾹↔쿠팡 pair와 실제 보고서 링크만 표시한다. pair가 없으면 사용자 문장으로만 알린다.
+- 회귀 테스트: `coupang-workflow-ui/assets/react-app/src/workflow.test.js`, `tests/plugin/test_plugin_contract.py`

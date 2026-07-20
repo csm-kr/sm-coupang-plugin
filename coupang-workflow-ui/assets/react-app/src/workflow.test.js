@@ -5,6 +5,8 @@ import { readFileSync } from "node:fs";
 import {
   PROJECT_ID_PATTERN,
   STAGES,
+  actualDomeggookSamples,
+  actualSourcingPairs,
   buildCodexPrompt,
   confirmSourcingSelection,
   createDefaultProjectId,
@@ -19,8 +21,12 @@ import {
   reportHref,
   selectSourcingCandidate,
   shouldRefreshProjectAfterRun,
+  sourcingFailureReason,
   sourcingReportJsonHrefs,
+  sourcingReportMatchesRun,
+  sourcingResultState,
   stageActionCopy,
+  setPriorStageConfirmation,
   setStageApproval,
   setStageCompleted,
   updateStageInput,
@@ -74,6 +80,8 @@ test("category is optional and an empty value selects the full Best pool", () =>
   assert.match(prompt, /설정한 최소 가격 배수 이상인 pair가 하나라도/);
   assert.match(prompt, /더 싼 등록은 탈락 근거로 사용하지 않는다/);
   assert.match(prompt, /리뷰 또는 100명 이상 만족/);
+  assert.match(prompt, /실패 이유/);
+  assert.match(prompt, /sampled_items/);
   assert.match(prompt, /links\.reportRuns/);
 });
 
@@ -88,6 +96,14 @@ test("sourcing inputs match pair discovery instead of budget and target margin p
   assert.equal(inputs.find((input) => input.id === "category").required, false);
   assert.equal(inputs.find((input) => input.id === "maxUnitSupplyPrice").suffix, "원");
   assert.equal(inputs.find((input) => input.id === "minMarkupMultiple").suffix, "배");
+});
+
+test("new projects start with the requested sourcing defaults", () => {
+  assert.deepEqual(createInitialState().stageData.sourcing.inputs, {
+    category: "전체",
+    maxUnitSupplyPrice: "5000",
+    minMarkupMultiple: "3",
+  });
 });
 
 test("explicit approval gates cannot be completed by filled fields alone", () => {
@@ -106,6 +122,76 @@ test("explicit approval gates cannot be completed by filled fields alone", () =>
   state = setStageApproval(state, "handoff", true);
   state = setStageCompleted(state, "handoff", true);
   assert.equal(deriveProgress(state).currentStageId, "product-planning");
+});
+
+test("a user confirmation can open product planning when earlier work was completed outside the UI", () => {
+  let state = createInitialState("2026-07-20T00:00:00Z");
+
+  state = setPriorStageConfirmation(state, "product-planning", true, "2026-07-20T00:01:00Z");
+  let progress = deriveProgress(state);
+  assert.equal(progress.currentStageId, "product-planning");
+  assert.equal(progress.stages.find((stage) => stage.id === "handoff").status, "confirmed");
+  assert.equal(progress.stages.find((stage) => stage.id === "product-planning").status, "current");
+  assert.equal(state.stageData["product-planning"].priorStageConfirmed, true);
+
+  state = setPriorStageConfirmation(state, "product-planning", false, "2026-07-20T00:02:00Z");
+  progress = deriveProgress(state);
+  assert.equal(progress.currentStageId, "sourcing");
+});
+
+test("product planning requires four measurement and label facts but delegates low-rating review research to Codex", () => {
+  const planning = STAGES.find((stage) => stage.id === "product-planning");
+
+  assert.deepEqual(planning.inputs.map((input) => input.id), [
+    "supplierUrl",
+    "sizeMeasurements",
+    "packageComposition",
+    "materials",
+    "careInstructions",
+  ]);
+  assert.equal(planning.inputs.every((input) => input.required), true);
+  assert.equal(planning.assetInput.mode, "drag-drop");
+  assert.equal(planning.assetInput.folderKey, "sourceAssets");
+  assert.equal(planning.inputs.some((input) => /path|asset|review/i.test(input.id)), false);
+
+  const detail = STAGES.find((stage) => stage.id === "detail-page");
+  const motion = STAGES.find((stage) => stage.id === "motion");
+  assert.equal(detail.inputs.some((input) => input.id === "sourceAssets"), false);
+  assert.equal(motion.inputs.some((input) => input.id === "motionAssets"), false);
+
+  let state = setPriorStageConfirmation(createInitialState(), "product-planning", true);
+  for (const [fieldId, value] of Object.entries({
+    supplierUrl: "https://supplier.example/product/1",
+    sizeMeasurements: "가로 25cm, 세로 13.7cm, 측정점 A-B, 허용 오차 확인 대기",
+    packageComposition: "본품 1개",
+    materials: "폴리에스터 76%, 스판덱스 24%",
+    careInstructions: "케어라벨 기준 단독 손세탁",
+  })) {
+    state = updateStageInput(state, "product-planning", fieldId, value);
+  }
+  const prompt = buildCodexPrompt(state, "product-planning");
+  assert.match(prompt, /\$coupang-commerce-automation:coupang-product-planning/);
+  assert.match(prompt, /경쟁사 별점 1~3점 저평점 리뷰를 Codex가 직접 조사/);
+  assert.match(prompt, /리뷰 URL이나 조사 파일 경로를 사용자에게 입력시키지 않는다/);
+  assert.match(prompt, /folderMap\.sourceAssets/);
+  assert.match(prompt, /드래그앤드롭/);
+
+  const supplierOnly = updateStageInput(
+    setPriorStageConfirmation(createInitialState(), "product-planning", true),
+    "product-planning",
+    "supplierUrl",
+    "https://supplier.example/product/1",
+  );
+  assert.match(buildCodexPrompt(supplierOnly, "product-planning"), /공급처 상세 URL: https:\/\/supplier\.example\/product\/1/);
+});
+
+test("product planning shows a prior-stage confirmation and an inline drag-drop asset preview", () => {
+  assert.match(appSource, /앞 단계 완료 확인/);
+  assert.match(appSource, /setPriorStageConfirmation/);
+  assert.match(appSource, /variant="stage-assets"/);
+  assert.match(appSource, /asset-preview-grid/);
+  assert.match(appSource, /경로를 입력하지 마세요/);
+  assert.match(stylesSource, /\.asset-preview-grid\s*\{/);
 });
 
 test("generated prompt names one specialist skill and includes known inputs", () => {
@@ -167,6 +253,70 @@ test("a terminal codex run refreshes project report links", () => {
   assert.equal(shouldRefreshProjectAfterRun(null), false);
 });
 
+test("sourcing result state shows one plain progress message while the run is active", () => {
+  assert.deepEqual(sourcingResultState({ status: "running" }), {
+    mode: "running",
+    message: "진행중입니다.",
+  });
+  assert.deepEqual(sourcingResultState({ status: "succeeded" }), {
+    mode: "completed",
+    message: "",
+  });
+  assert.equal(sourcingResultState({ status: "failed", error: "REPORT_MISSING" }).message, "REPORT_MISSING");
+});
+
+test("failed sourcing explains the real error and falls back to the terminal event", () => {
+  assert.equal(sourcingFailureReason({ error: "신규 보고서가 없습니다." }), "신규 보고서가 없습니다.");
+  assert.equal(sourcingFailureReason({
+    status: "failed",
+    events: [{ type: "turn.failed", error: { message: "도매꾹 접속이 차단됐습니다." } }],
+  }), "도매꾹 접속이 차단됐습니다.");
+  assert.equal(sourcingFailureReason({ status: "failed", exitCode: 7 }), "Codex 실행이 종료 코드 7로 실패했습니다.");
+});
+
+test("failed sourcing lists only domeggook samples from the current run report", () => {
+  const run = { startedAt: "2026-07-20T01:30:56Z", artifacts: [] };
+  const current = {
+    createdAt: "2026-07-20T01:31:30Z",
+    candidates: [
+      { candidateId: "BEST-1", productName: "현재 샘플", supplierUrl: "https://domeggook.com/1", unitSupplyPrice: 3200 },
+      { candidateId: "NO-URL", productName: "URL 없는 행", supplierUrl: "" },
+    ],
+  };
+  const stale = { ...current, createdAt: "2026-07-19T01:31:30Z" };
+
+  assert.equal(sourcingReportMatchesRun(current, run), true);
+  assert.equal(sourcingReportMatchesRun(stale, run), false);
+  assert.deepEqual(actualDomeggookSamples(current), [current.candidates[0]]);
+});
+
+test("a completed but blocked report keeps the business failure reason", () => {
+  const report = normalizeSourcingReport({
+    status: "RESEARCH_EXPANSION_REQUIRED",
+    sourcing_decision: "PRICE_REVIEW_BLOCKED",
+    full_sourcing_revalidation: {
+      reason: "브라우저 차단으로 현재 공급조건과 쿠팡 pair를 확인하지 못했습니다.",
+    },
+    candidates: [],
+  }, "/reports/2026/2026-07-20/blocked/high-markup-report.json");
+
+  assert.equal(report.failureReason, "브라우저 차단으로 현재 공급조건과 쿠팡 pair를 확인하지 못했습니다.");
+});
+
+test("sourcing results expose only complete wholesale-coupang pairs", () => {
+  const complete = {
+    candidateId: "PAIR-1",
+    supplierUrl: "https://domeggook.com/1",
+    coupangUrl: "https://www.coupang.com/vp/products/1",
+    currentSalePrice: 12000,
+    markupMultiple: 4,
+  };
+  const incomplete = { ...complete, candidateId: "PAIR-2", coupangUrl: "" };
+
+  assert.deepEqual(actualSourcingPairs({ candidates: [incomplete, complete] }), [complete]);
+  assert.deepEqual(actualSourcingPairs(null), []);
+});
+
 test("only workspace report paths become clickable dashboard links", () => {
   assert.equal(
     reportHref("reports/2026/2026-07-19/sample/report.html"),
@@ -225,6 +375,8 @@ test("linked sourcing reports become inline candidate data sources without openi
     candidateId: "66252064",
     productName: "발 아치 운동화 깔창",
     supplierUrl: "https://domeggook.com/66252064",
+    category: "",
+    rank: null,
     unitSupplyPrice: 1200,
     minimumOrderQuantity: 5,
     wholesaleShippingTotal: 3000,
@@ -362,6 +514,16 @@ test("the handoff UI describes an evidence-backed pair rather than a market-low 
   assert.match(appSource, /가격 배수/);
   assert.match(appSource, /판매 근거/);
   assert.match(appSource, /낮은 가격의 다른 등록은 이 pair를 탈락시키지 않습니다/);
+});
+
+test("the sourcing stage replaces acceptance and blocker inputs with live real results", () => {
+  assert.match(appSource, /function SourcingResultPanel/);
+  assert.match(appSource, /진행중입니다\./);
+  assert.match(appSource, /실제 결과/);
+  assert.match(appSource, /selectedStage\.id === "sourcing"/);
+  assert.match(appSource, /실패 이유/);
+  assert.match(appSource, /도매꾹 확인 샘플/);
+  assert.match(appSource, /state\.mode === "failed" \|\| pairs\.length === 0/);
 });
 
 test("the dashboard exposes a commerce color system and accessible workflow navigation", () => {

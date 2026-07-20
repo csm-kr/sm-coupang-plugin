@@ -266,3 +266,13 @@ def test_skill_contract_uses_real_categories_and_requires_an_actual_pair_report(
     assert "도매꾹 상품·개당 원가 ↔ 쿠팡 판매상품·현재가" in text
     assert "qualifying_pairs" in contract
     assert "lower_price_listings_do_not_disqualify" in contract
+
+
+def test_failed_report_contract_preserves_the_sampled_domeggook_items():
+    text = SKILL.read_text(encoding="utf-8")
+    contract = (SKILL.parent / "references" / "input-output-contract.md").read_text(encoding="utf-8")
+
+    assert "실패 이유" in text
+    assert "도매꾹 샘플" in text
+    assert "sampled_items" in contract
+    assert "실패·차단" in contract

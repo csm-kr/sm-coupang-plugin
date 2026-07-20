@@ -87,6 +87,27 @@
 
 ## 출력
 
+성공 여부와 관계없이 최종 JSON에는 이번 실행의 도매꾹 표본을 `sampled_items`로 보존한다. 실패·차단 보고서는 `failure_reason`도 함께 기록한다.
+
+```json
+{
+  "failure_reason": "도매꾹 상세페이지 접근이 차단되어 공급조건을 확인하지 못함",
+  "sampled_items": [
+    {
+      "candidate_id": "BEST-001",
+      "name": "생활용품 후보",
+      "wholesale_url": "https://domeggook.com/12345678",
+      "category": "가구/생활/취미",
+      "rank": 12,
+      "unit_supply_price": null,
+      "sample_status": "DETAIL_ACCESS_BLOCKED"
+    }
+  ]
+}
+```
+
+`unit_supply_price`는 상세 원문에서 확인했을 때만 채운다. Best 목록에서만 본 가격은 별도 목록 관찰값으로 구분하고 원문 공급 단가 자리에 넣지 않는다.
+
 ```json
 {
   "status": "DISCOVERY_MATCHES_FOUND",

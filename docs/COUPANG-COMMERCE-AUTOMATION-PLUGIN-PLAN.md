@@ -16,7 +16,7 @@
 |---|---|---|
 | 플러그인 골격·매니페스트 | Implemented | v0.2.0 플러그인 검증 통과 |
 | 오케스트레이터·단계 스킬 | Implemented | 현재 단계·AC·한 질문 UX, 상품기획·콘텐츠·게시 QA 스킬 검증 통과 |
-| React 프로젝트 UI·작업공간 | Implemented | 9단계 대시보드, 인라인 후보 선택·승인·단계 이동, VS Code형 파일 탐색·HTML/이미지 미리보기·이미지 드롭 업로드, Codex 자동 실행·내장 콘솔 테스트 통과 |
+| React 프로젝트 UI·작업공간 | Implemented | 9단계 대시보드, 인라인 후보 선택·승인·단계 이동, 실패 이유·현재 도매꾹 샘플 표시, VS Code형 파일 탐색·HTML/이미지 미리보기·이미지 드롭 업로드, Codex 자동 실행·내장 콘솔 테스트 통과 |
 | `coupang-product-sourcing` | Implemented | 단위 테스트 37개 통과, 3회차·28개 조사·10개 통과 HTML 생성 |
 | `coupang-best-high-markup-sourcing` | Implemented | Best 층화 표본·사용자 공급가 상한·최소 가격 배수·리뷰/만족 라벨 기반 쿠팡 동일 1개 pair 존재성 게이트와 회귀 테스트 |
 | `coupang-detail-page-generator` | Partial | 5.3 분리 승인, 시각 스토리보드, 하이브리드 HTML·2층 좌표 QA와 `concept_only` 대표 프로토타입 구현, 실제 SKU 회귀 필요 |
@@ -92,10 +92,10 @@
 | 스킬 | 단일 책임 | 사용자 UX |
 |---|---|---|
 | `coupang-commerce-orchestrator` | 현재 단계·AC·차단·다음 스킬 라우팅 | 현재 상태를 먼저 보여주고 한 번에 하나의 질문 |
-| `coupang-workflow-ui` | 프로젝트·단계·후보 승인·파일 탐색·미리보기·이미지 업로드의 브라우저 작업창과 단계 제한 Codex 실행기 | 후보 카드 클릭→가격 확정→다음 단계, 파일 드롭→인라인 미리보기, Codex 진행·실패·중지 확인 |
+| `coupang-workflow-ui` | 프로젝트·단계·후보 승인·상품기획 직접 진입 확인·파일 탐색·미리보기·이미지 업로드의 브라우저 작업창과 단계 제한 Codex 실행기 | 후보 카드 클릭→가격 확정→다음 단계 또는 앞 단계 완료 사용자 확인, 파일 드롭→기존 폴더 썸네일 미리보기, Codex 진행·실패·중지 확인 |
 | `coupang-product-sourcing` | 후보·시장·마진 근거 | 상품·가격 선택 대기 |
 | `coupang-best-high-markup-sourcing` | Best 저단가·동일상품 고배수 탐색 일치 | 전체 소싱 검증 필요 상태 보고 |
-| `coupang-product-planning` | 저평점 불만→SKU 해결 가능성→근거·실험 | 상품기획 승인 질문 |
+| `coupang-product-planning` | 공급처 상세 URL 조사·Browser Harness 저평점 리뷰 직접 조사→SKU 해결 가능성→실측·라벨 근거·실험 | 조사 결과·소구점 제안 후 사용자가 판매가·묶음·판매 옵션·소구점을 고르고, 사이즈·구성·소재·관리법과 이미지 드롭을 제공해 상품기획 승인 |
 | `coupang-content-studio` | 주장-근거-장면 스토리보드·ImageGen·소재 QA | 콘텐츠기획 승인 질문 |
 | `coupang-detail-page-generator` | 이미지·GIF+HTML 조립과 브라우저 QA | 조립 결과와 수정 모듈 보고 |
 | `coupang-publish-qa` | 순서·크롭·타이포·접근성·광고·채널 판정 | 게시 가능/차단 한 질문 |
@@ -376,7 +376,10 @@ initialized
 - [x] 공통 프로젝트 폴더·상태·목록·보고서 링크와 레거시 발견 API
 - [x] 소싱 JSON 후보 카드 비교, `SHORTLIST` 클릭 선택과 상품·가격 원클릭 승인·상품기획 이동
 - [x] 프로젝트 파일 탐색, HTML·이미지 인라인 미리보기와 PNG·JPG·GIF·WEBP 드래그앤드롭 업로드
+- [x] 앞 단계 완료 사용자 확인으로 상품기획 직접 진입, 실측·라벨 4개 필수 입력, 저평점 리뷰 Codex 조사 역할 분리
+- [x] 상품기획·상세페이지·모션의 이미지 경로 필드를 제거하고 단계 드롭존·기존 원본 자산 썸네일 미리보기로 통일
 - [x] `workspace-write` Codex 자동 실행, JSONL 내장 콘솔, 프로젝트별 동시 실행 제한·중지 API와 소싱 신규 HTML·JSON 산출물 성공 게이트
+- [x] 소싱 실패 이유와 현재 실행 보고서의 도매꾹 `sampled_items` 인라인 표시
 - [ ] 승인된 실제 SKU 시각 대표 회귀 픽스처
 - [ ] 통합 회귀 명령
 

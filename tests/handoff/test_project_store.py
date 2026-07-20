@@ -49,6 +49,23 @@ def test_create_project_builds_one_clear_stage_folder_tree(tmp_path: Path):
         assert (project_root / folder).is_dir(), folder
 
 
+def test_new_project_starts_with_default_high_markup_sourcing_inputs(tmp_path: Path):
+    store = load_module().ProjectStore(tmp_path)
+
+    project = store.create_project(
+        "default-sourcing-001",
+        "기본 소싱",
+        "coupang",
+        "high-markup",
+    )
+
+    assert project["stageData"]["sourcing"]["inputs"] == {
+        "category": "전체",
+        "maxUnitSupplyPrice": "5000",
+        "minMarkupMultiple": "3",
+    }
+
+
 def test_project_index_lists_current_stage_and_never_overwrites_existing_project(tmp_path: Path):
     store = load_module().ProjectStore(tmp_path)
     store.create_project("summer-mask-001", "여름 스포츠 마스크", "coupang", "high-markup")

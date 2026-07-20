@@ -1,0 +1,11 @@
+{
+  "run_name": "paltosi-001-high-markup-sourcing-runtime-blocked-r2",
+  "project_id": "paltosi-001",
+  "created_at": "2026-07-20T10:39:26+09:00",
+  "status": "RESEARCH_EXPANSION_REQUIRED",
+  "artifacts": [
+    "high-markup-report.html",
+    "high-markup-report.json"
+  ],
+  "source_tmp": "tmp/paltosi-001-high-markup-20260720"
+}

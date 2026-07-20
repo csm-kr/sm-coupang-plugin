@@ -15,7 +15,7 @@ python C:\Users\csm81\.codex\skills\.system\plugin-creator\scripts\validate_plug
   plugins\coupang-commerce-automation
 ```
 
-현재 기준선은 소싱 테스트 `53 passed`와 플러그인 검증 통과다. CAPTCHA 또는 로그인이 나오면 자동 입력하거나 우회하지 말고 실행을 중단하고 재개 지점을 기록한다.
+현재 기준선은 소싱 테스트 `54 passed`와 플러그인 검증 통과다. CAPTCHA 또는 로그인이 나오면 자동 입력하거나 우회하지 말고 실행을 중단하고 재개 지점을 기록한다.
 
 ## 2. 도매꾹 Best 후보 수집 — 로컬 headless Browser Harness
 
@@ -150,7 +150,7 @@ python coupang-best-high-markup-sourcing\scripts\filter_high_markup_candidates.p
   --min-satisfaction 100
 ```
 
-필터는 정상가·취소선 가격이 아니라 의미가 확인된 할인 후 현재 실판매가만 사용한다. 같은 판매상품의 리뷰 1개 이상 또는 만족 인원 100명 이상 라벨은 구매 발생 대리 신호이며 판매량 확정값이 아니다. JSON과 HTML 보고서에는 도매꾹↔쿠팡 실제 pair URL, 개당 원가, 현재가, 가격 배수와 판매 근거를 기록한다. 설정 배수 이상인 pair가 하나라도 있으면 탐색 일치이며 더 싼 등록은 탈락 근거로 사용하지 않는다. 출력의 `HIGH_MARKUP_DISCOVERY`는 일반 소싱의 전체 마진·수요·경쟁·운영 검증으로 넘길 조사 우선순위이고 자동 `SHORTLIST`가 아니다.
+필터는 정상가·취소선 가격이 아니라 의미가 확인된 할인 후 현재 실판매가만 사용한다. 같은 판매상품의 리뷰 1개 이상 또는 만족 인원 100명 이상 라벨은 구매 발생 대리 신호이며 판매량 확정값이 아니다. JSON과 HTML 보고서에는 도매꾹↔쿠팡 실제 pair URL, 개당 원가, 현재가, 가격 배수와 판매 근거를 기록한다. 실패·차단 시에도 `failure_reason`과 이번 실행의 `sampled_items`를 기록해 실제 표본 상품명·도매꾹 URL·카테고리·순위·원문 확인 단가를 UI에서 확인할 수 있게 한다. 설정 배수 이상인 pair가 하나라도 있으면 탐색 일치이며 더 싼 등록은 탈락 근거로 사용하지 않는다. 출력의 `HIGH_MARKUP_DISCOVERY`는 일반 소싱의 전체 마진·수요·경쟁·운영 검증으로 넘길 조사 우선순위이고 자동 `SHORTLIST`가 아니다.
 
 ## 4. 로켓그로스 가격과 마진 계산
 

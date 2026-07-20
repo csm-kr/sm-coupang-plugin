@@ -5,6 +5,7 @@ import io
 import json
 import time
 from pathlib import Path
+from types import SimpleNamespace
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -244,3 +245,59 @@ def test_windows_codex_resolution_prefers_the_active_path_cli_over_an_older_desk
 
     assert module.resolve_codex_command(which=which, platform="nt").endswith("codex.CMD")
     assert calls == ["codex"]
+
+
+def test_windows_stop_terminates_the_entire_codex_process_tree():
+    module = load_runner_module()
+    process = CompletedProcess([])
+    process.pid = 4321
+    calls = []
+
+    def command_runner(command, **options):
+        calls.append((command, options))
+        return SimpleNamespace(returncode=0)
+
+    module.terminate_process_tree(
+        process,
+        platform="nt",
+        command_runner=command_runner,
+    )
+
+    command, options = calls[0]
+    assert command == ["taskkill", "/PID", "4321", "/T", "/F"]
+    assert options["shell"] is False
+    assert process.terminated is False
+
+
+def test_stop_run_uses_the_process_tree_terminator(tmp_path: Path):
+    module = load_runner_module()
+    process = CompletedProcess([])
+    process.pid = 4321
+    stopped_processes = []
+    manager = module.CodexRunManager(
+        tmp_path,
+        codex_command="codex-test",
+        process_tree_terminator=stopped_processes.append,
+    )
+    manager._runs["run-001"] = {
+        "runId": "run-001",
+        "projectId": "project-001",
+        "stageId": "sourcing",
+        "status": "running",
+        "startedAt": "2026-07-20T00:00:00Z",
+        "finishedAt": None,
+        "exitCode": None,
+        "threadId": None,
+        "error": None,
+        "artifacts": [],
+        "events": [],
+        "_nextSequence": 0,
+        "_process": process,
+        "_baselineReportRuns": [],
+    }
+    manager._active_by_project["project-001"] = "run-001"
+
+    stopped = manager.stop_run("run-001")
+
+    assert stopped["status"] == "stopping"
+    assert stopped_processes == [process]

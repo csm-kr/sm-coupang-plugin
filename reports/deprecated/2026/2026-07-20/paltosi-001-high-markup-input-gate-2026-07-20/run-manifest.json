@@ -1,0 +1,12 @@
+{
+  "run_name": "paltosi-001-high-markup-input-gate-2026-07-20",
+  "project_id": "paltosi-001",
+  "created_at": "2026-07-20T10:01:40+09:00",
+  "status": "RESEARCH_EXPANSION_REQUIRED",
+  "run_outcome": "INPUT_VALIDATION_BLOCKED",
+  "artifacts": [
+    "high-markup-report.html",
+    "high-markup-report.json"
+  ],
+  "web_collection_started": false
+}

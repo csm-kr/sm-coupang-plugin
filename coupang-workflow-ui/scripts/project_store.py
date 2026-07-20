@@ -59,6 +59,11 @@ WORKSPACE_FILE_KINDS = {
     ".webp": "image",
 }
 MAX_WORKSPACE_FILES = 1000
+DEFAULT_SOURCING_INPUTS = {
+    "category": "전체",
+    "maxUnitSupplyPrice": "5000",
+    "minMarkupMultiple": "3",
+}
 
 
 def utc_now() -> str:
@@ -81,6 +86,11 @@ def new_project_state(
     if sourcing_mode != "high-markup":
         raise ValueError("탐색 방식은 high-markup이어야 합니다.")
     timestamp = created_at or utc_now()
+    stage_data = {
+        stage_id: {"inputs": {}, "completed": False, "approved": False}
+        for stage_id in STAGE_IDS
+    }
+    stage_data["sourcing"]["inputs"] = deepcopy(DEFAULT_SOURCING_INPUTS)
     return {
         "schemaVersion": SCHEMA_VERSION,
         "project": {
@@ -97,10 +107,7 @@ def new_project_state(
             "completedStages": [],
             "blockedReason": None,
         },
-        "stageData": {
-            stage_id: {"inputs": {}, "completed": False, "approved": False}
-            for stage_id in STAGE_IDS
-        },
+        "stageData": stage_data,
         "folderMap": deepcopy(FOLDER_MAP),
         "links": {"reportRuns": [], "legacyDetailPageProjects": []},
     }

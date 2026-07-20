@@ -15,7 +15,15 @@
     "blockedReason": null
   },
   "stageData": {
-    "sourcing": {"inputs": {}, "completed": false, "approved": false},
+    "sourcing": {
+      "inputs": {
+        "category": "전체",
+        "maxUnitSupplyPrice": "5000",
+        "minMarkupMultiple": "3"
+      },
+      "completed": false,
+      "approved": false
+    },
     "handoff": {"inputs": {}, "completed": false, "approved": false},
     "product-planning": {"inputs": {}, "completed": false, "approved": false},
     "content-planning": {"inputs": {}, "completed": false, "approved": false},

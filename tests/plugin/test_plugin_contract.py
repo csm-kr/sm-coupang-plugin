@@ -278,6 +278,43 @@ def test_workflow_ui_exposes_codex_run_controls_and_an_embedded_console():
     assert 'prefix = "/api/runs/"' in server
 
 
+def test_workflow_ui_sourcing_shows_live_progress_then_only_real_results():
+    app = (
+        ROOT
+        / "coupang-workflow-ui"
+        / "assets"
+        / "react-app"
+        / "src"
+        / "App.jsx"
+    ).read_text(encoding="utf-8-sig")
+
+    assert "function SourcingResultPanel" in app
+    assert "진행중입니다." in app
+    assert "실제 결과" in app
+    assert "실패 이유" in app
+    assert "도매꾹 확인 샘플" in app
+    assert 'selectedStage.id === "sourcing"' in app
+
+
+def test_workflow_ui_new_projects_use_the_requested_sourcing_defaults():
+    workflow = (
+        ROOT
+        / "coupang-workflow-ui"
+        / "assets"
+        / "react-app"
+        / "src"
+        / "workflow.js"
+    ).read_text(encoding="utf-8-sig")
+    store = (ROOT / "commerce-project" / "scripts" / "project_store.py").read_text(
+        encoding="utf-8-sig"
+    )
+
+    for expected in ('category: "전체"', 'maxUnitSupplyPrice: "5000"', 'minMarkupMultiple: "3"'):
+        assert expected in workflow
+    for expected in ('"category": "전체"', '"maxUnitSupplyPrice": "5000"', '"minMarkupMultiple": "3"'):
+        assert expected in store
+
+
 def test_workflow_ui_uses_a_coupang_mood_without_copying_brand_assets():
     app = (WORKFLOW_UI / "assets" / "react-app" / "src" / "App.jsx").read_text(
         encoding="utf-8-sig"
@@ -336,7 +373,7 @@ def test_workflow_ui_logic_enforces_stage_gates_and_builds_codex_prompt():
     assert completed.returncode == 0, completed.stdout + completed.stderr
 
 
-def test_workflow_ui_category_is_optional_and_defaults_to_the_full_best_pool():
+def test_workflow_ui_uses_the_full_best_category_as_the_default():
     completed = subprocess.run(
         [
             "node",
@@ -384,9 +421,9 @@ def test_workflow_ui_category_is_optional_and_defaults_to_the_full_best_pool():
     assert payload["projectSourcingMode"] == "high-markup"
     assert payload["currentStageId"] == "handoff"
     assert "$coupang-commerce-automation:coupang-best-high-markup-sourcing" in payload["prompt"]
-    assert "도매꾹 Best 전체·6개 대분류" in payload["prompt"]
-    assert "패션잡화/화장품" in payload["prompt"]
-    assert "가전/휴대폰/산업" in payload["prompt"]
+    assert "도매꾹 Best 카테고리: 전체" in payload["prompt"]
+    assert "도매꾹 개당 공급가 상한: 5000" in payload["prompt"]
+    assert "최소 가격 배수: 3" in payload["prompt"]
     assert "미입력 필수 항목: 없음" in payload["prompt"]
     assert "설명만 하지 말고 실제 조사를 실행" in payload["prompt"]
     assert "HTML·JSON 보고서" in payload["prompt"]
@@ -411,7 +448,79 @@ def test_workflow_ui_handoff_is_an_inline_click_confirm_and_advance_flow():
     assert "confirmSourcingSelection" in app
     assert "WorkspaceViewer" in app
     assert "onDrop" in app
-    assert "HTML·이미지 미리보기" in app
+    assert "HTML·이미지 미리보기와 JSON·텍스트 확인" in app
+
+
+def test_workflow_ui_product_planning_uses_user_entry_confirmation_and_asset_drop_preview():
+    workflow = (WORKFLOW_UI / "assets" / "react-app" / "src" / "workflow.js").read_text(
+        encoding="utf-8-sig"
+    )
+    app = (WORKFLOW_UI / "assets" / "react-app" / "src" / "App.jsx").read_text(
+        encoding="utf-8-sig"
+    )
+    styles = (WORKFLOW_UI / "assets" / "react-app" / "src" / "styles.css").read_text(
+        encoding="utf-8-sig"
+    )
+
+    assert "setPriorStageConfirmation" in workflow
+    assert 'skill: "coupang-product-planning"' in workflow
+    assert "sizeMeasurements" in workflow
+    assert "packageComposition" in workflow
+    assert "careInstructions" in workflow
+    assert "경쟁사 별점 1~3점 저평점 리뷰를 Codex가 직접 조사" in workflow
+    assert 'field("identityAssets"' not in workflow
+    assert 'field("lowRatingReviews"' not in workflow
+    assert 'field("sourceAssets"' not in workflow
+    assert 'field("motionAssets"' not in workflow
+    assert "앞 단계 완료 확인" in app
+    assert 'variant="stage-assets"' in app
+    assert "asset-preview-grid" in app
+    assert "경로를 입력하지 마세요" in app
+    assert ".asset-preview-grid" in styles
+
+    planning_skill = (ROOT / "coupang-product-planning" / "SKILL.md").read_text(
+        encoding="utf-8-sig"
+    )
+    assert "Browser Harness" in planning_skill
+    assert "사용자에게 리뷰 URL이나 조사 파일 경로를 입력받지 않는다" in planning_skill
+    assert "folderMap.sourceAssets" in planning_skill
+
+
+def test_product_planning_starts_with_supplier_url_search_then_user_offer_decision():
+    source_skill = (ROOT / "coupang-product-planning" / "SKILL.md").read_text(
+        encoding="utf-8-sig"
+    )
+    source_contract = (
+        ROOT
+        / "coupang-product-planning"
+        / "references"
+        / "product-planning-contract.md"
+    ).read_text(encoding="utf-8-sig")
+    packaged_skill = (
+        PLUGIN
+        / "skills"
+        / "coupang-product-planning"
+        / "SKILL.md"
+    ).read_text(encoding="utf-8-sig")
+    packaged_contract = (
+        PLUGIN
+        / "skills"
+        / "coupang-product-planning"
+        / "references"
+        / "product-planning-contract.md"
+    ).read_text(encoding="utf-8-sig")
+
+    for text in (source_skill, source_contract):
+        assert "공급처 상세 URL 하나만으로 조사를 시작" in text
+        assert "상세 본문·옵션·상품정보·공개 후기·문의" in text
+        assert "색상·사이즈·구성·소재·관리법" in text
+        assert "조사 결과를 사용자에게 먼저 보고" in text
+        assert "판매가·묶음·판매 옵션" in text
+        assert "오퍼 결정 게이트" in text
+        assert "사용자와 정하는 오퍼 결정 게이트" in text
+
+    assert source_skill == packaged_skill
+    assert source_contract == packaged_contract
 
 
 def test_workflow_ui_generates_a_safe_default_project_id_for_beginners():

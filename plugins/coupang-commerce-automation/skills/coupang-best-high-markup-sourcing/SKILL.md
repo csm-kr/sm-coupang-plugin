@@ -103,3 +103,5 @@ python coupang-best-high-markup-sourcing\scripts\filter_high_markup_candidates.p
 기본 목표는 `HIGH_MARKUP_DISCOVERY` 5개다. 부족하면 다음 카테고리·순위·원산지 표본으로 반복하되 조사 ID를 저장해 중복을 막는다. 최대 회차, 풀 소진, CAPTCHA, 로그인 또는 사이트 차단에서 중단한다.
 
 필터는 JSON과 HTML을 함께 만든다. 보고서의 기본 비교 단위는 `도매꾹 상품·개당 원가 ↔ 쿠팡 판매상품·현재가` pair이며 가격 배수, 리뷰·만족 라벨, 두 원문 URL, 동일성 근거, 판정과 다음 게이트를 표시한다. 더 낮은 가격의 다른 등록은 발견 pair의 탈락 사유로 표시하지 않는다. 전체 가격 분포와 수익률은 후속 전체 소싱 검증의 별도 참고값이며 pair 발견 기준을 대체하지 않는다. 최종 상태는 전체 검증 결과에 따라 `RESEARCH_EXPANSION_REQUIRED`, `INSUFFICIENT_QUALIFIED_CANDIDATES` 또는 `AWAITING_USER_SELECTION` 중 하나로 둔다.
+
+실패·차단으로 끝나도 최종 JSON과 HTML에 사람이 읽을 수 있는 `실패 이유`와 이번 실행에서 실제로 뽑아 확인한 `도매꾹 샘플`을 남긴다. JSON의 `sampled_items`에는 후보 ID, 상품명, 도매꾹 URL, Best 카테고리·순위, 확인된 개당 단가와 조사 상태를 기록한다. 샘플 상세 확인 전 실패했다면 목록 표본 값임을 표시하고 공급처 원문 검증 단가처럼 표현하지 않는다.
