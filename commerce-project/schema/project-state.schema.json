@@ -13,7 +13,7 @@
         "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$"},
         "name": {"type": "string", "minLength": 1},
         "channel": {"type": "string", "minLength": 1},
-        "sourcingMode": {"enum": ["standard", "high-markup"]},
+        "sourcingMode": {"enum": ["high-markup"]},
         "status": {"enum": ["active", "blocked", "completed", "archived"]},
         "createdAt": {"type": "string"},
         "updatedAt": {"type": "string"}

@@ -87,17 +87,19 @@ def test_codex_runner_streams_json_events_and_never_uses_a_shell(tmp_path: Path)
         codex_command="codex-test",
         process_factory=process_factory,
     )
-    started = manager.start_run("project-001", "sourcing", "소싱을 시작해줘.")
+    started = manager.start_run("project-001", "handoff", "핸드오프를 시작해줘.")
     finished = wait_for_run(manager, started["runId"])
 
     command, options = calls[0]
     assert command == [
         "codex-test",
+        "--ask-for-approval",
+        "never",
+        "--search",
         "exec",
         "--json",
         "--sandbox",
         "workspace-write",
-        "--ignore-user-config",
         "--ephemeral",
         "--cd",
         str(tmp_path.resolve()),
@@ -105,7 +107,7 @@ def test_codex_runner_streams_json_events_and_never_uses_a_shell(tmp_path: Path)
     ]
     assert options["shell"] is False
     assert options["cwd"] == str(tmp_path.resolve())
-    assert process.stdin.text == "소싱을 시작해줘."
+    assert process.stdin.text == "핸드오프를 시작해줘."
     assert process.stdin.closed is True
     assert finished["status"] == "succeeded"
     assert finished["threadId"] == "thread-123"
@@ -114,6 +116,88 @@ def test_codex_runner_streams_json_events_and_never_uses_a_shell(tmp_path: Path)
         "item.completed",
         "turn.completed",
     ]
+
+
+def write_project(tmp_path: Path, project_id: str, report_runs: list[str] | None = None):
+    project_path = (
+        tmp_path
+        / "commerce-project"
+        / "projects"
+        / project_id
+        / "project.json"
+    )
+    project_path.parent.mkdir(parents=True)
+    project_path.write_text(
+        json.dumps({"links": {"reportRuns": report_runs or []}}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    return project_path
+
+
+def test_sourcing_run_fails_when_exit_zero_does_not_create_a_new_report(tmp_path: Path):
+    module = load_runner_module()
+    write_project(
+        tmp_path,
+        "project-001",
+        ["reports/2026/2026-07-17/old-run/high-markup-report.html"],
+    )
+    process = CompletedProcess(
+        [{"type": "item.completed", "item": {"type": "agent_message", "text": "완료"}}]
+    )
+    manager = module.CodexRunManager(
+        tmp_path,
+        codex_command="codex-test",
+        process_factory=lambda *_args, **_kwargs: process,
+    )
+
+    started = manager.start_run("project-001", "sourcing", "소싱을 시작해줘.")
+    finished = wait_for_run(manager, started["runId"])
+
+    assert finished["exitCode"] == 0
+    assert finished["status"] == "failed"
+    assert "신규 HTML·JSON 보고서" in finished["error"]
+    assert finished["artifacts"] == []
+
+
+def test_sourcing_run_succeeds_after_a_new_html_json_report_is_registered(tmp_path: Path):
+    module = load_runner_module()
+    project_path = write_project(tmp_path, "project-001")
+    report_path = Path(
+        "reports/2026/2026-07-19/project-001-run/high-markup-report.html"
+    )
+    process = CompletedProcess(
+        [{"type": "item.completed", "item": {"type": "agent_message", "text": "완료"}}]
+    )
+
+    def process_factory(_command, **_kwargs):
+        absolute_report = tmp_path / report_path
+        absolute_report.parent.mkdir(parents=True)
+        absolute_report.write_text("<html>신규 보고서</html>", encoding="utf-8")
+        absolute_report.with_suffix(".json").write_text(
+            json.dumps({"status": "PRICE_REVIEW_BLOCKED"}, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        project_path.write_text(
+            json.dumps(
+                {"links": {"reportRuns": [report_path.as_posix()]}},
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        return process
+
+    manager = module.CodexRunManager(
+        tmp_path,
+        codex_command="codex-test",
+        process_factory=process_factory,
+    )
+
+    started = manager.start_run("project-001", "sourcing", "소싱을 시작해줘.")
+    finished = wait_for_run(manager, started["runId"])
+
+    assert finished["status"] == "succeeded"
+    assert finished["error"] is None
+    assert finished["artifacts"] == [report_path.as_posix()]
 
 
 def test_codex_runner_rejects_a_second_active_run_for_the_same_project(tmp_path: Path):

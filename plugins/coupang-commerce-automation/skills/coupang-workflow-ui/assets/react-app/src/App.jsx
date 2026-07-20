@@ -16,6 +16,7 @@ import {
   selectSourcingCandidate,
   shouldRefreshProjectAfterRun,
   sourcingReportJsonHrefs,
+  stageActionCopy,
   setStageApproval,
   setStageCompleted,
   updateStageInput,
@@ -169,14 +170,57 @@ function ProjectRail({ projects, activeId, onSelect, onCreate }) {
 
 function StageRail({ progress, selectedId, onSelect }) {
   return (
-    <nav className="stage-rail" aria-label="프로젝트 단계">
+    <nav className="stage-rail" aria-label="전체 워크플로 진행률">
       {progress.stages.map((stage) => (
-        <button key={stage.id} type="button" onClick={() => onSelect(stage.id)} className={`stage-item ${stage.status} ${selectedId === stage.id ? "selected" : ""}`}>
+        <button
+          key={stage.id}
+          type="button"
+          onClick={() => onSelect(stage.id)}
+          aria-current={selectedId === stage.id ? "step" : undefined}
+          className={`stage-item ${stage.status} ${selectedId === stage.id ? "selected" : ""}`}
+        >
           <span className="stage-number">{stage.complete ? "✓" : stage.step}</span>
           <span><strong>{stage.shortTitle}</strong><small>{stage.status === "locked" ? "앞 단계 대기" : AVAILABILITY[stage.availability][0]}</small></span>
         </button>
       ))}
     </nav>
+  );
+}
+
+function FlowSummary({ stage, run, runtime, starting, onStart }) {
+  const copy = stageActionCopy(stage, run);
+  const canRun = ["run", "rerun"].includes(copy.action);
+  const canJump = ["monitor", "select"].includes(copy.action);
+
+  function activate() {
+    if (canRun) {
+      onStart();
+      return;
+    }
+    const targetId = copy.action === "select" ? "candidate-decision-title" : "codex-console-title";
+    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  return (
+    <section className={`flow-summary ${copy.action}`} aria-live="polite">
+      <span className="flow-summary-step" aria-hidden="true">{stage.complete ? "✓" : stage.step}</span>
+      <div className="flow-summary-copy">
+        <p>지금 할 일</p>
+        <strong>{copy.label}</strong>
+        <small>{copy.helper}</small>
+      </div>
+      {(canRun || canJump) && (
+        <button
+          className={canRun ? "primary-button flow-summary-button" : "ghost-button flow-summary-button"}
+          type="button"
+          onClick={activate}
+          disabled={canRun && (!runtime?.codexAvailable || starting)}
+        >
+          {starting ? "시작 중…" : copy.action === "monitor" ? "실행 로그 보기" : copy.action === "select" ? "후보 비교하기" : copy.label}
+        </button>
+      )}
+      {copy.action === "locked" && <span className="flow-summary-locked">잠김</span>}
+    </section>
   );
 }
 
@@ -765,13 +809,13 @@ export default function App() {
 
   if (loading) return <main className="loading-screen"><div className="loader" /><p>프로젝트를 불러오는 중입니다…</p></main>;
   if (connectionError) return (
-    <main className="error-screen"><div className="brand-mark">CO</div><p className="eyebrow">LOCAL SERVER</p><h1>프로젝트 서버에 연결할 수 없어요</h1><p>{connectionError}</p><button className="primary-button" type="button" onClick={() => loadWorkspace()}>다시 연결</button></main>
+    <main className="error-screen"><div className="brand-mark">CF</div><p className="eyebrow">LOCAL SERVER</p><h1>프로젝트 서버에 연결할 수 없어요</h1><p>{connectionError}</p><button className="primary-button" type="button" onClick={() => loadWorkspace()}>다시 연결</button></main>
   );
 
   return (
     <div className="app-shell">
       <header className="topbar">
-        <div className="brand"><span className="brand-mark">CO</span><span><strong>Commerce OS</strong><small>쿠팡 워크플로 대시보드</small></span></div>
+        <div className="brand"><span className="brand-mark">CF</span><span><strong>Commerce Flow</strong><small>쿠팡 커머스 자동화</small></span></div>
         <div className="top-actions">
           <span className={`save-status ${saveStatus}`}>{saveStatus === "saving" ? "저장 중…" : saveStatus === "error" ? "저장 확인 필요" : "모든 변경 저장됨"}</span>
           {project && <button className="ghost-button" type="button" onClick={exportProject}>JSON 내보내기</button>}
@@ -796,18 +840,41 @@ export default function App() {
               <h1>{project.project.name}</h1>
               <div className="hero-tags"><span>{project.project.channel}</span><span>도매꾹 Best 고배수 탐색</span><span>9단계 중 {progress.completedCount}단계 완료</span></div>
             </div>
-            <div className="progress-dial" style={{ "--progress": `${progress.percentage * 3.6}deg` }}><span><strong>{progress.percentage}%</strong><small>진행률</small></span></div>
+            <div
+              className="progress-summary"
+              role="progressbar"
+              aria-label={`프로젝트 진행률 ${progress.percentage}%`}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow={progress.percentage}
+            >
+              <span><small>전체 진행률</small><strong>{progress.percentage}%</strong></span>
+              <div className="progress-track" aria-hidden="true"><i style={{ width: `${progress.percentage}%` }} /></div>
+              <p>{progress.completedCount}/9 단계 완료</p>
+            </div>
+          </section>
+
+          <section className="workflow-overview">
+            <div className="workflow-overview-head"><div><p className="eyebrow">WORKFLOW</p><h2>상품 출시까지 한 단계씩</h2></div><p><strong>{stageById(project.workflow.currentStage).step}</strong> {stageById(project.workflow.currentStage).title} 진행 중</p></div>
+            <StageRail progress={progress} selectedId={selectedStage.id} onSelect={setSelectedStageId} />
           </section>
 
           <div className="workflow-grid">
-            <StageRail progress={progress} selectedId={selectedStage.id} onSelect={setSelectedStageId} />
             <section className="stage-panel">
               <div className="stage-panel-head">
                 <div><p className="eyebrow">STEP {selectedStage.step}</p><h2>{selectedStage.title}</h2><p>{selectedStage.summary}</p></div>
                 <span className={`availability ${AVAILABILITY[selectedStage.availability][1]}`}>{AVAILABILITY[selectedStage.availability][0]}</span>
               </div>
 
-              {selectedStage.status === "locked" && <div className="locked-banner"><span>🔒</span><p><strong>아직 이 단계를 실행할 수 없어요.</strong><br />현재 단계의 필수 입력과 승인을 먼저 완료해 주세요.</p></div>}
+              <FlowSummary
+                stage={selectedStage}
+                run={run}
+                runtime={runtime}
+                starting={startingRun}
+                onStart={startCodex}
+              />
+
+              {selectedStage.status === "locked" && <div className="locked-banner"><span aria-hidden="true">!</span><p><strong>아직 이 단계를 실행할 수 없어요.</strong><br />현재 단계의 필수 입력과 승인을 먼저 완료해 주세요.</p></div>}
 
               <div className="section-title"><span>01</span><div><h3>{selectedStage.id === "handoff" ? "후보 확인과 선택" : "이번 단계에 필요한 데이터"}</h3><p>{selectedStage.id === "handoff" ? "소싱 결과를 비교하고 다음 단계로 넘길 상품 하나를 고릅니다." : "아는 값만 정확히 입력하고, 모르면 비워 두세요."}</p></div></div>
               {selectedStage.id === "handoff" ? (
@@ -825,7 +892,11 @@ export default function App() {
                 </div>
               )}
 
-              <div className="section-title"><span>02</span><div><h3>완료 기준</h3><p>Codex의 실제 결과와 비교해 확인하세요.</p></div></div>
+              {selectedStage.status !== "locked" && selectedStage.id !== "handoff" && (
+                <CodexConsole runtime={runtime} run={run} starting={startingRun} onStart={startCodex} onStop={stopCodex} />
+              )}
+
+              <div className="section-title"><span>02</span><div><h3>결과 확인과 승인</h3><p>Codex가 만든 근거와 아래 완료 기준을 함께 확인하세요.</p></div></div>
               <ul className="acceptance-list">{selectedStage.acceptance.map((item) => <li key={item}><span>✓</span>{item}</li>)}</ul>
 
               {selectedStage.approvalGate && selectedStage.id !== "handoff" && (
@@ -854,12 +925,8 @@ export default function App() {
                 )}
               </div>}
               {selectedStage.id !== "handoff" && selectedStage.missing.length > 0 && selectedStage.status === "current" && <p className="missing-note">아직 필요한 입력: {selectedStage.missing.map((input) => input.label).join(", ")}</p>}
-              {selectedStage.status !== "locked" && selectedStage.id !== "handoff" && (
-                <CodexConsole runtime={runtime} run={run} starting={startingRun} onStart={startCodex} onStop={stopCodex} />
-              )}
             </section>
             <aside className="context-column">
-              <section className="side-card now-card"><p className="eyebrow">NOW</p><span className="now-step">{stageById(project.workflow.currentStage).step}</span><h3>지금 할 일</h3><p>{stageById(project.workflow.currentStage).summary}</p>{project.workflow.blockedReason && <div className="current-blocker"><strong>확인 필요</strong><span>{project.workflow.blockedReason}</span></div>}</section>
               <WorkspaceViewer project={project} onToast={setToast} />
               <FolderMap project={project} legacy={legacy} />
             </aside>

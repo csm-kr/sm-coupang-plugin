@@ -60,6 +60,15 @@
 - 방지: 폼을 열 때 충돌 가능성이 낮은 `project-YYYYMMDD-HHMMSS-mmm` ID를 자동 생성하고 사용자는 프로젝트 이름만 입력해도 생성할 수 있게 한다.
 - 회귀 테스트: `tests/plugin/test_plugin_contract.py`, `coupang-workflow-ui/assets/react-app/src/workflow.test.js`
 
+## WORKFLOW-UI-MOBILE-CASCADE-001
+
+- 반복 횟수: 1
+- 상태: 수정 및 회귀 방지 구현
+- 원인: 쿠팡 무드 시각 개편의 데스크톱 `.project-rail` 고정 폭과 `.workspace` 왼쪽 여백 규칙을 기존 모바일 미디어 쿼리 뒤에 추가하면서, 850px 이하에서도 뒤쪽 데스크톱 선언이 모바일 초기화를 다시 덮어썼다.
+- 1회 발생: 2026-07-20 360px 브라우저 QA에서 문서 폭이 594px로 늘어나고 프로젝트 열 오른쪽에 본문이 잘린 채 배치됨.
+- 방지: 시각 개편 블록의 850px 미디어 쿼리에서 프로젝트 열 `position: static`·`width: auto`와 본문 `margin-left: 0`을 명시적으로 재선언한다.
+- 회귀 테스트: `tests/plugin/test_plugin_contract.py::test_workflow_ui_refresh_resets_fixed_desktop_layout_on_mobile`
+
 ## WORKFLOW-UI-CODEX-PATH-PRECEDENCE-001
 
 - 반복 횟수: 1

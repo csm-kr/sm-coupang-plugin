@@ -9,6 +9,7 @@ product identity are not verified.
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import math
 import re
@@ -21,6 +22,8 @@ from urllib.parse import urlparse
 DEFAULT_MAX_SUPPLY_PRICE = 5000.0
 DEFAULT_MIN_MARKUP_MULTIPLE = 4.0
 DEFAULT_MIN_REVIEW_COUNT = 5
+SCENARIO_ROCKET_GROWTH_COST = 3000.0
+SCENARIO_FEE_RATE_PCT = 10.8
 REVIEW_COUNT_RE = re.compile(r"(?<!\d)(\d[\d,]*)")
 
 
@@ -114,11 +117,9 @@ def validate_supplier_candidate(candidate: dict[str, Any]) -> list[str]:
     return blockers
 
 
-def _qualifying_seller(
+def _verified_identical_one_unit_seller(
     product: dict[str, Any],
     unit_supply_price: float,
-    min_markup_multiple: float,
-    min_review_count: int,
 ) -> dict[str, Any] | None:
     if product.get("similarity") != "identical" or product.get("identity_verified") is not True:
         return None
@@ -130,14 +131,12 @@ def _qualifying_seller(
     if sale_price is None:
         return None
     review_count = parse_review_count(product)
-    if review_count is None or review_count < min_review_count:
+    if review_count is None:
         return None
     if not _http_url(product.get("url")) or not _timezone_datetime(product.get("observed_at")):
         return None
 
     markup_multiple = sale_price / unit_supply_price
-    if markup_multiple + 1e-12 < min_markup_multiple:
-        return None
     return {
         "name": product.get("name"),
         "url": product.get("url"),
@@ -149,6 +148,39 @@ def _qualifying_seller(
         "similarity": "identical",
         "identity_verified": True,
         "observed_at": product.get("observed_at"),
+    }
+
+
+def _qualifying_seller(
+    product: dict[str, Any],
+    unit_supply_price: float,
+    min_markup_multiple: float,
+    min_review_count: int,
+) -> dict[str, Any] | None:
+    seller = _verified_identical_one_unit_seller(product, unit_supply_price)
+    if seller is None:
+        return None
+    if seller["review_count"] < min_review_count:
+        return None
+    if seller["markup_multiple"] + 1e-12 < min_markup_multiple:
+        return None
+    return seller
+
+
+def _scenario_profit(candidate: dict[str, Any], seller: dict[str, Any]) -> dict[str, Any]:
+    terms = candidate["supplier_terms"]
+    sale_price = float(seller["sale_price"])
+    unit_supply_price = float(terms["unit_supply_price"])
+    shipping_per_unit = float(terms["wholesale_shipping_total"]) / int(candidate["procurement_quantity"])
+    fixed_cost = unit_supply_price + shipping_per_unit + SCENARIO_ROCKET_GROWTH_COST
+    fee = sale_price * SCENARIO_FEE_RATE_PCT / 100
+    vat = sale_price * 0.10 - (fixed_cost + fee) * 0.10
+    profit = sale_price - fixed_cost - fee - vat
+    return {
+        "sale_price": sale_price,
+        "url": seller["url"],
+        "profit": round(profit, 2),
+        "margin_pct": round(profit / sale_price * 100, 4),
     }
 
 
@@ -167,6 +199,9 @@ def evaluate_candidate(
         "decision": "FILTERED_OUT",
         "unit_supply_price": None,
         "qualifying_sellers": [],
+        "market_price_range": None,
+        "high_price_reference": None,
+        "profitability_range": None,
         "blockers": [],
         "next_gate": "FULL_SOURCING_REVIEW_REQUIRED",
     }
@@ -191,22 +226,50 @@ def evaluate_candidate(
         result["blockers"].append("COUPANG_PRODUCTS_UNAVAILABLE")
         return result
 
-    qualifying = [
+    verified_sellers = [
         seller
         for product in products
         if isinstance(product, dict)
         for seller in [
-            _qualifying_seller(
-                product,
-                unit_supply_price,
-                min_markup_multiple,
-                min_review_count,
-            )
+            _verified_identical_one_unit_seller(product, unit_supply_price)
         ]
         if seller is not None
     ]
+    demand_backed_sellers = [
+        seller for seller in verified_sellers if seller["review_count"] >= min_review_count
+    ]
+    qualifying = [
+        seller
+        for seller in demand_backed_sellers
+        if seller["markup_multiple"] + 1e-12 >= min_markup_multiple
+    ]
     qualifying.sort(key=lambda row: (-row["markup_multiple"], -row["review_count"]))
     result["qualifying_sellers"] = qualifying
+    if demand_backed_sellers:
+        low = min(demand_backed_sellers, key=lambda row: row["sale_price"])
+        high = max(demand_backed_sellers, key=lambda row: row["sale_price"])
+        result["market_price_range"] = {
+            "basis": "demand_backed_verified_current_sale_price",
+            "count": len(demand_backed_sellers),
+            "min": low["sale_price"],
+            "max": high["sale_price"],
+            "excluded_no_demand_evidence_count": len(verified_sellers) - len(demand_backed_sellers),
+            "review_evidence_is_proxy": True,
+        }
+        result["high_price_reference"] = {
+            **high,
+            "basis": "highest_demand_backed_verified_current_sale_price",
+        }
+        result["profitability_range"] = {
+            "basis": "demand_backed_verified_current_sale_price_range",
+            "low": _scenario_profit(candidate, low),
+            "high": _scenario_profit(candidate, high),
+            "scenario_assumptions": {
+                "rocket_growth_cost_per_unit": SCENARIO_ROCKET_GROWTH_COST,
+                "fee_rate_pct": SCENARIO_FEE_RATE_PCT,
+                "vat_mode": "excel_rocket_growth_simplified",
+            },
+        }
     if qualifying:
         result["decision"] = "HIGH_MARKUP_DISCOVERY"
     else:
@@ -255,10 +318,70 @@ def filter_candidates(
     }
 
 
+def _money(value: Any) -> str:
+    return f"{value:,.0f}원" if isinstance(value, (int, float)) else "UNKNOWN"
+
+
+def _percent(value: Any) -> str:
+    return f"{value:.1f}%" if isinstance(value, (int, float)) else "UNKNOWN"
+
+
+def render_html(payload: dict[str, Any]) -> str:
+    rows: list[str] = []
+    for result in payload.get("results") or []:
+        price_range = result.get("market_price_range") or {}
+        profitability = result.get("profitability_range") or {}
+        low_profit = profitability.get("low") or {}
+        high_profit = profitability.get("high") or {}
+        high_reference = result.get("high_price_reference") or {}
+        wholesale_url = str(result.get("wholesale_url") or "")
+        wholesale_link = (
+            f'<a href="{html.escape(wholesale_url, quote=True)}" target="_blank" rel="noopener">도매꾹</a>'
+            if _http_url(wholesale_url)
+            else "없음"
+        )
+        high_url = str(high_reference.get("url") or "")
+        high_link = (
+            f'<a href="{html.escape(high_url, quote=True)}" target="_blank" rel="noopener">'
+            f'{html.escape(str(high_reference.get("name") or "고가 판매 근거"))}</a>'
+            if _http_url(high_url)
+            else "판매 근거 미확보"
+        )
+        price_text = (
+            f'{_money(price_range.get("min"))} ~ {_money(price_range.get("max"))}'
+            if price_range
+            else "UNKNOWN"
+        )
+        margin_text = (
+            f'{_percent(low_profit.get("margin_pct"))} ~ {_percent(high_profit.get("margin_pct"))}'
+            if profitability
+            else "UNKNOWN"
+        )
+        blockers = " · ".join(result.get("blockers") or []) or "없음"
+        rows.append(
+            "<tr>"
+            f'<td>{html.escape(str(result.get("name") or result.get("candidate_id") or "UNKNOWN"))}</td>'
+            f'<td>{html.escape(str(result.get("decision") or "UNKNOWN"))}</td>'
+            f'<td>{wholesale_link}</td><td>{html.escape(price_text)}</td><td>{html.escape(margin_text)}</td>'
+            f'<td>{high_link}<br><small>{_money(high_reference.get("sale_price"))} · 리뷰 {html.escape(str(high_reference.get("review_count") or "UNKNOWN"))}</small></td>'
+            f'<td>{html.escape(blockers)}</td></tr>'
+        )
+    return f"""<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>도매꾹 Best 고배수 소싱 보고서</title><style>
+body{{font-family:Arial,'Noto Sans KR',sans-serif;background:#f5f7fb;color:#172033;margin:0;padding:24px}}main{{max-width:1200px;margin:auto;background:#fff;border-radius:16px;padding:28px}}table{{width:100%;border-collapse:collapse}}th,td{{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}}th{{background:#f8fafc}}.notice{{padding:14px;background:#fff7ed;border-radius:10px;line-height:1.6}}a{{color:#2457d6}}small{{color:#64748b}}
+</style></head><body><main><h1>도매꾹 Best 고배수 소싱 보고서</h1>
+<p class="notice">판매 근거가 있는 완전 동일 1개 상품의 현재가만 비교합니다. 고가라도 리뷰·구매 근거가 있으면 <strong>가격 수용성 상단</strong>으로 보존합니다. 리뷰는 현재 가격의 판매량 확정값이 아닌 구매 발생 대리 신호이며, 수익률 최저~최고는 로켓그로스 3,000원·수수료 10.8%·단순화 VAT 탐색 시나리오입니다.</p>
+<p>상태: <strong>{html.escape(str(payload.get("status") or "UNKNOWN"))}</strong> · 탐색 일치 {int(payload.get("match_count") or 0)}개 / 입력 {int(payload.get("input_count") or 0)}개</p>
+<div style="overflow:auto"><table><thead><tr><th>상품</th><th>판정</th><th>도매</th><th>쿠팡 판매 근거 가격 최저~최고</th><th>수익률 최저~최고</th><th>고가 판매 근거</th><th>차단·탈락 사유</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
+</main></body></html>"""
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--html-output", type=Path)
     parser.add_argument("--max-supply-price", type=float, default=DEFAULT_MAX_SUPPLY_PRICE)
     parser.add_argument("--min-markup-multiple", type=float, default=DEFAULT_MIN_MARKUP_MULTIPLE)
     parser.add_argument("--min-reviews", type=int, default=DEFAULT_MIN_REVIEW_COUNT)
@@ -282,6 +405,9 @@ def main() -> int:
         json.dumps(result, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
+    html_output = args.html_output or args.output.with_suffix(".html")
+    html_output.parent.mkdir(parents=True, exist_ok=True)
+    html_output.write_text(render_html(result), encoding="utf-8")
     print(json.dumps({"input": len(candidates), "matches": result["match_count"]}, ensure_ascii=False))
     return 0
 

@@ -78,8 +78,8 @@ def new_project_state(
     sourcing_mode: str,
     created_at: str | None = None,
 ) -> dict[str, Any]:
-    if sourcing_mode not in {"standard", "high-markup"}:
-        raise ValueError("탐색 방식은 standard 또는 high-markup이어야 합니다.")
+    if sourcing_mode != "high-markup":
+        raise ValueError("탐색 방식은 high-markup이어야 합니다.")
     timestamp = created_at or utc_now()
     return {
         "schemaVersion": SCHEMA_VERSION,
@@ -165,6 +165,8 @@ class ProjectStore:
         project = payload.get("project")
         if not isinstance(project, dict) or project.get("id") != project_id:
             raise ValueError("프로젝트 ID는 경로와 project.json에서 같아야 합니다.")
+        if project.get("sourcingMode") != "high-markup":
+            raise ValueError("탐색 방식은 high-markup이어야 합니다.")
         if set(payload.get("stageData", {})) != set(STAGE_IDS):
             raise ValueError("프로젝트 단계 데이터가 완전하지 않습니다.")
 
@@ -379,7 +381,7 @@ def build_parser() -> argparse.ArgumentParser:
     create.add_argument("--id", required=True)
     create.add_argument("--name", required=True)
     create.add_argument("--channel", default="coupang")
-    create.add_argument("--mode", default="standard", choices=("standard", "high-markup"))
+    create.add_argument("--mode", default="high-markup", choices=("high-markup",))
 
     listing = subcommands.add_parser("list")
     listing.add_argument("--workspace", default=".")

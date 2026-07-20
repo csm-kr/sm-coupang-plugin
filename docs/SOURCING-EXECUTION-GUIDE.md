@@ -19,7 +19,7 @@ python C:\Users\csm81\.codex\skills\.system\plugin-creator\scripts\validate_plug
 ## 2. 도매꾹 Best 후보 수집 — Browser Use
 
 1. Browser Use로 `https://domeggook.com/main/item/itemPopular.php`를 연다.
-2. 전체와 카테고리별 TOP 150에서 상·중·하 순위, 국내·국외·미확인 원산지를 분산 표본화한다.
+2. 카테고리는 선택 입력으로 받는다. 비워 두면 `전체`, `패션잡화/화장품`, `의류/언더웨어`, `출산/유아동/완구`, `가구/생활/취미`, `스포츠/건강/식품`, `가전/휴대폰/산업`의 TOP 150에서 상·중·하 순위, 국내·국외·미확인 원산지를 분산 표본화한다.
 3. 상품명, 도매꾹 URL, 단가, MOQ, 구매단위, 주문 배송비, 판매 묶음 수량, 실제 매입 수량, 조사시각, 카테고리와 검색 키워드를 JSON으로 저장한다.
 4. 상품마다 새 브라우저를 만들지 않고 한 조사 회차에서 같은 정상 세션을 유지해 직렬 확인한다.
 5. 실행 중 연 탭의 target ID를 기록하고, 회차 수집을 끝내면 해당 탭만 모두 닫는다. 사용자가 원래 열어 둔 탭이나 다른 세션의 탭은 닫지 않는다.
@@ -127,12 +127,13 @@ cleanup_error:
 python coupang-best-high-markup-sourcing\scripts\filter_high_markup_candidates.py `
   --input tmp\best-high-markup\enriched-candidates.json `
   --output tmp\best-high-markup\high-markup-discoveries.json `
+  --html-output <report-dir>\high-markup-report.html `
   --max-supply-price 5000 `
   --min-markup-multiple 4 `
   --min-reviews 5
 ```
 
-필터는 정상가·취소선 가격이 아니라 의미가 확인된 할인 후 현재 실판매가만 사용한다. 같은 판매상품 리뷰 5개 이상은 구매 발생 대리 신호이며 판매량 확정값이 아니다. 출력의 `HIGH_MARKUP_DISCOVERY`는 일반 소싱의 전체 마진·수요·경쟁·운영 검증으로 넘길 조사 우선순위이고 자동 `SHORTLIST`가 아니다.
+필터는 정상가·취소선 가격이 아니라 의미가 확인된 할인 후 현재 실판매가만 사용한다. 같은 판매상품 리뷰 5개 이상은 구매 발생 대리 신호이며 판매량 확정값이 아니다. JSON과 HTML 보고서에 실제 상품 URL, 판매 근거 현재가·수익률 최저~최고 및 `high_price_reference`를 기록한다. 출력의 `HIGH_MARKUP_DISCOVERY`는 일반 소싱의 전체 마진·수요·경쟁·운영 검증으로 넘길 조사 우선순위이고 자동 `SHORTLIST`가 아니다.
 
 ## 4. 로켓그로스 가격과 마진 계산
 
@@ -165,10 +166,11 @@ python coupang-product-sourcing\scripts\merge_candidate_rounds.py `
 ```powershell
 python coupang-product-sourcing\scripts\iterate_qualified_pool.py `
   --run-dir tmp\sourcing-run-state `
-  --categories 패션 생활 디지털 주방 자동차 취미 `
   --goal 5 `
   --max-rounds 30
 ```
+
+카테고리를 비워 두면 `전체`와 실제 6개 대분류를 자동 순환한다. 특정 범위만 조사하려면 `--categories "스포츠/건강/식품"`처럼 지정한다.
 
 ## 6. 사용자 선택용 HTML 생성
 

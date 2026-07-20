@@ -149,6 +149,20 @@ def test_coupang_collector_card_script_captures_product_thumbnail_url():
     assert ".slice(0,5)" in script
 
 
+def test_coupang_collector_money_regex_matches_digits_in_live_card_dom():
+    sys.path.insert(0, str(ROOT / "scripts"))
+    mod = load("collect_coupang_nodriver")
+
+    script = mod.build_card_extract_script(5)
+
+    assert r"/[\d,]+\s*원/" in script
+    assert r"/[\\d,]+\\s*원/" not in script
+    assert r"/(^|\s)fw-font-bold(\s|$)/" in script
+    assert r"/(^|\\s)fw-font-bold(\\s|$)/" not in script
+    assert r"[^\d]{0,10}([\d,]+)" in script
+    assert r"[^\\d]{0,10}([\\d,]+)" not in script
+
+
 def test_coupang_collector_card_script_captures_recent_purchase_evidence():
     sys.path.insert(0, str(ROOT / "scripts"))
     mod = load("collect_coupang_nodriver")

@@ -15,6 +15,17 @@ from typing import Any
 from build_qualified_report import qualified
 
 
+DEFAULT_CATEGORIES = (
+    "전체",
+    "패션잡화/화장품",
+    "의류/언더웨어",
+    "출산/유아동/완구",
+    "가구/생활/취미",
+    "스포츠/건강/식품",
+    "가전/휴대폰/산업",
+)
+
+
 def key(row: dict[str, Any]) -> str:
     return str(row.get("candidate_id") or row.get("wholesale_url") or "").strip()
 
@@ -57,24 +68,35 @@ def run_collector(command: str, category: str, round_number: int, output: Path) 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-dir", required=True, type=Path)
-    parser.add_argument("--categories", nargs="+", required=True)
+    parser.add_argument(
+        "--categories",
+        nargs="+",
+        help="탐색할 카테고리. 생략하면 도매꾹 Best 전체와 6개 대분류를 순환합니다.",
+    )
     parser.add_argument("--collector-command")
     parser.add_argument("--goal", type=int, default=5)
     parser.add_argument("--max-rounds", type=int, default=30)
     args = parser.parse_args()
 
     goal = max(args.goal, 5)
+    requested_categories = args.categories
+    categories = list(requested_categories or DEFAULT_CATEGORIES)
+    category_scope = "user_selected" if requested_categories else "all"
     state_path = args.run_dir / "run-state.json"
     cumulative_path = args.run_dir / "qualified-input.json"
     state = load(state_path, {
         "schema_version": "1.0", "status": "RUNNING", "round": 0,
+        "category_scope": category_scope, "categories": categories,
         "category_cursor": 0, "investigated_ids": [], "history": [],
     })
+    state.setdefault("category_scope", category_scope)
+    state.setdefault("categories", categories)
+    categories = state["categories"]
     cumulative = load(cumulative_path, {"candidates": []})
     rows = cumulative.get("candidates") or []
 
     while count_qualified(rows) < goal and state["round"] < args.max_rounds:
-        category = args.categories[state["category_cursor"] % len(args.categories)]
+        category = categories[state["category_cursor"] % len(categories)]
         round_number = state["round"] + 1
         round_path = args.run_dir / "rounds" / f"round-{round_number:02d}.json"
 
@@ -104,7 +126,7 @@ def main() -> int:
         rows = merge(rows, incoming)
         after = count_qualified(rows)
         state["round"] = round_number
-        state["category_cursor"] = (state["category_cursor"] + 1) % len(args.categories)
+        state["category_cursor"] = (state["category_cursor"] + 1) % len(categories)
         state["investigated_ids"] = sorted({key(row) for row in rows if key(row)})
         state["history"].append({
             "round": round_number, "category": category,

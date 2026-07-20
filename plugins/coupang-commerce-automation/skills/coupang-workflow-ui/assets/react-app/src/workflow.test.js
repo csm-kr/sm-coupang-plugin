@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import {
   PROJECT_ID_PATTERN,
@@ -18,11 +19,15 @@ import {
   selectSourcingCandidate,
   shouldRefreshProjectAfterRun,
   sourcingReportJsonHrefs,
+  stageActionCopy,
   setStageApproval,
   setStageCompleted,
   updateStageInput,
   validateImportedState,
 } from "./workflow.js";
+
+const appSource = readFileSync(new URL("./App.jsx", import.meta.url), "utf8");
+const stylesSource = readFileSync(new URL("./styles.css", import.meta.url), "utf8");
 
 function fillSourcing(state) {
   const values = {
@@ -274,4 +279,41 @@ test("blocked discovery candidates remain reviewable but cannot cross the handof
     /전체 소싱 검증을 통과한 SHORTLIST 후보만 선택/,
   );
   assert.equal(deriveProgress(state).currentStageId, "handoff");
+});
+
+test("the primary action copy keeps users focused on exactly one next task", () => {
+  const state = createInitialState("2026-07-20T00:00:00Z");
+  const progress = deriveProgress(state);
+  const current = progress.stages.find((stage) => stage.status === "current");
+  const locked = progress.stages.find((stage) => stage.status === "locked");
+
+  assert.deepEqual(stageActionCopy(current, null), {
+    action: "run",
+    label: "Codex로 소싱 시작",
+    helper: "입력값을 저장한 뒤 현재 단계만 실행합니다.",
+  });
+  assert.deepEqual(stageActionCopy(current, { status: "running" }), {
+    action: "monitor",
+    label: "소싱 작업 진행 중",
+    helper: "실행 로그에서 조사와 파일 생성 상태를 확인하세요.",
+  });
+  assert.deepEqual(stageActionCopy(locked, null), {
+    action: "locked",
+    label: "앞 단계를 먼저 완료하세요",
+    helper: "필수 입력과 승인 게이트를 통과하면 자동으로 열립니다.",
+  });
+});
+
+test("the dashboard exposes a commerce color system and accessible workflow navigation", () => {
+  assert.match(stylesSource, /--commerce-blue:\s*#2563eb/i);
+  assert.match(stylesSource, /--commerce-red:\s*#e5484d/i);
+  assert.match(stylesSource, /--surface-canvas:\s*#f5f7fa/i);
+  assert.match(stylesSource, /\.flow-summary\s*\{/);
+  assert.match(stylesSource, /\.workflow-overview\s*\{/);
+  assert.match(appSource, /className=\{`flow-summary/);
+  assert.match(appSource, /<FlowSummary\s/);
+  assert.match(appSource, /aria-label="전체 워크플로 진행률"/);
+  assert.match(appSource, /aria-current=\{selectedId === stage\.id \? "step" : undefined\}/);
+  assert.match(appSource, /role="progressbar"/);
+  assert.match(appSource, /aria-valuenow=\{progress\.percentage\}/);
 });

@@ -1,28 +1,29 @@
 {
   "schemaVersion": "1.0.0",
   "project": {
-    "id": "paltosi-001",
-    "name": "팔토시",
+    "id": "project-20260719-084800-654",
+    "name": "깔창",
     "channel": "coupang",
     "sourcingMode": "high-markup",
     "status": "active",
-    "createdAt": "2026-07-17T14:03:30Z",
-    "updatedAt": "2026-07-20T00:14:00Z"
+    "createdAt": "2026-07-19T08:48:33Z",
+    "updatedAt": "2026-07-19T23:40:57Z"
   },
   "workflow": {
-    "currentStage": "sourcing",
-    "completedStages": [],
-    "blockedReason": "COUPANG_BROWSER_CONNECT_FAILED_BEFORE_SITE_ACCESS"
+    "currentStage": "handoff",
+    "completedStages": [
+      "sourcing"
+    ],
+    "blockedReason": null
   },
   "stageData": {
     "sourcing": {
       "inputs": {
-        "category": "전체",
-        "sourcingMode": "high-markup",
+        "category": "패션잡화/화장품",
         "budget": "50000",
         "targetMargin": "35/25"
       },
-      "completed": false,
+      "completed": true,
       "approved": false
     },
     "handoff": {
@@ -82,8 +83,7 @@
   },
   "links": {
     "reportRuns": [
-      "reports/2026/2026-07-17/paltosi-001-high-markup-sourcing-v2/high-markup-report.html",
-      "reports/2026/2026-07-19/paltosi-001-high-markup-sourcing-2026-07-19/high-markup-report.html"
+      "reports/2026/2026-07-19/project-20260719-084800-654-high-markup-sourcing-2026-07-19/high-markup-report.html"
     ],
     "legacyDetailPageProjects": []
   }

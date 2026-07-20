@@ -113,6 +113,68 @@ def test_filter_parses_existing_parenthesized_review_text():
     assert result["qualifying_sellers"][0]["review_count"] == 1234
 
 
+def test_highest_demand_backed_price_sets_the_upper_profit_reference():
+    mod = load_filter_module()
+    row = candidate(unit_price=3000, sale_price=12000, reviews=30)
+    row["procurement_quantity"] = 10
+    row["supplier_terms"]["minimum_order_qty"] = 10
+    row["coupang_products"].extend([
+        {
+            **row["coupang_products"][0],
+            "name": "베스트 생활용품 고가 판매자",
+            "url": "https://www.coupang.com/vp/products/200",
+            "sale_price": 24000,
+            "review_count": 5,
+        },
+        {
+            **row["coupang_products"][0],
+            "name": "판매 근거 없는 최고가 등록",
+            "url": "https://www.coupang.com/vp/products/300",
+            "sale_price": 30000,
+            "review_count": 0,
+        },
+    ])
+
+    result = mod.evaluate_candidate(row)
+
+    assert result["decision"] == "HIGH_MARKUP_DISCOVERY"
+    assert result["market_price_range"] == {
+        "basis": "demand_backed_verified_current_sale_price",
+        "count": 2,
+        "min": 12000,
+        "max": 24000,
+        "excluded_no_demand_evidence_count": 1,
+        "review_evidence_is_proxy": True,
+    }
+    assert result["high_price_reference"]["sale_price"] == 24000
+    assert result["high_price_reference"]["url"].endswith("/200")
+    assert result["high_price_reference"]["basis"] == "highest_demand_backed_verified_current_sale_price"
+    assert result["profitability_range"]["low"]["sale_price"] == 12000
+    assert result["profitability_range"]["high"]["sale_price"] == 24000
+    assert result["profitability_range"]["low"]["margin_pct"] < result["profitability_range"]["high"]["margin_pct"]
+
+
+def test_html_report_shows_actual_products_and_profitability_range():
+    mod = load_filter_module()
+    row = candidate(unit_price=3000, sale_price=12000, reviews=30)
+    row["coupang_products"].append({
+        **row["coupang_products"][0],
+        "name": "고가 판매 근거 상품",
+        "url": "https://www.coupang.com/vp/products/200",
+        "sale_price": 24000,
+        "review_count": 5,
+    })
+
+    report = mod.render_html(mod.filter_candidates([row]))
+
+    assert "베스트 생활용품" in report
+    assert "수익률 최저~최고" in report
+    assert "12,000원 ~ 24,000원" in report
+    assert "고가 판매 근거 상품" in report
+    assert "https://www.coupang.com/vp/products/200" in report
+    assert "가격 수용성 상단" in report
+
+
 def test_skill_contract_files_do_not_end_with_an_extra_blank_line():
     skill_root = SKILL.parent
     contract_files = [
@@ -136,3 +198,24 @@ def test_skill_contract_samples_best_and_keeps_matches_out_of_shortlist():
     assert "HIGH_MARKUP_DISCOVERY" in text
     assert "SHORTLIST" in text
     assert "도매꾹 Best" in text
+
+
+def test_skill_contract_uses_real_categories_and_requires_an_actual_range_report():
+    text = SKILL.read_text(encoding="utf-8")
+    contract = (SKILL.parent / "references" / "input-output-contract.md").read_text(encoding="utf-8")
+
+    for category in (
+        "전체",
+        "패션잡화/화장품",
+        "의류/언더웨어",
+        "출산/유아동/완구",
+        "가구/생활/취미",
+        "스포츠/건강/식품",
+        "가전/휴대폰/산업",
+    ):
+        assert category in text
+    assert "카테고리 선택은 필수가 아니다" in text
+    assert "--html-output" in text
+    assert "수익률 최저~최고" in text
+    assert "high_price_reference" in contract
+    assert "profitability_range" in contract

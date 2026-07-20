@@ -7,6 +7,8 @@ description: Browser Use로 도매꾹·도매매 등 도매 사이트의 상품 
 
 도매 후보를 공개 근거로 조사하고 계산 가능한 값만 사용해 기준 통과 상품 5개 이상의 `QUALIFIED_POOL`을 만든다. 도매꾹 URL과 쿠팡 근거 URL이 포함된 보고서를 사용자에게 제시하고, 사용자가 진입할 상품을 선택한 뒤에만 최대 5개의 `SHORTLIST`로 승격한다. 발주, 결제, 공급사 연락, 쿠팡 등록은 수행하지 않는다.
 
+워크플로 UI의 사용자 시작 모드는 `coupang-best-high-markup-sourcing` 하나로 고정한다. 이 스킬은 그 탐색 일치 후보를 전체 비용·수요·경쟁·운영 게이트로 재검증하는 내부 정본이다.
+
 ## 필수 원칙
 
 - 수요를 가장 먼저 검증하고 마진, 경쟁 속 진입기회, 운영위험 순으로 평가한다.
@@ -31,7 +33,7 @@ description: Browser Use로 도매꾹·도매매 등 도매 사이트의 상품 
 
 1. [입력 계약](references/input-contract.md)을 읽고 실행 입력과 비용 기본값을 확정한다. 값이 없으면 기본값으로 위장하지 말고 `null`로 둔다.
 2. 설치된 `browser-use` 스킬을 읽고 그 지침을 따른다. 먼저 웹 검색으로 후보·검색어를 파악하고 실제 값은 Browser Use로 원문 페이지에서 확인한다.
-3. 기본 후보 풀은 도매꾹 Best의 카테고리별 TOP 150으로 한다. 사용자가 지정한 대분류 또는 전체 풀에서 기본 30개까지 수집하고 공급가, MOQ, 구매단위, 주문 배송비, 판매·매입 수량, 옵션, 공급사, 규제·인증 상태, 이미지 사용 가능성, 공급 안정성을 기록한다. 각 조건은 상품 원문 URL과 조사시각으로 검증한다. Best 순위는 수요 확정값이 아니라 도매시장 후보 발굴 신호로만 사용한다.
+3. 기본 후보 풀은 도매꾹 Best의 카테고리별 TOP 150으로 한다. 실행 단위 카테고리는 선택 입력이다. 사용자가 고르면 해당 대분류를 우선하고, 비워 두면 `전체`, `패션잡화/화장품`, `의류/언더웨어`, `출산/유아동/완구`, `가구/생활/취미`, `스포츠/건강/식품`, `가전/휴대폰/산업`을 순환한다. 기본 30개까지 수집하고 공급가, MOQ, 구매단위, 주문 배송비, 판매·매입 수량, 옵션, 공급사, 규제·인증 상태, 이미지 사용 가능성, 공급 안정성을 기록한다. 각 조건은 상품 원문 URL과 조사시각으로 검증한다. Best 순위는 수요 확정값이 아니라 도매시장 후보 발굴 신호로만 사용한다.
    목록이 크면 순위 상위만 자르지 말고 다음 명령으로 상·중·하 순위 구간과 상품명 다양성을 반영한 조사 표본을 만든다.
 
 ```powershell
@@ -82,7 +84,7 @@ python <skill-dir>/scripts/validate_sourcing_output.py `
 
 ```powershell
 python <skill-dir>/scripts/iterate_qualified_pool.py `
-  --run-dir <run-dir> --categories 패션 생활 디지털 주방 자동차 취미 `
+  --run-dir <run-dir> `
   --goal 5 --max-rounds 30 --collector-command "<browser-use collector command>"
 
 python <skill-dir>/scripts/build_qualified_report.py `
@@ -90,6 +92,8 @@ python <skill-dir>/scripts/build_qualified_report.py `
   --output-dir <run-dir>/output --minimum 5 --round-target 5 `
   --round <completed-round> --max-rounds 30
 ```
+
+`--categories`를 생략하면 도매꾹의 `전체`와 실제 6개 대분류를 순환한다. 특정 범위만 원하면 `--categories "가구/생활/취미"`처럼 명시한다.
 
 13. 보고서 상태를 `AWAITING_USER_SELECTION`으로 두고 도매꾹 URL, 쿠팡 URL, 가격 분포, 추천가, 정상·스트레스 마진, 수요·경쟁 근거를 제시한다. 사용자가 상품과 가격안을 선택하기 전에는 상세페이지 제작으로 넘기지 않는다.
 14. 사용자가 선택한 상품만 최대 5개의 `SHORTLIST`로 승격한다. 각 상품에 샘플 확인 항목, 차별화 소구 3개, 증명 장면 3개, GIF 아이디어 1개를 완성하고 [출력 계약](references/output-contract.md)에 따라 전달한다.

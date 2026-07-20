@@ -7,6 +7,8 @@
 - `markup_multiple`: `sale_price ÷ unit_supply_price`
 - `review_count`: 동일 쿠팡 판매상품에 표시된 누적 리뷰 수
 - `HIGH_MARKUP_DISCOVERY`: 사용자 탐색 조건 일치. 수익성 승인·`SHORTLIST`와 다름
+- `high_price_reference`: 판매 근거가 있는 검증 현재가 중 최고가 상품과 URL
+- `profitability_range`: 판매 근거 현재가 최저·최고에서 계산한 탐색 시나리오 수익과 수익률
 
 경계값 5,000원, 4.0배, 리뷰 5개는 포함한다.
 
@@ -24,7 +26,7 @@
       "url": "https://domeggook.com/12345678",
       "supply_price": 4500,
       "moq": 2,
-      "category": "생활",
+      "category": "가구/생활/취미",
       "origin_scope": "domestic",
       "pool_type": "category_top150"
     }
@@ -94,6 +96,25 @@
     {
       "decision": "HIGH_MARKUP_DISCOVERY",
       "unit_supply_price": 4500,
+      "market_price_range": {
+        "basis": "demand_backed_verified_current_sale_price",
+        "count": 2,
+        "min": 18900,
+        "max": 23900,
+        "excluded_no_demand_evidence_count": 1,
+        "review_evidence_is_proxy": true
+      },
+      "high_price_reference": {
+        "basis": "highest_demand_backed_verified_current_sale_price",
+        "sale_price": 23900,
+        "review_count": 5,
+        "url": "https://www.coupang.com/vp/products/200"
+      },
+      "profitability_range": {
+        "basis": "demand_backed_verified_current_sale_price_range",
+        "low": {"sale_price": 18900, "profit": 5391, "margin_pct": 28.52},
+        "high": {"sale_price": 23900, "profit": 9400, "margin_pct": 39.33}
+      },
       "qualifying_sellers": [
         {
           "sale_price": 18900,
@@ -107,4 +128,4 @@
 }
 ```
 
-공급조건이 불완전하면 `PRICE_REVIEW_BLOCKED`, 임곗값을 충족하지 않으면 `FILTERED_OUT`으로 둔다. 필터 결과가 없어도 실행 자체는 정상이며 `NO_DISCOVERY_MATCHES`를 출력한다.
+공급조건이 불완전하면 `PRICE_REVIEW_BLOCKED`, 임곗값을 충족하지 않으면 `FILTERED_OUT`으로 둔다. 필터 결과가 없어도 실행 자체는 정상이며 `NO_DISCOVERY_MATCHES`를 출력한다. HTML 보고서는 실제 상품 링크, 판매 근거 현재가 범위, 수익률 최저~최고와 차단·탈락 사유를 모두 보존한다.

@@ -40,3 +40,25 @@ def test_waits_for_next_category_input(tmp_path):
     state = json.loads((tmp_path / "run-state.json").read_text(encoding="utf-8"))
     assert state["status"] == "WAITING_FOR_ROUND_INPUT"
     assert state["next_category"] == "패션"
+
+
+def test_uses_the_full_category_cycle_when_categories_are_omitted(tmp_path):
+    result = subprocess.run([
+        sys.executable, str(ROOT / "scripts" / "iterate_qualified_pool.py"),
+        "--run-dir", str(tmp_path), "--goal", "5",
+    ], check=False)
+
+    assert result.returncode == 2
+    state = json.loads((tmp_path / "run-state.json").read_text(encoding="utf-8"))
+    assert state["status"] == "WAITING_FOR_ROUND_INPUT"
+    assert state["category_scope"] == "all"
+    assert state["categories"] == [
+        "전체",
+        "패션잡화/화장품",
+        "의류/언더웨어",
+        "출산/유아동/완구",
+        "가구/생활/취미",
+        "스포츠/건강/식품",
+        "가전/휴대폰/산업",
+    ]
+    assert state["next_category"] == "전체"

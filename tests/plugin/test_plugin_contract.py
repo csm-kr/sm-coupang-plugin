@@ -274,6 +274,51 @@ def test_workflow_ui_exposes_codex_run_controls_and_an_embedded_console():
     assert 'prefix = "/api/runs/"' in server
 
 
+def test_workflow_ui_uses_a_coupang_mood_without_copying_brand_assets():
+    app = (WORKFLOW_UI / "assets" / "react-app" / "src" / "App.jsx").read_text(
+        encoding="utf-8-sig"
+    )
+    styles = (WORKFLOW_UI / "assets" / "react-app" / "src" / "styles.css").read_text(
+        encoding="utf-8-sig"
+    )
+    workflow = (WORKFLOW_UI / "assets" / "react-app" / "src" / "workflow.js").read_text(
+        encoding="utf-8-sig"
+    )
+
+    assert "--commerce-blue: #2563eb" in styles
+    assert "--commerce-red: #e5484d" in styles
+    assert "--surface-canvas: #f5f7fa" in styles
+    assert ".flow-summary {" in styles
+    assert ".workflow-overview {" in styles
+    assert 'className={`flow-summary ${copy.action}`}' in app
+    assert "<FlowSummary" in app
+    assert 'aria-label="전체 워크플로 진행률"' in app
+    assert 'aria-current={selectedId === stage.id ? "step" : undefined}' in app
+    assert 'role="progressbar"' in app
+    assert "aria-valuenow={progress.percentage}" in app
+    assert "stageActionCopy" in workflow
+    assert "쿠팡 로고" not in app
+    assert "var(--commerce-red) 72%" not in styles
+    assert ".brand-mark::after" not in styles
+
+    compact_rules = styles.rsplit("@media (max-width: 850px)", 1)[1].split("@media", 1)[0]
+    assert re.search(r"\.project-rail\s*\{[^}]*position:\s*static", compact_rules)
+    assert re.search(r"\.project-rail\s*\{[^}]*width:\s*auto", compact_rules)
+    assert re.search(r"\.workspace\s*\{[^}]*margin-left:\s*0", compact_rules)
+
+
+def test_workflow_ui_refresh_resets_fixed_desktop_layout_on_mobile():
+    styles = (WORKFLOW_UI / "assets" / "react-app" / "src" / "styles.css").read_text(
+        encoding="utf-8-sig"
+    )
+    refresh = styles.split("/* Commerce Flow visual system", 1)[1]
+    mobile = refresh.split("@media (max-width: 850px)", 1)[1]
+
+    assert re.search(r"\.project-rail\s*\{[^}]*position:\s*static", mobile, re.S)
+    assert re.search(r"\.project-rail\s*\{[^}]*width:\s*auto", mobile, re.S)
+    assert re.search(r"\.workspace\s*\{[^}]*margin-left:\s*0", mobile, re.S)
+
+
 def test_workflow_ui_logic_enforces_stage_gates_and_builds_codex_prompt():
     completed = subprocess.run(
         ["node", "--test", "src/workflow.test.js"],
@@ -432,7 +477,7 @@ def test_workflow_ui_api_creates_lists_and_updates_real_project_folders(tmp_path
                 "projectId": "summer-mask-001",
                 "name": "여름 스포츠 마스크",
                 "channel": "coupang",
-                "sourcingMode": "standard",
+                "sourcingMode": "high-markup",
             },
         )
         assert created["project"]["id"] == "summer-mask-001"
@@ -634,7 +679,7 @@ def test_workflow_ui_api_starts_streams_and_stops_the_current_codex_stage(tmp_pa
                 "projectId": "summer-mask-001",
                 "name": "여름 스포츠 마스크",
                 "channel": "coupang",
-                "sourcingMode": "standard",
+                "sourcingMode": "high-markup",
             },
         )
         started = request(

@@ -20,6 +20,42 @@ export function isRunActive(run) {
   return Boolean(run && ACTIVE_RUN_STATUSES.has(run.status));
 }
 
+export function stageActionCopy(stage, run) {
+  if (stage?.status === "locked") {
+    return {
+      action: "locked",
+      label: "앞 단계를 먼저 완료하세요",
+      helper: "필수 입력과 승인 게이트를 통과하면 자동으로 열립니다.",
+    };
+  }
+  if (stage?.id === "handoff") {
+    return {
+      action: "select",
+      label: "검증된 후보 1개와 판매가를 확정하세요",
+      helper: "SHORTLIST 후보만 상품기획 단계로 넘길 수 있습니다.",
+    };
+  }
+  if (isRunActive(run)) {
+    return {
+      action: "monitor",
+      label: `${stage?.shortTitle ?? "현재 단계"} 작업 진행 중`,
+      helper: "실행 로그에서 조사와 파일 생성 상태를 확인하세요.",
+    };
+  }
+  if (stage?.complete) {
+    return {
+      action: "rerun",
+      label: `${stage.shortTitle} 다시 실행`,
+      helper: "완료 기록을 유지한 채 현재 단계의 결과를 다시 점검합니다.",
+    };
+  }
+  return {
+    action: "run",
+    label: `Codex로 ${stage?.shortTitle ?? "현재 단계"} 시작`,
+    helper: "입력값을 저장한 뒤 현재 단계만 실행합니다.",
+  };
+}
+
 export function shouldRefreshProjectAfterRun(run) {
   return Boolean(run && ["succeeded", "failed", "stopped"].includes(run.status));
 }

@@ -56,7 +56,9 @@ class CodexRunManager:
             "codexAvailable": bool(self.codex_command),
             "codexCommand": Path(self.codex_command).name if self.codex_command else None,
             "sandbox": "workspace-write",
-            "userConfig": "ignored",
+            "approvalPolicy": "never",
+            "userConfig": "loaded",
+            "artifactValidation": True,
             "sessionPersistence": "ephemeral",
             "workspace": str(self.workspace),
         }
@@ -89,9 +91,11 @@ class CodexRunManager:
                 "exitCode": None,
                 "threadId": None,
                 "error": None,
+                "artifacts": [],
                 "events": [],
                 "_nextSequence": 0,
                 "_process": None,
+                "_baselineReportRuns": self._read_report_runs(project_id),
             }
             self._runs[run_id] = record
             self._active_by_project[project_id] = run_id
@@ -108,11 +112,13 @@ class CodexRunManager:
     def _execute(self, run_id: str, prompt: str) -> None:
         command = [
             str(self.codex_command),
+            "--ask-for-approval",
+            "never",
+            "--search",
             "exec",
             "--json",
             "--sandbox",
             "workspace-write",
-            "--ignore-user-config",
             "--ephemeral",
             "--cd",
             str(self.workspace),
@@ -161,9 +167,30 @@ class CodexRunManager:
 
             exit_code = process.wait()
             with self._lock:
-                status = "stopped" if self._runs[run_id]["status"] == "stopping" else (
-                    "succeeded" if exit_code == 0 else "failed"
-                )
+                stopping = self._runs[run_id]["status"] == "stopping"
+            if stopping:
+                status = "stopped"
+            elif exit_code != 0:
+                status = "failed"
+            else:
+                validation_error, artifacts = self._validate_artifacts(run_id)
+                with self._lock:
+                    self._runs[run_id]["artifacts"] = artifacts
+                    self._runs[run_id]["error"] = validation_error
+                if validation_error:
+                    self._append_event(
+                        run_id,
+                        json.dumps(
+                            {
+                                "type": "artifact_validation.failed",
+                                "message": validation_error,
+                            },
+                            ensure_ascii=False,
+                        ),
+                    )
+                    status = "failed"
+                else:
+                    status = "succeeded"
             self._finish(run_id, status, exit_code)
         except Exception as error:
             self._append_event(
@@ -213,6 +240,70 @@ class CodexRunManager:
             record["_process"] = None
             if self._active_by_project.get(record["projectId"]) == run_id:
                 self._active_by_project.pop(record["projectId"], None)
+
+    def _project_path(self, project_id: str) -> Path | None:
+        projects_root = (
+            self.workspace / "commerce-project" / "projects"
+        ).resolve()
+        project_path = (projects_root / project_id / "project.json").resolve()
+        if not project_path.is_relative_to(projects_root):
+            return None
+        return project_path
+
+    def _read_report_runs(self, project_id: str) -> list[str]:
+        project_path = self._project_path(project_id)
+        if project_path is None or not project_path.is_file():
+            return []
+        try:
+            payload = json.loads(project_path.read_text(encoding="utf-8-sig"))
+        except (OSError, json.JSONDecodeError):
+            return []
+        report_runs = payload.get("links", {}).get("reportRuns", [])
+        if not isinstance(report_runs, list):
+            return []
+        return [value for value in report_runs if isinstance(value, str) and value.strip()]
+
+    def _validate_artifacts(self, run_id: str) -> tuple[str | None, list[str]]:
+        with self._lock:
+            record = self._runs[run_id]
+            if record["stageId"] != "sourcing":
+                return None, []
+            project_id = record["projectId"]
+            baseline = set(record["_baselineReportRuns"])
+
+        current = self._read_report_runs(project_id)
+        new_reports = [path for path in current if path not in baseline]
+        valid_reports: list[str] = []
+        invalid_reasons: list[str] = []
+        reports_root = (self.workspace / "reports").resolve()
+
+        for relative_path in new_reports:
+            candidate = Path(relative_path)
+            if candidate.is_absolute() or candidate.suffix.lower() != ".html":
+                invalid_reasons.append(f"HTML 상대 경로가 아님: {relative_path}")
+                continue
+            absolute_html = (self.workspace / candidate).resolve()
+            if not absolute_html.is_relative_to(reports_root):
+                invalid_reasons.append(f"reports 밖의 경로: {relative_path}")
+                continue
+            absolute_json = absolute_html.with_suffix(".json")
+            if not absolute_html.is_file() or absolute_html.stat().st_size == 0:
+                invalid_reasons.append(f"HTML 없음: {relative_path}")
+                continue
+            if not absolute_json.is_file() or absolute_json.stat().st_size == 0:
+                invalid_reasons.append(f"JSON 없음: {absolute_json.relative_to(self.workspace).as_posix()}")
+                continue
+            valid_reports.append(relative_path)
+
+        if valid_reports:
+            return None, valid_reports
+
+        detail = f" ({'; '.join(invalid_reasons)})" if invalid_reasons else ""
+        return (
+            "소싱 실행은 신규 HTML·JSON 보고서를 생성하고 project.json의 "
+            f"links.reportRuns에 등록해야 완료됩니다.{detail}",
+            [],
+        )
 
     def get_run(self, run_id: str) -> dict[str, Any]:
         with self._lock:

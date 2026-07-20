@@ -4,7 +4,7 @@
     "id": "example-project-001",
     "name": "새 상품 프로젝트",
     "channel": "coupang",
-    "sourcingMode": "standard",
+    "sourcingMode": "high-markup",
     "status": "active",
     "createdAt": null,
     "updatedAt": null
