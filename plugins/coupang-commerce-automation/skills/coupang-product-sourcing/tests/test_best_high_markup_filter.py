@@ -22,7 +22,7 @@ def load_filter_module():
     return module
 
 
-def candidate(*, unit_price: int = 5000, sale_price: int = 20000, reviews: int = 5):
+def candidate(*, unit_price: int = 5000, sale_price: int = 20000, reviews: int = 1):
     return {
         "candidate_id": "BEST-001",
         "name": "베스트 생활용품",
@@ -63,7 +63,49 @@ def test_exact_boundaries_pass_as_discovery_match():
     assert result["decision"] == "HIGH_MARKUP_DISCOVERY"
     assert result["unit_supply_price"] == 5000
     assert result["qualifying_sellers"][0]["markup_multiple"] == 4.0
-    assert result["qualifying_sellers"][0]["review_count"] == 5
+    assert result["qualifying_sellers"][0]["review_count"] == 1
+
+
+def test_configurable_multiple_is_an_existential_pair_gate_and_ignores_cheaper_listings():
+    mod = load_filter_module()
+    row = candidate(unit_price=3000, sale_price=9000, reviews=2)
+    row["coupang_products"].insert(0, {
+        **row["coupang_products"][0],
+        "name": "더 싼 동일 상품",
+        "url": "https://www.coupang.com/vp/products/50",
+        "sale_price": 4500,
+        "review_count": 300,
+    })
+
+    result = mod.evaluate_candidate(row, min_markup_multiple=3)
+
+    assert result["decision"] == "HIGH_MARKUP_DISCOVERY"
+    assert len(result["qualifying_pairs"]) == 1
+    assert result["qualifying_pairs"][0]["markup_multiple"] == 3.0
+    assert result["qualifying_pairs"][0]["coupang_url"].endswith("/100")
+    assert result["discovery_rule"] == "EXISTS_SALES_EVIDENCED_PAIR_AT_OR_ABOVE_MULTIPLE"
+    assert result["lower_price_listings_do_not_disqualify"] is True
+
+
+def test_review_or_satisfaction_badge_can_prove_the_pair_has_sales_evidence():
+    mod = load_filter_module()
+    review_pair = mod.evaluate_candidate(candidate(reviews=1))
+    satisfaction_row = candidate(reviews=0)
+    satisfaction_row["coupang_products"][0].update({
+        "satisfaction_signal": "100명 이상 만족했어요",
+        "satisfaction_count": 100,
+    })
+
+    satisfaction_pair = mod.evaluate_candidate(satisfaction_row)
+
+    assert review_pair["decision"] == "HIGH_MARKUP_DISCOVERY"
+    assert review_pair["qualifying_pairs"][0]["sales_evidence"]["type"] == "review"
+    assert satisfaction_pair["decision"] == "HIGH_MARKUP_DISCOVERY"
+    assert satisfaction_pair["qualifying_pairs"][0]["sales_evidence"] == {
+        "type": "satisfaction_badge",
+        "count": 100,
+        "label": "100명 이상 만족했어요",
+    }
 
 
 def test_filter_rejects_price_over_5000_and_bundle_mismatch():
@@ -88,9 +130,9 @@ def test_filter_uses_current_price_and_requires_exact_verified_identity():
     assert mod.evaluate_candidate(similar)["decision"] == "FILTERED_OUT"
 
 
-def test_filter_requires_five_reviews_and_verified_supplier_terms():
+def test_filter_honors_a_stricter_review_threshold_and_requires_verified_supplier_terms():
     mod = load_filter_module()
-    too_few_reviews = mod.evaluate_candidate(candidate(reviews=4))
+    too_few_reviews = mod.evaluate_candidate(candidate(reviews=4), min_review_count=5)
     unverified = candidate(reviews=10)
     unverified["supplier_terms"]["verified"] = False
 
@@ -168,11 +210,14 @@ def test_html_report_shows_actual_products_and_profitability_range():
     report = mod.render_html(mod.filter_candidates([row]))
 
     assert "베스트 생활용품" in report
-    assert "수익률 최저~최고" in report
-    assert "12,000원 ~ 24,000원" in report
+    assert "도매꾹 상품·개당 원가" in report
+    assert "쿠팡 판매 상품·현재가" in report
+    assert "가격 배수" in report
+    assert "판매 근거" in report
+    assert "8.00배" in report
     assert "고가 판매 근거 상품" in report
     assert "https://www.coupang.com/vp/products/200" in report
-    assert "가격 수용성 상단" in report
+    assert "낮은 가격의 다른 등록은 이 pair를 탈락시키지 않습니다" in report
 
 
 def test_skill_contract_files_do_not_end_with_an_extra_blank_line():
@@ -192,15 +237,17 @@ def test_skill_contract_samples_best_and_keeps_matches_out_of_shortlist():
     text = SKILL.read_text(encoding="utf-8")
 
     assert "sample_top150.py" in text
-    assert "5,000원 이하" in text
-    assert "4배 이상" in text
-    assert "리뷰 5개 이상" in text
+    assert "개당 공급가 상한" in text
+    assert "최소 가격 배수" in text
+    assert "리뷰 1개 이상" in text
+    assert "100명 이상 만족" in text
+    assert "낮은 가격" in text
     assert "HIGH_MARKUP_DISCOVERY" in text
     assert "SHORTLIST" in text
     assert "도매꾹 Best" in text
 
 
-def test_skill_contract_uses_real_categories_and_requires_an_actual_range_report():
+def test_skill_contract_uses_real_categories_and_requires_an_actual_pair_report():
     text = SKILL.read_text(encoding="utf-8")
     contract = (SKILL.parent / "references" / "input-output-contract.md").read_text(encoding="utf-8")
 
@@ -216,6 +263,6 @@ def test_skill_contract_uses_real_categories_and_requires_an_actual_range_report
         assert category in text
     assert "카테고리 선택은 필수가 아니다" in text
     assert "--html-output" in text
-    assert "수익률 최저~최고" in text
-    assert "high_price_reference" in contract
-    assert "profitability_range" in contract
+    assert "도매꾹 상품·개당 원가 ↔ 쿠팡 판매상품·현재가" in text
+    assert "qualifying_pairs" in contract
+    assert "lower_price_listings_do_not_disqualify" in contract

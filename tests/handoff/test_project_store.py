@@ -106,6 +106,10 @@ def test_register_report_links_existing_report_without_copying_it(tmp_path: Path
 
     project = store.register_report("summer-mask-001", report)
     assert project["links"]["reportRuns"] == ["reports/2026/2026-07-17/sample-run/report.html"]
+    repeated = store.register_report("summer-mask-001", report)
+    assert repeated["links"]["reportRuns"] == [
+        "reports/2026/2026-07-17/sample-run/report.html"
+    ]
     assert report.is_file()
     assert not (tmp_path / "commerce-project" / "projects" / "summer-mask-001" / "report.html").exists()
 

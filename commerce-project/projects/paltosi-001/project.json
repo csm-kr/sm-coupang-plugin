@@ -7,7 +7,7 @@
     "sourcingMode": "high-markup",
     "status": "active",
     "createdAt": "2026-07-17T14:03:30Z",
-    "updatedAt": "2026-07-20T00:14:00Z"
+    "updatedAt": "2026-07-20T00:24:15Z"
   },
   "workflow": {
     "currentStage": "sourcing",
@@ -83,7 +83,8 @@
   "links": {
     "reportRuns": [
       "reports/2026/2026-07-17/paltosi-001-high-markup-sourcing-v2/high-markup-report.html",
-      "reports/2026/2026-07-19/paltosi-001-high-markup-sourcing-2026-07-19/high-markup-report.html"
+      "reports/2026/2026-07-19/paltosi-001-high-markup-sourcing-2026-07-19/high-markup-report.html",
+      "reports/2026/2026-07-20/paltosi-001-high-markup-sourcing-2026-07-20/high-markup-report.html"
     ],
     "legacyDetailPageProjects": []
   }

@@ -6,11 +6,14 @@
 - `sale_price`: 쿠팡 카드에서 의미가 확인된 할인 후 현재 실판매가
 - `markup_multiple`: `sale_price ÷ unit_supply_price`
 - `review_count`: 동일 쿠팡 판매상품에 표시된 누적 리뷰 수
+- `satisfaction_count`: `100명 이상 만족했어요` 같은 라벨의 만족 인원 수
+- `sales_evidence`: 리뷰 1개 이상 또는 만족 인원 100명 이상 라벨로 확인한 구매 발생 대리 신호
+- `qualifying_pair`: 도매꾹 1개 상품과 기준 배수 이상인 쿠팡 동일 1개 판매상품의 URL·가격·판매 근거 묶음
 - `HIGH_MARKUP_DISCOVERY`: 사용자 탐색 조건 일치. 수익성 승인·`SHORTLIST`와 다름
 - `high_price_reference`: 판매 근거가 있는 검증 현재가 중 최고가 상품과 URL
 - `profitability_range`: 판매 근거 현재가 최저·최고에서 계산한 탐색 시나리오 수익과 수익률
 
-경계값 5,000원, 4.0배, 리뷰 5개는 포함한다.
+개당 공급가 상한과 최소 가격 배수는 사용자 입력값이며 경계값을 포함한다. 판매 근거 기본값은 리뷰 1개 이상 또는 만족 인원 100명 이상이다. 기존 CLI 호환 기본값은 개당 5,000원·4.0배다.
 
 ## 샘플링 입력
 
@@ -66,6 +69,8 @@
           "list_price": 29900,
           "price_verified": true,
           "review_count": 7,
+          "satisfaction_signal": "100명 이상 만족했어요",
+          "satisfaction_count": 100,
           "similarity": "identical",
           "identity_verified": true,
           "observed_at": "2026-07-17T16:05:00+09:00"
@@ -78,7 +83,7 @@
 
 `supplier_terms`에는 단가·MOQ·구매 증분·주문 배송비·조사시각·원문 URL이 모두 있어야 한다. `procurement_quantity`는 MOQ 이상이며 구매 증분에 맞아야 한다.
 
-쿠팡 행은 1개 구성, 현재가 의미 확인, 리뷰 수, URL, 조사시각이 필요하다. 공급처와 쿠팡의 이미지·구조·규격·모델·고유 문구를 확인한 경우에만 `identity_verified: true`를 쓴다.
+쿠팡 행은 1개 구성, 현재가 의미 확인, 리뷰 또는 만족 라벨, URL, 조사시각이 필요하다. 공급처와 쿠팡의 이미지·구조·규격·모델·고유 문구를 확인한 경우에만 `identity_verified: true`를 쓴다.
 
 ## 출력
 
@@ -89,13 +94,29 @@
     "max_unit_supply_price": 5000,
     "required_sale_bundle_quantity": 1,
     "min_current_sale_price_multiple": 4,
-    "min_review_count": 5
+    "min_review_count": 1,
+    "min_satisfaction_count": 100,
+    "sales_evidence_rule": "review_or_satisfaction_badge"
   },
   "match_count": 1,
   "matches": [
     {
       "decision": "HIGH_MARKUP_DISCOVERY",
       "unit_supply_price": 4500,
+      "discovery_rule": "EXISTS_SALES_EVIDENCED_PAIR_AT_OR_ABOVE_MULTIPLE",
+      "lower_price_listings_do_not_disqualify": true,
+      "qualifying_pairs": [
+        {
+          "wholesale_name": "생활용품 후보",
+          "wholesale_url": "https://domeggook.com/12345678",
+          "unit_supply_price": 4500,
+          "coupang_name": "생활용품 후보, 1개",
+          "coupang_url": "https://www.coupang.com/vp/products/200",
+          "current_sale_price": 23900,
+          "markup_multiple": 5.3111,
+          "sales_evidence": {"type": "review", "count": 5, "label": "리뷰 5개"}
+        }
+      ],
       "market_price_range": {
         "basis": "demand_backed_verified_current_sale_price",
         "count": 2,
@@ -128,4 +149,4 @@
 }
 ```
 
-공급조건이 불완전하면 `PRICE_REVIEW_BLOCKED`, 임곗값을 충족하지 않으면 `FILTERED_OUT`으로 둔다. 필터 결과가 없어도 실행 자체는 정상이며 `NO_DISCOVERY_MATCHES`를 출력한다. HTML 보고서는 실제 상품 링크, 판매 근거 현재가 범위, 수익률 최저~최고와 차단·탈락 사유를 모두 보존한다.
+공급조건이 불완전하면 `PRICE_REVIEW_BLOCKED`, 임곗값을 충족하지 않으면 `FILTERED_OUT`으로 둔다. 필터 결과가 없어도 실행 자체는 정상이며 `NO_DISCOVERY_MATCHES`를 출력한다. HTML 보고서는 도매꾹↔쿠팡 실제 pair 링크, 개당 원가, 현재 실판매가, 배수, 판매 근거와 차단·탈락 사유를 보존한다. 낮은 가격의 다른 등록은 기준을 충족한 pair를 탈락시키지 않는다.

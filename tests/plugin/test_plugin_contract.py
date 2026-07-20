@@ -84,8 +84,10 @@ def test_plugin_packages_demand_backed_market_price_policy_from_root_source():
         Path("scripts/recommend_prices.py"),
         Path("scripts/price_nodriver_candidates.py"),
         Path("scripts/collect_coupang_nodriver.py"),
+        Path("scripts/run_headless_browser_harness.py"),
         Path("scripts/build_qualified_report.py"),
         Path("references/evaluation-policy.md"),
+        Path("references/research-protocol.md"),
     )
     for relative in required:
         assert (packaged / relative).read_bytes() == (source / relative).read_bytes(), relative
@@ -93,6 +95,8 @@ def test_plugin_packages_demand_backed_market_price_policy_from_root_source():
     readme = (PLUGIN / "README.md").read_text(encoding="utf-8-sig")
     assert "판매 근거 없는 등록가" in readme
     assert "PRICE_REVIEW_BLOCKED" in readme
+    assert "headless Browser Harness" in readme
+    assert "headless `nodriver`" in readme
 
 
 def test_plugin_readme_describes_hybrid_detail_page_boundary():
@@ -343,7 +347,7 @@ def test_workflow_ui_category_is_optional_and_defaults_to_the_full_best_pool():
                 "setStageCompleted, updateStageInput } from './src/workflow.js'; "
                 "let state = createInitialState('2026-07-19T00:00:00Z'); "
                 "for (const [field, value] of Object.entries({ "
-                "budget: '300000', targetMargin: '40/30' })) "
+                "maxUnitSupplyPrice: '5000', minMarkupMultiple: '3' })) "
                 "state = updateStageInput(state, 'sourcing', field, value); "
                 "const sourcing = STAGES.find((stage) => stage.id === 'sourcing'); "
                 "const category = sourcing.inputs.find((input) => input.id === 'category'); "
@@ -386,19 +390,22 @@ def test_workflow_ui_category_is_optional_and_defaults_to_the_full_best_pool():
     assert "미입력 필수 항목: 없음" in payload["prompt"]
     assert "설명만 하지 말고 실제 조사를 실행" in payload["prompt"]
     assert "HTML·JSON 보고서" in payload["prompt"]
-    assert "수익률 최저~최고" in payload["prompt"]
+    assert "설정한 최소 가격 배수 이상인 pair가 하나라도" in payload["prompt"]
+    assert "더 싼 등록은 탈락 근거로 사용하지 않는다" in payload["prompt"]
+    assert "리뷰 또는 100명 이상 만족" in payload["prompt"]
     assert "links.reportRuns" in payload["prompt"]
 
     app = (WORKFLOW_UI / "assets" / "react-app" / "src" / "App.jsx").read_text(encoding="utf-8-sig")
     assert '<option value="standard">일반 소싱</option>' not in app
-    assert "도매꾹 Best 고배수 탐색" in app
+    assert "도매꾹 Best 고배수 pair 탐색" in app
 
 
 def test_workflow_ui_handoff_is_an_inline_click_confirm_and_advance_flow():
     app = (WORKFLOW_UI / "assets" / "react-app" / "src" / "App.jsx").read_text(encoding="utf-8-sig")
 
     assert "CandidateDecisionPanel" in app
-    assert "소싱 후보를 이 화면에서 비교하고 선택하세요" in app
+    assert "도매꾹 ↔ 쿠팡 pair를 비교하세요" in app
+    assert "낮은 가격의 다른 등록은 이 pair를 탈락시키지 않습니다" in app
     assert "상품·가격 확정하고 상품기획으로" in app
     assert "selectSourcingCandidate" in app
     assert "confirmSourcingSelection" in app

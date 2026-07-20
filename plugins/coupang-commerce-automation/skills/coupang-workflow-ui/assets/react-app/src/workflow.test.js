@@ -11,6 +11,7 @@ import {
   createInitialState,
   deriveProgress,
   formatCodexEvent,
+  formatOptionalMultiple,
   formatOptionalPercent,
   formatOptionalWon,
   isRunActive,
@@ -32,8 +33,8 @@ const stylesSource = readFileSync(new URL("./styles.css", import.meta.url), "utf
 function fillSourcing(state) {
   const values = {
     category: "가구/생활/취미",
-    budget: "300000",
-    targetMargin: "40/30",
+    maxUnitSupplyPrice: "5000",
+    minMarkupMultiple: "3",
   };
   return Object.entries(values).reduce(
     (next, [field, value]) => updateStageInput(next, "sourcing", field, value, "2026-07-17T00:00:00Z"),
@@ -70,8 +71,23 @@ test("category is optional and an empty value selects the full Best pool", () =>
   assert.match(prompt, /도매꾹 Best 전체·6개 대분류/);
   assert.match(prompt, /미입력 필수 항목: 없음/);
   assert.match(prompt, /설명만 하지 말고 실제 조사를 실행/);
-  assert.match(prompt, /수익률 최저~최고/);
+  assert.match(prompt, /설정한 최소 가격 배수 이상인 pair가 하나라도/);
+  assert.match(prompt, /더 싼 등록은 탈락 근거로 사용하지 않는다/);
+  assert.match(prompt, /리뷰 또는 100명 이상 만족/);
   assert.match(prompt, /links\.reportRuns/);
+});
+
+test("sourcing inputs match pair discovery instead of budget and target margin planning", () => {
+  const inputs = STAGES.find((stage) => stage.id === "sourcing").inputs;
+
+  assert.deepEqual(inputs.map((input) => input.id), [
+    "category",
+    "maxUnitSupplyPrice",
+    "minMarkupMultiple",
+  ]);
+  assert.equal(inputs.find((input) => input.id === "category").required, false);
+  assert.equal(inputs.find((input) => input.id === "maxUnitSupplyPrice").suffix, "원");
+  assert.equal(inputs.find((input) => input.id === "minMarkupMultiple").suffix, "배");
 });
 
 test("explicit approval gates cannot be completed by filled fields alone", () => {
@@ -166,6 +182,8 @@ test("unknown candidate prices and margins never look like verified zero values"
   assert.equal(formatOptionalWon(1200), "1,200원");
   assert.equal(formatOptionalPercent(undefined), "확인 대기");
   assert.equal(formatOptionalPercent(0), "0.0%");
+  assert.equal(formatOptionalMultiple(null), "확인 대기");
+  assert.equal(formatOptionalMultiple(3.25), "3.25배");
 });
 
 test("linked sourcing reports become inline candidate data sources without opening each report", () => {
@@ -216,6 +234,11 @@ test("linked sourcing reports become inline candidate data sources without openi
     marketEvidenceCount: 0,
     marginLow: null,
     marginHigh: null,
+    coupangProductName: "",
+    coupangUrl: "",
+    currentSalePrice: null,
+    markupMultiple: null,
+    salesEvidenceLabel: "",
     sourceDecision: "PRICE_REVIEW_BLOCKED",
     blockers: ["EXACT_IDENTITY_UNVERIFIED", "ORDER_INCREMENT_UNVERIFIED"],
     selectable: false,
@@ -302,6 +325,43 @@ test("the primary action copy keeps users focused on exactly one next task", () 
     label: "앞 단계를 먼저 완료하세요",
     helper: "필수 입력과 승인 게이트를 통과하면 자동으로 열립니다.",
   });
+});
+
+test("a discovery report normalizes the qualifying wholesale-coupang pair for comparison", () => {
+  const report = normalizeSourcingReport({
+    status: "DISCOVERY_MATCHES_FOUND",
+    matches: [{
+      candidate_id: "BEST-003",
+      name: "도매꾹 생활용품",
+      wholesale_url: "https://domeggook.com/300",
+      unit_supply_price: 3000,
+      decision: "HIGH_MARKUP_DISCOVERY",
+      qualifying_pairs: [{
+        wholesale_name: "도매꾹 생활용품",
+        wholesale_url: "https://domeggook.com/300",
+        unit_supply_price: 3000,
+        coupang_name: "쿠팡 판매 상품",
+        coupang_url: "https://www.coupang.com/vp/products/900",
+        current_sale_price: 12000,
+        markup_multiple: 4,
+        sales_evidence: { type: "satisfaction_badge", count: 100, label: "100명 이상 만족했어요" },
+      }],
+    }],
+  }, "/reports/2026/2026-07-20/pairs/high-markup-report.json");
+
+  assert.equal(report.candidates[0].unitSupplyPrice, 3000);
+  assert.equal(report.candidates[0].coupangProductName, "쿠팡 판매 상품");
+  assert.equal(report.candidates[0].coupangUrl, "https://www.coupang.com/vp/products/900");
+  assert.equal(report.candidates[0].currentSalePrice, 12000);
+  assert.equal(report.candidates[0].markupMultiple, 4);
+  assert.equal(report.candidates[0].salesEvidenceLabel, "100명 이상 만족했어요");
+});
+
+test("the handoff UI describes an evidence-backed pair rather than a market-low comparison", () => {
+  assert.match(appSource, /도매꾹 ↔ 쿠팡 pair/);
+  assert.match(appSource, /가격 배수/);
+  assert.match(appSource, /판매 근거/);
+  assert.match(appSource, /낮은 가격의 다른 등록은 이 pair를 탈락시키지 않습니다/);
 });
 
 test("the dashboard exposes a commerce color system and accessible workflow navigation", () => {

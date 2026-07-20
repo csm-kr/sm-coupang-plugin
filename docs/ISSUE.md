@@ -44,12 +44,31 @@
 
 ## REPORT-STDIN-UTF8-001
 
-- 반복 횟수: 1
-- 상태: 실행 절차 수정 및 최종 보고서 새 실행 경로 재생성
+- 반복 횟수: 2
+- 상태: 실행 절차·headless Browser Harness 입력 경계 수정 및 회귀 방지 구현
 - 원인: PowerShell here-string을 Python stdin으로 전달해 보고서를 생성하면서 고정 한글 리터럴이 `?`로 손상됐고, 육안 QA 후 같은 활성 실행 파일을 교정본으로 덮어써 보고서 보존 규칙도 위반했다.
 - 1회 발생: 2026-07-17 `paltosi-001-high-markup-sourcing` HTML·JSON의 고정 한글 문구 손상 및 같은 실행 경로 교체.
-- 방지: 한글 보고서 생성 코드는 UTF-8 파일로 저장해 실행하고, 생성 후 브라우저 육안 QA가 실패하면 같은 파일을 덮어쓰지 말고 `report-path --create`로 새 실행명을 준비한다.
-- 검증: `python scripts/tdd.py check-reports`, 브라우저 DOM의 `???` 0건·후보 행 10건·링크 70건 확인.
+- 2회 발생: 2026-07-20 로컬 headless Browser Harness 실행기의 한글 기록 제목이 PowerShell CP949 파이프와 자식 프로세스 UTF-8 입력 해석 사이에서 surrogate로 바뀌어 실제 연결 스모크가 실패.
+- 방지: 한글 보고서 생성 코드는 UTF-8 파일로 저장해 실행하고, headless Browser Harness 실행기는 UTF-8·CP949 표준입력을 UTF-8 바이트로 정규화한 뒤 자식 Python I/O를 UTF-8로 고정한다. 생성 후 브라우저 육안 QA가 실패하면 같은 파일을 덮어쓰지 말고 `report-path --create`로 새 실행명을 준비한다.
+- 검증: `coupang-product-sourcing/tests/test_evidence_contract.py`, `python scripts/tdd.py check-reports`, headless Browser Harness 한글 기록 제목·`example.com` 연결 4프레임 스모크.
+
+## SOURCING-BROWSER-FOCUS-DEPENDENCY-001
+
+- 반복 횟수: 1
+- 상태: 수정 및 회귀 방지 구현
+- 원인: 도매꾹 Browser Use가 사용자의 기존 Chrome 원격 디버깅 세션에 연결하고 쿠팡 `nodriver`가 `headless=False`로 새 창을 열어, 소싱 중 활성 창과 키보드 포커스가 바뀌고 사용자의 병행 작업을 방해했다.
+- 1회 발생: 2026-07-20 사용자가 도매꾹·쿠팡 수집 중 포커스가 맞지 않아 다른 작업이 방해된다고 보고.
+- 방지: 도매꾹은 별도 임시 프로필의 로컬 headless Chrome에 Browser Harness를 연결하고, 쿠팡은 `headless=True`의 임시 `nodriver` 세션을 사용한다. 기존 Chrome에는 연결하지 않으며 실패 시 표시형 브라우저로 자동 전환하지 않는다.
+- 회귀 테스트: `coupang-product-sourcing/tests/test_evidence_contract.py`
+
+## SOURCING-HEADLESS-PROFILE-CLEANUP-001
+
+- 반복 횟수: 1
+- 상태: 수정 및 회귀 방지 구현
+- 원인: Windows에서 `nodriver.browser.stop()`이 Chrome 종료를 요청한 직후 반환해 자식 프로세스가 임시 프로필 파일 잠금을 잠시 유지했고, 즉시 실행한 `TemporaryDirectory.cleanup()`이 `PermissionError`로 실패했다.
+- 1회 발생: 2026-07-20 쿠팡 headless 런타임 스모크에서 `COUPANG_HEADLESS_OK` 페이지 로드 후 `Account Web Data` 파일 잠금으로 프로필 정리 실패.
+- 방지: `browser.stop()` 후 nodriver 소유 프로세스의 `wait()`를 제한 시간 안에서 기다리고, Windows 파일 잠금이 풀릴 때까지 임시 프로필 정리를 제한 횟수 재시도한다. 정리 실패를 숨기지 않는다.
+- 회귀 테스트: `coupang-product-sourcing/tests/test_evidence_contract.py::test_coupang_collector_waits_and_retries_windows_profile_cleanup`
 
 ## WORKFLOW-UI-PROJECT-CREATE-DISABLED-001
 

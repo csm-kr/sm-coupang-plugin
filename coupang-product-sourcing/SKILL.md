@@ -1,6 +1,6 @@
 ---
 name: coupang-product-sourcing
-description: Browser Use로 도매꾹·도매매 등 도매 사이트의 상품 후보를 수집하고 쿠팡 공개 검색 결과와 경쟁상품을 교차 조사하여 수요, 예상 마진, 경쟁 진입기회, 운영위험을 근거 링크와 함께 평가한다. 도매 상품 발굴, 쿠팡 시장검증, 소싱 후보 비교, 판매 후보 SHORTLIST/WATCH/REJECT 판정, 월 기대이익 시나리오, 상세페이지 제작 전 상품 선별이 필요할 때 사용한다.
+description: 로컬 headless Browser Harness로 도매꾹·도매매 등 도매 사이트의 상품 후보를 수집하고 headless nodriver로 쿠팡 공개 검색 결과와 경쟁상품을 교차 조사하여 수요, 예상 마진, 경쟁 진입기회, 운영위험을 근거 링크와 함께 평가한다. 도매 상품 발굴, 쿠팡 시장검증, 소싱 후보 비교, 판매 후보 SHORTLIST/WATCH/REJECT 판정, 월 기대이익 시나리오, 상세페이지 제작 전 상품 선별이 필요할 때 사용한다.
 ---
 
 # 쿠팡 상품 소싱 분석
@@ -32,7 +32,7 @@ description: Browser Use로 도매꾹·도매매 등 도매 사이트의 상품 
 ## 실행 순서
 
 1. [입력 계약](references/input-contract.md)을 읽고 실행 입력과 비용 기본값을 확정한다. 값이 없으면 기본값으로 위장하지 말고 `null`로 둔다.
-2. 설치된 `browser-use` 스킬을 읽고 그 지침을 따른다. 먼저 웹 검색으로 후보·검색어를 파악하고 실제 값은 Browser Use로 원문 페이지에서 확인한다.
+2. 설치된 `browser-harness`와 `browser-use` 스킬을 읽고 그 지침을 따른다. 도매 원문은 `scripts/run_headless_browser_harness.py`가 만든 임시 프로필의 로컬 headless Chrome에서 Browser Harness로 확인한다. 쿠팡 공개 검색은 `scripts/collect_coupang_nodriver.py`의 headless 세션으로 수집한다. 둘 다 사용자의 기존 Chrome에 연결하거나 표시형 브라우저로 자동 전환하지 않는다.
 3. 기본 후보 풀은 도매꾹 Best의 카테고리별 TOP 150으로 한다. 실행 단위 카테고리는 선택 입력이다. 사용자가 고르면 해당 대분류를 우선하고, 비워 두면 `전체`, `패션잡화/화장품`, `의류/언더웨어`, `출산/유아동/완구`, `가구/생활/취미`, `스포츠/건강/식품`, `가전/휴대폰/산업`을 순환한다. 기본 30개까지 수집하고 공급가, MOQ, 구매단위, 주문 배송비, 판매·매입 수량, 옵션, 공급사, 규제·인증 상태, 이미지 사용 가능성, 공급 안정성을 기록한다. 각 조건은 상품 원문 URL과 조사시각으로 검증한다. Best 순위는 수요 확정값이 아니라 도매시장 후보 발굴 신호로만 사용한다.
    목록이 크면 순위 상위만 자르지 말고 다음 명령으로 상·중·하 순위 구간과 상품명 다양성을 반영한 조사 표본을 만든다.
 
@@ -76,7 +76,7 @@ python <skill-dir>/scripts/validate_sourcing_output.py `
 ```
 
 11. 검증이 실패하면 실패한 입력·근거·계산만 보완하고 다시 실행한다. 조사하지 않은 값을 채워 통과시키지 않는다.
-12. 우리의 수요·마진·경쟁·운영 기준을 모두 통과한 상품이 누적 5개가 될 때까지 카테고리를 순환한다. 실행기는 `run-state.json`에 카테고리 커서, 조사 상품 ID, 회차 이력과 누적 통과 수를 저장한다. 각 수집기는 `SOURCING_CATEGORY`, `SOURCING_ROUND`, `SOURCING_ROUND_OUTPUT` 환경변수를 받아 회차별 후보 JSON을 만들고 Browser Use로 연 조사 탭을 `finally`에서 닫는다.
+12. 우리의 수요·마진·경쟁·운영 기준을 모두 통과한 상품이 누적 5개가 될 때까지 카테고리를 순환한다. 실행기는 `run-state.json`에 카테고리 커서, 조사 상품 ID, 회차 이력과 누적 통과 수를 저장한다. 각 수집기는 `SOURCING_CATEGORY`, `SOURCING_ROUND`, `SOURCING_ROUND_OUTPUT` 환경변수를 받아 회차별 후보 JSON을 만들고, headless Browser Harness 실행기가 `finally`에서 현재 회차의 탭·프로세스·임시 프로필을 정리한다.
 
 누적 통과 상품이 5개보다 적으면 다음 카테고리·순위·원산지 표본을 자동 조사한다. 최대 회차, 풀 소진, CAPTCHA, 로그인 요구, 사이트 차단 또는 판매자 확인 불가에서만 안전 중단한다. 판매자로켓은 진입 가능하다. 판매량순 상위 10개에서 일반 로켓이 3개 이하면 통과 가능하고 4개 이상이면 경쟁 과다로 탈락시킨다.
 
@@ -85,7 +85,7 @@ python <skill-dir>/scripts/validate_sourcing_output.py `
 ```powershell
 python <skill-dir>/scripts/iterate_qualified_pool.py `
   --run-dir <run-dir> `
-  --goal 5 --max-rounds 30 --collector-command "<browser-use collector command>"
+  --goal 5 --max-rounds 30 --collector-command "<headless Browser Harness collector command>"
 
 python <skill-dir>/scripts/build_qualified_report.py `
   --input <run-dir>/qualified-input.json `
@@ -98,8 +98,10 @@ python <skill-dir>/scripts/build_qualified_report.py `
 13. 보고서 상태를 `AWAITING_USER_SELECTION`으로 두고 도매꾹 URL, 쿠팡 URL, 가격 분포, 추천가, 정상·스트레스 마진, 수요·경쟁 근거를 제시한다. 사용자가 상품과 가격안을 선택하기 전에는 상세페이지 제작으로 넘기지 않는다.
 14. 사용자가 선택한 상품만 최대 5개의 `SHORTLIST`로 승격한다. 각 상품에 샘플 확인 항목, 차별화 소구 3개, 증명 장면 3개, GIF 아이디어 1개를 완성하고 [출력 계약](references/output-contract.md)에 따라 전달한다.
 
-## Browser Use 실행 규칙
+## Headless Browser Harness 실행 규칙
 
+- `scripts/run_headless_browser_harness.py`로 만든 로컬 headless Chrome만 사용한다. 실행기는 `BU_CDP_URL`을 해당 임시 세션으로 고정하고 종료 시 자신이 시작한 프로세스와 프로필만 정리한다.
+- headless 실행이 차단되거나 실패해도 사용자의 기존 Chrome, 화면이 보이는 Chrome 또는 유료 원격 브라우저로 자동 전환하지 않는다. 차단 상태와 재개 지점을 남기고 중단한다.
 - 현재 브라우저 화면을 스크린샷으로 확인한 뒤 좌표 클릭하고 다시 스크린샷으로 확인한다.
 - 첫 탐색은 `new_tab(url)`을 사용하고 이동 뒤 `wait_for_load()`를 호출한다.
 - 목록 추출은 DOM이 안정적일 때 `js(...)`를 사용하되, 화면과 상세페이지를 직접 열어 표본 값을 교차 확인한다.

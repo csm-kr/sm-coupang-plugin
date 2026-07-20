@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import asyncio
 import importlib.util
+import io
 import sys
 from pathlib import Path
 
@@ -147,6 +149,153 @@ def test_coupang_collector_card_script_captures_product_thumbnail_url():
     assert "image_url" in script
     assert "currentSrc" in script
     assert ".slice(0,5)" in script
+
+
+def test_coupang_collector_captures_satisfaction_badge_as_sales_evidence():
+    mod = load("collect_coupang_nodriver")
+
+    script = mod.build_card_extract_script(10)
+
+    assert "satisfaction_signal" in script
+    assert "satisfaction_count" in script
+    assert "만족" in script
+
+
+def test_coupang_collector_launches_headless_isolated_chrome(monkeypatch):
+    sys.path.insert(0, str(ROOT / "scripts"))
+    mod = load("collect_coupang_nodriver")
+    starts = []
+
+    class FakeBrowser:
+        stopped = False
+
+        async def get(self, _url):
+            return object()
+
+        def stop(self):
+            self.stopped = True
+
+    browser = FakeBrowser()
+
+    async def fake_start(**kwargs):
+        starts.append(kwargs)
+        return browser
+
+    async def no_sleep(_seconds):
+        return None
+
+    monkeypatch.setitem(sys.modules, "nodriver", type("FakeNodriver", (), {"start": fake_start}))
+    monkeypatch.setattr(mod.asyncio, "sleep", no_sleep)
+
+    assert asyncio.run(mod.collect([], top_n=10, delay=0)) == []
+    assert starts[0]["headless"] is True
+    assert "coupang-headless-" in str(starts[0]["user_data_dir"])
+    assert browser.stopped is True
+
+
+def test_coupang_collector_waits_and_retries_windows_profile_cleanup(monkeypatch):
+    sys.path.insert(0, str(ROOT / "scripts"))
+    mod = load("collect_coupang_nodriver")
+    events = []
+
+    class FakeProcess:
+        async def wait(self):
+            events.append("process-waited")
+            return 0
+
+    class FakeBrowser:
+        _process = FakeProcess()
+
+        def stop(self):
+            events.append("browser-stopped")
+
+    class LockedProfile:
+        calls = 0
+
+        def cleanup(self):
+            self.calls += 1
+            events.append(f"cleanup-{self.calls}")
+            if self.calls == 1:
+                raise PermissionError("profile still locked")
+
+    async def no_sleep(_seconds):
+        events.append("retry-wait")
+
+    monkeypatch.setattr(mod.asyncio, "sleep", no_sleep)
+    profile = LockedProfile()
+
+    asyncio.run(mod.stop_browser_and_cleanup(FakeBrowser(), profile, cleanup_attempts=3, cleanup_delay=0))
+
+    assert events == [
+        "browser-stopped",
+        "process-waited",
+        "cleanup-1",
+        "retry-wait",
+        "cleanup-2",
+    ]
+
+
+def test_browser_harness_launcher_builds_focus_free_headless_chrome_contract(tmp_path):
+    mod = load("run_headless_browser_harness")
+    profile_dir = tmp_path / "profile"
+
+    args = mod.build_chrome_args(port=9333, profile_dir=profile_dir)
+    env = mod.build_harness_env("http://127.0.0.1:9333", {"BU_NAME": "old", "BU_CDP_WS": "ws://old"})
+
+    assert "--headless=new" in args
+    assert "--remote-debugging-port=9333" in args
+    assert f"--user-data-dir={profile_dir}" in args
+    assert "--start-maximized" not in args
+    assert env["BU_CDP_URL"] == "http://127.0.0.1:9333"
+    assert "BU_NAME" not in env
+    assert "BU_CDP_WS" not in env
+
+
+def test_browser_harness_launcher_preserves_utf8_stdin_as_bytes(monkeypatch):
+    mod = load("run_headless_browser_harness")
+    script = 'start_recording("도매꾹 조사")\n'.encode("utf-8")
+    calls = []
+
+    def fake_run(argv, **kwargs):
+        calls.append((argv, kwargs))
+        return type("Result", (), {"returncode": 0})()
+
+    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+
+    payload = mod.read_script_bytes(io.BytesIO(script))
+    result = mod.run_harness("browser-harness", payload, {"BU_CDP_URL": "http://127.0.0.1:9333"})
+
+    assert result == 0
+    assert calls[0][1]["input"] == script
+    assert calls[0][1]["text"] is False
+    assert calls[0][1]["env"]["PYTHONUTF8"] == "1"
+    assert calls[0][1]["env"]["PYTHONIOENCODING"] == "utf-8"
+
+
+def test_browser_harness_launcher_normalizes_windows_cp949_pipe_to_utf8():
+    mod = load("run_headless_browser_harness")
+    source = 'start_recording("도매꾹 조사")\n'
+
+    payload = mod.read_script_bytes(io.BytesIO(source.encode("cp949")))
+
+    assert payload == source.encode("utf-8")
+
+
+def test_sourcing_runtime_guides_require_headless_without_visible_fallback():
+    repo_root = next(parent for parent in ROOT.parents if (parent / "docs" / "SOURCING-PROCESS.md").exists())
+    source_files = [
+        repo_root / "coupang-product-sourcing" / "SKILL.md",
+        repo_root / "coupang-best-high-markup-sourcing" / "SKILL.md",
+        repo_root / "docs" / "SOURCING-PROCESS.md",
+        repo_root / "docs" / "SOURCING-EXECUTION-GUIDE.md",
+    ]
+    contract = "\n".join(path.read_text(encoding="utf-8-sig") for path in source_files)
+
+    assert "headless=False" not in contract
+    assert "표시형 `nodriver`" not in contract
+    assert "표시형 Chrome" not in contract
+    assert "headless" in contract
+    assert "표시형 브라우저로 자동 전환하지 않는다" in contract
 
 
 def test_coupang_collector_money_regex_matches_digits_in_live_card_dom():

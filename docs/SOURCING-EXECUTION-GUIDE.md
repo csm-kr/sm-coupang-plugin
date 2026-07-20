@@ -7,25 +7,40 @@
 ## 1. 환경과 기준선 확인
 
 ```powershell
-browser-use --doctor
+browser-harness --version
+python coupang-product-sourcing\scripts\run_headless_browser_harness.py --help
 python -c "import nodriver; print('nodriver ready')"
 python -m pytest coupang-product-sourcing\tests -q
 python C:\Users\csm81\.codex\skills\.system\plugin-creator\scripts\validate_plugin.py `
   plugins\coupang-commerce-automation
 ```
 
-현재 기준선은 소싱 테스트 `37 passed`와 플러그인 검증 통과다. CAPTCHA 또는 로그인이 나오면 자동 입력하거나 우회하지 말고 사람이 직접 완료하거나 실행을 중단한다.
+현재 기준선은 소싱 테스트 `53 passed`와 플러그인 검증 통과다. CAPTCHA 또는 로그인이 나오면 자동 입력하거나 우회하지 말고 실행을 중단하고 재개 지점을 기록한다.
 
-## 2. 도매꾹 Best 후보 수집 — Browser Use
+## 2. 도매꾹 Best 후보 수집 — 로컬 headless Browser Harness
 
-1. Browser Use로 `https://domeggook.com/main/item/itemPopular.php`를 연다.
+1. `run_headless_browser_harness.py`로 사용자 Chrome과 분리된 임시 로컬 headless Chrome을 시작하고 Browser Harness로 `https://domeggook.com/main/item/itemPopular.php`를 연다.
 2. 카테고리는 선택 입력으로 받는다. 비워 두면 `전체`, `패션잡화/화장품`, `의류/언더웨어`, `출산/유아동/완구`, `가구/생활/취미`, `스포츠/건강/식품`, `가전/휴대폰/산업`의 TOP 150에서 상·중·하 순위, 국내·국외·미확인 원산지를 분산 표본화한다.
 3. 상품명, 도매꾹 URL, 단가, MOQ, 구매단위, 주문 배송비, 판매 묶음 수량, 실제 매입 수량, 조사시각, 카테고리와 검색 키워드를 JSON으로 저장한다.
 4. 상품마다 새 브라우저를 만들지 않고 한 조사 회차에서 같은 정상 세션을 유지해 직렬 확인한다.
-5. 실행 중 연 탭의 target ID를 기록하고, 회차 수집을 끝내면 해당 탭만 모두 닫는다. 사용자가 원래 열어 둔 탭이나 다른 세션의 탭은 닫지 않는다.
-6. 중단·타임아웃·예외가 발생해도 `finally`에서 같은 탭 정리를 수행하고 종료 결과를 실행 기록에 남긴다.
+5. 실행 중 연 탭의 target ID를 기록하고, 회차 수집을 끝내면 실행기가 자신이 시작한 headless Chrome과 임시 프로필만 정리한다. 사용자가 원래 열어 둔 탭이나 다른 세션은 건드리지 않는다.
+6. 중단·타임아웃·예외가 발생해도 `finally`에서 같은 정리를 수행하고 종료 결과를 실행 기록에 남긴다.
 
-Browser Use 원격 브라우저를 별도로 시작했다면 탭을 닫는 것만으로 끝내지 않고 해당 원격 daemon도 종료한다. 로컬 Browser Use는 사용자의 Chrome 전체를 종료하지 않고 현재 실행이 연 탭만 닫는다.
+최소 연결 확인은 다음처럼 수행한다. 실제 수집 스크립트도 같은 실행기에 표준입력으로 전달한다.
+
+```powershell
+@'
+recording_dir = start_recording("domeggook-headless-smoke", title="도매꾹 headless 연결 확인")
+try:
+    new_tab("https://domeggook.com/main/item/itemPopular.php")
+    wait_for_load()
+    print(page_info())
+finally:
+    stop_recording()
+'@ | python coupang-product-sourcing\scripts\run_headless_browser_harness.py
+```
+
+headless 연결이나 접근이 실패하면 표시형 브라우저로 자동 전환하지 않는다. 차단 상태와 재개 지점을 기록하고 종료한다. 유료 원격 Browser Use는 사용자가 비용 발생을 명시적으로 승인한 경우에만 별도 실행한다.
 
 회차 입력의 최소 형태는 다음과 같다.
 
@@ -77,7 +92,7 @@ python coupang-product-sourcing\scripts\sample_top150.py `
 
 ## 3. 쿠팡 근거 수집 — nodriver
 
-쿠팡 수집은 Browser Use가 아니라 실제 Chrome을 표시하는 `nodriver`를 사용한다. 수집기는 쿠팡 홈에 먼저 들어가 세션을 준비하고, 후보별 판매량순 검색을 직렬로 실행한 뒤 브라우저를 종료한다.
+쿠팡 수집은 Browser Use가 아니라 임시 프로필의 로컬 headless Chrome을 여는 `nodriver`를 사용한다. 수집기는 쿠팡 홈에 먼저 들어가 세션을 준비하고, 후보별 판매량순 검색을 직렬로 실행한 뒤 자신이 시작한 브라우저를 종료한다.
 
 ```powershell
 python coupang-product-sourcing\scripts\collect_coupang_nodriver.py `
@@ -89,13 +104,14 @@ python coupang-product-sourcing\scripts\collect_coupang_nodriver.py `
 
 운영 규칙은 다음과 같다.
 
-- `headless=False`인 새 임시 Chrome 세션을 사용한다.
+- `headless=True`인 새 임시 Chrome 세션을 사용한다.
 - 쿠팡 홈을 먼저 방문한 뒤 검색한다.
 - 후보마다 브라우저·프로필을 다시 만들지 않고 한 회차의 임시 Chrome에서 여러 검색을 직렬 처리한다.
 - 상품 카드가 0개이면 기다렸다가 한 번만 다시 시도한다.
 - 재시도 후에도 0개이면 `coupang_blocked=true`로 남기고 다음 실행에서 재개한다.
-- 정상 완료·빈 결과·접근 차단·예외 여부와 관계없이 `finally`에서 `browser.stop()`을 호출해 현재 실행이 띄운 임시 Chrome과 탭을 모두 닫는다.
+- 정상 완료·빈 결과·접근 차단·예외 여부와 관계없이 `finally`에서 `browser.stop()`을 호출하고 소유 프로세스 종료를 기다린다. Windows 파일 잠금이 풀릴 때까지 임시 프로필 정리를 제한 횟수 재시도한다.
 - 사용자가 이미 열어 둔 Chrome 또는 다른 실행의 Chrome 프로세스는 종료하지 않는다.
+- headless 시작 또는 수집이 실패해도 화면이 보이는 Chrome으로 자동 전환하지 않는다.
 - 종료 후 현재 실행의 임시 Chrome이 남지 않았는지 확인하고 정리 결과를 실행 기록에 남긴다.
 - 가격 카드에서는 정상가·취소선 가격과 할인 후 현재 실판매가를 분리한다. 현재 가격의 의미를 특정할 수 없는 카드는 가격 표본에서 제외한다.
 - 가격 분포를 만들기 전에 공급처·쿠팡 썸네일과 구조·규격·모델·고유 문구를 대조한다. 완전 동일 상품과 같은 묶음만 직접 가격 제약으로 쓰고, 다른 상품은 맥락 표본으로 분리해 단독 탈락 근거로 쓰지 않는다.
@@ -105,10 +121,10 @@ python coupang-product-sourcing\scripts\collect_coupang_nodriver.py `
 
 ### 브라우저 정리 기록
 
-Browser Use와 `nodriver` 실행 기록에는 최소한 다음 정리 정보를 남긴다.
+Browser Harness와 `nodriver` 실행 기록에는 최소한 다음 정리 정보를 남긴다.
 
 ```yaml
-browser_tool: browser-use | nodriver
+browser_tool: browser-harness-headless | nodriver-headless
 opened_target_count:
 closed_target_count:
 owned_session_or_process:
@@ -121,19 +137,20 @@ cleanup_error:
 
 ### 3.1 도매꾹 Best 고배수 탐색 프로필
 
-전용 `coupang-best-high-markup-sourcing`을 사용할 때는 공급처 상세 원문의 개당 단가가 5,000원 이하이고 판매 묶음이 1개인 후보만 쿠팡 심화 조사한다. 쿠팡 수집 후 공급처와 쿠팡의 이미지·구조·규격·모델·고유 문구를 대조해 완전 동일한 1개 구성에만 `similarity=identical`, `identity_verified=true`를 기록한다.
+전용 `coupang-best-high-markup-sourcing`을 사용할 때는 공급처 상세 원문의 개당 단가가 사용자가 입력한 상한 이하이고 판매 묶음이 1개인 후보만 쿠팡 심화 조사한다. 쿠팡 수집 후 공급처와 쿠팡의 이미지·구조·규격·모델·고유 문구를 대조해 완전 동일한 1개 구성에만 `similarity=identical`, `identity_verified=true`를 기록한다.
 
 ```powershell
 python coupang-best-high-markup-sourcing\scripts\filter_high_markup_candidates.py `
   --input tmp\best-high-markup\enriched-candidates.json `
   --output tmp\best-high-markup\high-markup-discoveries.json `
   --html-output <report-dir>\high-markup-report.html `
-  --max-supply-price 5000 `
-  --min-markup-multiple 4 `
-  --min-reviews 5
+  --max-supply-price <사용자 개당 공급가 상한> `
+  --min-markup-multiple <사용자 최소 가격 배수> `
+  --min-reviews 1 `
+  --min-satisfaction 100
 ```
 
-필터는 정상가·취소선 가격이 아니라 의미가 확인된 할인 후 현재 실판매가만 사용한다. 같은 판매상품 리뷰 5개 이상은 구매 발생 대리 신호이며 판매량 확정값이 아니다. JSON과 HTML 보고서에 실제 상품 URL, 판매 근거 현재가·수익률 최저~최고 및 `high_price_reference`를 기록한다. 출력의 `HIGH_MARKUP_DISCOVERY`는 일반 소싱의 전체 마진·수요·경쟁·운영 검증으로 넘길 조사 우선순위이고 자동 `SHORTLIST`가 아니다.
+필터는 정상가·취소선 가격이 아니라 의미가 확인된 할인 후 현재 실판매가만 사용한다. 같은 판매상품의 리뷰 1개 이상 또는 만족 인원 100명 이상 라벨은 구매 발생 대리 신호이며 판매량 확정값이 아니다. JSON과 HTML 보고서에는 도매꾹↔쿠팡 실제 pair URL, 개당 원가, 현재가, 가격 배수와 판매 근거를 기록한다. 설정 배수 이상인 pair가 하나라도 있으면 탐색 일치이며 더 싼 등록은 탈락 근거로 사용하지 않는다. 출력의 `HIGH_MARKUP_DISCOVERY`는 일반 소싱의 전체 마진·수요·경쟁·운영 검증으로 넘길 조사 우선순위이고 자동 `SHORTLIST`가 아니다.
 
 ## 4. 로켓그로스 가격과 마진 계산
 
@@ -227,10 +244,10 @@ HTML에는 후보별 도매꾹 URL, 쿠팡 URL 5개 이상 또는 검색 근거,
 
 | 증상 | 처리 |
 |---|---|
-| 도매꾹 URL 또는 공급가 누락 | Browser Use로 해당 상품을 다시 확인하고 후보 입력을 보완 |
+| 도매꾹 URL 또는 공급가 누락 | 로컬 headless Browser Harness로 해당 상품을 다시 확인하고 후보 입력을 보완 |
 | MOQ·구매단위·판매 묶음 충돌 | 공급처 원문에서 다시 확인하고 `supplier_terms`를 고침. 기본값으로 통과 금지 |
 | 정상가와 할인가가 함께 수집됨 | 의미가 확인된 현재 실판매가만 사용. 구분 불가 카드는 제외 |
-| 쿠팡 `Access Denied` | 새 `nodriver` 임시 세션에서 홈 선진입 후 직렬 재시도 1회 |
+| 쿠팡 `Access Denied` | 새 headless `nodriver` 임시 세션에서 홈 선진입 후 직렬 재시도 1회 |
 | 쿠팡 결과가 재시도 후에도 0개 | `BLOCKED` 저장, 결과를 만들지 말고 다음 실행에서 재개 |
 | CAPTCHA 또는 로그인 요구 | 자동 우회 금지, 사람이 완료하거나 중단 |
 | 배송비·로켓그로스 비용 미확정 | 탐색 가정임을 표시하고 사용자 선택 후 실제 비용 재계산 |

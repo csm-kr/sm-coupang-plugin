@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect small, serial Coupang evidence batches with a visible Chrome session.
+"""Collect small, serial Coupang evidence batches with isolated headless Chrome.
 
 This collector only gathers public search evidence. It never fabricates margins or
 seller identity; downstream qualification remains fail-closed.
@@ -11,6 +11,7 @@ import asyncio
 import json
 import os
 import re
+import tempfile
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import quote
@@ -57,15 +58,59 @@ def build_card_extract_script(top_n: int) -> str:
         const purchase_digits=purchase_match?String(purchase_match[1]||purchase_match[2]||'').replace(/[^0-9]/g,''):'';
         const recent_purchase_signal=purchase_match?purchase_match[0]:'';
         const recent_purchase_count=purchase_digits?Number(purchase_digits):0;
-        return {{name:img?(img.alt||''):'', image_url:img?(img.currentSrc||img.src||''):'', review:r?(r.innerText||''):'', recent_purchase_signal, recent_purchase_count, price_nodes, rocket, seller_rocket:seller, url:a?a.href:''}};
+        const satisfaction_match=card_text.match(/([\d,]+)\s*명(?:\s*이상)?\s*만족(?:했어요)?/);
+        const satisfaction_digits=satisfaction_match?String(satisfaction_match[1]||'').replace(/[^0-9]/g,''):'';
+        const satisfaction_signal=satisfaction_match?satisfaction_match[0]:'';
+        const satisfaction_count=satisfaction_digits?Number(satisfaction_digits):0;
+        return {{name:img?(img.alt||''):'', image_url:img?(img.currentSrc||img.src||''):'', review:r?(r.innerText||''):'', recent_purchase_signal, recent_purchase_count, satisfaction_signal, satisfaction_count, price_nodes, rocket, seller_rocket:seller, url:a?a.href:''}};
     }}))'''
+
+
+async def stop_browser_and_cleanup(
+    browser,
+    profile,
+    *,
+    process_timeout: float = 5.0,
+    cleanup_attempts: int = 20,
+    cleanup_delay: float = 0.2,
+) -> None:
+    """Wait for nodriver shutdown, then remove its Windows profile with retries."""
+    browser.stop()
+    process = getattr(browser, "_process", None)
+    wait = getattr(process, "wait", None)
+    if callable(wait):
+        await asyncio.wait_for(wait(), timeout=process_timeout)
+
+    last_error: OSError | None = None
+    for attempt in range(max(1, cleanup_attempts)):
+        try:
+            profile.cleanup()
+            return
+        except OSError as exc:
+            last_error = exc
+            if attempt + 1 < max(1, cleanup_attempts):
+                await asyncio.sleep(max(0.0, cleanup_delay))
+    assert last_error is not None
+    raise last_error
 
 
 async def collect(rows: list[dict], top_n: int, delay: float) -> list[dict]:
     import nodriver as uc
 
     chrome = os.environ.get("CHROME_PATH")
-    browser = await uc.start(browser_executable_path=chrome, headless=False) if chrome else await uc.start(headless=False)
+    profile = tempfile.TemporaryDirectory(prefix="coupang-headless-")
+    start_options = {
+        "headless": True,
+        "user_data_dir": profile.name,
+        "browser_args": ["--window-size=1440,1200", "--disable-background-mode"],
+    }
+    if chrome:
+        start_options["browser_executable_path"] = chrome
+    try:
+        browser = await uc.start(**start_options)
+    except Exception:
+        profile.cleanup()
+        raise
     out: list[dict] = []
     try:
         await browser.get("https://www.coupang.com/")
@@ -109,7 +154,7 @@ async def collect(rows: list[dict], top_n: int, delay: float) -> list[dict]:
             enriched["coupang_retail_competition"] = "unknown"
             out.append(enriched)
     finally:
-        browser.stop()
+        await stop_browser_and_cleanup(browser, profile)
     return out
 
 

@@ -8,6 +8,7 @@ import {
   createDefaultProjectId,
   deriveProgress,
   formatCodexEvent,
+  formatOptionalMultiple,
   formatOptionalPercent,
   formatOptionalWon,
   isRunActive,
@@ -60,7 +61,7 @@ function formatDate(value) {
 const CANDIDATE_DECISIONS = {
   SHORTLIST: ["선택 가능", "selectable", "전체 소싱 검증을 통과했습니다."],
   CONDITIONAL_TEST_PRICE_REVIEW: ["조건부 검토", "conditional", "실물·권리·가격 수용성 확인이 더 필요합니다."],
-  HIGH_MARKUP_DISCOVERY: ["전체 검증 대기", "discovery", "고배수 탐색 일치이며 SHORTLIST 재검증 전입니다."],
+  HIGH_MARKUP_DISCOVERY: ["고배수 pair 발견", "discovery", "판매 근거가 있는 고배수 pair이며 SHORTLIST 재검증 전입니다."],
   PRICE_REVIEW_BLOCKED: ["추가 조사 필요", "blocked", "가격·동일성 또는 공급조건 근거가 부족합니다."],
   FILTERED_OUT: ["기준 미달", "rejected", "탐색 기준을 충족하지 못했습니다."],
   REJECT: ["제외", "rejected", "전체 소싱 검증에서 제외됐습니다."],
@@ -125,7 +126,7 @@ function CreateProjectDialog({ onClose, onCreated }) {
             </label>
             <label>
               <span>탐색 기준</span>
-              <input value="도매꾹 Best 고배수 탐색" readOnly />
+              <input value="도매꾹 Best 고배수 pair 탐색" readOnly />
             </label>
           </div>
           {error && <p className="form-error">{error}</p>}
@@ -235,7 +236,7 @@ function FormField({ input, value, disabled, onChange }) {
     </select>
   ) : (
     <div className="input-with-suffix">
-      <input id={id} type={input.type} value={value ?? ""} disabled={disabled} placeholder={input.placeholder} onChange={(event) => onChange(event.target.value)} />
+      <input id={id} type={input.type} min={input.min} step={input.step} value={value ?? ""} disabled={disabled} placeholder={input.placeholder} onChange={(event) => onChange(event.target.value)} />
       {input.suffix && <span>{input.suffix}</span>}
     </div>
   );
@@ -317,8 +318,8 @@ function CandidateDecisionPanel({ project, disabled, onSelect, onPriceChange, on
     <section className="candidate-decision" aria-labelledby="candidate-decision-title">
       <div className="candidate-decision-head">
         <div>
-          <h3 id="candidate-decision-title">소싱 후보를 이 화면에서 비교하고 선택하세요</h3>
-          <p>후보 ID를 다시 입력하거나 보고서를 하나씩 열 필요가 없습니다.</p>
+          <h3 id="candidate-decision-title">도매꾹 ↔ 쿠팡 pair를 비교하세요</h3>
+          <p>설정 배수 이상인 판매 근거 pair가 핵심입니다. 낮은 가격의 다른 등록은 이 pair를 탈락시키지 않습니다.</p>
         </div>
         <span>{report.candidates.length}개 중 <strong>{selectableCount}개</strong> 선택 가능</span>
       </div>
@@ -344,9 +345,9 @@ function CandidateDecisionPanel({ project, disabled, onSelect, onPriceChange, on
               <small>{candidate.candidateId || "ID 확인 대기"}</small>
               <strong>{candidate.productName || "상품명 확인 대기"}</strong>
               <span className="candidate-card-metrics">
-                <i><b>공급가</b>{formatOptionalWon(candidate.unitSupplyPrice)}</i>
-                <i><b>판매가</b>{formatOptionalWon(candidate.recommendedPrice)}</i>
-                <i><b>마진</b>{formatOptionalPercent(candidate.marginLow)}~{formatOptionalPercent(candidate.marginHigh)}</i>
+                <i><b>도매꾹 원가</b>{formatOptionalWon(candidate.unitSupplyPrice)}</i>
+                <i><b>쿠팡 현재가</b>{formatOptionalWon(candidate.currentSalePrice)}</i>
+                <i><b>가격 배수</b>{formatOptionalMultiple(candidate.markupMultiple)}</i>
               </span>
               <em>{isSelected ? "현재 선택" : candidate.selectable ? "클릭해 선택" : "클릭해 사유 확인"}</em>
             </button>
@@ -360,10 +361,12 @@ function CandidateDecisionPanel({ project, disabled, onSelect, onPriceChange, on
           <p>{activeDecision[2]}</p>
         </div>
         <dl className="candidate-facts">
-          <div><dt>공급가 / MOQ</dt><dd>{formatOptionalWon(active.unitSupplyPrice)} / {active.minimumOrderQuantity ?? "확인 대기"}개</dd></div>
-          <div><dt>도매 배송비</dt><dd>{formatOptionalWon(active.wholesaleShippingTotal)}</dd></div>
-          <div><dt>판매 근거 현재가</dt><dd>{formatOptionalWon(active.marketPriceMin)} ~ {formatOptionalWon(active.marketPriceMax)} · {active.marketEvidenceCount}건</dd></div>
-          <div><dt>예상 수익률</dt><dd>{formatOptionalPercent(active.marginLow)} ~ {formatOptionalPercent(active.marginHigh)}</dd></div>
+          <div><dt>도매꾹 상품·개당 원가</dt><dd>{active.supplierUrl ? <a href={active.supplierUrl} target="_blank" rel="noreferrer">{active.productName}</a> : active.productName} · {formatOptionalWon(active.unitSupplyPrice)}</dd></div>
+          <div><dt>쿠팡 판매 상품·현재가</dt><dd>{active.coupangUrl ? <a href={active.coupangUrl} target="_blank" rel="noreferrer">{active.coupangProductName || "쿠팡 상품"}</a> : (active.coupangProductName || "확인 대기")} · {formatOptionalWon(active.currentSalePrice)}</dd></div>
+          <div><dt>가격 배수</dt><dd>{formatOptionalMultiple(active.markupMultiple)}</dd></div>
+          <div><dt>판매 근거</dt><dd>{active.salesEvidenceLabel || "확인 대기"}</dd></div>
+          <div><dt>공급 MOQ / 배송비</dt><dd>{active.minimumOrderQuantity ?? "확인 대기"}개 / {formatOptionalWon(active.wholesaleShippingTotal)}</dd></div>
+          <div><dt>다음 검증 참고 수익률</dt><dd>{formatOptionalPercent(active.marginLow)} ~ {formatOptionalPercent(active.marginHigh)}</dd></div>
         </dl>
         {active.blockers.length > 0 && (
           <div className="candidate-blockers"><strong>다음 단계 전 확인할 점</strong><ul>{active.blockers.map((blocker) => <li key={blocker}>{blocker}</li>)}</ul></div>
@@ -838,7 +841,7 @@ export default function App() {
             <div>
               <p className="breadcrumb">프로젝트 / <strong>{project.project.id}</strong></p>
               <h1>{project.project.name}</h1>
-              <div className="hero-tags"><span>{project.project.channel}</span><span>도매꾹 Best 고배수 탐색</span><span>9단계 중 {progress.completedCount}단계 완료</span></div>
+              <div className="hero-tags"><span>{project.project.channel}</span><span>도매꾹 Best 고배수 pair 탐색</span><span>9단계 중 {progress.completedCount}단계 완료</span></div>
             </div>
             <div
               className="progress-summary"

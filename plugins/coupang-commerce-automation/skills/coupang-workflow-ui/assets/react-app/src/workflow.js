@@ -95,6 +95,11 @@ export function formatOptionalPercent(value) {
   return parsed === null ? "확인 대기" : `${parsed.toFixed(1)}%`;
 }
 
+export function formatOptionalMultiple(value) {
+  const parsed = numberOrNull(value);
+  return parsed === null ? "확인 대기" : `${parsed.toFixed(2)}배`;
+}
+
 function firstArray(...values) {
   return values.find((value) => Array.isArray(value)) ?? [];
 }
@@ -125,6 +130,9 @@ export function normalizeSourcingReport(payload, sourcePath) {
       ?? candidate.market?.price_range
       ?? {};
     const profitability = candidate.profitability_range ?? candidate.profitability ?? {};
+    const pairs = firstArray(candidate.qualifying_pairs, candidate.pairs);
+    const pair = pairs[0] ?? {};
+    const salesEvidence = pair.sales_evidence ?? {};
     const candidateId = String(candidate.candidate_id ?? candidate.id ?? "").trim();
     const productName = String(candidate.name ?? candidate.product_name ?? candidate.title ?? "").trim();
     const supplierUrl = String(
@@ -160,6 +168,11 @@ export function normalizeSourcingReport(payload, sourcePath) {
       marginHigh: numberOrNull(
         profitability.high?.margin_pct ?? candidate.base_margin_pct ?? candidate.metrics?.base_margin_pct,
       ),
+      coupangProductName: String(pair.coupang_name ?? pair.product_name ?? "").trim(),
+      coupangUrl: String(pair.coupang_url ?? pair.url ?? "").trim(),
+      currentSalePrice: numberOrNull(pair.current_sale_price ?? pair.sale_price),
+      markupMultiple: numberOrNull(pair.markup_multiple),
+      salesEvidenceLabel: String(salesEvidence.label ?? pair.sales_evidence_label ?? "").trim(),
       sourceDecision,
       blockers: normalizeBlockers(candidate),
       selectable: sourceDecision === "SHORTLIST" && Boolean(candidateId && productName && supplierUrl),
@@ -206,27 +219,31 @@ export const STAGES = [
     step: "01",
     title: "상품 소싱",
     shortTitle: "소싱",
-    summary: "팔 수 있는 후보를 근거와 마진으로 먼저 거릅니다.",
+    summary: "도매꾹 상품과 판매 흔적이 있는 고배수 쿠팡 상품 pair를 찾습니다.",
     availability: "ready",
     skill: "coupang-product-sourcing",
     inputs: [
-      field("category", "찾고 싶은 카테고리", "select", {
+      field("category", "도매꾹 Best 카테고리", "select", {
         required: false,
         options: DOMEGGOOK_BEST_CATEGORIES.map((category) => [category, category]),
       }),
-      field("budget", "초기 매입 예산", "number", { placeholder: "300000", suffix: "원" }),
-      field("targetMargin", "목표 마진 기준", "select", {
-        options: [
-          ["40/30", "표준 40% / 10% 하락 시 30%"],
-          ["35/25", "조건부 35% / 10% 하락 시 25%"],
-          ["custom", "직접 검토"],
-        ],
+      field("maxUnitSupplyPrice", "도매꾹 개당 공급가 상한", "number", {
+        placeholder: "5000",
+        suffix: "원",
+        min: "1",
+        step: "1",
+      }),
+      field("minMarkupMultiple", "최소 가격 배수", "number", {
+        placeholder: "3",
+        suffix: "배",
+        min: "1",
+        step: "0.1",
       }),
     ],
     acceptance: [
       "공급처 원문 단가·MOQ·배송비가 확인됨",
-      "동일상품·동일 묶음의 판매 근거 현재가가 검증됨",
-      "통과 후보 5개 이상 또는 명확한 차단 사유가 보고됨",
+      "판매 근거가 있는 동일 1개 구성의 쿠팡 현재가가 확인됨",
+      "설정 배수 이상인 도매꾹↔쿠팡 pair 또는 명확한 차단 사유가 보고됨",
     ],
   },
   {
@@ -487,6 +504,11 @@ export function selectSourcingCandidate(state, candidate, approvedPrice, now) {
           marketPriceMax: candidate.marketPriceMax ?? null,
           marginLow: candidate.marginLow ?? null,
           marginHigh: candidate.marginHigh ?? null,
+          coupangProductName: candidate.coupangProductName ?? "",
+          coupangUrl: candidate.coupangUrl ?? "",
+          currentSalePrice: candidate.currentSalePrice ?? null,
+          markupMultiple: candidate.markupMultiple ?? null,
+          salesEvidenceLabel: candidate.salesEvidenceLabel ?? "",
           selectable: true,
           selectedAt: now ?? new Date().toISOString(),
         },
@@ -570,7 +592,7 @@ export function buildCodexPrompt(state, stageId) {
     .map((input) => `- ${input.label}: ${record.inputs[input.id]}`);
   if (stage.id === "sourcing" && !valuePresent(record.inputs.category, stage.inputs.find((input) => input.id === "category"))) {
     knownInputLines.unshift(
-      `- 찾고 싶은 카테고리: 미지정 (도매꾹 Best 전체·6개 대분류 균등 탐색: ${DOMEGGOOK_BEST_CATEGORIES.join(", ")})`,
+      `- 도매꾹 Best 카테고리: 미지정 (도매꾹 Best 전체·6개 대분류 균등 탐색: ${DOMEGGOOK_BEST_CATEGORIES.join(", ")})`,
     );
   }
   const knownInputs = knownInputLines.join("\n");
@@ -580,8 +602,10 @@ export function buildCodexPrompt(state, stageId) {
     "소싱 실행 요구:",
     "- 설명만 하지 말고 실제 조사를 실행해 제품 후보 또는 검증 차단 결과를 만든다.",
     "- 날짜 규칙에 맞는 HTML·JSON 보고서를 생성하고 최종 응답에 절대 경로를 남긴다.",
-    "- 완전 동일 1개 상품의 판매 근거 현재가 최저~최고와 수익률 최저~최고를 쿠팡 URL과 함께 비교한다.",
-    "- 고가라도 리뷰·최근 구매 근거가 있으면 가격 수용성 상단 기준으로 보존하고, 판매 근거 없는 고가는 제외한다.",
+    "- 도매꾹 원문의 1개 공급가와 쿠팡의 동일 1개 구성 현재 실판매가를 pair로 비교한다.",
+    "- 리뷰 또는 100명 이상 만족 라벨이 있는 쿠팡 판매상품을 판매 근거가 있는 pair로 인정한다.",
+    "- 설정한 최소 가격 배수 이상인 pair가 하나라도 존재하면 탐색 일치로 보고한다.",
+    "- 기준을 충족한 비싼 pair가 있으면 더 싼 등록은 탈락 근거로 사용하지 않는다.",
     "- 생성한 보고서 상대 경로를 project.json의 links.reportRuns에 등록한다.",
     "- 접근 차단 시 값을 꾸미지 말고 실제 조사한 후보와 차단 사유·재개 지점을 같은 보고서에 남긴다.",
   ] : [];
